@@ -32,7 +32,7 @@ Among those, TERMINATED_HTTPS gets HTTPS traffic and delivers the traffic in HTT
 
 Load balancer is created in [Subnet](/Network/VPC/en/overview/#_2) under [VPC](/Network/VPC/en/overview/#_2). When a load balancer is created, an IP is assigned from a designated subnet and serves as its own IP. And, by registering instances that belong to a same VPC as specified subnet, inflow traffic can be distributed. Instances of other VPC cannot be added.
 
-Inbound traffic to be processed at load balancer is defined at the listener. By defining traffic-receiving ports and protocols for each listener, one load balancer can be configured to process various traffic types. In general, the web server has 80 port listener for HTTP traffic and 443 port listener for HTTPS traffic.
+Inbound traffic to be processed at load balancer is defined at the listener. By defining traffic-receiving ports and protocols for each listener, one load balancer can be configured to process various traffic types. In general, the web server has 80 port listener for HTTP traffic and 443 port listener for HTTPS traffic. Many listeners can be registered to a load balancer. 
 
 > [Caution] Listeners of a same receiving port cannot be redundantly created at a load balancer. 
 
@@ -51,7 +51,7 @@ Load Balancer operates in a proxy mode. The client, to send a request, connects 
 > As non-standardized HTTP header, it is used by the server to check client's IP. 
 HTTP requests through load balancer include the **X-Forwarded-For** key. And the value is the client IP. 
 >
-> The X-Forwarded-For header can be activated only when the load balancer protocol is set with HTTP.  
+> The X-Forwarded-For header can be activated only when the load balancer protocol is set with HTTP or TERMINATED_HTTPS.  
 
 <br>
 
@@ -83,7 +83,7 @@ HTTP requests through load balancer include the **X-Forwarded-For** key. And the
 
 To ensure QoS, load balancer restricts the number of maintainable connection per listener. If requests exceed a restricted value, they are queued and can be processed after previous requests are completed. Or, requests may be forced to stop, as they may not even be queued due to loads or timed out from server/client. This is when the client experiences unexpected response delay. Therefore, take a cautious approach to select your restriction value.  
 
-> [Note] The restriction value currently supported by load balancer is ranged between 2000 and 100000, and you are free to decide within the range. To readjust restriction, contact administrator. 
+> [Note] The restriction value currently supported by load balancer is ranged between 2000 and 60000, and you are free to decide within the range. To readjust restriction, contact administrator. 
 
 ### Session Persistence
 
@@ -96,7 +96,7 @@ Following are the types of session persistence supported by load balancer:
 * APP Cookie (session management by application): Session can persist by configuring a specific cookie inserted by the server. For an initial request, the server must deliver through the **Set-Cookie** header of HTTP to set its own cookie value.  Here, the load balancer checks if there is any specific cookie while responding to the server, and if there is one, mapping between the cookie and the server ID can persist internally. Afterwards, when the client inserts a cookie indicating a specific server to the **Cookie** header, the load balancer delivers the request to a server that can respond to the cookie. If the cookie-server ID mapping is not used for three hours, it is automatically deleted. 
 * HTTP Cookie (session management by load balancer): Similar to APP Cookie, but this type of persistence is made available via cookies that are automatically set by load balancer. Load balancer adds a cookie called **SRV** to respond to the server: the **SRV** value refers to original ID of each server.  When the client inserts **SRV** to the cookie, request is delivered to the server which responded first. 
 
-> [Caution] If TCP connection remains idle for three minutes, it is considered not-in-use and automatically disconnected. User configuration function to restrict connection time of TCP is to be released later. 
+[Note] TCP session maintenance time can be set for load balancer. By setting **Keepalive timeout** value, session persistence can be adjusted between client and load balancer, and load balancer and server. 
 
 ### Check Instance Status
 

@@ -1,96 +1,98 @@
 ## Network > Load Balancer > Console Guide
-### 로드밸런서 생성
-TOAST의 로드밸런서 콘솔에서 설정값들을 입력하는 것만으로 쉽게 로드밸런서를 생성할 수 있습니다.
+### Create Load Balancers 
+A load balancer can be easily created only by entering values in the TOAST Load Balancer console. 
 
-#### 로드밸런서 정보
-로드밸런서에 대한 기본 정보를 입력합니다. 필요한 항목들은 다음과 같습니다.
+#### Load Balancer Information 
+Enter basic information required for a load balancer as follows: 
 
-* 이름: 로드밸런서의 이름을 입력합니다.
-* 설명: 로드밸런서에 대한 설명을 기술합니다.
-* Network (Subnet): 로드밸런서가 연결될 VPC의 서브넷을 지정합니다.
+* Name: Enter name of the load balancer.
+* Description: Describe the load balancer.
+* Network (Subnet): Specify the subnet to which load balancer is to be connected.
 
-#### 리스너 등록
-로드밸런서가 처리할 트래픽의 속성을 정의합니다. TOAST의 로드밸런서는 기본적으로 하나의 리스너를 가지며, 추후 로드밸런서의 상세 화면에서 추가로 생성하거나 삭제할 수 있습니다.
+#### Register Listeners 
+Define attributes of the traffic to be processed by a load balancer. TOAST Load Balancer, by default, has one listener, which may be added or deleted later in detail pages. 
 
-* 로드밸런싱 방식: 로드밸런서가 트래픽을 분산하는 방식을 결정합니다. ROUND_ROBIN/LEAST_CONNECTIONS/SOURCE_IP 중 하나를 선택합니다.
-* 프로토콜: 로드밸런서가 처리할 트래픽의 프로토콜을 지정합니다. TCP/HTTP/HTTPS/TERMINATED_HTTPS 중 하나를 선택합니다.
-* 로드밸런서 포트: 기본 리스너가 트래픽을 수신할 포트를 지정합니다.
-* 인스턴스 포트: 로드밸런서의 멤버들의 포트를 지정합니다. 로드밸런서 포트로 유입되는 트래픽은 멤버 인스턴스의 인스턴스 포트로 전달되게 됩니다.
-* SSL 인증서: 프로토콜로 TERMINATED_HTTPS를 선택할 경우 사용할 인증서를 등록합니다. 프로토콜로 TERMINATED_HTTPS를 선택했을 때만 활성화 됩니다.
+* Load Balancing Type: Determines how a load balancer disperses traffic. Choose one of ROUND_ROBIN, LEAST_CONNECTIONS, or SOURCE_IP. 
+* Protocol: Specify the protocol of traffic to be processed by load balancer. Choose one of TCP, HTTP, HTTPS, or TERMINATED_HTTPS.
+* Load Balancer Port: Specify the port for default listener to receive traffic.
+* Instance Port: Specify the port for load balancer members. Inbound traffic to the load balancer port shall be delivered to the instance port of a member instance.  
+* SSL Certificate: Register a certificate to be used when TERMINATED_HTTPS is selected as protocol: enabled only when the protocol is TERMINATED_HTTPS. 
 
-> [참고] 로드밸런서 포트와 인스턴스 포트는 1부터 65535 사이의 값을 가집니다.
+> [Note] Each load balancer port and instance port has a value between 1 and 65535.  
 
-> [주의] 로드밸런서 포트, 인스턴스 포트 그리고 프로토콜은 리스너 생성 후 변경이 불가능합니다.
+> [Caution] Load balancer port, instance port, and protocol cannot be changed after listener is created. 
 
-상태 확인을 위한 설정도 리스너 생성시 결정합니다. TOAST의 로드밸런서는 리스너 별로 상태 확인 동작을 정의할 수 있습니다. 필요한 항목들은 다음과 같습니다.
+Setting for status check is also determined when listener is created. TOAST Load Balancer can define status check operations per listener. Following items are required: 
 
-* 상태 확인 프로토콜: 상태 확인시 사용할 프로토콜을 결정합니다. TCP/HTTP/HTTPS 중 하나를 선택합니다.
-* 상태 확인 포트: 상태 확인을 시도할 멤버 인스턴스의 포트를 결정합니다.
-* HTTP 메서드: 상태 확인시 사용할 HTTP 메서드를 선택합니다. 상태 확인 프로토콜로 HTTP나 HTTPS를 선택했을 때만 활성화 됩니다. 현재는 GET만을 지원합니다.
-* HTTP 상태 코드: 상태 확인시 정상 응답으로 간주할 HTTP 상태 코드를 입력합니다. 상태 확인 프로토콜로 HTTP나 HTTPS를 선택했을 때만 활성화 됩니다. 현재는 GET만을 지원합니다.
-* URL: 상태 확인을 시도할 멤버 인스턴스의 경로를 지정합니다. 상태 확인 프로토콜로 HTTP나 HTTPS를 선택했을 때만 활성화 됩니다.
-* 상태 확인 주기: 상태 확인의 주기를 입력합니다. 단위는 초이며, 지정된 주기마다 상태 확인을 시도합니다.
-* 최대 응답 대기 시간: 상태 확인 후 정상 응답을 대기하는 최대 시간을 지정합니다. 단위는 초이며, 지정된 대기시간을 초과하면 실패로 간주합니다.
-* 최대 재시도 횟수: 상태 확인시 반복 시도할 최대 횟수를 지정합니다. 최대 재시도 횟수가 2 이상인 경우, 상태 확인에 대한 정상 응답이 오지 않았다고 해서 바로 실패로 간주하지 않습니다. 최대 재시도 횟수만큼 반복 실패한 경우 해당 인스턴스를 부하 분산 대상에서 제외합니다.
+* Status Check Protocol: Determine the protocol to check status. Choose one of TCP, HTTP, or HTTPS. 
+* Status Check Port: Determine the port for member instance to try status check.
+* HTTP Method: Select the HTTP method to check status: enabled only when HTTP or HTTPS is selected. Currently supports GET only. 
+* HTTP Status Code: Enter the HTTP status code to be considered normal for a status check: enabled only when HTTP or HTTPS is selected. Currently supports GET only.  
+* URL: Specify the route of member instance to try status check: enabled only when HTTP or HTTPS is selected. 
+* Cycle of Status Check: Enter cycle of status check. The unit is the second and status check is tried at every specified cycle. 
+* Maximum Latency: Specify the maximum time to wait for normal response after status check. The unit is the second and exceeding a specified latency is considered a failure. 
+* Number of Maximum Retrials: Specify the maximum number of retrials of status check. If the number is more than 2, not getting normal response on status check is not readily considered a failure. In case of repeated failure as much as it is retried, the instance shall be excluded from load dispersion.  
 
-마지막으로 연결에 관한 설정을 지정합니다.
+Lastly, specify the setting for connection: 
 
-* 세션 지속성: 세션을 유지하기 위해, 요청에 대한 응답을 특정 인스턴스에서만 하도록 만드는 설정 입니다. No Session Persistence/APP_COOKIE/HTTP_COOKIE/SOURCE_IP 중 하나를 선택할 수 있습니다.
-* 연결 제한: 기본 리스너가 동시에 유지할 TCP 연결의 수를 지정합니다. 아무런 값도 입력하지 않는 경우 기본값인 2000으로 설정됩니다.
+* Session Persistence: Responses to requests are set to be made at specific instances only, so as to maintain session. Choose one of No Session Persistence, APP_COOKIE, HTTP_COOKIE, or SOURCE_IP. 
+* Restricted Connection: Specify the number of TCP connections to which default listener is to be maintained at the same time: if left blank, the default value of 2000 shall be set. 
+* Keepalive Timeout: Session persistence between client and server is specified by the second. Load balancer maintains session during this time as long as the other side maintains the session. It is recommended that the keepalive timeout set in the server apply the same. Default is 300 seconds. 
+* Proxy Protocol: Load balancer can be made to support proxy protocol. This value must be enabled only when proxy protocol is made available at the server to know client IP: can be applied only when TCP and HTTPS protocols are used.  
 
-#### 멤버 등록
-로드밸런서 생성시에 멤버로 등록할 인스턴스를 지정합니다. 멤버 등록은 로드밸런서 생성 이후에 이루어져도 무방합니다. 로드밸런서가 연결된 VPC에 속한 인스턴스들만 멤버로 등록할 수 있습니다.
+#### Register Members 
+Specify the instance to be registered as member when load balancer is created. It is fine to register members after load balancer is created: only those instances that belong to VPC to which load balancer is associated can be registered as members.  
 
-### 로드밸런서 살펴보기
-로드밸런서 생성을 마치면 다시 로드밸런서 목록 화면으로 돌아오게 됩니다. 로드밸런서 목록 화면에서는 생성된 로드밸런서들의 기본 정보를 확인할 수 있습니다. 목록 화면에서 노출되는 항목들은 다음과 같습니다.
+### View Load Balancers
+After load balancer is created, the list of load balancers is returned. On this page, you can find basic information of created load balancers, and following items are displayed on the page:   
 
-* 이름: 로드밸런서 생성시 지정한 로드밸런서의 이름입니다.
-* IP 주소: 로드밸런서에 연결된 VPC로부터 할당받은 사설 IP 입니다. VPC 내부에서는 이 IP를 통해 로드밸런서로 접근할 수 있습니다. VPC 외부에서 로드밸런서로 접근하기 위해서는 플로팅 IP를 연결해야 합니다.
-* 로드밸런서 포트/인스턴스 포트: 로드밸런서에 속한 리스너들의 포트와 인스턴스 포트 쌍입니다.
-* 네트워크: 로드밸런서에 연결된 VPC의 이름과 서브넷 CIDR 입니다.
-* 프로토콜: 로드밸런서에 속한 리스너들의 프로토콜입니다.
-* Provisioning Status (생성 상태): 로드밸런서 생성 상태를 나타냅니다. ACTIVE로 표기 된다면 정상 생성된 것입니다.
+* Name: Name of the load balancer specified when it is created. 
+* IP Address: Refers to a private IP assigned by VPC associated to load balancer. The IP provides an access to load balancer from within VPC. From outside of VPC, floating IP needs to be associated to access load balancer.  
+* Load Balancer Port/Instance Port: A pair of listeners' port and instance port that belong to a load balancer.   
+* Network: Name of VPC and subnet CIDR associated to load balancer.
+* Protocol: Protocol of listeners that belong to a load balancer. 
+* Provisioning Status: Refers to the status of load balancer creation: it is normal if it shows ACTIVE. 
 
-> [참고] 로드밸런서의 생성 상태는 다음 중 하나로 결정됩니다.
+> [Note] Provisioning status of load balancer is to be determined as one of the following:
 
-> | 상태 | 의미 |
+> | Status | Description |
 > |--|--|
-> | PENDING_CREATE | 로드밸런서 생성 중 |
-> | ACTIVE | 로드밸런서 생성 완료 |
-> | PENDING_ERROR | 로드밸런서 생성 실패 <br> 이 경우 관리자에게 문의하시기 바랍니다. |
+> | PENDING_CREATE | Load balancer is being created |
+> | ACTIVE | Load balancer has been completely created |
+> | PENDING_ERROR | Failed to create load balancer  <br>Contact administrator. |
 
-### 로드밸런서 수정
-로드밸런서 목록 화면에서 원하는 로드밸런서를 선택하시면, 화면 하단에 선택한 로드밸런서의 상세 화면이 나옵니다. 상세 화면은 세 개의 탭으로 구분됩니다. 각각의 탭에 대한 설명은 다음과 같습니다.
+### Modify Load Balancers 
+Select a load balancer from the list, and a page of details shows, composed of the three tabs as follows: 
 
-* 로드밸런서 상세정보: 선택한 로드밸런서의 세부 정보를 보여줍니다. 선택한 리스너의 이름과 설명을 변경할 수 있습니다.
-* 리스너: 선택한 로드밸런서에 생성된 리스너들의 상세 설정을 확인 할 수 있습니다. 리스너를 새로 추가하거나, 기존 리스너를 삭제할 수 있습니다.
-* 인스턴스: 선택한 로드밸런서에 멤버로 등록된 인스턴스 목록을 볼 수 있습니다. 새로운 인스턴스를 멤버로 등록하거나, 기존 멤버를 제외할 수 있습니다.
+* Details of Load Balancer: Shows detailed information of a load balancer. Name and description of a selected listener can be changed. 
+* Listener: Check detailed setting of listeners created under a selected load balancer. Add or delete listeners. 
+* Instance: View the list of instances registered as members to a selected load balancer. Register new instances as members or exclude existing ones.  
 
-> [참고] 로드밸런서가 연결된 VPC와 IP 주소는 변경할 수 없습니다.
+> [Note] Cannot change VPC and IP address to which load balancer is associated. 
 
-#### 리스너 추가
-로드밸런서의 상세 화면에서 리스너 탭을 선택한 후 리스너 추가 버튼을 누르면, 리스너를 추가할 수 있습니다. 리스너 추가에 필요한 항목들은 로드밸런서 생성시 기본 리스너에서 필요한 항목들과 동일합니다. 리스너 추가시 기존에 존재하던 리스너들이 사용하던 로드밸런서 포트는 사용할 수 없습니다.
+#### Add Listeners 
+To add a listener, select Listener on the detail page of load balancer, and click Add. Items required to add listeners are identical to those required for default listener when a load balancer is created. The load balancer port which existing listeners used cannot be applied to add listeners.  
 
-#### 리스너 수정
-수정하려는 리스너의 수정 버튼을 누르면 리스너의 설정들을 수정할 수 있습니다.
+#### Modify Listeners 
+To modify the setting of a listener, click Modify. 
 
-> [참고] 리스너의 프로토콜, 로드밸런서 포트 그리고 인스턴스 포트는 변경할 수 없습니다.
+> [Note] Cannot change the listener protocol, load balancer port, and instance port. 
 
-#### 리스너 삭제
-삭제하려는 리스너의 삭제 버튼을 누르면 해당 리스너는 삭제 됩니다. 다만, 선택한 로드밸런서에 리스너가 하나만 존재하는 경우 삭제할 수 없습니다.
+#### Delete Listeners 
+To delete a listener, click Delete: cannot delete, though, if the load balancer has only one listener. 
 
-> [주의] 리스너 추가/수정/삭제는 로드밸런서의 재기동을 야기합니다. 즉, 순간적으로 로드밸런서의 동작이 멈추므로 예기치 못한 장애를 유발할 수 있습니다. 리스너 변경 작업은 서비스에 영향을 주지 않는 시간에 진행하셔야 합니다.
+> [Caution] Add/Modify/Delete Listeners causes reboot of a load balancer: its abrupt suspension may cause unexpected malfunctioning. Change of listeners, therefore, is recommended when its influence on services is limited.  
 
-#### 멤버 추가
-인스턴스 탭에서 새로운 인스턴스를 로드밸런서의 멤버로 등록할 수 있습니다. 추가할 수 있는 인스턴스는 로드밸런서가 연결된 VPC로 제한됩니다.
+#### Add Members
+Register a new instance as member of load balancer in the instance tab. Only those instances that belong to VPC to which load balancer is associated can be added.
 
-#### 멤버 비활성화
-멤버 인스턴스 중 임시로 서비스에서 제외하고 싶은 경우 비활성화시킬 수 있습니다. 제외할 인스턴스에서 사용 항목의 `True`를 선택하면, `False`로 변경되면서 비활성화 됩니다.
+#### Disable Members 
+Member instances may be disabled to be excluded from service: select `True` from instance item to exclude, and it is changed to `False` and disabled.  
 
-#### 멤버 삭제
-멤버 인스턴스 중 더이상 사용되지 않는 인스턴스는 삭제할 수 있습니다. 제외할 인스턴스의 인스턴스 연결 해제 버튼을 누르면 선택한 로드밸런서의 멤버에서 삭제됩니다. 로드밸런서의 멤버에서 삭제된다고 해서 인스턴스가 삭제되지는 않습니다.
+#### Delete Members 
+Instances that are no longer used may be deleted. Click Detach Instance of the instance to exclude, and it is deleted from the member of load balancer. Deletion from load balancer member does not mean its instance is also deleted.    
 
-> [주의] 멤버 추가/비활성화/삭제는 로드밸런서의 재기동을 야기합니다. 즉, 순간적으로 로드밸런서의 동작이 멈추므로 예기치 못한 장애를 유발할 수 있습니다. 멤버 변경 작업은 서비스에 영향을 주지 않는 시간에 진행하셔야 합니다.
+> [Caution] Add/Disable/Delete Members causes reboot of a load balancer: its abrupt suspension may cause unexpected malfunctioning. Change of members, therefore, is recommended when its influence on services is limited.  
 
-### 로드밸런서 삭제
-로드밸런서의 목록 화면에서 삭제하려는 로드밸런서를 선택한 후 삭제 버튼을 누르면, 해당 로드밸런서가 삭제됩니다.
+### Delete Load Balancers
+To delete a load balancer, select a load balancer from the list and press Delete.

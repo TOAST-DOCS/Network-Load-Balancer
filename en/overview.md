@@ -1,114 +1,112 @@
 ## Network > Load Balancer > Overview
-TOAST는 로드밸런서를 제공합니다. 로드밸런서를 이용하면,
+TOAST provides Load Balancer, by which:
 
-- 인스턴스 하나로 처리하기 힘든 부하를 여러 대의 인스턴스로 분산하여 처리량을 늘릴 수 있습니다.
-- 장애가 발생했거나 점검 중인 인스턴스를 자동으로 서비스에서 제외시켜 가용성을 높일 수 있습니다.
+- Throughput can increase by dispersing loads into many instances;
+- Availability may increase by automatically excluding faulty or under-maintenance instances from service.
 
-### 기본 구성
+### Types of Load Balancing
 
-로드밸런서는 [VPC](/Network/VPC/ko/overview/#_2)의 [서브넷](/Network/VPC/ko/overview/#_2)에 생성됩니다. 로드밸런서는 생성 시 지정된 서브넷으로부터 IP를 할당받아 자신의 IP로 사용합니다. 또한 지정된 서브넷과 같은 VPC에 속한 인스턴스들을 멤버가 등록하여 유입된 트래픽을 분배합니다. 다른 VPC에 속한 인스턴스들은 추가할 수 없습니다.
+Load Balancer supports a total of three types of load balancing:
 
-로드밸런서로 유입되어 처리될 트래픽은 리스너에서 정의합니다. 리스너 별로 트래픽을 수신할 포트와 프로토콜을 정의하여, 하나의 로드밸런서로 다양한 트래픽을 처리하도록 구성할 수 있습니다. 일반적으로 웹 서버에는 HTTP 트래픽을 수신할 80 포트 리스너와 HTTPS 트래픽을 수신할 443 포트 리스너를 설정하여 사용합니다.
+* Round Robin (consecutive selection): It is the basic and most popular type of load balancing, and can be applied when all member instances respond the same for same requests.  
 
-> [주의] 로드밸런서에서 동일한 수신 포트를 가지는 리스너를 중복해서 생성할 수 없습니다.
+* Least Connections (least connection preferred): This type selects instances with the least number of TCP connections. That is, identify the load status of instances by the number of TCP connections and send requests to an instance with the least load for equal processing. When applied for extreme change of loads due to requests, this type can prevent unbalanced load concentration.      
 
-로드밸런서는 기본적으로 `프록시 모드`로 동작합니다. 즉, 멤버 인스턴스의 서버 측에서는 원본 IP가 로드밸런서의 IP로 보이며, 클라이언트 측에서는 로드밸런서가 요청에 대해 응답한 것처럼 보입니다. 서버 측에서 클라이언트의 IP를 확인하려면, 로드밸런서에서 제공하는 HTTP의 `X-Forwarded-For` 헤더를 사용하거나, TCP의 경우 `Proxy Protocol`을 사용하여야 합니다.
+* Source IP (selection by original IP): This method hashes source IP of the client and selects the instance to process. Requests from the same IP get to the same instance at all times. It is useful to deal with a user’s request at a same instance, every time it arises.   
 
-> [참고] 프록시 모드 <br>
-> L4 로드밸런서의 동작 방식의 하나로서, 서버의 응답이 로드밸런서를 거쳐 클라이언트에게 전달되는 것을 말합니다. 즉, 로드밸런서가 클라이언트와의 TCP 연결을 맺고, 다시 서버와 TCP 연결을 맺게 됩니다.
->
-> 로드밸런서가 프록시 모드로 동작하는 경우 클라이언트가 요청하는 포트와 서버측에서 서비스 하는 포트가 다르게 서비스할 수 있습니다. 또한 같은 서브넷이 아니더라도 로드밸런서에 추가할 수 있습니다.
->
-> 대신 클라이언트-로드밸런서 사이와 로드밸런서-서버 사이에 두 번 연결을 맺기 때문에, 리소스 낭비가 발생합니다. 다시 말해, 하나의 연결을 위해 로드밸런서가 사용할 수 있는 포트를 두 개씩 소모하게 됩니다. 또한 클라이언트 IP를 서버측에서 인지하기 어렵습니다. 이를 극복하기 위해서는 X-Forwarded-For와 같은 HTTP 헤더를 활용하거나 로드밸런서에서 제공하는 프록시 프로토콜을 사용해야 합니다.
+### Supported Protocols
 
-<br>
-
-> [참고] X-Forwarded-For 헤더<br>
->HTTP 비표준 헤더로서, 서버가 클라이언트의 IP를 확인하기 위해 사용합니다.
-로드밸런서을 통해 들어오는 HTTP 요청은 **X-Forwarded-For** 키를 포함합니다. 그 값은 클라이언트의 IP 입니다.
->
-> X-Forwarded-For 헤더는 로드밸런서의 프로토콜을 HTTP로 설정했을 때만 활성화됩니다.
-
-<br>
-
-> [참고] 프록시 프로토콜 (Proxy Protocol) <br>
-> 로드밸런서에서 TCP 사용시 클라이언트 측의 IP 정보를 전송하기 위한 프로토콜 입니다. 사람이 이해하기 쉽도록 US-ASCII 포맷의 텍스트 한 줄로 표현되어 있습니다. TCP 연결이 맺어지면 최초 한번 전송되고, 수신측에서 모두 수신하기 전까지 다른 데이터 전송은 지연됩니다.
->
-> 프록시 프로토콜은 크게 6개의 항목으로 구분됩니다. 각각의 항목은 공백 문자로 구분됩니다.
-> 마지막 문자는 반드시 Carrige Return (\r) + Line Feed (\n)로 끝나야 합니다.
->  ```
->  PROXY INET_PROTCOL CLIENT_IP PROXY_IP CLIENT_PORT PROXY_PORT\r\n
->  ```
->
-> | 약어 | ASCII | HEX | 설명 |
-> |--|--|--|--|
-> | PROXY | "PROXY" | 0x50 0x52 0x4F 0x58 0x59 | 프록시 프로토콜임을 알려주기 위한 지시자 |
-> | INET_PROTOCL | "TCP4" 또는 "TCP6" | 0x54 0x43 0x50 0x34 또는 0x54 0x43 0x50 0x36 | 사용 중인 INET 프로토콜 형식 |
-> | CLIENT_IP | 예) "192.168.100.101" <br> 또는 "fe80::a159:b1f3:c346:5975" | 0xC0 0xA8 0x64 0x65 | 출발지 주소 IP |
-> | PROXY_IP | 예) "192.168.100.102" <br> 또는 "fe80::a159:b1f3:c346:5976" | 0xC0 0xA8 0x64 0x66 | 목적지 주소 IP |
-> | CLIENT_PORT | 예) "43179" | 0xA8 0xAB | 출발지 포트 |
-> | PROXY_PORT | 예) "80" | 0x80 | 목적지 포트 |
->
-> 프록시 프로토콜의 예제는 다음과 같습니다.
->
->- "PROXY TCP4 255.255.255.255 255.255.255.255 65535 65535\r\n": TCP/IPv4
->- "PROXY TCP6 ffff:f...f:ffff ffff:f...f:ffff 65535 65535\r\n": TCP/IPv6
->- "PROXY UNKNOWN\r\n": 알 수 없는 연결
-
-### 지원 프로토콜
-
-로드밸런서는 현재 아래와 같은 프로토콜을 지원합니다.
+Load balancer currently supports the following protocols: 
 
 * TCP
 * HTTP
 * HTTPS
 * TERMINATED_HTTPS
 
-위의 프로토콜 중 TERMINATED_HTTPS 프로토콜은 HTTPS 트래픽을 수신하여 멤버 인스턴스에게는 HTTP 트래픽으로 전달하는 방식입니다. TERMINATED_HTTPS 프로토콜을 사용하는 경우 최종 사용자와 로드밸런서 사이에서는 HTTPS로 통신함으로써 높은 보안성을 확보하고, 서버에게는 HTTP 트래픽을 넘겨줌으로써 복호화에 드는 CPU 부하를 줄일 수 있습니다.
+Among those, TERMINATED_HTTPS gets HTTPS traffic and delivers the traffic in HTTP to member instances. With this protocol, the end user and load balancer communicate with HTTPS so as to secure higher security, while the server receives traffic in HTTP and reduces the CPU loads required for decryption.  
 
-> [참고] TERMINATED_HTTPS 프로토콜을 사용하기 위해서는 인증서와 사설키를 로드밸런서에 등록해야 합니다. 이 때 등록하는 사설키는 반드시 비밀번호가 제거되어야 올바르게 동작합니다.
+> [Note] To use the TERMINATED_HTTPS protocol, a certificate and private key should be registered at a load balancer: the private key must be removed of password so as to be properly operated. 
 
-### 로드밸런싱 방식
 
-로드밸런서는 총 세 가지 로드밸런싱 방식을 지원합니다.
+### Create Load Balancers
 
-* Round Robin (순차 선택): 트래픽을 전달할 인스턴스를 순차적으로 선택하는 가장 기본적이고 대중적인 로드밸런싱 방식입니다. 모든 멤버 인스턴스들이 같은 요청에 대해서 동일한 응답을 하는 경우에 사용할 수 있는 방식입니다.
+Load balancer is created in [Subnet](/Network/VPC/en/overview/#_2) under [VPC](/Network/VPC/en/overview/#_2). When a load balancer is created, an IP is assigned from a designated subnet and serves as its own IP. And, by registering instances that belong to a same VPC as specified subnet, inflow traffic can be distributed. Instances of other VPC cannot be added.
 
-* Least Connections (최소 연결 우선 선택): 현재 TCP 연결 수가 가장 작은 인스턴스를 선택하는 방식입니다. 즉, TCP 연결 수를 기준으로 하여 인스턴스들의 부하 상태를 파악하고 멤버 중 가장 부하가 적은 인스턴스로 보내 가능한 균등하게 요청이 처리될 수 있도록 합니다. 요청에 따른 처리 부하가 변동이 심할 때 적용한다면, 특정 인스턴스에 부하가 집중되는 상황을 방지할 수 있습니다.
+Inbound traffic to be processed at load balancer is defined at the listener. By defining traffic-receiving ports and protocols for each listener, one load balancer can be configured to process various traffic types. In general, the web server has 80 port listener for HTTP traffic and 443 port listener for HTTPS traffic.
 
-* Source IP (원본 IP 기준 선택): 요청자의 원본 IP를 해싱하여 처리할 인스턴스를 선택하는 방식 입니다. 이 방식을 사용하는 경우, 동일한 IP에서 들어오는 요청은 항상 같은 인스턴스로 전달됩니다. 한 사용자에 대한 세션을 유지하고 똑같은 인스턴스에서 처리하고자 할 때 사용하면 유용합니다.
+> [Caution] Listeners of a same receiving port cannot be redundantly created at a load balancer. 
 
-### 연결 제한
+Load Balancer operates in a proxy mode. The client, to send a request, connects to a load balancer, while the load balancer connects to an instance server. From the member instance server’s perspective, session’s source IP is viewed as load balancer IP. To check client IP from the server, make a reference of X-Forwarded-For header information (HTTP/TERMINATED_HTTPS protocol) or use **Proxy Protocol** (TCP/HTTPS protocol).
 
-로드밸런서는 QoS 보장을 위해 리스너별로 동시에 유지 가능한 연결 수를 제한하고 있습니다. 만약 지정된 연결 제한 값을 초과하는 요청이 들어오면, 로드밸런서 내부의 큐에 누적되어 앞선 요청들이 완료된 후에 처리됩니다. 또한 큐가 가득 차거나 서버/클라이언트 측의 타임아웃에 걸려 요청이 강제 중단될 수 있습니다. 이 경우 클라이언트 측은 예상하지 못한 응답 지연을 겪게 됩니다. 따라서 사용하시는 로드밸런서의 연결 제한 수치는 신중하게 선택하셔야 합니다.
+> [Note] Proxy Mode <br>
+> As one of the operating methods of L4 load balancer, proxy mode means server's response delivered to a client through load balancer. That is, a load balancer is connected with client via TCP, and then connected with server via TCP.
+>
+> With the proxy mode, the load balancer may be serviced differently at the client port from server port. Also a load balancer that belongs to a different subnet may be added.    
+>
+> Note, however, that resources are wasted because the load balancer is connected redundantly with the client and the server. In other words, it takes two ports of the load balancer for a single connection. Furthermore, the client IP is not easily recognized at the server. Using an HTTP header like X-Forwarded-For or a proxy protocol provided by load balancer can be a solution.   
 
-> [참고] 로드밸런서의 지원하는 연결 제한 값의 범위는 2000 부터 100000 사이입니다. 이 사이의 값으로 자유롭게 지정할 수 있습니다. 만약 사용 중인 로드밸런서의 최대 연결 제한 값을 조정하고 싶다면 별도로 문의해주시기 바랍니다.
+<br>
 
-### 세션 지속성
+> [Note] X-Forwarded-For Header <br>
+> As non-standardized HTTP header, it is used by the server to check client's IP. 
+HTTP requests through load balancer include the **X-Forwarded-For** key. And the value is the client IP. 
+>
+> The X-Forwarded-For header can be activated only when the load balancer protocol is set with HTTP.  
 
-서비스에 따라 사용자 정보를 유지할 필요가 있거나 요청이 특정 서버에게만 전달되어야 하는 경우, 세션을 관리하여 사용자의 정보를 유지하게 됩니다. 이 때 로드밸런서를 적용한다면, 앞서 설명한 로드밸런싱 방식에 따라 클라이언트-서버 간의 연결/끊김을 반복하게 되어 세션 관리에 어려움을 겪게 됩니다. 이러한 상황을 극복하기 위해 로드밸런서는 세션 유지 기능을 제공합니다.
+<br>
 
-로드밸런서에서 지원하는 세션 유지 방식은 다음과 같습니다.
+> [Note] Proxy Protocol <br>
+> It is the protocol to deliver IP information of the client when the load balancer uses TCP. Represented with a line of text in the US-ASCII format, the proxy protocol delivers at the initial connection of TCP, while other data delivery is postponed until the receiver gets all data. 
+>
+> The proxy protocol has 6 subdivisions, and each is divided by whitespace characters. 
+> The last character must end with Carriage Return (\r) + Line Feed (\n).
+>  ```
+>  PROXY INET_PROTCOL CLIENT_IP PROXY_IP CLIENT_PORT PROXY_PORT\r\n
+>  ```
+>
+> | Acronym | ASCII | HEX | Description |
+> |--|--|--|--|
+> | PROXY | "PROXY" | 0x50 0x52 0x4F 0x58 0x59 | Indicator for a proxy protocol |
+> | INET_PROTOCL | "TCP4" or "TCP6" | 0x54 0x43 0x50 0x34 or 0x54 0x43 0x50 0x36 | INET protocol type currently in use |
+> | CLIENT_IP | e.g) "192.168.100.101" <br>or, "fe80::a159:b1f3:c346:5975" | 0xC0 0xA8 0x64 0x65 | Departure IP address |
+> | PROXY_IP | e.g) "192.168.100.102" <br> or, "fe80::a159:b1f3:c346:5976" | 0xC0 0xA8 0x64 0x66 | Destination IP address |
+> | CLIENT_PORT | e.g) "43179" | 0xA8 0xAB | Departure port |
+> | PROXY_PORT | e.g) "80" | 0x80 | Destination port |
+>
+> Examples of proxy protocol are as follows: 
+>
+> - "PROXY TCP4 255.255.255.255 255.255.255.255 65535 65535\r\n": TCP/IPv4
+> - "PROXY TCP6 ffff:f...f:ffff ffff:f...f:ffff 65535 65535\r\n": TCP/IPv6
+> - "PROXY UNKNOWN\r\n": Unknown connection
 
-* No Session Persistence (세션 유지 안함): 세션 유지를 하지 않는 방식입니다.
+### Restricted Connection
 
-* Source IP (원본 IP에 의한 세션 관리): 요청자의 원본 IP를 기준으로 세션을 유지하는 방식입니다. 이를 위해 최초 요청시 로드밸런싱 방식에 의해 선택된 인스턴스와 원본 IP 사이의 맵핑 테이블을 내부적으로 보관합니다. 이후 같은 원본 IP를 가진 요청이 들어오면 맵핑 테이블을 확인하여 첫 요청에 응답한 인스턴스로 전달하게 됩니다. 로드밸런서는 최대 10000개의 원본 IP에 대한 맵핑을 저장할 수 있습니다. TCP 프로토콜 리스너에서 세션을 유지하도록 설정하고 싶다면, 이 방식을 사용해야 합니다.
+To ensure QoS, load balancer restricts the number of maintainable connection per listener. If requests exceed a restricted value, they are queued and can be processed after previous requests are completed. Or, requests may be forced to stop, as they may not even be queued due to loads or timed out from server/client. This is when the client experiences unexpected response delay. Therefore, take a cautious approach to select your restriction value.  
 
-* APP Cookie (응용에 의한 세션 관리): 서버측에서 내려주는 명시적인 쿠키 설정을 통해 세션을 유지하는 방식입니다. 최초 요청시 서버는 자신에게 설정된 쿠키 값를 설정하도록 HTTP의 **Set-Cookie** 헤더를 통해 전달해야 합니다. 이 때, 로드밸런서는 서버 응답 중 지정된 쿠키가 있는지 검사하여, 쿠키가 있다면 내부적으로 쿠키와 서버 ID간의 맵핑을 유지하게 됩니다. 이후 클라이언트가 **Cookie** 헤더에 특정 서버를 가리키는 쿠키를 넣어서 보내면 로드밸런서가 쿠키에 대응하는 서버로 요청을 전달합니다. 로드밸런서에서는 쿠키-서버 ID간의 맵핑이 3시간 동안 사용되지 않으면 자동으로 삭제됩니다.
+> [Note] The restriction value currently supported by load balancer is ranged between 2000 and 100000, and you are free to decide within the range. To readjust restriction, contact administrator. 
 
-* HTTP Cookie (로드밸런서에 의한 세션 관리): APP Cookie 방식과 유사하지만 로드밸런서에서 자동적으로 설정해주는 쿠키를 통해 세션을 유지하는 방식입니다. 로드밸런서는 서버의 응답에 **SRV**란 쿠키를 추가하여 전송하게 됩니다. 이 때 **SRV** 쿠키의 값은 서버별 고유 아이디입니다. 클라이언트가 **SRV**를 쿠키에 넣어서 보내면 처음에 응답한 서버로 요청이 전달됩니다.
+### Session Persistence
 
-> [주의] 로드밸런서는 TCP 연결이 3분 동안 유휴 상태에 있다면, 사용하지 않는다고 간주하고 자동으로 끊습니다. 사용자가 TCP 연결에 대한 제한 시간을 설정하는 기능은 추후 공개될 예정입니다.
+When there is a need to maintain user information or a client’s request must be delivered to a particular server only, load balancer session persistence can be enabled. This function enables a server which processed a client’s request to continue to deal with the client’s further requests. When Source IP is selected for load balancing, the server can be determined upon client’s IP, so as to provide session persistence. If Round Robin or Least Connection is opted for load balancing, following session persistence becomes available.
 
-### 인스턴스 상태 확인
+Following are the types of session persistence supported by load balancer: 
 
-TOAST 로드밸런서는 멤버로 등록된 인스턴스들이 정상적으로 동작하는지 확인하기 위해 주기적으로 상태 확인을 시도합니다. 상태 확인은 지정된 프로토콜에 따라 정해진 응답이 오는지를 확인함으로써 이뤄집니다. 만약 지정된 횟수나 시간 내에 정상 응답이 오지않는다면 비정상 인스턴스로 간주하여, 부하 분산의 대상에서 제외합니다. 이 기능을 통해 예기치 못한 장애나 점검에도 중단 없이 서비스를 제공할 수 있습니다.
+* No Session Persistence (no session persistence): Session persistence is not applied. 
+* Source IP (session management by original IP): Session is persisted by source IP of the client. To this end, the mapping table between an instance, selected by load balancer at the initial request, and the original IP must be saved internally. Then, for subsequent requests with the same original IP, check the mapping table and deliver to the instance that responded to the initial request. Load balancer can save up to 10000 mappings for an original IP. This method is recommended to configure session persistence at the TCP protocol listener.  
+* APP Cookie (session management by application): Session can persist by configuring a specific cookie inserted by the server. For an initial request, the server must deliver through the **Set-Cookie** header of HTTP to set its own cookie value.  Here, the load balancer checks if there is any specific cookie while responding to the server, and if there is one, mapping between the cookie and the server ID can persist internally. Afterwards, when the client inserts a cookie indicating a specific server to the **Cookie** header, the load balancer delivers the request to a server that can respond to the cookie. If the cookie-server ID mapping is not used for three hours, it is automatically deleted. 
+* HTTP Cookie (session management by load balancer): Similar to APP Cookie, but this type of persistence is made available via cookies that are automatically set by load balancer. Load balancer adds a cookie called **SRV** to respond to the server: the **SRV** value refers to original ID of each server.  When the client inserts **SRV** to the cookie, request is delivered to the server which responded first. 
 
-로드밸런서는 상태 확인 프로토콜로서 TCP, HTTP, HTTPS를 지원합니다. 정밀한 상태 확인을 위해 각각의 프로토콜 사용 시 상태 확인 방법을 다양하게 설정할 수 있습니다.
+> [Caution] If TCP connection remains idle for three minutes, it is considered not-in-use and automatically disconnected. User configuration function to restrict connection time of TCP is to be released later. 
 
-### 과금
+### Check Instance Status
 
-로드밸런서 과금 정책은 크게 두 가지로 나눌 수 있습니다.
+TOAST Load Balancer conducts status checks periodically to see if member instances operate properly. Status check is conducted by confirming if responses come as specified protocol. If an instance does not send a normal response within specified number or time, it is considered abnormal and excluded from load dispersion. As such, service can be provided without suspension even with unexpected faults or maintenance.  
 
- * 로드밸런서 사용 요금: 로드밸런서의 사용 시간만큼 청구 됩니다. 로드밸런서의 상태가 **ACTIVE**가 아니라면 청구되지 않습니다.
- * 로드밸런서 트래픽 요금: 로드밸런서에서 나가는 트래픽 볼륨만큼 프로젝트 전체 트래픽에 더해져 함께 청구됩니다.
+Status check protocols provided by load balancer are TCP, HTTP, and HTTPS. To check status more precisely, various methods can be applied for each protocol use. 
+
+### Pricing
+
+The load balancer has two pricing policies: 
+
+ * Usage Price: Charged as the usage time of load balancer. Does not charge if the status is not **ACTIVE**.
+ * Traffic Price: Charged as much as the load balancer traffic volume, adding to the whole project traffic.

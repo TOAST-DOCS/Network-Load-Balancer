@@ -104,6 +104,33 @@ TOAST Load Balancer conducts status checks periodically to see if member instanc
 
 Status check protocols provided by load balancer are TCP, HTTP, and HTTPS. To check status more precisely, various methods can be applied for each protocol use. 
 
+### Statistical Functions of Load Balancer 
+
+You can find many statistical indicators relevant to network flows processed by load balancer on charts. Features of statistics of TOAST Load Balancer are as follows:   
+
+* Provide charts of statistics by load balancer, or listener 
+* Classify periods by the hour, 24 hour, 1 week, 1 month or others as specified.  
+* Provide statistical volume of load balancer by client or instance on different charts.  
+* Provide instance statistics by member instance or collection results only. (View by Instance: On/OFF)
+
+Following charts are provided: 
+
+| Statistics Indicator Name <br>(Chart Name) | Type | Unit | Description |
+|--|--|--|--|
+| Number of Client Sessions | Client | ea | Number of Sessions where Load Balancer is Attached to Client |
+| Client Session CPS | Client | cps<br>(connections per second) | Number of Sessions Newly Connected with Client for a Second |
+| Session CPS | Instance | cps<br>(connections per second) | Number of Sessions Newly Connected with Instance for a Second |
+| Traffic In | Instance | bps<br>(bits per second) | Volume of Load Balancer Traffic Sent to Instance |
+| Traffic Out | Instance | bps<br>(bits per second) | Volume of Instance Traffic Sent to Load Balancer |
+| Number of Load Balancer Exceptions | Instance | ea | Number of Exceptions from Load Balancer due to Failed Health Checks |
+
+> [Note] Restraints and References 
+>
+> * Statistical charts are provided only for load balancer, listener, or member, which are currently enabled. When the load balancer resource is removed, its past statistics shall not be provided.   
+> * A measure may mean differently depending on the period set in charts in which the unit is ea. To find out the meaning, put your mouse on a question mark at top of each chart.    
+> * Measures displayed on charts for indicators related to network usage, such as Traffic In or Traffic Out, refer to payload transmission size, divided by unit time, with L2, L3, and L4 headers excluded.   
+> * Statistical data are provided for up to 1 year. 
+
 ### Pricing
 
 The load balancer has two pricing policies: 

@@ -29,11 +29,9 @@ TOAST의 로드밸런서 콘솔에서 설정값들을 입력하는 것만으로 
 >
 > "인증서"는 아래와 같이 x.509 PEM 형식을 따릅니다.
 >
->      -----BEGIN CERTIFICATE-----
->
->      MII (내용 생략)
->
->      -----END CERTIFICATE-----
+>     -----BEGIN CERTIFICATE-----
+>     (내용 생략)
+>     -----END CERTIFICATE-----
 >
 >
 > 서버 인증서와 체인 인증서(Chain Certificate, Intermediate Certificate)를 함께 등록해야하는 경우에는 서버 인증서와 체인 인증서들을 하나의 파일로 만들어 등록해야 합니다.
@@ -43,23 +41,15 @@ TOAST의 로드밸런서 콘솔에서 설정값들을 입력하는 것만으로 
 >1개의 서버인증서와 체인 인증서 2개를 하나의 인증서 파일로 만들면 다음과 같은 형식이 됩니다.
 >
 >
->       -----BEGIN CERTIFICATE-----
->
->       MII (서버 인증서 내용 생략)
->
->       -----END CERTIFICATE-----
->
->       -----BEGIN CERTIFICATE-----
->
->       MII (체인인증서#1 내용 생략)
->
->       -----END CERTIFICATE-----
->
->       -----BEGIN CERTIFICATE-----
->
->       MII (체인인증서#2 내용 생략)
->
->       -----END CERTIFICATE-----
+>      -----BEGIN CERTIFICATE-----
+>      (서버 인증서 내용 생략)
+>      -----END CERTIFICATE-----
+>      -----BEGIN CERTIFICATE-----
+>      (체인인증서#1 내용 생략)
+>      -----END CERTIFICATE-----
+>      -----BEGIN CERTIFICATE-----
+>      (체인인증서#2 내용 생략)
+>      -----END CERTIFICATE-----
 >
 >
 >
@@ -69,19 +59,15 @@ TOAST의 로드밸런서 콘솔에서 설정값들을 입력하는 것만으로 
 >
 >
 >
->       -----BEGIN RSA PRIVATE KEY-----
+>      -----BEGIN RSA PRIVATE KEY-----
+>      (개인키 내용 생략)
+>      -----END RSA PRIVATE KEY-----
 >
->       MII (개인키 내용 생략)
+>또는
 >
->       -----END RSA PRIVATE KEY-----
->
->       또는
->
->       -----BEGIN PRIVATE KEY-----
->
->       MII (개인키 내용 생략)
->
->       -----END PRIVATE KEY-----
+>      -----BEGIN PRIVATE KEY-----
+>      (개인키 내용 생략)
+>      -----END PRIVATE KEY-----
 
 
 > [참고] 로드밸런서 포트와 인스턴스 포트는 1부터 65535 사이의 값을 가집니다.

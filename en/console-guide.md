@@ -16,11 +16,61 @@ Define attributes of the traffic to be processed by a load balancer. TOAST Load 
 * Protocol: Specify the protocol of traffic to be processed by load balancer. Choose one of TCP, HTTP, HTTPS, or TERMINATED_HTTPS.
 * Load Balancer Port: Specify the port for default listener to receive traffic.
 * Instance Port: Specify the port for load balancer members. Inbound traffic to the load balancer port shall be delivered to the instance port of a member instance.  
-* SSL Certificate: Register a certificate to be used when TERMINATED_HTTPS is selected as protocol: enabled only when the protocol is TERMINATED_HTTPS. 
 
 > [Note] Each load balancer port and instance port has a value between 1 and 65535.  
 
 > [Caution] Load balancer port, instance port, and protocol cannot be changed after listener is created. 
+
+* SSL Certificate: Register a certificate to be used when TERMINATED_HTTPS is selected as protocol: enabled only when the protocol is TERMINATED_HTTPS. 
+
+> [Note] Registering TERMINATED_HTTPS Certificates 
+>
+> When TERMINATED_HTTPS is specified as listener protocol for load balancer, a register button for SSL certificate is activated. 
+>
+> Files to register are ‘Certificate’ and ‘Private Key’. ‘Private Key’ refers to a private key which is paired with a public key embedded in the server certificate. 
+>
+> The ‘Certificate’ must follow the x.509 PEM format as below:  
+>
+>     -----BEGIN CERTIFICATE-----
+>     (omitted)
+>     -----END CERTIFICATE-----
+>
+>
+> To register a server certificate, as well as chain certificate and intermediate certificate, altogether, they must be created and registered on a single file.  
+>
+> To create a single file for certificates, describe server certificate on top of the file, followed by chain certificate. The chain certificate can be described, regardless of the order. 
+>
+> A server certificate and two chain certificates can be created on a single certificate file, in the following format. 
+>
+>
+>      -----BEGIN CERTIFICATE-----
+>      (Server Certificate, omitted)
+>      -----END CERTIFICATE-----
+>      -----BEGIN CERTIFICATE-----
+>      (Chain Certificate #1, omitted)
+>      -----END CERTIFICATE-----
+>      -----BEGIN CERTIFICATE-----
+>      (Chain Certificate #2, omitted)
+>      -----END CERTIFICATE-----
+>
+>
+>
+> ‘Private Key’ is a counterpart to a public key which is included in a server certificate. 
+>
+> You may register files in the format of PKCS#1 or PKCS#8 PEM. 
+>
+>
+>
+>      -----BEGIN RSA PRIVATE KEY-----
+>      (Private Key, omitted)
+>      -----END RSA PRIVATE KEY-----
+>
+>, or
+>
+>      -----BEGIN PRIVATE KEY-----
+>      (Private Key, omitted)
+>      -----END PRIVATE KEY-----
+
 
 Setting for status check is also determined when listener is created. TOAST Load Balancer can define status check operations per listener. Following items are required: 
 

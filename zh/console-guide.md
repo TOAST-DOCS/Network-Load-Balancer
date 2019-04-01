@@ -20,11 +20,62 @@
 * 协议: 指定用来接收请求并向后端服务器进行请求转发的负载均衡系统的前端协议。选择 TCP, HTTP, HTTPS, TERMINATED_HTTPS 中的一个。
 * 负载均衡端口: 指定用来接收请求并向后端服务器进行请求转发的负载均衡系统的端口。
 * 实例端口（instance port）: ECS实例上开放的用来接收请求的后端端口。通过负载均衡端口流入的流量（traffic）将被转发到ECS开放的后端端口。
-* SSL 证书: 协议选择 TERMINATED_HTTPS 时，需要注册所要使用的证书。仅在协议选择 TERMINATED_HTTPS 的时，才可被激活。
 
 > [参考] 负载均衡端口与实例端口，可指定从 1到 65535 之间的值。
 
 > [注意] 创建监听之后，无法更改负载均衡端口、实例端口及协议。
+
+* SSL 证书: 协议选择 TERMINATED_HTTPS 时，需要注册所要使用的证书。仅在协议选择 TERMINATED_HTTPS 的时，才可被激活。
+
+> [参考] TERMINATED_HTTPS证书注册方法
+>
+> 若将负载均衡的监听器协议指定为TERMINATED_HTTPS，注册SSL证书的按钮将被激活。
+>
+> 要注册的文件为“证书”与“私钥”“私钥”指与服务器证书内置的公钥成对的私钥。
+>
+> “证书”采用如下所示的x.509 PEM格式。
+>
+>     -----BEGIN CERTIFICATE-----
+>     （内容省略）
+>     -----END CERTIFICATE-----
+>
+>
+> 需同时注册服务器证书与链证书(Chain Certificate, Intermediate Certificate)时，应将服务器证书和链证书
+ 创建为一个文件后注册。
+>
+> 创建为一个证书文件时，应在文件最上端描述服务器证书，在其下端描述链证书。链证书可按与顺序>无关描述。
+>
+>若将1个服务器证书和2个链证书创建为一个证书文件，格式如下。
+>
+>
+>      -----BEGIN CERTIFICATE-----
+>      （服务器证书内容省略）
+>      -----END CERTIFICATE-----
+>      -----BEGIN CERTIFICATE-----
+>      （链证书#1内容省略）
+>      -----END CERTIFICATE-----
+>      -----BEGIN CERTIFICATE-----
+>      （链证书#2内容省略）
+>      -----END CERTIFICATE-----
+>
+>
+>
+> “私钥”为与包含在服务器证书中的公钥对应的密钥文件。
+>
+> 可注册PKCS#1或PKCS#8 PEM格式的文件。
+>
+>
+>
+>      -----BEGIN RSA PRIVATE KEY-----
+>      （私钥内容省略）
+>      -----END RSA PRIVATE KEY-----
+>
+>或
+>
+>      -----BEGIN PRIVATE KEY-----
+>      （私钥内容省略）
+>      -----END PRIVATE KEY-----
+
 
 健康检查(health check)的相关设置，也在创建监听时进行。 TOAST的负载均衡，根据监听协议选择健康检查方式。所需项如下：
 

@@ -9,7 +9,7 @@ Enter basic information required for a load balancer as follows:
 * Name: Enter name of the load balancer.
 * Description: Describe the load balancer.
 * Network (Subnet): Specify the subnet to which load balancer is to be connected.
-* Load Balancer Type : You can choose between General and Private.
+* Load Balancer Type : Specify load balancer type between Normal and Dedicated.
 
 #### Register Listeners 
 Define attributes of the traffic to be processed by a load balancer. TOAST Load Balancer, by default, has one listener, which may be added or deleted later in detail pages. 
@@ -157,7 +157,7 @@ Instances that are no longer used may be deleted. Click Detach Instance of the i
 To delete a load balancer, select a load balancer from the list and press Delete.
 
 ## IP Access Control Groups
-For more details on the features of IP access control, see [IP Access Control](/Network/Load%20Balancer/ko/overview/#_9).
+For more details on the features of IP access control, see [IP Access Control](/Network/Load%20Balancer/en/overview/#load-balancer-ip-access-control).
 
 #### Create IP Access Control Groups
 To create an IP access control group, click Create Access Control Group and enter the following values: 

@@ -135,7 +135,7 @@ Following charts are provided:
 ## Load Balancer IP Access Control 
 
 To control packets into load balancer, you can apply features of IP access control.
-Such features are different from [Security Group](/Network/VPC/ko/console-guide/#_6), as follows: 
+Such features are different from [Security Group](/Network/VPC/en/console-guide/#_6), as follows: 
 
 > [Reference] Comparison between Security Group and Load Balancer IP Access Control 
 >
@@ -170,7 +170,7 @@ To apply IP access control, configure as follows:
 * One access control target can have IP address range in the IP address or CIDR format. Enter IP address range in the CIDR format, and all bandwidth of the network are to be included as access control target. 
 
 > [Reference]
-> Check threatening remote IP from [TOAST Security Monitoring](/Security/Security%20Monitoring/ko/Overview/). 
+> Check threatening remote IP from [TOAST Security Monitoring](/Security/Security%20Monitoring/en/Overview/). 
 >
 > Create an IP access control group in the ‘Deny’ type of IP access control type, and add detected threatening IP as IP access control targets; then, security of the system can be enforced.
 >

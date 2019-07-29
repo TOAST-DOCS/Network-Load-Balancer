@@ -30,6 +30,36 @@ TOAST는 로드밸런서를 제공합니다. 로드밸런서를 이용하면,
 
 > [참고] TERMINATED_HTTPS 프로토콜을 사용하기 위해서는 인증서와 개인 키를 로드밸런서에 등록해야 합니다. 이 때 등록하는 개인 키는 반드시 비밀번호가 제거되어야 올바르게 동작합니다.
 
+## 로드밸런서 TLS 버전 
+* TERMINATED_HTTPS 프로토콜을 사용하는 로드밸런서를 생성할 때 클라이언트와 로드밸런서간 통신에 사용되는 TLS 버전을 선택할 수 있습니다.
+* 높은 버전의 TLS를 선택하면, TLS 프로토콜의 보안 결함과 암호화 스위트내의 암호 알고리즘의 낮은 수준의 보안성에 대해 대응 가능합니다. 
+* 시스템의 보안성을 높이기 위해 클라이언트가 지원하는 TLS 버전 한도 내에서 높은 버전의 TLS 를 선택하는 것이 좋습니다.
+* TOAST 로드밸런서는 TLSv1.3 지원을 준비하고 있습니다.
+
+### TLS 버전
+TLS 버전 중 하나를 선택하여 로드밸런서를 생성합니다. 생성된 로드밸런서는 아래와 같이 선택한 버전과 선택한 버전의 상위 버전으로만 클라이언트와 통신합니다.
+
+| 설정 | 로드밸런서가 사용하는 TLS 버전 |
+| -- | -- |
+| SSLv3 | SSLv3, TLSv1.0, TLSv1.1, TLSv1.2 |
+| TLSv1.0 | TLSv1.0, TLSv1.1, TLSv1.2 |
+| TLSv1.0_2016 | TLSv1.0, TLSv1.1, TLSv1.2 |
+| TLSv1.1 | TLSv1.1, TLSv1.2 |
+| TLSv1.2 | TLSv1.2 |
+
+### TLS 버전별 암호화 스위트
+* 클라이언트/서버간 키교환, 인증서 검증, 메시지 암호화, 메시지 무결성 검사 등 HTTPS 통신을 위해 사용되는 암호 알고리즘의 묶음을 암호화 스위트라고 합니다.
+* TLS 버전 선택에 따라 사용되는 암호화 스위트도 달라지게 되는데, 그 내용은 다음과 같습니다. 
+* 높은 버전의 TLS 버전을 선택하면 보안성이 떨어지는 알고리즘을 사용하는 암호화 스위트가 사용되지 않습니다.
+
+| 설정 | 제공되는 암호화 스위트 | 비고 |
+| -- | -- | -- |
+| SSLv3 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>ECDHE-RSA-AES256-SHA<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256<br>AES256-SHA<br>AES128-SHA<br>DES-CBC3-SHA<br>RC4-MD5 | |
+| TLSv1.0 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>ECDHE-RSA-AES256-SHA<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256<br>AES256-SHA<br>AES128-SHA<br>DES-CBC3-SHA | RC4-MD5 제외 |
+| TLSv1.0_2016 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>ECDHE-RSA-AES256-SHA<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256<br>AES256-SHA<br>AES128-SHA | DES-CBC3-SHA 제외 |
+| TLSv1.1 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>ECDHE-RSA-AES256-SHA<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256<br>AES256-SHA<br>AES128-SHA | 상동 |
+| TLSv1.2 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256 | ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-SHA<br>AES256-SHA<br>AES128-SHA 제외 |
+
 
 ## 로드밸런서 생성
 

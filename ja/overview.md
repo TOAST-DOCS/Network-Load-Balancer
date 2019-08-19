@@ -31,6 +31,38 @@ TOASTはロードバランサーを提供します。ロードバランサーを
 
 > [参考] TERMINATED_HTTPSプロトコルを使用するためには、認証書とプライベートキーをロードバランサーに登録する必要があります。この時登録するプライベートキーは、パスワードが削除されていると正しく動作します。
 
+## ロードバランサーTLSバージョン
+* TERMINATED_HTTPSプロトコルを使用するロードバランサーを作成する時、クライアントとロードバランサー間の通信に使用するTLS(Transport Layer Security)の
+バージョンを選択できます。
+* TLSプロトコルのバージョンが低い場合、セキュリティの欠陥がある場合があり、暗号化スイート(Cipher Suite)を構成する暗号アルゴリズムのセキュリティ性も
+低いため、クライアントがサポートするTLSバージョンのうち最も高いバージョンのTLSを選択することを推奨します。
+* TOASTロードバランサーは、TLSv1.3をサポートするために準備しています。
+
+### TLSのバージョン
+TLSのバージョンの中から1つを選択してロードバランサーを作成します。作成されたロードバランサーは、下記のように選択したバージョンと選択したバージョン>の上位バージョンのみ使用してクライアントと通信します。
+
+| TLSバージョン設定 | ロードバランサーが使用するTLSのバージョン |
+| -- | -- |
+| SSLv3 | SSLv3, TLSv1.0, TLSv1.1, TLSv1.2 |
+| TLSv1.0 | TLSv1.0, TLSv1.1, TLSv1.2 |
+| TLSv1.0_2016 | TLSv1.0, TLSv1.1, TLSv1.2 |
+| TLSv1.1 | TLSv1.1, TLSv1.2 |
+| TLSv1.2 | TLSv1.2 |
+
+### TLSバージョン別暗号化スイート
+* クライアントとロードバランサー間のキー交換、証明書検証、メッセージ暗号化、メッセージ整合性のチェックなど、HTTPS通信のために使用される暗号アルゴリ
+ズムの集合を暗号化スイートと呼びます。
+* 各TLSバージョンで使用される暗号化スイートは下記の通りです。
+* 高いバージョンのTLSバージョンを選択すると、セキュリティ性が低いアルゴリズムを使用する暗号化スイートが使用されません。
+
+| TLSバージョン設定 | 使用される暗号化スイート | 備考 |
+| -- | -- | -- |
+| SSLv3 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>ECDHE-RSA-AES256-SHA<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256<br>AES256-SHA<br>AES128-SHA<br>DES-CBC3-SHA<br>RC4-MD5 | |
+| TLSv1.0 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>ECDHE-RSA-AES256-SHA<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256<br>AES256-SHA<br>AES128-SHA<br>DES-CBC3-SHA | RC4-MD5除外 |
+| TLSv1.0_2016 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>ECDHE-RSA-AES256-SHA<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256<br>AES256-SHA<br>AES128-SHA | DES-CBC3-SHA除外 |
+| TLSv1.1 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>ECDHE-RSA-AES256-SHA<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256<br>AES256-SHA<br>AES128-SHA | 同上 |
+| TLSv1.2 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256 | ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-SHA<br>AES256-SHA<br>AES128-SHA除外 |
+
 
 ## ロードバランサーTLSバージョン
 * TERMINATED_HTTPSプロトコルを使用するロードバランサーを作成する時、クライアントとロードバランサー間の通信に使用するTLS(Transport Layer Security)のバージョンを選択できます。

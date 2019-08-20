@@ -30,15 +30,15 @@ TOAST는 로드밸런서를 제공합니다. 로드밸런서를 이용하면,
 
 > [참고] TERMINATED_HTTPS 프로토콜을 사용하기 위해서는 인증서와 개인 키를 로드밸런서에 등록해야 합니다. 이 때 등록하는 개인 키는 반드시 비밀번호가 제거되어야 올바르게 동작합니다.
 
-## 로드밸런서 TLS 버전
-* TERMINATED_HTTPS 프로토콜을 사용하는 로드밸런서를 생성할 때 클라이언트와 로드밸런서 간 통신에 사용하는 TLS(Transport Layer Security) 버전을 선택할 수 있습니다.
-* TLS 프로토콜 버전이 낮으면 보안 결함이 있을 수 있고 암호화 스위트(Cipher Suite)를 구성하는 암호 알고리즘의 보안성도 낮기 때문에, 클라이언트가 지원하는 TLS 버전 중 가장 높은 버전의 TLS 를 선택하는 것이 좋습니다.
+## 로드밸런서 SSL/TLS 버전
+* TERMINATED_HTTPS 프로토콜을 사용하는 로드밸런서를 생성할 때 클라이언트와 로드밸런서 간 통신에 사용하는 SSL/TLS(Secure Socket Layer/Transport Layer Security) 버전을 선택할 수 있습니다.
+* SSL/TLS 프로토콜 버전이 낮으면 보안 결함이 있을 수 있고 암호화 스위트(Cipher Suite)를 구성하는 암호 알고리즘의 보안성도 낮기 때문에, 클라이언트가 지원하는 SSL/TLS 버전 중 가장 높은 버전을 선택하는 것이 좋습니다.
 * TOAST 로드밸런서는 TLSv1.3을 지원하기 위해 준비하고 있습니다.
 
-### TLS 버전
-TLS 버전 중 하나를 선택해 로드밸런서를 생성합니다. 생성된 로드밸런서는 아래와 같이 선택한 버전과 선택한 버전의 상위 버전만 사용하여 클라이언트와 통신합니다.
+### SSL/TLS 버전
+SSL/TLS 버전 중 하나를 선택해 로드밸런서를 생성합니다. 생성된 로드밸런서는 아래와 같이 선택한 버전과 선택한 버전의 상위 버전만 사용하여 클라이언트와 통신합니다.
 
-| TLS 버전 설정 | 로드밸런서가 사용하는 TLS 버전 |
+| SSL/TLS 버전 설정 | 로드밸런서가 사용하는 SSL/TLS 버전 |
 | -- | -- |
 | SSLv3 | SSLv3, TLSv1.0, TLSv1.1, TLSv1.2 |
 | TLSv1.0 | TLSv1.0, TLSv1.1, TLSv1.2 |
@@ -46,12 +46,12 @@ TLS 버전 중 하나를 선택해 로드밸런서를 생성합니다. 생성된
 | TLSv1.1 | TLSv1.1, TLSv1.2 |
 | TLSv1.2 | TLSv1.2 |
 
-### TLS 버전별 암호화 스위트
+### SSL/TLS 버전별 암호화 스위트
 * 클라이언트와 로드밸런서 간 키 교환, 인증서 검증, 메시지 암호화, 메시지 무결성 검사 등 HTTPS 통신을 위해 사용되는 암호 알고리즘의 묶음을 암호화 스위트라고 합니다.
-* TLS 버전에 따라 사용되는 암호화 스위트는 아래와 같습니다.
+* SSL/TLS 버전에 따라 사용되는 암호화 스위트는 아래와 같습니다.
 * 높은 버전의 TLS 버전을 선택하면 보안성이 낮은 알고리즘을 사용하는 암호화 스위트가 사용되지 않습니다.
 
-| TLS 버전 설정 | 사용되는 암호화 스위트 | 비고 |
+| SSL/TLS 버전 설정 | 사용되는 암호화 스위트 | 비고 |
 | -- | -- | -- |
 | SSLv3 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>ECDHE-RSA-AES256-SHA<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256<br>AES256-SHA<br>AES128-SHA<br>DES-CBC3-SHA<br>RC4-MD5 | |
 | TLSv1.0 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>ECDHE-RSA-AES256-SHA<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256<br>AES256-SHA<br>AES128-SHA<br>DES-CBC3-SHA | RC4-MD5 제외 |

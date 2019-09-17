@@ -27,6 +27,34 @@ Among those, TERMINATED_HTTPS gets HTTPS traffic and delivers the traffic in HTT
 
 > [Note] To use the TERMINATED_HTTPS protocol, a certificate and private key should be registered at a load balancer: the private key must be removed of password so as to be properly operated. 
 
+## SSL/TLS Version for Load Balancer
+* When creating a load balancer using the TERMINATED_HTTPS protocol, you may select a Secure Socket Layer (SSL) / Transport Layer Security (TLS) version for communication between client and load balancer.
+*  A lower SSL/TLS protocol version may be less secure and the algorithms comprising the cipher suite may be more vulnerable, too; hence, it is recommended to choose the highest possible version of SSL/TLS.
+* TOAST load balancer is about to support TLS v1.3.
+
+### TLS Version
+Select a TLS version to create load balancer. The load balancer communicates with clients by using a selected version at its highest version only.
+
+| SSL/TLS Version Setting | TLS Version for Load Balancer |
+| -- | -- |
+| SSLv3 | SSLv3, TLSv1.0, TLSv1.1, TLSv1.2 |
+| TLSv1.0 | TLSv1.0, TLSv1.1, TLSv1.2 |
+| TLSv1.0_2016 | TLSv1.0, TLSv1.1, TLSv1.2 |
+| TLSv1.1 | TLSv1.1, TLSv1.2 |
+| TLSv1.2 | TLSv1.2 |
+
+### Cipher Suite for Each SSL/TLS Version
+* A cipher suite is a set of cryptographic algorithms used for HTTPS communications, including key exchanges between client and load balancer,   certificate authentication, message encryption, and message integrity checks.
+* Each SSL/TLS version applies the following cipher suite.
+* For a higher version of TLS, cipher suites that adopt less secure algorithms are not used.
+
+| SSL/TLS Version Setting | Cipher Suites that are Used | Remarks |
+| -- | -- | -- |
+| SSLv3 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>ECDHE-RSA-AES256-SHA<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256<br>AES256-SHA<br>AES128-SHA<br>DES-CBC3-SHA<br>RC4-MD5 | |
+| TLSv1.0 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>ECDHE-RSA-AES256-SHA<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256<br>AES256-SHA<br>AES128-SHA<br>DES-CBC3-SHA | RC4-MD5 is excluded |
+| TLSv1.0_2016 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>ECDHE-RSA-AES256-SHA<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256<br>AES256-SHA<br>AES128-SHA | DES-CBC3-SHA is excluded |
+| TLSv1.1 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>ECDHE-RSA-AES256-SHA<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256<br>AES256-SHA<br>AES128-SHA | Same as above |
+| TLSv1.2 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256 | ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-SHA<br>AES256-SHA<br>AES128-SHA is excluded |
 
 ## Create Load Balancers
 

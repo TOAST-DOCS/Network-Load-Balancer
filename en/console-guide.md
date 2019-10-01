@@ -118,6 +118,7 @@ After load balancer is created, the list of load balancers is returned. On this 
 > | PENDING_UPDATE | Modifying Load Balancer Configuration <br> Unless the status is changed to ACTIVE within an hour after configuration is modified, contact administrator. |
 > | PENDING_DELETE | Deleting Load Balancer<br> Unless it is removed from the list within an hour after deleted, contact administrator. |
 > | ERROR | Failed to Create Load Balancer<br> Contact administrator. |
+> | ERROR_MIGRATE | Failed to Migrate Load Balancer<br> Contact administrator. |
 
 ### Modify Load Balancer and its Details 
 Select a load balancer from the list, and a page of details shows, composed of the three tabs as follows: 

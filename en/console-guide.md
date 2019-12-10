@@ -199,3 +199,26 @@ If a target of a group is deleted, policy on the IP or CIDR for all load balance
 Select a load balancer to apply IP access control group. Select a group for the load balancer and press Confirm.
 Many groups in the same "access control type" can be applied to load balancer.  
 
+## Guide for Restarting Load Balancers for Maintenance 
+
+TOAST updates load balancer software on a regular basis to enhance security and stability of its infrastructure services. 
+Load balancers that are running on target equipment for maintenance must be restarted and migrated to a load balancer equipment which is completed with maintenance. 
+
+To restart a load balancer, use the  **! Restart** button which is created next to each load balancer name. 
+
+Go to a project which has a load balancer which is scheduled for maintenance. 
+
+1. Check if your load balancer is the target of maintenance. 
+    Any load balancer should have the  **! Restart** button next to its name to be maintained.    
+    ![image-001](http://static.toastoven.net/prod_load_balancer/lb_p_migration_en_1.png)
+    Put the mouse cursor on the  **! Restart** button to find maintenance schedule details. Execute maintenance when its impact on service can be minimal. 
+    ![image-002](http://static.toastoven.net/prod_load_balancer/lb_p_migration_en_2.png)
+2. Select a load balancer for maintenance and click the  **! Restart** button next to its name. 
+3. Click **Confirm** onto the window asking of restarting load balancer. 
+    ![image-003](http://static.toastoven.net/prod_load_balancer/lb_p_migration_en_3.png)
+4. Wait until the status turns green and the **! Restart** button disappears. 
+    If the status does not change, or the **! Restart** button remains, press 'Refresh'. 
+    ![image-004](http://static.toastoven.net/prod_load_balancer/lb_p_migration_en_4.png)
+
+The load balancer becomes inoperable while restarting is underway. 
+Unless restarting load balancer is normally completed, it shall be automatically reported to the administrator, and you'll be contacted by TOAST. 

@@ -219,15 +219,15 @@ TOAST는 주기적으로 로드밸런서 장비의 소프트웨어를 업데이�
 점검 대상으로 지정된 로드밸런서가 있는 프로젝트로 이동하여 다음 절차로 재시작을 수행합니다.
 
 1. 점검 대상 로드밸런서를 확인합니다. 로드밸런서 이름 옆에 **! 재시작** 버튼이 있는 로드밸런서가 점검 대상 로드밸런서입니다.
-   ![image-001] (http://static.toastoven.net/prod_load_balancer/lb_p_migration_ko_1.png)
+   ![image-001](http://static.toastoven.net/prod_load_balancer/lb_p_migration_ko_1.png)
    **! 재시작** 버튼 위에 마우스 커서를 올리면 자세한 점검 일정을 확인할 수 있습니다. 서비스에 영향을 주지 않는 시간에 수행하시기를 바랍니다.
-   ![image-002] (http://static.toastoven.net/prod_load_balancer/lb_p_migration_ko_2.png)
+   ![image-002](http://static.toastoven.net/prod_load_balancer/lb_p_migration_ko_2.png)
 2. 점검 대상 로드밸런서를 선택하고 이름 옆에 있는 **! 재시작** 버튼을 클릭합니다.
 3. 로드밸런서 재시작 여부를 묻는 창이 나타나면 **확인** 버튼을 클릭합니다.
-   ![image-003] (http://static.toastoven.net/prod_load_balancer/lb_p_migration_ko_3.png)
+   ![image-003](http://static.toastoven.net/prod_load_balancer/lb_p_migration_ko_3.png)
 4. 상태 표시등이 초록색으로 변하고, **! 재시작** 버튼이 사라질 때까지 대기합니다.
    로드밸런서 상태 표시등이 변하지 않거나 **! 재시작** 버튼이 사라지지 않는다면 '새로 고침'을 해보시기 바랍니다.
-   ![image-004] (http://static.toastoven.net/prod_load_balancer/lb_p_migration_ko_4.png)
+   ![image-004](http://static.toastoven.net/prod_load_balancer/lb_p_migration_ko_4.png)
 
 로드밸런서가 재시작되는 동안에는 해당 로드밸런서에 아무런 조작을 할 수 없습니다.
 로드밸런서 재시작이 정상적으로 완료되지 않으면 자동으로 관리자에게 보고되며, TOAST에서 별도로 연락을 드립니다.

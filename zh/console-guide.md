@@ -217,11 +217,15 @@ TOAST定期升级负载均衡设备软件，提供基本基础设施服务的安
 移动至被指定为维护对象的负载均衡所在的项目，下一步骤进行重启。
 
 1. 确认维护对象负载均衡。名称旁有**! 有重启**按钮的负载均衡是维护对象负载均衡。
+   ![image-001](http://static.toastoven.net/prod_load_balancer/lb_p_migration_zh_1.png)
    **! 把鼠标光标移至重启**按钮上时，可确认详细的维护日程。请在不影响服务的时间执行。
+   ![image-002](http://static.toastoven.net/prod_load_balancer/lb_p_migration_zh_2.png)
 2. 选择维护对象负载均衡，单击名称旁的**! 单击重启**按钮。
 3. 当询问是否重启负载均衡的窗口弹出时，单击**确定**按钮。
+   ![image-003](http://static.toastoven.net/prod_load_balancer/lb_p_migration_zh_3.png)
 4. 状态显示灯变为绿色，等待至**! 重启**按钮消失。
    若负载均衡状态显示灯未改变或**! 重启**按钮未消失，请进行“刷新”。
+   ![image-004](http://static.toastoven.net/prod_load_balancer/lb_p_migration_zh_4.png)
 
 负载均衡重启过程中，无法对相应负载均衡进行任何操作。
 若负载均衡重启未正常完成，将自动向管理员报告，TOAST会另行联系您。

@@ -73,14 +73,14 @@ Define attributes of the traffic to be processed by a load balancer. TOAST Load 
 >      (Private Key, omitted)
 >      -----END PRIVATE KEY-----
 
-##### Cert Manager 사용
-리스너에서 TERMINATED_HTTPS 프로토콜을 사용하는 경우 인증서 등록 방법은, Cert Manager에 등록한 인증서를 사용하는 방법과 직접 등록하는 방법 두 가지입니다.
+##### Using Cert Manager
+When TERMINATED_HTTPS is enabled for the listener, certificates can be registered in either of the two methods: use a certificate registered at Cert Manager; or newly register a certificate.
 
-* Cert Manager 서비스에 인증서를 등록하고 리스너에 해당 인증서를 연결하면 이메일로 인증서 만료일 알람을 받을 수 있습니다.
-* 리스너에 직접 인증서를 등록한 경우에는 인증서 만료일 알람이 없습니다. 다만 콘솔의 리스너 화면에서 만료일을 확인할 수는 있습니다.
-> [주의 사항]
-> Cert Manager 서비스에서 인증서를 갱신한 경우, 영향을 받는 리스너의 인증서도 같이 갱신해야 합니다.
-> Cert Manager에 등록한 인증서를 리스너에 사용하려면 '개인 키'의 비밀번호가 반드시 제거돼야 하고, PKCS#1 또는 PKCS#8 PEM 형식이어야 합니다.
+* By registering a certificate at Cert Manager and connecting it to the listener, you can receive an email on certificate expiration date.
+* No alarms will be sent for expiration if your certificate was directly registered at the listener. Still, you can find the expiration date on the listener page of the console.
+> [Caution]
+> When a certificate is updated at the Cert Manager, certificates of any other affected listener must be updated as well.
+> To apply the certificate which is registered at the Cert Manager to the listener, password of the ‘Private Key’ must be removed, or the format must be either PKCS#1 or PKCS#8 PEM.
 
 ##### Health Check
 Setting for status check is also determined when listener is created. TOAST Load Balancer can define status check operations per listener. Following items are required: 

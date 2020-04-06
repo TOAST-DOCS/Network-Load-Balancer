@@ -1883,3 +1883,570 @@ X-Auth-Token: {tokenId}
 
 이 API는 응답 본문을 반환하지 않습니다.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 시크릿
+### 시크릿 목록 보기
+
+시크릿 목록을 반환합니다.
+
+```
+GET /v1/secrets
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| id | Query | String | - | 토큰 ID |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| secrets | Body | Array | 시크릿 객체 목록 |
+| secrets.secret_ref | Body | String | 시크릿 주소 |
+| secrets.secret_type | Body | Enum | 시크릿 타입 <br> `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque`중 하나 |
+| secrets.status | Body | String | 시크릿 상태 |
+| secrets.content_types | Body | Array | 시크릿을 페이로드를 제공하는 콘텐츠 타입 목록 |
+| secrets.content_types.default | Body | String | 콘텐츠 타입 기본값 |
+| secrets.creator_id | Body | String | 시크릿을 생성한 사용자 ID |
+| secrets.mode | Body | String | 블록 암호 운용 방식. 사용자 입력 메타데이터 |
+| secrets.algorithm | Body | String | 암호화 알고리즘. 사용자 입력 메타데이터 |
+| secrets.bit_length | Body | Integer | 암호화 키 길이. 사용자 입력 메타데이터 |
+| secrets.expiration | Body | Datetime | 만료일. 사용자 입력 메타데이터 <br>`YYYY-MM-DDThh:mm:ss`<br> 만료일이 지난 시크릿은 자동으로 삭제 처리됨 |
+| secrets.name| Body | String | 시크릿 명 |
+| secrets.created | Body | Datetime | 생성시간 <br> `YYYY-MM-DDThh:mm:ss` |
+| secrets.updated | Body | Datetime | 수정시간 <br> `YYYY-MM-DDThh:mm:ss` |
+| total | Body | Integer | 총 시크릿 갯수 |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "secrets": [
+    {
+      "algorithm": null,
+      "bit_length": null,
+      "content_types": {
+        "default": "text/plain"
+      },
+      "created": "2019-12-17T08:50:39",
+      "creator_id": "1da4ce9f59ed4f6487c9be39fa792be4",
+      "expiration": null,
+      "mode": null,
+      "name": "certificate",
+      "secret_ref": "https://key-manager-endpoint/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+      "secret_type": "certificate",
+      "status": "ACTIVE",
+      "updated": "2019-12-17T08:50:39"
+    },
+    {
+      "algorithm": null,
+      "bit_length": null,
+      "content_types": {
+        "default": "text/plain"
+      },
+      "created": "2019-12-17T08:50:39",
+      "creator_id": "1da4ce9f59ed4f6487c9be39fa792be4",
+      "expiration": null,
+      "mode": null,
+      "name": "private_key",
+      "secret_ref": "https://key-manager-endpoint/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+      "secret_type": "private",
+      "status": "ACTIVE",
+      "updated": "2019-12-17T08:50:39"
+    }
+  ],
+  "total": 2
+}
+
+```
+
+</p>
+</details>
+
+
+### 시크릿 보기
+지정한 시크릿 정보를 반환합니다.
+```
+GET /v1/secrets/{secretId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| secretId | URL | UUID | O | 시크릿 ID | 
+
+#### 응답
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| secret | Body | Object | 시크릿 객체 |
+| secret.secret_ref | Body | String | 시크릿 주소 |
+| secret.secret_type | Body | Enum | 시크릿 타입 <br> `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque`중 하나 |
+| secret.status | Body | String | 시크릿 상태 |
+| secret.content_types | Body | Array | 시크릿의 페이로드를 제공하는 콘텐츠 타입 목록 |
+| secret.content_types.default | Body | String | 콘텐츠 타입 기본값 |
+| secret.creator_id | Body | String | 시크릿을 생성한 사용자 ID |
+| secret.mode | Body | String | 블록 암호 운용 방식. 사용자 입력 메타데이터 |
+| secret.algorithm | Body | String | 암호화 알고리즘. 사용자 입력 메타데이터 |
+| secret.bit_length | Body | Integer | 암호화 키 길이. 사용자 입력 메타데이터 |
+| secret.expiration | Body | Datetime | 만료일. 사용자 입력 메타데이터 <br>`YYYY-MM-DDThh:mm:ss`<br> 만료일이 지난 시크릿은 자동으로 삭제 처리됨 |
+| secret.name| Body | String | 시크릿 명 |
+| secret.created | Body | Datetime | 생성시간 <br> `YYYY-MM-DDThh:mm:ss` |
+| secret.updated | Body | Datetime | 수정시간 <br> `YYYY-MM-DDThh:mm:ss` |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "status": "ACTIVE",       
+  "secret_type": "certificate",
+  "updated": "2019-12-17T08:50:39",
+  "name": "certificate",
+  "algorithm": null,
+  "created": "2019-12-17T08:50:39",
+  "secret_ref": "https://key-manager-endpoint/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+  "content_types": {
+    "default": "text/plain"
+  },
+  "creator_id": "1da4ce9f59ed4f6487c9be39fa792be4",
+  "mode": null,
+  "bit_length": null,
+  "expiration": null
+}
+```
+</p>
+</details>
+
+---
+### 시크릿 생성하기
+새로운 시크릿을 생성합니다.
+```
+POST /v1/secrets
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| name | Body | String | - | 시크릿 명 |
+| expiration | Body | Datetime | - | 만료일. ISO8601포맷으로 요청 |
+| algorithm | Body | String | - | 암호화 알고리즘 |
+| bit_length | Body | String | - | 암호화 키 길이|
+| mode | Body | String | - | 블록 암호 운용 방식 |
+| payload | Body | String | - | 암호화 키 페이로드 |
+| payload_content_type | Body | String | - | 암호화 키 페이로드 콘텐츠 타입<br> payload를 입력할 시 필수로 입력해야 함 <br>지원하는 콘텐츠 타입 목록: `text/plain`, `application/octet-stream`, `application/pkcs8`, `application/pkix-cert` |
+| payload_content_encoding | Body | Enum | - | 암호화 키 페이로드 인코딩 방식 <br>payload_content_type이 text/plain이 아닌경우 필수로 입력해야 함<br> `base64` 만 지원 |
+| secret_type | Body | Enum | - | 시크릿 타입 <br> `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque`중 하나 |
+
+
+
+<details><summary>예시</summary>
+<p>
+
+- 1. 메타데이터만 생성
+```json
+{
+    "name": "example key",
+    "expiration": "2025-12-31T00:00:00.000000Z",
+    "algorithm": "example-algorithm",
+    "bit_length": 256,
+    "mode": "example-mode"
+}
+```
+
+- 2. text로 페이로드 전송
+```json
+{
+    "name": "example key",
+    "expiration": "2025-12-31T00:00:00.000000Z",
+    "algorithm": "example-algorithm",
+    "bit_length": 256,
+    "mode": "example-mode",
+    "payload": "example",
+    "payload_content_type": "text/plain"
+}
+```
+
+- 3. base64로 페이로드 전송
+```json
+{
+    "name": "example key",
+    "expiration": "2025-12-31T00:00:00.000000Z",
+    "algorithm": "example-algorithm",
+    "bit_length": 256,
+    "mode": "example-mode",
+    "payload": "ZXhhbXBsZQo=",
+    "payload_content_type": "application/octet-stream",
+    "payload_content_encoding": "base64"
+}
+```
+</p>
+</details>
+
+#### 응답
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| secret_ref | Body | String | 시크릿 주소 |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+    "secret_ref": "https://key-manager-endpoint/v1/secrets/9b2dcb7b-51fe-4408-a2bb-23da731758a6"
+}
+```
+</p>
+</details>
+
+---
+### 시크릿 수정하기
+기존에 메타데이터만 입력한 시크릿의 페이로드 데이터를 입력합니다.
+```
+PUT /v1/secrets/{secretId}
+X-Auth-Token: {tokenId}
+Content-Type: {ConetentType}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| secretId | URL | UUID | O | 시크릿 ID | 
+| ContentType| Header | Enum | O | `text/plain`, `application/octet-stream`, `application/pkcs8`, `application/pkix-cert`중 하나<br> 생략시 `text/plain` 으로 설정됨 |
+| payload | Body | String | O | 암호화 키 페이로드 |
+<details><summary>예시</summary>
+<p>
+
+```
+example
+```
+</p>
+</details>
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+---
+### 시크릿 삭제하기
+지정한 시크릿을 삭제합니다.
+```
+DELETE /v1/secrets/{secretId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| secretId | URL | UUID | O | 시크릿 ID | 
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 시크릿 컨테이너
+### 시크릿 컨테이너 목록 보기
+
+시크릿 컨테이너 목록을 반환합니다.
+
+```
+GET /v1/containers
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| id | Query | String | - | 토큰 ID |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| containers | Body | Array | 컨테이너 객체 목록 |
+| containers.status | Body | String | 컨테이너 상태 |
+| containers.updated | Body | Datetime | 수정 시간 `YYYY-MM-DDThh:mm:ss` |
+| containers.name | Body | String | 컨테이너 명 |
+| containers.consumers | Body | Array | 컨슈머 목록 |
+| containers.consumers.URL | Body | Array | 컨슈머 목록 |
+| containers.consumers.name | Body | Array | 컨슈머 목록 |
+| containers.created | Body | Datetime | 생성 시간  `YYYY-MM-DDThh:mm:ss`|
+| containers.container_ref | Body | String | 컨테이너 주소 |
+| containers.creator_id | Body | String | 컨테이너를 생성한 사용자 ID |
+| containers.secret_refs | Body | Array | 시크릿 목록 |
+| containers.secret_refs.secret_ref | Body | String | 시크릿 주소 |
+| containers.secret_refs.name | Body | String| 컨테이너가 지정한 시크릿 명칭<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates` 으로 name 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`으로 name 지정|
+| containers.type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나|
+
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "total": 1,
+  "containers": [
+    {
+      "status": "ACTIVE",
+      "updated": "2019-12-17T08:50:39",
+      "name": "The Certificate",
+      "consumers": [],
+      "created": "2019-12-17T08:50:39",
+      "container_ref": "https://key-manager-endpoint/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
+      "creator_id": "1da4ce9f59ed4f6487c9be39fa792be4",
+      "secret_refs": [
+        {
+          "secret_ref": "https://key-manager-endpoint/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+          "name": "certificate"
+        },
+        {
+          "secret_ref": "https://key-manager-endpoint/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+          "name": "private_key"
+        }
+      ],
+      "type": "certificate"
+    }
+  ]
+}
+
+
+```
+</p>
+</details>
+
+
+### 시크릿 컨테이너 보기
+지정한 시크릿 컨테이너 정보를 반환합니다.
+```
+GET /v1/containers/{containerId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| containerId | URL | String | O | 시크릿 컨테이너 ID |
+
+#### 응답
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| status | Body | String | 컨테이너 상태 |
+| updated | Body | Datetime | 수정 시간 `YYYY-MM-DDThh:mm:ss` |
+| name | Body | String | 컨테이너 명 |
+| consumers | Body | Array | 컨슈머 목록 |
+| consumers.URL | Body | Array | 컨슈머 목록 |
+| consumers.name | Body | Array | 컨슈머 목록 |
+| created | Body | Datetime | 생성 시간  `YYYY-MM-DDThh:mm:ss`|
+| container_ref | Body | String | 컨테이너 주소 |
+| creator_id | Body | String | 컨테이너를 생성한 사용자 ID |
+| secret_refs | Body | Array | 컨테이너에 등록한 시크릿 목록 |
+| secret_refs.secret_ref | Body | String | 시크릿 주소 |
+| secret_refs.name | Body | String| 컨테이너가 지정한 시크릿 명칭<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates` 으로 name 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`으로 name 지정|
+| type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나|
+
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+    "status": "ACTIVE",
+    "updated": "2019-12-17T08:50:39",
+    "name": "The Certificate",
+    "consumers": [],
+    "created": "2019-12-17T08:50:39",
+    "container_ref": "https://key-manager-endpoint/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
+    "creator_id": "1da4ce9f59ed4f6487c9be39fa792be4",
+    "secret_refs": [
+        {
+            "secret_ref": "https://key-manager-endpoint/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+            "name": "private_key"
+        },
+        {
+            "secret_ref": "https://key-manager-endpoint/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+            "name": "certificate"
+        }
+    ],
+    "type": "certificate"
+}
+```
+</p>
+</details>
+
+---
+### 시크릿 컨테이너 생성하기
+새로운 시크릿 컨테이너 생성합니다.
+```
+POST /v1/containers
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| type | Body | String | O | 토큰 ID |
+| name | Body | String | - | 토큰 ID |
+| secret_refs | Body | Array | - | 컨테이너에 등록할 시크릿 목록 |
+| secret_refs.secret_ref | Body | String | - | 시크릿 주소 |
+| secret_refs.name | Body | String | - | 컨테이너가 지정한 시크릿 명칭<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates` 으로 name 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`으로 name 지정|
+
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+    "type": "certificate",
+    "name": "test cert",
+    "secret_refs": [
+        {
+            "name": "private_key",
+            "secret_ref": "https://key-manager-endpoint/cf11edcf-f475-47f3-92c3-29de8bcdd639"
+        }
+    ]
+}
+```
+</p>
+</details>
+
+#### 응답
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| container_ref | Body | Object | 시크릿 컨테이너 주소 |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+    "container_ref": "https://key-manager-endpoint/v1/containers/ea2e90fc-1ba2-412b-b7a0-61da4402bf58"
+}
+```
+</p>
+</details>
+
+
+---
+### 시크릿 컨테이너 삭제하기
+지정한 시크릿 컨테이너 삭제합니다.
+```
+DELETE /v1/containers/{containerId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| containerId | Body | Object | 시크릿 컨테이너 ID |
+
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1923,7 +1923,12 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| id | Query | String | - | 토큰 ID |
+| offset | Query | Integer| - | 응답 리스트의 오프셋, 기본값: 0|
+| limit | Query | Integer| - | 응답 리스트에 노출할 최대 갯수, 기본값: 10 |
+| name | Query | String| - | 시크릿 명 |
+| alg | Query | String| - | 시크릿 알고리즘 |
+| mode | Query | String| - | 블록 암호 운용 방식 |
+| bits | Query | Integer| - | 암호화 키 길이 |
 
 #### 응답
 
@@ -1943,7 +1948,9 @@ X-Auth-Token: {tokenId}
 | secrets.name| Body | String | 시크릿 명 |
 | secrets.created | Body | Datetime | 생성시간 <br> `YYYY-MM-DDThh:mm:ss` |
 | secrets.updated | Body | Datetime | 수정시간 <br> `YYYY-MM-DDThh:mm:ss` |
-| total | Body | Integer | 총 시크릿 갯수 |
+| total | Body | Integer | 요청 쿼리의 총 시크릿 갯수 |
+| next | Body | Integer | 현재 조회된 리스트의 다음 리스트 URL |
+| previous | Body | Integer | 현재 조회된 리스트의 이전 리스트 URL |
 
 <details><summary>예시</summary>
 <p>
@@ -1984,7 +1991,9 @@ X-Auth-Token: {tokenId}
       "updated": "2019-12-17T08:50:39"
     }
   ],
-  "total": 2
+  "total": 10,
+  "next": "https://key-manager-endpoint/v1/secrets?limit=1&offset=2",
+  "previous": "https://key-manager-endpoint/v1/secrets?limit=1&offset=0"
 }
 
 ```
@@ -2237,7 +2246,8 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| id | Query | String | - | 토큰 ID |
+| offset | Query | Integer| - | 응답 리스트의 오프셋, 기본값: 0|
+| limit | Query | Integer| - | 응답 리스트에 노출할 최대 갯수, 기본값: 10 |
 
 #### 응답
 
@@ -2257,6 +2267,10 @@ X-Auth-Token: {tokenId}
 | containers.secret_refs.secret_ref | Body | String | 시크릿 주소 |
 | containers.secret_refs.name | Body | String| 컨테이너가 지정한 시크릿 명칭<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates` 으로 name 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`으로 name 지정|
 | containers.type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나|
+| total | Body | Integer | 요청 쿼리의 시크릿 컨테이너의 총 갯수 |
+| next | Body | String | 현재 조회된 리스트의 다음 리스트 URL |
+| previous | Body | String | 현재 조회된 리스트의 이전 리스트 URL |
+
 
 
 <details><summary>예시</summary>
@@ -2264,7 +2278,9 @@ X-Auth-Token: {tokenId}
 
 ```json
 {
-  "total": 1,
+  "total": 10,
+  "previous": "https://key-manager-endpoint/v1/containers?limit=1&offset=0",
+  "next": "https://key-manager-endpoint/v1/containers?limit=1&offset=2",
   "containers": [
     {
       "status": "ACTIVE",

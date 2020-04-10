@@ -1,6 +1,7 @@
 ## Network > Load Balancer > API 가이드
 
 ## 로드밸런서
+
 ### 로드밸런서 목록 보기
 
 ```
@@ -50,8 +51,6 @@ X-Auth-Token: {tokenId}
 | loadbalancers.admin_state_up | Body | Boolean | 로드밸런서 관리자 제어 상태 |
 
 <details><summary>예시</summary>
-<p>
-
 ```json
 {
   "loadbalancers": [
@@ -84,8 +83,6 @@ X-Auth-Token: {tokenId}
   ]
 }
 ```
-
-</p>
 </details>
 
 
@@ -130,8 +127,6 @@ X-Auth-Token: {tokenId}
 
 
 <details><summary>예시</summary>
-<p>
-
 ```json
 {
   "loadbalancer": {
@@ -162,7 +157,6 @@ X-Auth-Token: {tokenId}
   }
 }
 ```
-</p>
 </details>
 
 ---
@@ -188,7 +182,6 @@ X-Auth-Token: {tokenId}
 
 
 <details><summary>예시</summary>
-<p>
 
 ```json
 {
@@ -202,7 +195,6 @@ X-Auth-Token: {tokenId}
     }
 }
 ```
-</p>
 </details>
 
 #### 응답
@@ -231,7 +223,6 @@ X-Auth-Token: {tokenId}
 
 
 <details><summary>예시</summary>
-<p>
 
 ```json
 {
@@ -263,7 +254,6 @@ X-Auth-Token: {tokenId}
   }
 }
 ```
-</p>
 </details>
 
 ---
@@ -286,7 +276,6 @@ X-Auth-Token: {tokenId}
 | loadbalancer.admin_state_up | Body | Boolean | - | 로드밸런서의 관리자 제어 상태 |
 
 <details><summary>예시</summary>
-<p>
 
 ```json
 {
@@ -297,7 +286,6 @@ X-Auth-Token: {tokenId}
     }
 }
 ```
-</p>
 </details>
 
 #### 응답
@@ -326,7 +314,6 @@ X-Auth-Token: {tokenId}
 
 
 <details><summary>예시</summary>
-<p>
 
 ```json
 {
@@ -358,7 +345,6 @@ X-Auth-Token: {tokenId}
   }
 }
 ```
-</p>
 </details>
 
 
@@ -1908,6 +1894,9 @@ X-Auth-Token: {tokenId}
 
 
 ## 시크릿
+
+시크릿 API는 key-manager 앤드포인트를 이용하여 호출합니다.
+
 ### 시크릿 목록 보기
 
 시크릿 목록을 반환합니다.
@@ -1935,22 +1924,22 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | secrets | Body | Array | 시크릿 객체 목록 |
-| secrets.secret_ref | Body | String | 시크릿 주소 |
+| secrets.secret_ref | Body | String | 시크릿 주소<br>`<barbican endpoint>/v1/secrets/<secret id>` 형식 |
 | secrets.secret_type | Body | Enum | 시크릿 타입 <br> `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque`중 하나 |
 | secrets.status | Body | String | 시크릿 상태 |
-| secrets.content_types | Body | Array | 시크릿을 페이로드를 제공하는 콘텐츠 타입 목록 |
+| secrets.content_types | Body | Array | 시크릿 페이로드의 콘텐츠 타입 목록 |
 | secrets.content_types.default | Body | String | 콘텐츠 타입 기본값 |
 | secrets.creator_id | Body | String | 시크릿을 생성한 사용자 ID |
 | secrets.mode | Body | String | 블록 암호 운용 방식. 사용자 입력 메타데이터 |
 | secrets.algorithm | Body | String | 암호화 알고리즘. 사용자 입력 메타데이터 |
 | secrets.bit_length | Body | Integer | 암호화 키 길이. 사용자 입력 메타데이터 |
 | secrets.expiration | Body | Datetime | 만료일. 사용자 입력 메타데이터 <br>`YYYY-MM-DDThh:mm:ss`<br> 만료일이 지난 시크릿은 자동으로 삭제 처리됨 |
-| secrets.name| Body | String | 시크릿 명 |
+| secrets.name| Body | String | 시크릿 이름 |
 | secrets.created | Body | Datetime | 생성시간 <br> `YYYY-MM-DDThh:mm:ss` |
 | secrets.updated | Body | Datetime | 수정시간 <br> `YYYY-MM-DDThh:mm:ss` |
-| total | Body | Integer | 요청 쿼리의 총 시크릿 갯수 |
-| next | Body | Integer | 현재 조회된 리스트의 다음 리스트 URL |
-| previous | Body | Integer | 현재 조회된 리스트의 이전 리스트 URL |
+| total | Body | Integer | 요청 쿼리의 총 시크릿 개수 |
+| next | Body | String | 현재 조회된 리스트의 다음 리스트 URL |
+| previous | Body | String | 현재 조회된 리스트의 이전 리스트 URL |
 
 <details><summary>예시</summary>
 <p>
@@ -2021,17 +2010,17 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | secret | Body | Object | 시크릿 객체 |
-| secret.secret_ref | Body | String | 시크릿 주소 |
+| secret.secret_ref | Body | String | 시크릿 주소<br>`<barbican endpoint>/v1/secrets/<secret id>` 형식 |
 | secret.secret_type | Body | Enum | 시크릿 타입 <br> `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque`중 하나 |
 | secret.status | Body | String | 시크릿 상태 |
-| secret.content_types | Body | Array | 시크릿의 페이로드를 제공하는 콘텐츠 타입 목록 |
+| secret.content_types | Body | Array | 시크릿 페이로드의 콘텐츠 타입 목록 |
 | secret.content_types.default | Body | String | 콘텐츠 타입 기본값 |
 | secret.creator_id | Body | String | 시크릿을 생성한 사용자 ID |
 | secret.mode | Body | String | 블록 암호 운용 방식. 사용자 입력 메타데이터 |
 | secret.algorithm | Body | String | 암호화 알고리즘. 사용자 입력 메타데이터 |
 | secret.bit_length | Body | Integer | 암호화 키 길이. 사용자 입력 메타데이터 |
 | secret.expiration | Body | Datetime | 만료일. 사용자 입력 메타데이터 <br>`YYYY-MM-DDThh:mm:ss`<br> 만료일이 지난 시크릿은 자동으로 삭제 처리됨 |
-| secret.name| Body | String | 시크릿 명 |
+| secret.name| Body | String | 시크릿 이름 |
 | secret.created | Body | Datetime | 생성시간 <br> `YYYY-MM-DDThh:mm:ss` |
 | secret.updated | Body | Datetime | 수정시간 <br> `YYYY-MM-DDThh:mm:ss` |
 
@@ -2040,7 +2029,7 @@ X-Auth-Token: {tokenId}
 
 ```json
 {
-  "status": "ACTIVE",       
+  "status": "ACTIVE",
   "secret_type": "certificate",
   "updated": "2019-12-17T08:50:39",
   "name": "certificate",
@@ -2072,7 +2061,7 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| name | Body | String | - | 시크릿 명 |
+| name | Body | String | - | 시크릿 이름 |
 | expiration | Body | Datetime | - | 만료일. ISO8601포맷으로 요청 |
 | algorithm | Body | String | - | 암호화 알고리즘 |
 | bit_length | Body | String | - | 암호화 키 길이|
@@ -2085,9 +2074,7 @@ X-Auth-Token: {tokenId}
 
 
 <details><summary>예시</summary>
-<p>
-
-- 1. 메타데이터만 생성
+메타데이터만 생성
 ```json
 {
     "name": "example key",
@@ -2098,7 +2085,7 @@ X-Auth-Token: {tokenId}
 }
 ```
 
-- 2. text로 페이로드 전송
+text로 페이로드 전송
 ```json
 {
     "name": "example key",
@@ -2111,7 +2098,7 @@ X-Auth-Token: {tokenId}
 }
 ```
 
-- 3. base64로 페이로드 전송
+base64로 페이로드 전송
 ```json
 {
     "name": "example key",
@@ -2124,13 +2111,12 @@ X-Auth-Token: {tokenId}
     "payload_content_encoding": "base64"
 }
 ```
-</p>
 </details>
 
 #### 응답
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| secret_ref | Body | String | 시크릿 주소 |
+| secret_ref | Body | String | 시크릿 주소<br>`<barbican endpoint>/v1/secrets/<secret id>` 형식 |
 
 <details><summary>예시</summary>
 <p>
@@ -2160,13 +2146,11 @@ Content-Type: {ConetentType}
 | secretId | URL | UUID | O | 시크릿 ID | 
 | ContentType| Header | Enum | O | `text/plain`, `application/octet-stream`, `application/pkcs8`, `application/pkix-cert`중 하나<br> 생략시 `text/plain` 으로 설정됨 |
 | payload | Body | String | O | 암호화 키 페이로드 |
-<details><summary>예시</summary>
-<p>
 
+<details><summary>예시</summary>
 ```
 example
 ```
-</p>
 </details>
 
 #### 응답
@@ -2231,6 +2215,9 @@ X-Auth-Token: {tokenId}
 
 
 ## 시크릿 컨테이너
+
+시크릿 컨테이너 API는 key-manager 앤드포인트를 이용하여 호출합니다.
+
 ### 시크릿 컨테이너 목록 보기
 
 시크릿 컨테이너 목록을 반환합니다.
@@ -2256,16 +2243,16 @@ X-Auth-Token: {tokenId}
 | containers | Body | Array | 컨테이너 객체 목록 |
 | containers.status | Body | String | 컨테이너 상태 |
 | containers.updated | Body | Datetime | 수정 시간 `YYYY-MM-DDThh:mm:ss` |
-| containers.name | Body | String | 컨테이너 명 |
+| containers.name | Body | String | 컨테이너 이름 |
 | containers.consumers | Body | Array | 컨슈머 목록 |
-| containers.consumers.URL | Body | Array | 컨슈머 목록 |
-| containers.consumers.name | Body | Array | 컨슈머 목록 |
+| containers.consumers.URL | Body | Array | 컨슈머 URL |
+| containers.consumers.name | Body | Array | 컨슈머 이름 |
 | containers.created | Body | Datetime | 생성 시간  `YYYY-MM-DDThh:mm:ss`|
 | containers.container_ref | Body | String | 컨테이너 주소 |
 | containers.creator_id | Body | String | 컨테이너를 생성한 사용자 ID |
 | containers.secret_refs | Body | Array | 시크릿 목록 |
 | containers.secret_refs.secret_ref | Body | String | 시크릿 주소 |
-| containers.secret_refs.name | Body | String| 컨테이너가 지정한 시크릿 명칭<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates` 으로 name 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`으로 name 지정|
+| containers.secret_refs.name | Body | String| 컨테이너가 지정한 시크릿 이름<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정|
 | containers.type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나|
 | total | Body | Integer | 요청 쿼리의 시크릿 컨테이너의 총 갯수 |
 | next | Body | String | 현재 조회된 리스트의 다음 리스트 URL |
@@ -2333,19 +2320,18 @@ X-Auth-Token: {tokenId}
 | updated | Body | Datetime | 수정 시간 `YYYY-MM-DDThh:mm:ss` |
 | name | Body | String | 컨테이너 명 |
 | consumers | Body | Array | 컨슈머 목록 |
-| consumers.URL | Body | Array | 컨슈머 목록 |
-| consumers.name | Body | Array | 컨슈머 목록 |
+| consumers.URL | Body | Array | 컨슈머 URL |
+| consumers.name | Body | Array | 컨슈머 이름 |
 | created | Body | Datetime | 생성 시간  `YYYY-MM-DDThh:mm:ss`|
 | container_ref | Body | String | 컨테이너 주소 |
 | creator_id | Body | String | 컨테이너를 생성한 사용자 ID |
 | secret_refs | Body | Array | 컨테이너에 등록한 시크릿 목록 |
 | secret_refs.secret_ref | Body | String | 시크릿 주소 |
-| secret_refs.name | Body | String| 컨테이너가 지정한 시크릿 명칭<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates` 으로 name 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`으로 name 지정|
+| secret_refs.name | Body | String| 컨테이너가 지정한 시크릿 이름<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정|
 | type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나|
 
 
 <details><summary>예시</summary>
-<p>
 
 ```json
 {
@@ -2369,7 +2355,6 @@ X-Auth-Token: {tokenId}
     "type": "certificate"
 }
 ```
-</p>
 </details>
 
 ---
@@ -2389,7 +2374,7 @@ X-Auth-Token: {tokenId}
 | name | Body | String | - | 토큰 ID |
 | secret_refs | Body | Array | - | 컨테이너에 등록할 시크릿 목록 |
 | secret_refs.secret_ref | Body | String | - | 시크릿 주소 |
-| secret_refs.name | Body | String | - | 컨테이너가 지정한 시크릿 명칭<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates` 으로 name 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`으로 name 지정|
+| secret_refs.name | Body | String| - | 컨테이너가 지정한 시크릿 이름<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정|
 
 
 <details><summary>예시</summary>

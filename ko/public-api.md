@@ -19,8 +19,6 @@ X-Auth-Token: {tokenId}
 | name | Query | String | - | 조회할 로드밸런서 이름 |
 | provisioning_status | Query | Enum | - | 조회할 로드밸런서의 프로비져닝 상태 |
 | description | Query | String | - | 조회할 로드밸런서의 설명 |
-| loadbalancer_type| Query | Enum | - | 조회할 로드밸런서의 타입<br> `shared`, `dedicated` 중 하나 |
-| workflow_status | Query | String | - | 조회할 로드밸런서의 작업상태 |
 | vip_address | Query | String | - | 조회할 로드밸런서의 IP |
 | vip_port_id | Query | UUID | - | 조회할 로드밸런서의 포트 ID |
 | vip_subnet_id | Query | UUID | - | 조회할 로드밸런서의 서브넷 ID |
@@ -31,21 +29,16 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | loadbalancers | Body | Array | 로드밸런서 정보 객체 목록 |
-| loadbalancers.ipacl_group_action | Body | Enum | 로드밸런서의 IP ACL 동작 방식<br>`DENY`, `ALLOW` 중 하나  |
 | loadbalancers.description | Body | String | 로드밸런서 설명 |
 | loadbalancers.provisioning_status | Body | Enum | 로드밸런서 프로비져닝 상태 |
 | loadbalancers.tenant_id | Body | String | 테넌트 ID |
 | loadbalancers.provider | Body | String | 로드밸런서 프로바이더 |
-| loadbalancers.ipacl_groups | Body | String | 로드밸런서에 적용된 IP ACL 그룹 객체 목록 |
-| loadbalancers.ipacl_groups.ipacl_group_id | Body | String | IP ACL 그룹 ID |
 | loadbalancers.name | Body | String | 로드밸런서 이름 |
-| loadbalancers.loadbalancer_type | Body | Enum | 로드밸런서 타입<br>- `shared`: 일반 LB<br>- `dedicated`: 전용 LB |
 | loadbalancers.listeners | Body | Object | 로드밸런서 리스너 객체 목록 |
 | loadbalancers.listeners.id | Body | UUID | 리스너 ID |
 | loadbalancers.vip_address | Body | String | 로드밸런서 IP |
 | loadbalancers.vip_port_id | Body | UUID | 로드밸런서 포트 ID |
 | loadbalancers.vip_subnet_id | Body | UUID | 로드밸런서 서브넷 ID |
-| loadbalancers.workflow_status | Body | String | 로드밸런서 작업 상태 |
 | loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | loadbalancers.operating_status | Body | String | 로드밸런서 운영 상태 |
 | loadbalancers.admin_state_up | Body | Boolean | 로드밸런서 관리자 제어 상태 |
@@ -106,21 +99,16 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | loadbalancer | Body | Object | 로드밸런서 정보 객체 |
-| loadbalancer.ipacl_group_action | Body | Enum | 로드밸런서의 IP ACL 동작 방식<br>`DENY`, `ALLOW` 중 하나  |
 | loadbalancer.description | Body | String | 로드밸런서 설명 |
 | loadbalancer.provisioning_status | Body | Enum | 로드밸런서 프로비져닝 상태 |
 | loadbalancer.tenant_id | Body | String | 테넌트 ID |
 | loadbalancer.provider | Body | String | 로드밸런서 프로바이더 |
-| loadbalancer.ipacl_groups | Body | String | 로드밸런서에 적용된 IP ACL 그룹 객체 목록 |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | String | IP ACL 그룹 ID |
 | loadbalancer.name | Body | String | 로드밸런서 이름 |
-| loadbalancer.loadbalancer_type | Body | Enum | 로드밸런서 타입<br>- `shared`: 일반 LB<br>- `dedicated`: 전용 LB |
 | loadbalancer.listeners | Body | Object | 로드밸런서 리스너 객체 목록 |
 | loadbalancer.listeners.id | Body | UUID | 리스너 ID |
 | loadbalancer.vip_address | Body | String | 로드밸런서 IP |
 | loadbalancer.vip_port_id | Body | UUID | 로드밸런서 포트 ID |
 | loadbalancer.vip_subnet_id | Body | UUID | 로드밸런서 서브넷 ID |
-| loadbalancer.workflow_status | Body | String | 로드밸런서 작업 상태 |
 | loadbalancer.id | Body | UUID | 로드밸런서 ID |
 | loadbalancer.operating_status | Body | String | 로드밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드밸런서 관리자 제어 상태 |
@@ -178,7 +166,6 @@ X-Auth-Token: {tokenId}
 | loadbalancer.vip_subnet_id | Body | UUID | O | 로드밸런서의 서브넷 ID |
 | loadbalancer.vip_address | Body | String | - |로드밸런서의 IP |
 | loadbalancer.admin_state_up | Body | Boolean | - |  로드밸런서 관리자 제어 상태. 생략하면 `true`로 설정됨.|
-| loadbalancer.loadbalancer_type | Body | Enum | - | 로드밸런서 타입. `shared` 또는 `dedicated`. 생략하면 `shared`로 설정됨.<br>- `shared`: 일반 LB<br>- `dedicated`: 전용 LB |
 
 
 <details><summary>예시</summary>
@@ -202,21 +189,16 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | loadbalancer | Body | Object | 로드밸런서 정보 객체 |
-| loadbalancer.ipacl_group_action | Body | Enum | 로드밸런서의 IP ACL 동작 방식<br>`DENY`, `ALLOW` 중 하나  |
 | loadbalancer.description | Body | String | 로드밸런서 설명 |
 | loadbalancer.provisioning_status | Body | Enum | 로드밸런서 프로비져닝 상태 |
 | loadbalancer.tenant_id | Body | String | 테넌트 ID |
 | loadbalancer.provider | Body | String | 로드밸런서 프로바이더 이름 |
-| loadbalancer.ipacl_groups | Body | String | 로드밸런서에 적용된 IP ACL 그룹 객체 목록 |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | String | IP ACL 그룹 ID |
 | loadbalancer.name | Body | String | 로드밸런서 이름 |
-| loadbalancer.loadbalancer_type | Body | Enum | 로드밸런서 타입<br>- `shared`: 일반 LB<br>- `dedicated`: 전용 LB |
 | loadbalancer.listeners | Body | Object | 로드밸런서 리스너 객체 목록 |
 | loadbalancer.listeners.id | Body | UUID | 리스너 ID |
 | loadbalancer.vip_address | Body | String | 로드밸런서 IP |
 | loadbalancer.vip_port_id | Body | UUID | 로드밸런서 포트 ID |
 | loadbalancer.vip_subnet_id | Body | UUID | 로드밸런서 서브넷 ID |
-| loadbalancer.workflow_status | Body | String | 로드밸런서 작업 상태 |
 | loadbalancer.id | Body | UUID | 로드밸런서 ID |
 | loadbalancer.operating_status | Body | String | 로드밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드밸런서 관리자 제어 상태 |
@@ -293,21 +275,16 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | loadbalancer | Body | Object | 로드밸런서 정보 객체 |
-| loadbalancer.ipacl_group_action | Body | Enum | 로드밸런서의 IP ACL 동작 방식<br>`DENY`, `ALLOW` 중 하나  |
 | loadbalancer.description | Body | String | 로드밸런서 설명 |
 | loadbalancer.provisioning_status | Body | Enum | 로드밸런서 프로비져닝 상태 |
 | loadbalancer.tenant_id | Body | String | 테넌트 ID |
 | loadbalancer.provider | Body | String | 로드밸런서 프로바이더 이름 |
-| loadbalancer.ipacl_groups | Body | String | 로드밸런서에 적용된 IP ACL 그룹 객체 목록 |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | String | IP ACL 그룹 ID |
 | loadbalancer.name | Body | String | 로드밸런서 이름 |
-| loadbalancer.loadbalancer_type | Body | Enum | 로드밸런서 타입<br>- `shared`: 일반 LB<br>- `dedicated`: 전용 LB |
 | loadbalancer.listeners | Body | Object | 로드밸런서 리스너 객체 목록 |
 | loadbalancer.listeners.id | Body | UUID | 리스너 ID |
 | loadbalancer.vip_address | Body | String | 로드밸런서 IP |
 | loadbalancer.vip_port_id | Body | UUID | 로드밸런서 포트 ID |
 | loadbalancer.vip_subnet_id | Body | UUID | 로드밸런서 서브넷 ID |
-| loadbalancer.workflow_status | Body | String | 로드밸런서 작업 상태 |
 | loadbalancer.id | Body | UUID | 로드밸런서 ID |
 | loadbalancer.operating_status | Body | String | 로드밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드밸런서 관리자 제어 상태 |
@@ -404,13 +381,11 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | default_pool_id | Query | UUID | - | 리스너에 등록된 풀 ID |
 | protocol | Query | Enum | - | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
-| proxy_protocol | Body | Boolean | - | 프록시 프로토콜 사용여부 |
 | description | Query | String | - | 리스너 설명  |
 | name | Query | String| - | 리스너 이름 |
 | admin_state_up | Query | String | - | 관리자 제어 상태 |
 | connection_limit | Query | Integer | - | 리스너의 connection limit |
 | keepalive_timeout | Query | Integer | - | 리스너의 keepalive timeout |
-| tls_version | Query | String | - | TERMINATED_HTTPS 프로토콜 사용시 사용할 TLS 버전 <br> 사용가능한 버전 목록: `TLSv1.2`, `TLSv1.1`, `TLSv1.0_2016`, `TLSv1.0`, `SSLv3` |
 | protocol_port | Query | Integer | - | 리스너 포트 |
 | id | Query | UUID | - | 리스너 ID |
 
@@ -420,7 +395,6 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | listeners | Body | Array | 로드밸런서 정보 객체 목록 |
-| listeners.proxy_protocol | Body | Boolean| 프록시 프로토콜 사용여부 <br> HTTPS 프로토콜에서만 사용 가능 |
 | listeners.default_pool_id | Body | UUID | 리스너에 등록된 풀 ID |
 | listeners.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나|
 | listeners.description | Body | String | 리스너 설명  |
@@ -431,14 +405,10 @@ X-Auth-Token: {tokenId}
 | listeners.admin_state_up | Body | String| 관리자 제어 상태 |
 | listeners.connection_limit | Body | Integer | 리스너의 connection limit |
 | listeners.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
-| listeners.tls_version | Body | String| TERMINATED_HTTPS 프로토콜 사용시 사용할 TLS 버전 <br> 사용가능한 버전 목록: `TLSv1.2`, `TLSv1.1`, `TLSv1.0_2016`, `TLSv1.0`, `SSLv3` |
-| listeners.default_tls_container_id | Body | String| (DEPRECATED) tls 인증서 경로 |
 | listeners.default_tls_container_ref | Body | String| tls 인증서 경로 |
-| listeners.sni_container_ids | Body | Array | (DEPRECATED) sni 인증서 경로 목록 |
 | listeners.sni_container_refs | Body | Array | sni 인증서 경로 목록 |
 | listeners.protocol_port | Body | Integer | 리스너 포트 |
 | listeners.id | Body | String| 리스너 ID |
-| listeners.cert_expire_date | Body | String | TERMINATED_HTTPS 사용시 등록된 인증서의 만료일 |
 
 
 <details><summary>예시</summary>
@@ -500,7 +470,6 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | listener | Body | Object | 로드밸런서 정보 객체 |
-| listener.proxy_protocol | Body | Boolean| 프록시 프로토콜 사용여부 <br> HTTPS 프로토콜에서만 사용 가능 |
 | listener.default_pool_id | Body | UUID | 리스너에 등록된 풀 ID |
 | listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나|
 | listener.description | Body | String | 리스너 설명  |
@@ -511,14 +480,10 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | String| 관리자 제어 상태 |
 | listener.connection_limit | Body | Integer | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
-| listener.tls_version | Body | String| TERMINATED_HTTPS 프로토콜 사용시 사용할 TLS 버전 <br> 사용가능한 버전 목록: `TLSv1.2`, `TLSv1.1`, `TLSv1.0_2016`, `TLSv1.0`, `SSLv3` |
-| listener.default_tls_container_id | Body | String| (DEPRECATED) tls 인증서 경로 |
 | listener.default_tls_container_ref | Body | String| tls 인증서 경로 |
-| listener.sni_container_ids | Body | Array | (DEPRECATED) sni 인증서 경로 목록 |
 | listener.sni_container_refs | Body | Array | sni 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
 | listener.id | Body | String| 리스너 ID |
-| listener.cert_expire_date | Body | String | TERMINATED_HTTPS 사용시 등록된 인증서의 만료일 |
 
 
 <details><summary>예시</summary>
@@ -573,14 +538,12 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | listener | Body | Object | O | 로드밸런서 정보 객체 |
 | listener.protocol | Body | Enum | O | 리스너 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나|
-| listener.proxy_protocol | Body | Boolean| - | 프록시 프로토콜 사용여부 <br>리스너 프로토콜이 HTTPS일 때 사용 가능 |
 | listener.description | Body | String | - | 리스너 설명  |
 | listener.name | Body | String| - |리스너 이름 |
 | listener.loadbalancer_id | Body | String | O | 로드밸런서 ID |
 | listener.admin_state_up | Body | String | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | - | 리스너의 keepalive timeout |
-| listener.tls_version | Body | String | - | TERMINATED_HTTPS 프로토콜 사용시 사용할 TLS 버전 <br> 사용가능한 버전 목록: `TLSv1.2`, `TLSv1.1`, `TLSv1.0_2016`, `TLSv1.0`, `SSLv3` |
 | listener.default_tls_container_ref | Body | String | - | key-manager에 등록된 tls 인증서 경로 |
 | listener.sni_container_refs | Body | Array | - | key-manager에 등록된  sni 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | O | 리스너 포트 |
@@ -615,7 +578,6 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | listener | Body | Object | 로드밸런서 정보 객체 |
-| listener.proxy_protocol | Body | Boolean| 프록시 프로토콜 사용여부 <br> 리스너 프로토콜이 HTTPS일 때 사용 가능 |
 | listener.default_pool_id | Body | UUID | 리스너에 등록된 풀 ID |
 | listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나|
 | listener.description | Body | String | 리스너 설명  |
@@ -626,14 +588,10 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | String| 관리자 제어 상태 |
 | listener.connection_limit | Body | Integer | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
-| listener.tls_version | Body | String| TERMINATED_HTTPS 프로토콜 사용시 사용할 TLS 버전 <br> 사용가능한 버전 목록: `TLSv1.2`, `TLSv1.1`, `TLSv1.0_2016`, `TLSv1.0`, `SSLv3` |
-| listener.default_tls_container_id | Body | String| (DEPRECATED) key-manager에 등록된  tls 인증서 경로 |
 | listener.default_tls_container_ref | Body | String| key-manager에 등록된 tls 인증서 경로 |
-| listener.sni_container_ids | Body | Array | (DEPRECATED) key-manager에 등록된  sni 인증서 경로 목록|
 | listener.sni_container_refs | Body | Array | key-manager에 등록된 sni 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
 | listener.id | Body | String| 리스너 ID |
-| listener.cert_expire_date | Body | String | TERMINATED_HTTPS 사용시 등록된 인증서의 만료일 |
 
 
 <details><summary>예시</summary>
@@ -657,7 +615,6 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
-    "tls_version": "TLSv1.0",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://key-manager-endpoint/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -685,13 +642,11 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | listenerId | URL | UUID | O | 리스너 ID |
 | listener | Body | Object | O | 로드밸런서 정보 객체  |
-| listener.proxy_protocol | Body | Boolean| - | 프록시 프로토콜 사용여부 <br> HTTPS 프로토콜에서만 사용 가능 |
 | listener.description | Body | String | - | 리스너 설명  |
 | listener.name | Body | String| - |리스너 이름 |
 | listener.admin_state_up | Body | String | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | - | 리스너의 keepalive timeout |
-| listener.tls_version | Body | String | - | TERMINATED_HTTPS 프로토콜 사용시 사용할 TLS 버전 <br> 사용가능한 버전 목록: `TLSv1.2`, `TLSv1.1`, `TLSv1.0_2016`, `TLSv1.0`, `SSLv3` |
 | listener.default_tls_container_ref | Body | String | - | key-manager에 등록된 tls 인증서 경로 |
 | listener.sni_container_refs | Body | Array | - | key-manager에 등록된  sni 인증서 경로 목록 |
 
@@ -721,7 +676,6 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | listener | Body | Object | 로드밸런서 정보 객체 |
-| listener.proxy_protocol | Body | Boolean| 프록시 프로토콜 사용여부 <br> HTTPS 프로토콜에서만 사용 가능 |
 | listener.default_pool_id | Body | UUID | 리스너에 등록된 풀 ID |
 | listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나|
 | listener.description | Body | String | 리스너 설명  |
@@ -732,14 +686,10 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | String| 관리자 제어 상태 |
 | listener.connection_limit | Body | Integer | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
-| listener.tls_version | Body | String| TERMINATED_HTTPS 프로토콜 사용시 사용할 TLS 버전 <br> 사용가능한 버전 목록: `TLSv1.2`, `TLSv1.1`, `TLSv1.0_2016`, `TLSv1.0`, `SSLv3` |
-| listener.default_tls_container_id | Body | String| (DEPRECATED) key-manager에 등록된  tls 인증서 경로 |
 | listener.default_tls_container_ref | Body | String| key-manager에 등록된 tls 인증서 경로 |
-| listener.sni_container_ids | Body | Array | (DEPRECATED) key-manager에 등록된  sni 인증서 경로 목록|
 | listener.sni_container_refs | Body | Array | key-manager에 등록된 sni 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
 | listener.id | Body | String| 리스너 ID |
-| listener.cert_expire_date | Body | String | TERMINATED_HTTPS 사용시 등록된 인증서의 만료일 |
 
 
 <details><summary>예시</summary>
@@ -1230,7 +1180,6 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | id | Query | String | - | 토큰 ID |
 | admin_state_up | Query | Booelan | - | 관리자 제어 상태 |
-| health_check_port | Query | Integer | - | 상태 확인 포트 <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용.|
 | delay | Query | Integer | - | 상태 확인 간격 (초) |
 | expected_codes | Query | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | max_retries | Query | Integer | - | 최대 재시도 횟수 |
@@ -1247,7 +1196,6 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|
 | healthmonitors | Body | Array | 헬스모니터 정보 객체 목록 |
 | healthmonitors.admin_state_up | Body | Booelan | 관리자 제어 상태 |
-| healthmonitors.health_check_port | Body | Integer | 상태 확인 포트 <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용.|
 | healthmonitors.delay | Body | Integer | 상태 확인 간격 (초) |
 | healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitors.max_retries | Body | Integer | 최대 재시도 횟수 |
@@ -1312,7 +1260,6 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|
 | healthmonitor | Body | Object | 헬스모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Booelan | 관리자 제어 상태 |
-| healthmonitor.health_check_port | Body | Integer | 상태 확인 포트 <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용.|
 | healthmonitor.delay | Body | Integer | 상태 확인 간격 (초) |
 | healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
@@ -1371,7 +1318,6 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | O | 헬스모니터 정보 객체 |
 | healthmonitor.pool_id | Body | UUID | O |  |
 | healthmonitor.admin_state_up | Body | Booelan | - | 관리자 제어 상태 |
-| healthmonitor.health_check_port | Body | Integer | - | 상태 확인 포트 <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용.|
 | healthmonitor.delay | Body | Integer | O | 상태 확인 간격 (초) |
 | healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.max_retries | Body | Integer | O | 최대 재시도 횟수 |
@@ -1411,7 +1357,6 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|
 | healthmonitor | Body | Object | 헬스모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Booelan | 관리자 제어 상태 |
-| healthmonitor.health_check_port | Body | Integer | 상태 확인 포트 <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용.|
 | healthmonitor.delay | Body | Integer | 상태 확인 간격 (초) |
 | healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
@@ -1468,7 +1413,6 @@ X-Auth-Token: {tokenId}
 | healthmonitorId | URL | UUID | O | 헬스모니터 ID |
 | healthmonitor | Body | Object | O | 헬스모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Booelan | - | 관리자 제어 상태 |
-| healthmonitor.health_check_port | Body |  Integer | - | 상태 확인 포트 <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용.|
 | healthmonitor.delay | Body | Integer | - | 상태 확인 간격 (초) |
 | healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.max_retries | Body | Integer | - | 최대 재시도 횟수 |
@@ -1502,7 +1446,6 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|
 | healthmonitor | Body | Object | 헬스모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Booelan | 관리자 제어 상태 |
-| healthmonitor.health_check_port | Body | Integer | 상태 확인 포트 <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용.|
 | healthmonitor.delay | Body | Integer | 상태 확인 간격 (초) |
 | healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |

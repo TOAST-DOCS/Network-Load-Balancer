@@ -2,12 +2,15 @@
 
 API를 사용하려면 API 엔드포인트와 토큰 등이 필요합니다. [API 사용 준비](/Compute/Compute/ko/identity-api/)를 참고하여 API 사용에 필요한 정보를 준비합니다.
 
-로드밸런서 API는 `network` 타입 엔드포인트를 이용합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
+로드밸런서, 리스너, 풀, 헬스모니터, 멤버 API는 `network` 타입 엔드포인트를 이용합니다. 시크릿, 시크릿 컨테이너 API는 `key-manager` 타입 앤드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
 | network | 한국(판교) 리전<br>한국(평촌) 리전<br>일본 리전 | https://kr1-api-network.infrastructure.cloud.toast.com<br>https://kr2-api-network.infrastructure.cloud.toast.com<br>https://jp1-api-network.infrastructure.cloud.toast.com |
+| key-manager | 한국(판교) 리전<br>한국(평촌) 리전<br>일본 리전 | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://kr2-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
+
+API 응답에 가이드에 명시되지 않은 필드가 노출될 수 있습니다. 이런 필드는 TOAST 내부 용도로 사용되며 사전 공지없이 변경될 수 있으므로 사용하지 않습니다.
 
 ## 로드밸런서
 
@@ -186,8 +189,7 @@ X-Auth-Token: {tokenId}
         "description": "",
         "vip_subnet_id": "dcb31578-1e16-407f-a117-a716795fabc4",
         "vip_address": "192.168.0.187",
-        "admin_state_up": true,
-        "loadbalancer_type": "shared",
+        "admin_state_up": true
     }
 }
 ```
@@ -432,7 +434,6 @@ X-Auth-Token: {tokenId}
       "protocol": "TERMINATED_HTTPS",
       "description": "",
       "name": "",
-      "default_tls_container_id": "https://key-manager-endpoint/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
       "loadbalancers": [
         {
           "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c"
@@ -444,7 +445,7 @@ X-Auth-Token: {tokenId}
       "keepalive_timeout": 300,
       "tls_version": "TLSv1.0",
       "sni_container_ids": [],
-      "default_tls_container_ref": "https://key-manager-endpoint/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+      "default_tls_container_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
       "sni_container_refs": [],
       "protocol_port": 443,
       "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -506,7 +507,6 @@ X-Auth-Token: {tokenId}
     "protocol": "TERMINATED_HTTPS",
     "description": "",
     "name": "",
-    "default_tls_container_id": "https://key-manager-endpoint/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "loadbalancers": [
       {
         "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c"
@@ -518,7 +518,7 @@ X-Auth-Token: {tokenId}
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://key-manager-endpoint/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -573,7 +573,7 @@ X-Auth-Token: {tokenId}
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
-    "default_tls_container_ref": "https://key-manager-endpoint/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443
   }
@@ -614,7 +614,6 @@ X-Auth-Token: {tokenId}
     "protocol": "TERMINATED_HTTPS",
     "description": "",
     "name": "",
-    "default_tls_container_id": "https://key-manager-endpoint/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "loadbalancers": [
       {
         "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c"
@@ -625,7 +624,7 @@ X-Auth-Token: {tokenId}
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://key-manager-endpoint/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -672,7 +671,7 @@ X-Auth-Token: {tokenId}
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
-    "default_tls_container_ref": "https://key-manager-endpoint/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
   }
 }
@@ -712,7 +711,6 @@ X-Auth-Token: {tokenId}
     "protocol": "TERMINATED_HTTPS",
     "description": "",
     "name": "",
-    "default_tls_container_id": "https://key-manager-endpoint/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "loadbalancers": [
       {
         "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c"
@@ -724,7 +722,7 @@ X-Auth-Token: {tokenId}
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://key-manager-endpoint/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -1847,7 +1845,14 @@ X-Auth-Token: {tokenId}
 
 ## 시크릿
 
-시크릿 API는 key-manager 앤드포인트를 이용하여 호출합니다.
+시크릿 API는 `key-manager` 타입 앤드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
+
+| 타입 | 리전 | 엔드포인트 |
+|---|---|---|
+| key-manager | 한국(판교) 리전<br>한국(평촌) 리전<br>일본 리전 | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://kr2-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
+
+API 응답에 가이드에 명시되지 않은 필드가 노출될 수 있습니다. 이런 필드는 TOAST 내부 용도로 사용되며 사전 공지없이 변경될 수 있으므로 사용하지 않습니다.
+
 
 ### 시크릿 목록 보기
 
@@ -1910,7 +1915,7 @@ X-Auth-Token: {tokenId}
       "expiration": null,
       "mode": null,
       "name": "certificate",
-      "secret_ref": "https://key-manager-endpoint/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+      "secret_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
       "secret_type": "certificate",
       "status": "ACTIVE",
       "updated": "2019-12-17T08:50:39"
@@ -1926,15 +1931,15 @@ X-Auth-Token: {tokenId}
       "expiration": null,
       "mode": null,
       "name": "private_key",
-      "secret_ref": "https://key-manager-endpoint/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+      "secret_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
       "secret_type": "private",
       "status": "ACTIVE",
       "updated": "2019-12-17T08:50:39"
     }
   ],
   "total": 10,
-  "next": "https://key-manager-endpoint/v1/secrets?limit=1&offset=2",
-  "previous": "https://key-manager-endpoint/v1/secrets?limit=1&offset=0"
+  "next": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/secrets?limit=1&offset=2",
+  "previous": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/secrets?limit=1&offset=0"
 }
 
 ```
@@ -1987,7 +1992,7 @@ X-Auth-Token: {tokenId}
   "name": "certificate",
   "algorithm": null,
   "created": "2019-12-17T08:50:39",
-  "secret_ref": "https://key-manager-endpoint/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+  "secret_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
   "content_types": {
     "default": "text/plain"
   },
@@ -2045,7 +2050,7 @@ text로 페이로드 전송
     "algorithm": "example-algorithm",
     "bit_length": 256,
     "mode": "example-mode",
-    "payload": "example",
+	"payload": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANQE .... nyxm\n-----END PRIVATE KEY-----\n"
     "payload_content_type": "text/plain"
 }
 ```
@@ -2075,7 +2080,7 @@ base64로 페이로드 전송
 
 ```json
 {
-    "secret_ref": "https://key-manager-endpoint/v1/secrets/9b2dcb7b-51fe-4408-a2bb-23da731758a6"
+    "secret_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/secrets/9b2dcb7b-51fe-4408-a2bb-23da731758a6"
 }
 ```
 </p>
@@ -2101,7 +2106,10 @@ Content-Type: {ConetentType}
 
 <details><summary>예시</summary>
 ```
-example
+{
+	"payload": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANQE .... nyxm\n-----END PRIVATE KEY-----\n"
+}
+
 ```
 </details>
 
@@ -2168,7 +2176,14 @@ X-Auth-Token: {tokenId}
 
 ## 시크릿 컨테이너
 
-시크릿 컨테이너 API는 key-manager 앤드포인트를 이용하여 호출합니다.
+시크릿 컨테이너 API는 `key-manager` 타입 앤드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
+
+| 타입 | 리전 | 엔드포인트 |
+|---|---|---|
+| key-manager | 한국(판교) 리전<br>한국(평촌) 리전<br>일본 리전 | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://kr2-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
+
+API 응답에 가이드에 명시되지 않은 필드가 노출될 수 있습니다. 이런 필드는 TOAST 내부 용도로 사용되며 사전 공지없이 변경될 수 있으므로 사용하지 않습니다.
+
 
 ### 시크릿 컨테이너 목록 보기
 
@@ -2218,8 +2233,8 @@ X-Auth-Token: {tokenId}
 ```json
 {
   "total": 10,
-  "previous": "https://key-manager-endpoint/v1/containers?limit=1&offset=0",
-  "next": "https://key-manager-endpoint/v1/containers?limit=1&offset=2",
+  "previous": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/containers?limit=1&offset=0",
+  "next": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/containers?limit=1&offset=2",
   "containers": [
     {
       "status": "ACTIVE",
@@ -2227,15 +2242,15 @@ X-Auth-Token: {tokenId}
       "name": "The Certificate",
       "consumers": [],
       "created": "2019-12-17T08:50:39",
-      "container_ref": "https://key-manager-endpoint/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
+      "container_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
       "creator_id": "1da4ce9f59ed4f6487c9be39fa792be4",
       "secret_refs": [
         {
-          "secret_ref": "https://key-manager-endpoint/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+          "secret_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
           "name": "certificate"
         },
         {
-          "secret_ref": "https://key-manager-endpoint/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+          "secret_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
           "name": "private_key"
         }
       ],
@@ -2292,15 +2307,15 @@ X-Auth-Token: {tokenId}
     "name": "The Certificate",
     "consumers": [],
     "created": "2019-12-17T08:50:39",
-    "container_ref": "https://key-manager-endpoint/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
+    "container_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
     "creator_id": "1da4ce9f59ed4f6487c9be39fa792be4",
     "secret_refs": [
         {
-            "secret_ref": "https://key-manager-endpoint/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+            "secret_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
             "name": "private_key"
         },
         {
-            "secret_ref": "https://key-manager-endpoint/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+            "secret_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
             "name": "certificate"
         }
     ],
@@ -2339,7 +2354,7 @@ X-Auth-Token: {tokenId}
     "secret_refs": [
         {
             "name": "private_key",
-            "secret_ref": "https://key-manager-endpoint/cf11edcf-f475-47f3-92c3-29de8bcdd639"
+            "secret_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/cf11edcf-f475-47f3-92c3-29de8bcdd639"
         }
     ]
 }
@@ -2357,7 +2372,7 @@ X-Auth-Token: {tokenId}
 
 ```json
 {
-    "container_ref": "https://key-manager-endpoint/v1/containers/ea2e90fc-1ba2-412b-b7a0-61da4402bf58"
+    "container_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/containers/ea2e90fc-1ba2-412b-b7a0-61da4402bf58"
 }
 ```
 </p>

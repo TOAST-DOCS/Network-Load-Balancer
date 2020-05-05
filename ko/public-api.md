@@ -34,7 +34,7 @@ X-Auth-Token: {tokenId}
 | vip_address | Query | String | - | 조회할 로드밸런서의 IP |
 | vip_port_id | Query | UUID | - | 조회할 로드밸런서의 포트 ID |
 | vip_subnet_id | Query | UUID | - | 조회할 로드밸런서의 서브넷 ID |
-| operating_status | Query | UUID | - | 조회할 로드밸런서의 운영 상태 |
+| operating_status | Query | Enum | - | 조회할 로드밸런서의 운영 상태 |
 
 #### 응답
 
@@ -52,7 +52,7 @@ X-Auth-Token: {tokenId}
 | loadbalancers.vip_port_id | Body | UUID | 로드밸런서 포트 ID |
 | loadbalancers.vip_subnet_id | Body | UUID | 로드밸런서 서브넷 ID |
 | loadbalancers.id | Body | UUID | 로드밸런서 ID |
-| loadbalancers.operating_status | Body | String | 로드밸런서 운영 상태 |
+| loadbalancers.operating_status | Body | Enum | 로드밸런서 운영 상태 |
 | loadbalancers.admin_state_up | Body | Boolean | 로드밸런서 관리자 제어 상태 |
 
 <details><summary>예시</summary>
@@ -122,7 +122,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.vip_port_id | Body | UUID | 로드밸런서 포트 ID |
 | loadbalancer.vip_subnet_id | Body | UUID | 로드밸런서 서브넷 ID |
 | loadbalancer.id | Body | UUID | 로드밸런서 ID |
-| loadbalancer.operating_status | Body | String | 로드밸런서 운영 상태 |
+| loadbalancer.operating_status | Body | Enum | 로드밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드밸런서 관리자 제어 상태 |
 
 
@@ -176,8 +176,8 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | - | 로드밸런서 이름 |
 | loadbalancer.description | Body | String | - | 로드밸런서 설명 |
 | loadbalancer.vip_subnet_id | Body | UUID | O | 로드밸런서의 서브넷 ID |
-| loadbalancer.vip_address | Body | String | - |로드밸런서의 IP |
-| loadbalancer.admin_state_up | Body | Boolean | - |  로드밸런서 관리자 제어 상태. 생략하면 `true`로 설정됨.|
+| loadbalancer.vip_address | Body | String | - | 로드밸런서의 IP |
+| loadbalancer.admin_state_up | Body | Boolean | - | 로드밸런서 관리자 제어 상태. 생략하면 `true`로 설정됨. |
 
 
 <details><summary>예시</summary>
@@ -211,7 +211,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.vip_port_id | Body | UUID | 로드밸런서 포트 ID |
 | loadbalancer.vip_subnet_id | Body | UUID | 로드밸런서 서브넷 ID |
 | loadbalancer.id | Body | UUID | 로드밸런서 ID |
-| loadbalancer.operating_status | Body | String | 로드밸런서 운영 상태 |
+| loadbalancer.operating_status | Body | Enum | 로드밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드밸런서 관리자 제어 상태 |
 
 
@@ -275,7 +275,7 @@ X-Auth-Token: {tokenId}
     "loadbalancer": {
         "name": "LB-1",
         "description": "",
-        "admin_state_up": true,
+        "admin_state_up": true
     }
 }
 ```
@@ -297,7 +297,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.vip_port_id | Body | UUID | 로드밸런서 포트 ID |
 | loadbalancer.vip_subnet_id | Body | UUID | 로드밸런서 서브넷 ID |
 | loadbalancer.id | Body | UUID | 로드밸런서 ID |
-| loadbalancer.operating_status | Body | String | 로드밸런서 운영 상태 |
+| loadbalancer.operating_status | Body | Enum | 로드밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드밸런서 관리자 제어 상태 |
 
 
@@ -392,12 +392,12 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | default_pool_id | Query | UUID | - | 리스너에 등록된 풀 ID |
 | protocol | Query | Enum | - | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
-| description | Query | String | - | 리스너 설명  |
-| name | Query | String| - | 리스너 이름 |
-| admin_state_up | Query | String | - | 관리자 제어 상태 |
+| description | Query | String | - | 리스너 설명 |
+| name | Query | String | - | 리스너 이름 |
+| admin_state_up | Query | Boolean | - | 관리자 제어 상태 |
 | connection_limit | Query | Integer | - | 리스너의 connection limit |
 | keepalive_timeout | Query | Integer | - | 리스너의 keepalive timeout |
-| protocol_port | Query | Integer | - | 리스너 포트 |
+| protocol_port | Query | Integer | - | 리스너 포트 번호 |
 | id | Query | UUID | - | 리스너 ID |
 
 
@@ -405,19 +405,19 @@ X-Auth-Token: {tokenId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| listeners | Body | Array | 로드밸런서 정보 객체 목록 |
+| listeners | Body | Array | 리스너 정보 객체 목록 |
 | listeners.default_pool_id | Body | UUID | 리스너에 등록된 풀 ID |
-| listeners.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나|
-| listeners.description | Body | String | 리스너 설명  |
-| listeners.name | Body | String| 리스너 이름 |
-| listeners.loadbalancers | Body | String| 리스너가 등록된 로드밸런서 객체 |
-| listeners.loadbalancers.id | Body | String| 로드밸런서 ID |
-| listeners.tenant_id | Body | String| 테넌트 ID |
-| listeners.admin_state_up | Body | String| 관리자 제어 상태 |
+| listeners.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listeners.description | Body | String | 리스너 설명 |
+| listeners.name | Body | String | 리스너 이름 |
+| listeners.loadbalancers | Body | Array | 리스너가 등록된 로드밸런서 객 목록 |
+| listeners.loadbalancers.id | Body | UUID | 로드밸런서 ID |
+| listeners.tenant_id | Body | String | 테넌트 ID |
+| listeners.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | listeners.connection_limit | Body | Integer | 리스너의 connection limit |
 | listeners.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
-| listeners.default_tls_container_ref | Body | String| tls 인증서 경로 |
-| listeners.sni_container_refs | Body | Array | sni 인증서 경로 목록 |
+| listeners.default_tls_container_ref | Body | String| key-manager에 등록된 tls 인증서 경로 |
+| listeners.sni_container_refs | Body | Array | key-manager에 등록된 sni 인증서 경로 목록 |
 | listeners.protocol_port | Body | Integer | 리스너 포트 |
 | listeners.id | Body | String| 리스너 ID |
 
@@ -479,21 +479,21 @@ X-Auth-Token: {tokenId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| listener | Body | Object | 로드밸런서 정보 객체 |
+| listener | Body | Object | 리스너 정보 객체 |
 | listener.default_pool_id | Body | UUID | 리스너에 등록된 풀 ID |
-| listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나|
-| listener.description | Body | String | 리스너 설명  |
-| listener.name | Body | String| 리스너 이름 |
-| listener.loadbalancers | Body | String| 리스너가 등록된 로드밸런서 객체 |
-| listener.loadbalancers.id | Body | String| 로드밸런서 ID |
-| listener.tenant_id | Body | String| 테넌트 ID |
-| listener.admin_state_up | Body | String| 관리자 제어 상태 |
+| listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listener.description | Body | String | 리스너 설명 |
+| listener.name | Body | String | 리스너 이름 |
+| listener.loadbalancers | Body | Array | 리스너가 등록된 로드밸런서 객체 목록 |
+| listener.loadbalancers.id | Body | UUID | 로드밸런서 ID |
+| listener.tenant_id | Body | String | 테넌트 ID |
+| listener.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | listener.connection_limit | Body | Integer | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
-| listener.default_tls_container_ref | Body | String| tls 인증서 경로 |
-| listener.sni_container_refs | Body | Array | sni 인증서 경로 목록 |
+| listener.default_tls_container_ref | Body | String| key-manager에 등록된 tls 인증서 경로 |
+| listener.sni_container_refs | Body | Array | key-manager에 등록된 sni 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
-| listener.id | Body | String| 리스너 ID |
+| listener.id | Body | UUID | 리스너 ID |
 
 
 <details><summary>예시</summary>
@@ -545,16 +545,16 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| listener | Body | Object | O | 로드밸런서 정보 객체 |
-| listener.protocol | Body | Enum | O | 리스너 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나|
-| listener.description | Body | String | - | 리스너 설명  |
-| listener.name | Body | String| - |리스너 이름 |
-| listener.loadbalancer_id | Body | String | O | 로드밸런서 ID |
-| listener.admin_state_up | Body | String | - | 관리자 제어 상태 |
+| listener | Body | Object | O | 리스너 정보 객체 |
+| listener.protocol | Body | Enum | O | 리스너 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listener.description | Body | String | - | 리스너 설명 |
+| listener.name | Body | String | - | 리스너 이름 |
+| listener.loadbalancer_id | Body | UUID | O | 로드밸런서 ID |
+| listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | - | 리스너의 keepalive timeout |
 | listener.default_tls_container_ref | Body | String | - | key-manager에 등록된 tls 인증서 경로 |
-| listener.sni_container_refs | Body | Array | - | key-manager에 등록된  sni 인증서 경로 목록 |
+| listener.sni_container_refs | Body | Array | - | key-manager에 등록된 sni 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | O | 리스너 포트 |
 
 
@@ -586,21 +586,21 @@ X-Auth-Token: {tokenId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| listener | Body | Object | 로드밸런서 정보 객체 |
+| listener | Body | Object | 리스너 정보 객체 |
 | listener.default_pool_id | Body | UUID | 리스너에 등록된 풀 ID |
-| listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나|
-| listener.description | Body | String | 리스너 설명  |
-| listener.name | Body | String| 리스너 이름 |
-| listener.loadbalancers | Body | String| 리스너가 등록된 로드밸런서 객체 |
-| listener.loadbalancers.id | Body | String| 로드밸런서 ID |
-| listener.tenant_id | Body | String| 테넌트 ID |
-| listener.admin_state_up | Body | String| 관리자 제어 상태 |
+| listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listener.description | Body | String | 리스너 설명 |
+| listener.name | Body | String | 리스너 이름 |
+| listener.loadbalancers | Body | Array | 리스너가 등록된 로드밸런서 객체 목록 |
+| listener.loadbalancers.id | Body | UUID | 로드밸런서 ID |
+| listener.tenant_id | Body | String | 테넌트 ID |
+| listener.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | listener.connection_limit | Body | Integer | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
-| listener.default_tls_container_ref | Body | String| key-manager에 등록된 tls 인증서 경로 |
+| listener.default_tls_container_ref | Body | String | key-manager에 등록된 tls 인증서 경로 |
 | listener.sni_container_refs | Body | Array | key-manager에 등록된 sni 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
-| listener.id | Body | String| 리스너 ID |
+| listener.id | Body | UUID | 리스너 ID |
 
 
 <details><summary>예시</summary>
@@ -649,14 +649,14 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | listenerId | URL | UUID | O | 리스너 ID |
-| listener | Body | Object | O | 로드밸런서 정보 객체  |
-| listener.description | Body | String | - | 리스너 설명  |
-| listener.name | Body | String| - |리스너 이름 |
-| listener.admin_state_up | Body | String | - | 관리자 제어 상태 |
+| listener | Body | Object | O | 리스너 정보 객체 |
+| listener.description | Body | String | - | 리스너 설명 |
+| listener.name | Body | String| - | 리스너 이름 |
+| listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | - | 리스너의 keepalive timeout |
 | listener.default_tls_container_ref | Body | String | - | key-manager에 등록된 tls 인증서 경로 |
-| listener.sni_container_refs | Body | Array | - | key-manager에 등록된  sni 인증서 경로 목록 |
+| listener.sni_container_refs | Body | Array | - | key-manager에 등록된 sni 인증서 경로 목록 |
 
 <details><summary>예시</summary>
 <p>
@@ -672,7 +672,7 @@ X-Auth-Token: {tokenId}
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
     "default_tls_container_ref": "https://kr1-api-key-manager.infrastructure.cloud.toast.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
-    "sni_container_refs": [],
+    "sni_container_refs": []
   }
 }
 ```
@@ -683,21 +683,21 @@ X-Auth-Token: {tokenId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| listener | Body | Object | 로드밸런서 정보 객체 |
+| listener | Body | Object | 리스너 정보 객체 |
 | listener.default_pool_id | Body | UUID | 리스너에 등록된 풀 ID |
-| listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나|
-| listener.description | Body | String | 리스너 설명  |
-| listener.name | Body | String| 리스너 이름 |
-| listener.loadbalancers | Body | String| 리스너가 등록된 로드밸런서 객체 |
-| listener.loadbalancers.id | Body | String| 로드밸런서 ID |
-| listener.tenant_id | Body | String| 테넌트 ID |
-| listener.admin_state_up | Body | String| 관리자 제어 상태 |
+| listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listener.description | Body | String | 리스너 설명 |
+| listener.name | Body | String | 리스너 이름 |
+| listener.loadbalancers | Body | Array | 리스너가 등록된 로드밸런서 객체 목록 |
+| listener.loadbalancers.id | Body | UUID | 로드밸런서 ID |
+| listener.tenant_id | Body | String | 테넌트 ID |
+| listener.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | listener.connection_limit | Body | Integer | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
-| listener.default_tls_container_ref | Body | String| key-manager에 등록된 tls 인증서 경로 |
+| listener.default_tls_container_ref | Body | String | key-manager에 등록된 tls 인증서 경로 |
 | listener.sni_container_refs | Body | Array | key-manager에 등록된 sni 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
-| listener.id | Body | String| 리스너 ID |
+| listener.id | Body | UUID | 리스너 ID |
 
 
 <details><summary>예시</summary>
@@ -781,12 +781,12 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| id | Query | String | - | 풀 ID |
+| id | Query | UUID | - | 풀 ID |
 | name | Query | String | - | 풀 이름 |
-| lb_algorithm | Query | String | - | 풀의 로드밸런싱 방식  |
-| protocol | Query | String | - | 멤버의 프로토콜 |
-| admin_state_up | Query | String | - | 관리자 제어 상태 |
-| healthmonitor_id | Query | String | - | 풀의 헬스모니터 ID |
+| lb_algorithm | Query | Enum | - | 풀의 로드밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
+| protocol | Query | Enum | - | 멤버의 프로토콜 |
+| admin_state_up | Query | Boolean | - | 관리자 제어 상태 |
+| healthmonitor_id | Query | UUID | - | 풀의 헬스모니터 ID |
 
 #### 응답
 
@@ -794,19 +794,19 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|
 | pools | Body | Array | 풀 정보 객체 목록 |
 | pools.lb_algorithm | Body | Enum | 풀의 로드밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
-| pools.protocol | Body | String | 멤버의 프로토콜 |
+| pools.protocol | Body | Enum | 멤버의 프로토콜 |
 | pools.description | Body | String | 풀 설명 |
 | pools.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pools.tenant_id | Body | String | 테넌트 ID |
 | pools.session_persistence | Body | Object | 풀의 세션지속성 객체 |
 | pools.session_persistence.type | Body | Enum | 세션지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
-| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다.|
+| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다. |
 | pools.healthmonitor_id | Body | String | 헬스모니터 ID |
-| pools.listeners | Body | Array | 풀이 등록된 리스너 객체 |
-| pools.listeners.id | Body | String | 리스서 ID |
+| pools.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
+| pools.listeners.id | Body | String | 리스너 ID |
 | pools.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
 | pools.members.id | Body | String | 멤버 ID |
-| pools.id | Body | String | 풀 ID |
+| pools.id | Body | UUID | 풀 ID |
 | pools.name | Body | String | 풀 이름 |
 
 <details><summary>예시</summary>
@@ -868,20 +868,20 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|
 | pool | Body | Object | 풀 정보 객체 |
 | pool.lb_algorithm | Body | Enum | 풀의 로드밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
-| pool.protocol | Body | String | 멤버의 프로토콜 |
+| pool.protocol | Body | Enum | 멤버의 프로토콜 |
 | pool.description | Body | String | 풀 설명 |
 | pool.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pool.tenant_id | Body | String | 테넌트 ID |
-| pool.member_port | Body | String | 멤버의 Port<br> 웹콘솔에서 멤버를 생성할 경우 지정되는 멤버의 포트 값|
+| pool.member_port | Body | Integer | 멤버의 Port<br> 웹콘솔에서 멤버를 생성할 경우 지정되는 멤버의 포트 값 |
 | pools.session_persistence | Body | Object | 풀의 세션지속성 객체 |
 | pools.session_persistence.type | Body | Enum | 세션지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
-| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다.|
-| pool.healthmonitor_id | Body | String | 헬스모니터 ID |
-| pool.listeners | Body | Array | 풀이 등록된 리스너 객체 |
-| pool.listeners.id | Body | String | 리스서 ID |
+| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다. |
+| pool.healthmonitor_id | Body | UUID | 헬스모니터 ID |
+| pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
+| pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
-| pool.members.id | Body | String | 멤버 ID |
-| pool.id | Body | String | 풀 ID |
+| pool.members.id | Body | UUID | 멤버 ID |
+| pool.id | Body | UUID | 풀 ID |
 | pool.name | Body | String | 풀 이름 |
 
 <details><summary>예시</summary>
@@ -938,9 +938,9 @@ X-Auth-Token: {tokenId}
 | pool | Body | Object | O | 풀 정보 객체 |
 | pool.listener_id | Body | UUID | O | 풀이 등록될 리스너 ID |
 | pool.lb_algorithm | Body | Enum | O | 풀의 로드밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
-| pool.protocol | Body | String | O |멤버의 프로토콜 |
-| pool.description | Body | String | - |  풀 설명 |
-| pool.admin_state_up | Body | Booean | - | 관리자 제어 상태 |
+| pool.protocol | Body | Enum | O | 멤버의 프로토콜 |
+| pool.description | Body | String | - | 풀 설명 |
+| pool.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | pools.session_persistence | Body | Object | - | 풀의 세션지속성 객체 |
 | pools.session_persistence.type | Body | Enum | - | 세션지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
 | pools.session_persistence.cookie_name | Body | String | - | 쿠키 이름 <br>세션지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다.|
@@ -974,17 +974,17 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|
 | pool | Body | Object | 풀 정보 객체 |
 | pool.lb_algorithm | Body | Enum | 풀의 로드밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
-| pool.protocol | Body | String | 멤버의 프로토콜 |
+| pool.protocol | Body | Enum | 멤버의 프로토콜 |
 | pool.description | Body | String | 풀 설명 |
 | pool.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pool.tenant_id | Body | String | 테넌트 ID |
 | pool.session_persistence | Body | Enum | 세션지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없으며, PROTOCOL에 따라 사용할 수 있는 다릅니다. |
 | pool.healthmonitor_id | Body | String | 헬스모니터 ID |
-| pool.listeners | Body | Array | 풀이 등록된 리스너 객체 |
-| pool.listeners.id | Body | String | 리스서 ID |
+| pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
+| pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
-| pool.members.id | Body | String | 멤버 ID |
-| pool.id | Body | String | 풀 ID |
+| pool.members.id | Body | UUID | 멤버 ID |
+| pool.id | Body | UUID | 풀 ID |
 | pool.name | Body | String | 풀 이름 |
 
 <details><summary>예시</summary>
@@ -1041,10 +1041,10 @@ X-Auth-Token: {tokenId}
 | pool | Body | Object | O | 풀 정보 객체 |
 | pool.lb_algorithm | Body | Enum | O | 풀의 로드밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
 | pool.description | Body | String | - |  풀 설명 |
-| pool.admin_state_up | Body | Booean | - | 관리자 제어 상태 |
-| pools.session_persistence | Body | Object | - |풀의 세션지속성 객체 |
-| pools.session_persistence.type | Body | Enum | - |세션지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
-| pools.session_persistence.cookie_name | Body | String | - | 쿠키 이름 <br>세션지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다.|
+| pool.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
+| pools.session_persistence | Body | Object | - | 풀의 세션지속성 객체 |
+| pools.session_persistence.type | Body | Enum | - | 세션지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
+| pools.session_persistence.cookie_name | Body | String | - | 쿠키 이름 <br>세션지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다. |
 | pool.name | Body | String | - | 풀 이름 |
 
 
@@ -1073,19 +1073,19 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|
 | pool | Body | Object | 풀 정보 객체 |
 | pool.lb_algorithm | Body | Enum | 풀의 로드밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
-| pool.protocol | Body | String | 멤버의 프로토콜 |
+| pool.protocol | Body | Enum | 멤버의 프로토콜 |
 | pool.description | Body | String | 풀 설명 |
 | pool.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pool.tenant_id | Body | String | 테넌트 ID |
 | pools.session_persistence | Body | Object | 풀의 세션지속성 객체 |
 | pools.session_persistence.type | Body | Enum | 세션지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
-| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다.|
-| pool.healthmonitor_id | Body | String | 헬스모니터 ID |
-| pool.listeners | Body | Array | 풀이 등록된 리스너 객체 |
-| pool.listeners.id | Body | String | 리스서 ID |
+| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다. |
+| pool.healthmonitor_id | Body | UUID | 헬스모니터 ID |
+| pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
+| pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
-| pool.members.id | Body | String | 멤버 ID |
-| pool.id | Body | String | 풀 ID |
+| pool.members.id | Body | UUID | 멤버 ID |
+| pool.id | Body | UUID | 풀 ID |
 | pool.name | Body | String | 풀 이름 |
 
 <details><summary>예시</summary>
@@ -1185,12 +1185,12 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| id | Query | String | - | 토큰 ID |
-| admin_state_up | Query | Booelan | - | 관리자 제어 상태 |
+| id | Query | UUID | - | 헬스모니터 ID |
+| admin_state_up | Query | Boolean | - | 관리자 제어 상태 |
 | delay | Query | Integer | - | 상태 확인 간격 (초) |
 | expected_codes | Query | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | max_retries | Query | Integer | - | 최대 재시도 횟수 |
-| http_method | Query | String | - | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
+| http_method | Query | Enum | - | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | timeout | Query | Integer | - | 상태 확인 응답 대기 시간 (초) |
 | url_path | Query | String | - | 상태 확인 요청 URL<br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | type | Query | Enum | - | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
@@ -1202,14 +1202,14 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | healthmonitors | Body | Array | 헬스모니터 정보 객체 목록 |
-| healthmonitors.admin_state_up | Body | Booelan | 관리자 제어 상태 |
+| healthmonitors.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitors.delay | Body | Integer | 상태 확인 간격 (초) |
 | healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitors.max_retries | Body | Integer | 최대 재시도 횟수 |
-| healthmonitors.http_method | Body | String | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
+| healthmonitors.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitors.timeout | Body | Integer | 상태 확인 응답 대기 시간 (초) |
-| healthmonitors.pools | Body | Array | 헬스모니터가 연결된 풀 객체 |
-| healthmonitors.pools.id | Body | String | 풀 ID |
+| healthmonitors.pools | Body | Array | 헬스모니터가 연결된 풀 객체 목록 |
+| healthmonitors.pools.id | Body | UUID | 풀 ID |
 | healthmonitors.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitors.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 | healthmonitors.id | Body | UUID | 헬스모니터 ID |
@@ -1266,17 +1266,17 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | healthmonitor | Body | Object | 헬스모니터 정보 객체 |
-| healthmonitor.admin_state_up | Body | Booelan | 관리자 제어 상태 |
+| healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | 상태 확인 간격 (초) |
 | healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | String | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
+| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.timeout | Body | Integer | 상태 확인 응답 대기 시간 (초) |
-| healthmonitor.pools | Body | Array | 헬스모니터가 연결된 풀 객체 |
-| healthmonitor.pools.id | Body | String | 풀 ID |
+| healthmonitor.pools | Body | Array | 헬스모니터가 연결된 풀 객체 목록 |
+| healthmonitor.pools.id | Body | UUID | 풀 ID |
 | healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
-| healthmonitor.id | Body | UUID |  헬스모니터 ID |
+| healthmonitor.id | Body | UUID | 헬스모니터 ID |
 
 
 <details><summary>예시</summary>
@@ -1323,14 +1323,14 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | healthmonitor | Body | Object | O | 헬스모니터 정보 객체 |
-| healthmonitor.pool_id | Body | UUID | O |  |
-| healthmonitor.admin_state_up | Body | Booelan | - | 관리자 제어 상태 |
+| healthmonitor.pool_id | Body | UUID | O | 헬스모니터가 연결될 풀 ID |
+| healthmonitor.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | O | 상태 확인 간격 (초) |
 | healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.max_retries | Body | Integer | O | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | String | - | 상태 확인에 사용할 HTTP Method. 생략하면 `GET`이 사용됨. <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
+| healthmonitor.http_method | Body | Enum | - | 상태 확인에 사용할 HTTP Method. 생략하면 `GET`이 사용됨. <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.timeout | Body | Integer | O | 상태 확인 응답 대기 시간 (초) |
-| healthmonitor.url_path | Body | String | - |상태 확인 요청 URL. 생략하면 `/`가 설정됨. <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
+| healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL. 생략하면 `/`가 설정됨. <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.type | Body | Enum  | O | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 
 
@@ -1363,17 +1363,17 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | healthmonitor | Body | Object | 헬스모니터 정보 객체 |
-| healthmonitor.admin_state_up | Body | Booelan | 관리자 제어 상태 |
+| healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | 상태 확인 간격 (초) |
 | healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | String | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
+| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.timeout | Body | Integer | 상태 확인 응답 대기 시간 (초) |
-| healthmonitor.pools | Body | Array | 헬스모니터가 연결된 풀 객체 |
-| healthmonitor.pools.id | Body | String | 풀 ID |
+| healthmonitor.pools | Body | Array | 헬스모니터가 연결된 풀 객체 목록 |
+| healthmonitor.pools.id | Body | UUID | 풀 ID |
 | healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
-| healthmonitor.type | Body | Enum  | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
-| healthmonitor.id | Body | UUID |  헬스모니터 ID |
+| healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
+| healthmonitor.id | Body | UUID | 헬스모니터 ID |
 
 
 <details><summary>예시</summary>
@@ -1419,13 +1419,13 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | healthmonitorId | URL | UUID | O | 헬스모니터 ID |
 | healthmonitor | Body | Object | O | 헬스모니터 정보 객체 |
-| healthmonitor.admin_state_up | Body | Booelan | - | 관리자 제어 상태 |
+| healthmonitor.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | - | 상태 확인 간격 (초) |
 | healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.max_retries | Body | Integer | - | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | String | - | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
+| healthmonitor.http_method | Body | Enum | - | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.timeout | Body | Integer | - | 상태 확인 응답 대기 시간 (초) |
-| healthmonitor.url_path | Body | String | - |상태 확인 요청 URL<br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
+| healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL<br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 
 <details><summary>예시</summary>
 <p>
@@ -1452,17 +1452,17 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | healthmonitor | Body | Object | 헬스모니터 정보 객체 |
-| healthmonitor.admin_state_up | Body | Booelan | 관리자 제어 상태 |
+| healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | 상태 확인 간격 (초) |
 | healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | String | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
+| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.timeout | Body | Integer | 상태 확인 응답 대기 시간 (초) |
-| healthmonitor.pools | Body | Array | 헬스모니터가 연결된 풀 객체 |
-| healthmonitor.pools.id | Body | String | 풀 ID |
+| healthmonitor.pools | Body | Array | 헬스모니터가 연결된 풀 객체 목록 |
+| healthmonitor.pools.id | Body | UUID | 풀 ID |
 | healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
-| healthmonitor.type | Body | Enum  | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
-| healthmonitor.id | Body | UUID |  헬스모니터 ID |
+| healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
+| healthmonitor.id | Body | UUID | 헬스모니터 ID |
 
 
 <details><summary>예시</summary>
@@ -1556,15 +1556,15 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| poolId | URL | String | O | 멤버가 속한 Pool ID |
+| poolId | URL | UUID | O | 멤버가 속한 Pool ID |
 | id | Query | UUID | - | 멤버 ID |
 | weight | Query | Integer | - | 멤버 가중치 |
 | admin_state_up | Query | Boolean | - | 관리자 제어 상태 |
 | subnet_id | Query | UUID | - | 멤버의 서브넷 ID |
 | tenant_id | Query | String | - | 테넌트 ID |
 | address | Query | String | - | 멤버의 IP 주소 |
-| protocol_port | Query | String | - | 멤버의 포트 |
-| operating_status | Query | String | - | 멤버의 운영 상태 |
+| protocol_port | Query | Integer | - | 멤버의 포트 |
+| operating_status | Query | Enum | - | 멤버의 운영 상태 |
 
 
 #### 응답
@@ -1577,9 +1577,9 @@ X-Auth-Token: {tokenId}
 | members.subnet_id | Body | UUID | 멤버의 서브넷 ID |
 | members.tenant_id | Body | String | 테넌트 ID |
 | members.address | Body | String | 멤버의 IP 주소 |
-| members.protocol_port | Body | String | 멤버의 포트 |
+| members.protocol_port | Body | Integer | 멤버의 포트 |
 | members.id | Body | UUID | 멤버 ID |
-| members.operating_status | Body | String | 멤버의 운영 상태 |
+| members.operating_status | Body | Enum | 멤버의 운영 상태 |
 
 <details><summary>예시</summary>
 <p>
@@ -1618,8 +1618,8 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| poolId | URL | String | O | 멤버가 속한 Pool ID |
-| memberId | URL | String | O | 멤버 ID |
+| poolId | URL | UUID | O | 멤버가 속한 Pool ID |
+| memberId | URL | UUID | O | 멤버 ID |
 
 #### 응답
 
@@ -1631,9 +1631,9 @@ X-Auth-Token: {tokenId}
 | member.subnet_id | Body | UUID | 멤버의 서브넷 ID |
 | member.tenant_id | Body | String | 테넌트 ID |
 | member.address | Body | String | 멤버의 IP 주소 |
-| member.protocol_port | Body | String | 멤버의 포트 |
+| member.protocol_port | Body | Integer | 멤버의 포트 |
 | member.id | Body | UUID | 멤버 ID |
-| member.operating_status | Body | String | 멤버의 운영 상태 |
+| member.operating_status | Body | Enum | 멤버의 운영 상태 |
 
 <details><summary>예시</summary>
 <p>
@@ -1669,13 +1669,13 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| poolId | URL | String | O | 멤버가 속한 Pool ID |
+| poolId | URL | UUID | O | 멤버가 속한 Pool ID |
 | member | Body | Object | O | 멤버 정보 객체 |
 | member.weight | Body | Integer | - | 멤버 가중치 |
 | member.admin_state_up | Body | Boolean | -| 관리자 제어 상태 |
 | member.subnet_id | Body | UUID | O | 멤버의 서브넷 ID |
 | member.address | Body | String | O | 멤버의 IP 주소 |
-| member.protocol_port | Body | String | O | 멤버의 포트 |
+| member.protocol_port | Body | Integer | O | 멤버의 포트 |
 
 
 <details><summary>예시</summary>
@@ -1705,9 +1705,9 @@ X-Auth-Token: {tokenId}
 | member.subnet_id | Body | UUID | 멤버의 서브넷 ID |
 | member.tenant_id | Body | String | 테넌트 ID |
 | member.address | Body | String | 멤버의 IP 주소 |
-| member.protocol_port | Body | String | 멤버의 포트 |
-| member.id | Body | String | 멤버 ID |
-| member.operating_status | Body | String | 멤버의 운영 상태 |
+| member.protocol_port | Body | Integer | 멤버의 포트 |
+| member.id | Body | UUID | 멤버 ID |
+| member.operating_status | Body | Enum | 멤버의 운영 상태 |
 
 <details><summary>예시</summary>
 <p>
@@ -1743,8 +1743,8 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| poolId | URL | String | O | 멤버가 속한 Pool ID |
-| memberId | URL | String | O | 멤버 ID |
+| poolId | URL | UUID | O | 멤버가 속한 Pool ID |
+| memberId | URL | UUID | O | 멤버 ID |
 | member | Body | Object | O | 멤버 정보 객체 |
 | member.weight | Body | Integer | - | 멤버 가중치 |
 | member.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
@@ -1773,9 +1773,9 @@ X-Auth-Token: {tokenId}
 | member.subnet_id | Body | UUID | 멤버의 서브넷 ID |
 | member.tenant_id | Body | String | 테넌트 ID |
 | member.address | Body | String | 멤버의 IP 주소 |
-| member.protocol_port | Body | String | 멤버의 포트 |
+| member.protocol_port | Body | Integer | 멤버의 포트 |
 | member.id | Body | UUID | 멤버 ID |
-| member.operating_status | Body | String | 멤버의 운영 상태 |
+| member.operating_status | Body | Enum | 멤버의 운영 상태 |
 
 <details><summary>예시</summary>
 <p>
@@ -1812,8 +1812,8 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| poolId | URL | String | O | 멤버가 속한 Pool ID |
-| memberId | URL | String | O | 멤버 ID |
+| poolId | URL | UUID | O | 멤버가 속한 Pool ID |
+| memberId | URL | UUID | O | 멤버 ID |
 
 #### 응답
 
@@ -1869,10 +1869,10 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| offset | Query | Integer| - | 응답 리스트의 오프셋, 기본값: 0|
+| offset | Query | Integer | - | 응답 리스트의 오프셋, 기본값: 0|
 | limit | Query | Integer| - | 응답 리스트에 노출할 최대 갯수, 기본값: 10 |
-| name | Query | String| - | 시크릿 명 |
-| alg | Query | String| - | 시크릿 알고리즘 |
+| name | Query | String | - | 시크릿 명 |
+| alg | Query | String | - | 시크릿 알고리즘 |
 | mode | Query | String| - | 블록 암호 운용 방식 |
 | bits | Query | Integer| - | 암호화 키 길이 |
 
@@ -1883,7 +1883,7 @@ X-Auth-Token: {tokenId}
 | secrets | Body | Array | 시크릿 객체 목록 |
 | secrets.secret_ref | Body | String | 시크릿 주소<br>`<barbican endpoint>/v1/secrets/<secret id>` 형식 |
 | secrets.secret_type | Body | Enum | 시크릿 타입 <br> `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque`중 하나 |
-| secrets.status | Body | String | 시크릿 상태 |
+| secrets.status | Body | Enum | 시크릿 상태 |
 | secrets.content_types | Body | Array | 시크릿 페이로드의 콘텐츠 타입 목록 |
 | secrets.content_types.default | Body | String | 콘텐츠 타입 기본값 |
 | secrets.creator_id | Body | String | 시크릿을 생성한 사용자 ID |
@@ -1969,7 +1969,7 @@ X-Auth-Token: {tokenId}
 | secret | Body | Object | 시크릿 객체 |
 | secret.secret_ref | Body | String | 시크릿 주소<br>`<barbican endpoint>/v1/secrets/<secret id>` 형식 |
 | secret.secret_type | Body | Enum | 시크릿 타입 <br> `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque`중 하나 |
-| secret.status | Body | String | 시크릿 상태 |
+| secret.status | Body | Enum | 시크릿 상태 |
 | secret.content_types | Body | Array | 시크릿 페이로드의 콘텐츠 타입 목록 |
 | secret.content_types.default | Body | String | 콘텐츠 타입 기본값 |
 | secret.creator_id | Body | String | 시크릿을 생성한 사용자 ID |
@@ -2050,7 +2050,7 @@ text로 페이로드 전송
     "algorithm": "example-algorithm",
     "bit_length": 256,
     "mode": "example-mode",
-	"payload": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANQE .... nyxm\n-----END PRIVATE KEY-----\n"
+	"payload": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANQE .... nyxm\n-----END PRIVATE KEY-----\n",
     "payload_content_type": "text/plain"
 }
 ```
@@ -2109,7 +2109,6 @@ Content-Type: {ConetentType}
 {
 	"payload": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANQE .... nyxm\n-----END PRIVATE KEY-----\n"
 }
-
 ```
 </details>
 
@@ -2200,26 +2199,26 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| offset | Query | Integer| - | 응답 리스트의 오프셋, 기본값: 0|
-| limit | Query | Integer| - | 응답 리스트에 노출할 최대 갯수, 기본값: 10 |
+| offset | Query | Integer | - | 응답 리스트의 오프셋, 기본값: 0|
+| limit | Query | Integer | - | 응답 리스트에 노출할 최대 갯수, 기본값: 10 |
 
 #### 응답
 
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | containers | Body | Array | 컨테이너 객체 목록 |
-| containers.status | Body | String | 컨테이너 상태 |
+| containers.status | Body | Enum | 컨테이너 상태 |
 | containers.updated | Body | Datetime | 수정 시간 `YYYY-MM-DDThh:mm:ss` |
 | containers.name | Body | String | 컨테이너 이름 |
 | containers.consumers | Body | Array | 컨슈머 목록 |
-| containers.consumers.URL | Body | Array | 컨슈머 URL |
-| containers.consumers.name | Body | Array | 컨슈머 이름 |
+| containers.consumers.URL | Body | String | 컨슈머 URL |
+| containers.consumers.name | Body | String | 컨슈머 이름 |
 | containers.created | Body | Datetime | 생성 시간  `YYYY-MM-DDThh:mm:ss`|
 | containers.container_ref | Body | String | 컨테이너 주소 |
 | containers.creator_id | Body | String | 컨테이너를 생성한 사용자 ID |
 | containers.secret_refs | Body | Array | 시크릿 목록 |
 | containers.secret_refs.secret_ref | Body | String | 시크릿 주소 |
-| containers.secret_refs.name | Body | String| 컨테이너가 지정한 시크릿 이름<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정|
+| containers.secret_refs.name | Body | String | 컨테이너가 지정한 시크릿 이름<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정 |
 | containers.type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나|
 | total | Body | Integer | 요청 쿼리의 시크릿 컨테이너의 총 갯수 |
 | next | Body | String | 현재 조회된 리스트의 다음 리스트 URL |
@@ -2278,24 +2277,24 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| containerId | URL | String | O | 시크릿 컨테이너 ID |
+| containerId | URL | UUID | O | 시크릿 컨테이너 ID |
 
 #### 응답
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| status | Body | String | 컨테이너 상태 |
+| status | Body | Enum | 컨테이너 상태 |
 | updated | Body | Datetime | 수정 시간 `YYYY-MM-DDThh:mm:ss` |
 | name | Body | String | 컨테이너 명 |
 | consumers | Body | Array | 컨슈머 목록 |
-| consumers.URL | Body | Array | 컨슈머 URL |
-| consumers.name | Body | Array | 컨슈머 이름 |
+| consumers.URL | Body | String | 컨슈머 URL |
+| consumers.name | Body | String | 컨슈머 이름 |
 | created | Body | Datetime | 생성 시간  `YYYY-MM-DDThh:mm:ss`|
 | container_ref | Body | String | 컨테이너 주소 |
 | creator_id | Body | String | 컨테이너를 생성한 사용자 ID |
 | secret_refs | Body | Array | 컨테이너에 등록한 시크릿 목록 |
 | secret_refs.secret_ref | Body | String | 시크릿 주소 |
-| secret_refs.name | Body | String| 컨테이너가 지정한 시크릿 이름<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정|
-| type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나|
+| secret_refs.name | Body | String| 컨테이너가 지정한 시크릿 이름<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정 |
+| type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -2337,11 +2336,11 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| type | Body | String | O | 토큰 ID |
-| name | Body | String | - | 토큰 ID |
+| type | Body | Enum | O | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나 |
+| name | Body | String | - | 컨테이너 이름 |
 | secret_refs | Body | Array | - | 컨테이너에 등록할 시크릿 목록 |
 | secret_refs.secret_ref | Body | String | - | 시크릿 주소 |
-| secret_refs.name | Body | String| - | 컨테이너가 지정한 시크릿 이름<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정|
+| secret_refs.name | Body | String | - | 컨테이너가 지정한 시크릿 이름<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정 |
 
 
 <details><summary>예시</summary>
@@ -2365,7 +2364,7 @@ X-Auth-Token: {tokenId}
 #### 응답
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| container_ref | Body | Object | 시크릿 컨테이너 주소 |
+| container_ref | Body | String | 시크릿 컨테이너 주소 |
 
 <details><summary>예시</summary>
 <p>
@@ -2393,7 +2392,7 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| containerId | Body | Object | 시크릿 컨테이너 ID |
+| containerId | Body | UUID | 시크릿 컨테이너 ID |
 
 
 #### 응답

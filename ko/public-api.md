@@ -1039,7 +1039,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | poolId | URL | UUID | O | 풀 ID |
 | pool | Body | Object | O | 풀 정보 객체 |
-| pool.lb_algorithm | Body | Enum | O | 풀의 로드밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
+| pool.lb_algorithm | Body | Enum | - | 풀의 로드밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
 | pool.description | Body | String | - |  풀 설명 |
 | pool.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | pools.session_persistence | Body | Object | - | 풀의 세션지속성 객체 |

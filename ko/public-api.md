@@ -1326,7 +1326,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | O | 헬스모니터 정보 객체 |
 | healthmonitor.pool_id | Body | UUID | O | 헬스모니터가 연결될 풀 ID |
 | healthmonitor.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
-| healthmonitor.health_check_port | Body | Integer | - | 헬스체크를 수행할 멤버 포트 |
+| healthmonitor.health_check_port | Body | Integer | - | 헬스체크의 대상이 되는 멤버 포트 |
 | healthmonitor.delay | Body | Integer | O | 상태 확인 간격 (초) |
 | healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능.<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용. |
 | healthmonitor.max_retries | Body | Integer | O | 최대 재시도 횟수 |

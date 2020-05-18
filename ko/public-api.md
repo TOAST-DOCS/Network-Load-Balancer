@@ -2392,28 +2392,9 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| containerId | Body | UUID | 시크릿 컨테이너 ID |
+| containerId | URL | UUID | 시크릿 컨테이너 ID |
 
 
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

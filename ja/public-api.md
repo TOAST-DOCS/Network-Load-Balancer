@@ -1,4 +1,4 @@
-﻿## Network > Load Balancer > API v2ガイド
+## Network > Load Balancer > API v2ガイド
 
 APIを使用するにはAPIエンドポイントとトークンなどが必要です。[API使用準備](/Compute/Compute/ko/identity-api/)を参照してAPI使用に必要な情報を準備します。
 

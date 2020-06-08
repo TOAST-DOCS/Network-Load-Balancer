@@ -798,8 +798,8 @@ X-Auth-Token: {tokenId}
 | pools.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pools.tenant_id | Body | String | 테넌트 ID |
 | pools.session_persistence | Body | Object | 풀의 세션 지속성 객체 |
-| pools.session_persistence.type | Body | Enum | 세션 지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드 밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
-| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다. |
+| pools.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
+| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pools.healthmonitor_id | Body | String | 헬스 모니터 ID |
 | pools.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pools.listeners.id | Body | String | 리스너 ID |
@@ -872,9 +872,9 @@ X-Auth-Token: {tokenId}
 | pool.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pool.tenant_id | Body | String | 테넌트 ID |
 | pool.member_port | Body | Integer | 멤버의 포트<br> 웹콘솔에서 멤버를 생성할 경우 지정되는 멤버의 포트값 |
-| pools.session_persistence | Body | Object | 풀의 세션 지속성 객체 |
-| pools.session_persistence.type | Body | Enum | 세션 지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드 밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
-| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다. |
+| pool.session_persistence | Body | Object | 풀의 세션 지속성 객체 |
+| pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
+| pool.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.healthmonitor_id | Body | UUID | 헬스 모니터 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
@@ -940,9 +940,9 @@ X-Auth-Token: {tokenId}
 | pool.protocol | Body | Enum | O | 멤버의 프로토콜 |
 | pool.description | Body | String | - | 풀 설명 |
 | pool.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
-| pools.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
-| pools.session_persistence.type | Body | Enum | - | 세션 지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드 밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
-| pools.session_persistence.cookie_name | Body | String | - | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다. |
+| pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
+| pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
+| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.name | Body | String | - | 풀 이름 |
 
 
@@ -977,7 +977,8 @@ X-Auth-Token: {tokenId}
 | pool.description | Body | String | 풀 설명 |
 | pool.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pool.tenant_id | Body | String | 테넌트 ID |
-| pool.session_persistence | Body | Enum | 세션 지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드 밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없으며, PROTOCOL에 따라 사용할 수 있는 다릅니다. |
+| pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
+| pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pool.healthmonitor_id | Body | String | 헬스 모니터 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
@@ -1041,9 +1042,9 @@ X-Auth-Token: {tokenId}
 | pool.lb_algorithm | Body | Enum | O | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
 | pool.description | Body | String | - |  풀 설명 |
 | pool.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
-| pools.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
-| pools.session_persistence.type | Body | Enum | - | 세션 지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드 밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
-| pools.session_persistence.cookie_name | Body | String | - | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다. |
+| pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
+| pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
+| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.name | Body | String | - | 풀 이름 |
 
 
@@ -1077,8 +1078,8 @@ X-Auth-Token: {tokenId}
 | pool.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pool.tenant_id | Body | String | 테넌트 ID |
 | pools.session_persistence | Body | Object | 풀의 세션 지속성 객체 |
-| pools.session_persistence.type | Body | Enum | 세션 지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br>로드 밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
-| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다. |
+| pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
+| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.healthmonitor_id | Body | UUID | 헬스 모니터 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
@@ -1187,11 +1188,11 @@ X-Auth-Token: {tokenId}
 | id | Query | UUID | - | 헬스 모니터 ID |
 | admin_state_up | Query | Boolean | - | 관리자 제어 상태 |
 | delay | Query | Integer | - | 상태 확인 간격(초) |
-| expected_codes | Query | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| expected_codes | Query | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다. |
 | max_retries | Query | Integer | - | 최대 재시도 횟수 |
-| http_method | Query | Enum | - | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| http_method | Query | Enum | - | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | timeout | Query | Integer | - | 상태 확인 응답 대기 시간(초) |
-| url_path | Query | String | - | 상태 확인 요청 URL<br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| url_path | Query | String | - | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | type | Query | Enum | - | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 
 
@@ -1203,13 +1204,13 @@ X-Auth-Token: {tokenId}
 | healthmonitors | Body | Array | 헬스 모니터 정보 객체 목록 |
 | healthmonitors.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitors.delay | Body | Integer | 상태 확인 간격(초) |
-| healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다. |
 | healthmonitors.max_retries | Body | Integer | 최대 재시도 횟수 |
-| healthmonitors.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitors.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitors.timeout | Body | Integer | 상태 확인 응답 대기 시간(초) |
 | healthmonitors.pools | Body | Array | 헬스 모니터가 연결된 풀 객체 목록 |
 | healthmonitors.pools.id | Body | UUID | 풀 ID |
-| healthmonitors.url_path | Body | String | 상태 확인 요청 URL<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitors.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitors.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 | healthmonitors.id | Body | UUID | 헬스 모니터 ID |
 
@@ -1267,13 +1268,13 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | 상태 확인 간격(초) |
-| healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.timeout | Body | Integer | 상태 확인 응답 대기 시간(초) |
 | healthmonitor.pools | Body | Array | 헬스 모니터가 연결된 풀 객체 목록 |
 | healthmonitor.pools.id | Body | UUID | 풀 ID |
-| healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 | healthmonitor.id | Body | UUID | 헬스 모니터 ID |
 
@@ -1325,11 +1326,11 @@ X-Auth-Token: {tokenId}
 | healthmonitor.pool_id | Body | UUID | O | 헬스 모니터가 연결될 풀 ID |
 | healthmonitor.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | O | 상태 확인 간격(초) |
-| healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | O | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | Enum | - | 상태 확인에 사용할 HTTP Method. 생략하면 `GET`이 사용됨. <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.http_method | Body | Enum | - | 상태 확인에 사용할 HTTP Method. 생략하면 `GET`이 사용됨. <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.timeout | Body | Integer | O | 상태 확인 응답 대기 시간(초) |
-| healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL. 생략하면 `/`가 설정됨. <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL. 생략하면 `/`가 설정됨. <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum  | O | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 
 
@@ -1364,13 +1365,13 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | 상태 확인 간격(초) |
-| healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.timeout | Body | Integer | 상태 확인 응답 대기 시간(초) |
 | healthmonitor.pools | Body | Array | 헬스 모니터가 연결된 풀 객체 목록 |
 | healthmonitor.pools.id | Body | UUID | 풀 ID |
-| healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 | healthmonitor.id | Body | UUID | 헬스 모니터 ID |
 
@@ -1420,11 +1421,11 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | O | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | - | 상태 확인 간격(초) |
-| healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드<br>단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드<br>단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | - | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | Enum | - | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.http_method | Body | Enum | - | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.timeout | Body | Integer | - | 상태 확인 응답 대기 시간(초) |
-| healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
 <details><summary>예시</summary>
 <p>
@@ -1453,13 +1454,13 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | 상태 확인 간격(초) |
-| healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드<br>단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드<br>단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.timeout | Body | Integer | 상태 확인 응답 대기 시간(초) |
 | healthmonitor.pools | Body | Array | 헬스 모니터가 연결된 풀 객체 목록 |
 | healthmonitor.pools.id | Body | UUID | 풀 ID |
-| healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 | healthmonitor.id | Body | UUID | 헬스 모니터 ID |
 

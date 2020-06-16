@@ -6,8 +6,8 @@ APIを使用するにはAPIエンドポイントとトークンなどが必要�
 
 | タイプ | リージョン | エンドポイント |
 |---|---|---|
-| network | 韓国(パンギョ)リージョン<br>韓国(坪村)リージョン<br>日本リージョン | https://kr1-api-network.infrastructure.cloud.toast.com<br>https://kr2-api-network.infrastructure.cloud.toast.com<br>https://jp1-api-network.infrastructure.cloud.toast.com |
-| key-manager | 韓国(パンギョ)リージョン<br>韓国(坪村)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://kr2-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
+| network | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-network.infrastructure.cloud.toast.com<br>https://jp1-api-network.infrastructure.cloud.toast.com |
+| key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
 
 APIレスポンスにガイドに明示されていないフィールドが表示される場合があります。このようなフィールドはTOAST内部用で使用され、事前の告知なく変更される場合があるため使用しません。
@@ -941,6 +941,7 @@ X-Auth-Token: {tokenId}
 | pool.protocol | Body | Enum | O | メンバーのプロトコル |
 | pool.description | Body | String | - | プールの説明 |
 | pool.admin_state_up | Body | Boolean | - | 管理者制御状態 |
+| pool.member_port | Body | Integer | - | メンバーの受信ポート<br>トラフィックをこのポートへ伝達します。<br>基本値は -1です。 |
 | pool.session_persistence | Body | Object | - | プールのセッション持続性オブジェクト |
 | pool.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうち、いずれか1つ設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定した場合、接続されたリスナーのプロトコルが`HTTP`または`TERMINATED_HTTPS`に設定されていることを確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション持続性を`HTTP_COOKIE`、`APP_COOKIE`に設定してもロードバランサーはセッション持続性関連の動作を行いません。 |
 | pools.session_persistence.cookie_name | Body | String | Cookie名<br>セッション持続性タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
@@ -1040,7 +1041,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | トークンID |
 | poolId | URL | UUID | O | プールID |
 | pool | Body | Object | O | プール情報オブジェクト |
-| pool.lb_algorithm | Body | Enum | O | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のうちいずれかつ |
+| pool.lb_algorithm | Body | Enum | - | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のうちいずれかつ |
 | pool.description | Body | String | - | プールの説明 |
 | pool.admin_state_up | Body | Boolean | - | 管理者制御状態 |
 | pool.session_persistence | Body | Object | - | プールのセッション持続性オブジェクト |
@@ -1326,6 +1327,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | O | ヘルスモニター情報オブジェクト |
 | healthmonitor.pool_id | Body | UUID | O | ヘルスモニターが接続されるプールID |
 | healthmonitor.admin_state_up | Body | Boolean | - | 管理者制御状態 |
+| healthmonitor.health_check_port | Body | Integer | - | ヘルスチェックの対象となるメンバーポート |
 | healthmonitor.delay | Body | Integer | O | ヘルスチェック間隔(秒) |
 | healthmonitor.expected_codes | Body | String | - | 正常状態とみなすメンバーのHTTPレスポンスコード。省略すると200に設定される。<br>単一値(200)、リスト(201,202)、または範囲(201-204)で使用可能。<br>ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.max_retries | Body | Integer | O | 最大再試行回数 |
@@ -1850,7 +1852,7 @@ X-Auth-Token: {tokenId}
 
 | タイプ | リージョン | エンドポイント |
 |---|---|---|
-| key-manager | 韓国(パンギョ)リージョン<br>韓国(坪村)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://kr2-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
+| key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
 APIレスポンスには、ガイドに明示されていないフィールドが表示される場合があります。これらのフィールドはTOAST内部用で使用され、事前の告知なく変更される場合があるため使用しません。
 
@@ -2180,7 +2182,7 @@ X-Auth-Token: {tokenId}
 
 | タイプ | リージョン | エンドポイント |
 |---|---|---|
-| key-manager | 韓国(パンギョ)リージョン<br>韓国(坪村)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://kr2-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
+| key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
 APIレスポンスには、ガイドに明示されていないフィールドが表示される場合があります。これらのフィールドはTOAST内部用で使用され、事前の告知なく変更される場合があるため使用しません。
 
@@ -2393,28 +2395,9 @@ X-Auth-Token: {tokenId}
 | 名前 | 種類 | 形式 | 必須 | 説明 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | トークンID |
-| containerId | Body | UUID | シークレットコンテナID |
+| containerId | URL | UUID | シークレットコンテナID |
 
 
 #### レスポンス
 
 このAPIはレスポンス本文を返しません。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

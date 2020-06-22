@@ -6,8 +6,8 @@ APIを使用するにはAPIエンドポイントとトークンなどが必要�
 
 | タイプ | リージョン | エンドポイント |
 |---|---|---|
-| network | 韓国(パンギョ)リージョン<br>韓国(坪村)リージョン<br>日本リージョン | https://kr1-api-network.infrastructure.cloud.toast.com<br>https://kr2-api-network.infrastructure.cloud.toast.com<br>https://jp1-api-network.infrastructure.cloud.toast.com |
-| key-manager | 韓国(パンギョ)リージョン<br>韓国(坪村)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://kr2-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
+| network | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-network.infrastructure.cloud.toast.com<br>https://jp1-api-network.infrastructure.cloud.toast.com |
+| key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
 
 APIレスポンスにガイドに明示されていないフィールドが表示される場合があります。このようなフィールドはTOAST内部用で使用され、事前の告知なく変更される場合があるため使用しません。
@@ -799,8 +799,8 @@ X-Auth-Token: {tokenId}
 | pools.admin_state_up | Body | Boolean | 管理者制御状態 |
 | pools.tenant_id | Body | String | テナントID |
 | pools.session_persistence | Body | Object | プールのセッション持続性オブジェクト |
-| pools.session_persistence.type | Body | Enum | セッション持続性<br>`SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうちいずれか1つ<br> ロードバランシング方式がSOURCE_IPの場合は使用できません。<br>プロトコルがHTTPSまたはTCPの場合、`HTTP_COOKIE`と`APP_COOKIE`を使用できません。 |
-| pools.session_persistence.cookie_name | Body | String | Cookie名<br>セッション持続性タイプが`APP_COOKIE`の場合にのみ使用可能です。 |
+| pool.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうち、いずれか1つ設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定した場合、接続されたリスナーのプロトコルが`HTTP`または`TERMINATED_HTTPS`に設定されていることを確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション持続性を`HTTP_COOKIE`、`APP_COOKIE`に設定してもロードバランサーはセッション持続性関連の動作を行いません。 |
+| pools.session_persistence.cookie_name | Body | String | Cookie名<br>セッション持続性タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
 | pools.healthmonitor_id | Body | String | ヘルスモニターID |
 | pools.listeners | Body | Array | プールが登録されたリスナーオブジェクトリスト |
 | pools.listeners.id | Body | String | リスナーID |
@@ -873,9 +873,9 @@ X-Auth-Token: {tokenId}
 | pool.admin_state_up | Body | Boolean | 管理者制御状態 |
 | pool.tenant_id | Body | String | テナントID |
 | pool.member_port | Body | Integer | メンバーのPort<br> Webコンソールでメンバーを作成する場合に指定されるメンバーのポート値 |
-| pools.session_persistence | Body | Object | プールのセッション持続性オブジェクト |
-| pools.session_persistence.type | Body | Enum | セッション持続性<br>`SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうちいずれか1つ<br> ロードバランシング方式がSOURCE_IPの場合は使用できません。<br>プロトコルがHTTPSまたはTCPの場合は`HTTP_COOKIE`と`APP_COOKIE`を使用できません。 |
-| pools.session_persistence.cookie_name | Body | String | Cookie名 <br>セッション持続性タイプが`APP_COOKIE`の場合にのみ使用可能です。 |
+| pool.session_persistence | Body | Object | プールのセッション持続性オブジェクト |
+| pool.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうち、いずれか1つ設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定した場合、接続されたリスナーのプロトコルが`HTTP`または`TERMINATED_HTTPS`に設定されていることを確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション持続性を`HTTP_COOKIE`、`APP_COOKIE`に設定してもロードバランサーはセッション持続性関連の動作を行いません。 |
+| pool.session_persistence.cookie_name | Body | String | Cookie名<br>セッション持続性タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
 | pool.healthmonitor_id | Body | UUID | ヘルスモニターID |
 | pool.listeners | Body | Array | プールが登録されたリスナーオブジェクトリスト |
 | pool.listeners.id | Body | UUID | リスナーID |
@@ -941,9 +941,10 @@ X-Auth-Token: {tokenId}
 | pool.protocol | Body | Enum | O | メンバーのプロトコル |
 | pool.description | Body | String | - | プールの説明 |
 | pool.admin_state_up | Body | Boolean | - | 管理者制御状態 |
-| pools.session_persistence | Body | Object | - | プールのセッション持続性オブジェクト |
-| pools.session_persistence.type | Body | Enum | - | セッション持続性<br>`SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうちいずれか1つ<br> ロードバランシング方式がSOURCE_IPの場合は使用できません。<br>プロトコルがHTTPSまたはTCPの場合、`HTTP_COOKIE`と`APP_COOKIE`を使用できません。 |
-| pools.session_persistence.cookie_name | Body | String | - | Cookie名 <br>セッション持続性タイプが`APP_COOKIE`の場合にのみ使用可能です。|
+| pool.member_port | Body | Integer | - | メンバーの受信ポート<br>トラフィックをこのポートへ伝達します。<br>基本値は -1です。 |
+| pool.session_persistence | Body | Object | - | プールのセッション持続性オブジェクト |
+| pool.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうち、いずれか1つ設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定した場合、接続されたリスナーのプロトコルが`HTTP`または`TERMINATED_HTTPS`に設定されていることを確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション持続性を`HTTP_COOKIE`、`APP_COOKIE`に設定してもロードバランサーはセッション持続性関連の動作を行いません。 |
+| pools.session_persistence.cookie_name | Body | String | Cookie名<br>セッション持続性タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
 | pool.name | Body | String | - | プール名 |
 
 
@@ -978,7 +979,8 @@ X-Auth-Token: {tokenId}
 | pool.description | Body | String | プールの説明 |
 | pool.admin_state_up | Body | Boolean | 管理者制御状態 |
 | pool.tenant_id | Body | String | テナントID |
-| pool.session_persistence | Body | Enum | セッション持続性<br>`SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうちいずれか1つ<br> ロードバランシング方式がSOURCE_IPの場合は使用できず、PROTOCOLによって使用できるものが異なります。 |
+| pool.session_persistence | Body | Object | - | プールのセッション持続性オブジェクト |
+| pool.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうち、いずれか1つ設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定した場合、接続されたリスナーのプロトコルが`HTTP`または`TERMINATED_HTTPS`に設定されていることを確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション持続性を`HTTP_COOKIE`、`APP_COOKIE`に設定してもロードバランサーはセッション持続性関連の動作を行いません。 |
 | pool.healthmonitor_id | Body | String | ヘルスモニターID |
 | pool.listeners | Body | Array | プールが登録されたリスナーオブジェクトリスト |
 | pool.listeners.id | Body | UUID | リスナーID |
@@ -1039,12 +1041,12 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | トークンID |
 | poolId | URL | UUID | O | プールID |
 | pool | Body | Object | O | プール情報オブジェクト |
-| pool.lb_algorithm | Body | Enum | O | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のうちいずれかつ |
+| pool.lb_algorithm | Body | Enum | - | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のうちいずれかつ |
 | pool.description | Body | String | - | プールの説明 |
 | pool.admin_state_up | Body | Boolean | - | 管理者制御状態 |
-| pools.session_persistence | Body | Object | - | プールのセッション持続性オブジェクト |
-| pools.session_persistence.type | Body | Enum | - | セッション持続性<br>`SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうちいずれか1つ<br> ロードバランシング方式がSOURCE_IPの場合は使用できません。<br>プロトコルがHTTPSまたはTCPの場合、`HTTP_COOKIE`と`APP_COOKIE`を使用できません。 |
-| pools.session_persistence.cookie_name | Body | String | - | Cookie名 <br>セッション持続性タイプが`APP_COOKIE`の場合にのみ使用可能です。 |
+| pool.session_persistence | Body | Object | - | プールのセッション持続性オブジェクト |
+| pool.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうち、いずれか1つ設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定した場合、接続されたリスナーのプロトコルが`HTTP`または`TERMINATED_HTTPS`に設定されていることを確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション持続性を`HTTP_COOKIE`、`APP_COOKIE`に設定してもロードバランサーはセッション持続性関連の動作を行いません。 |
+| pools.session_persistence.cookie_name | Body | String | Cookie名<br>セッション持続性タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
 | pool.name | Body | String | - | プール名 |
 
 
@@ -1078,8 +1080,8 @@ X-Auth-Token: {tokenId}
 | pool.admin_state_up | Body | Boolean | 管理者制御状態 |
 | pool.tenant_id | Body | String | テナントID |
 | pools.session_persistence | Body | Object | プールのセッション持続性オブジェクト |
-| pools.session_persistence.type | Body | Enum | セッション持続性<br>`SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうちいずれか1つ<br> ロードバランシング方式がSOURCE_IPの場合は使用できません。<br>プロトコルがHTTPSまたはTCPの場合、`HTTP_COOKIE`と`APP_COOKIE`を使用できません。 |
-| pools.session_persistence.cookie_name | Body | String | Cookie名 <br>セッション持続性タイプが`APP_COOKIE`の場合にのみ使用可能です。 |
+| pool.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうち、いずれか1つ設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定した場合、接続されたリスナーのプロトコルが`HTTP`または`TERMINATED_HTTPS`に設定されていることを確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション持続性を`HTTP_COOKIE`、`APP_COOKIE`に設定してもロードバランサーはセッション持続性関連の動作を行いません。 |
+| pools.session_persistence.cookie_name | Body | String | Cookie名<br>セッション持続性タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
 | pool.healthmonitor_id | Body | UUID | ヘルスモニターID |
 | pool.listeners | Body | Array | プールが登録されたリスナーオブジェクトリスト |
 | pool.listeners.id | Body | UUID | リスナーID |
@@ -1188,11 +1190,11 @@ X-Auth-Token: {tokenId}
 | id | Query | UUID | - | ヘルスモニターID |
 | admin_state_up | Query | Boolean | - | 管理者制御状態 |
 | delay | Query | Integer | - | ヘルスチェック間隔(秒) |
-| expected_codes | Query | String | - | 正常状態とみなすメンバーのHTTPレスポンスコード <br>単一値(200)、リスト(201,202)、または範囲(201-204)を使用可能。<br>ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| expected_codes | Query | String | - | 正常状態とみなすメンバーのHTTPレスポンスコード <br>単一値(200)、リスト(201,202)、または範囲(201-204)を使用可能。<br>ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | max_retries | Query | Integer | - | 最大再試行回数 |
-| http_method | Query | Enum | - | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| http_method | Query | Enum | - | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | timeout | Query | Integer | - | ヘルスチェックレスポンス待機時間(秒) |
-| url_path | Query | String | - | ヘルスチェックリクエストURL<br> ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| url_path | Query | String | - | ヘルスチェックリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | type | Query | Enum | - | ヘルスチェックに使用するプロトコル。 `TCP`、`HTTP`、`HTTPS`のうちいずれか1つ |
 
 
@@ -1204,13 +1206,13 @@ X-Auth-Token: {tokenId}
 | healthmonitors | Body | Array | ヘルスモニター情報オブジェクトリスト |
 | healthmonitors.admin_state_up | Body | Boolean | 管理者制御状態 |
 | healthmonitors.delay | Body | Integer | ヘルスチェック間隔(秒) |
-| healthmonitors.expected_codes | Body | String | 正常状態と見なすメンバーのHTTPレスポンスコード <br>単一値(200)、リスト(201,202)、または範囲(201-204)で使用可能。<br>ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitors.expected_codes | Body | String | 正常状態と見なすメンバーのHTTPレスポンスコード <br>単一値(200)、リスト(201,202)、または範囲(201-204)で使用可能。<br>ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitors.max_retries | Body | Integer | 最大再試行回数 |
-| healthmonitors.http_method | Body | Enum | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitors.http_method | Body | Enum | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitors.timeout | Body | Integer | ヘルスチェックレスポンス待機時間(秒) |
 | healthmonitors.pools | Body | Array | ヘルスモニターが接続されたプールオブジェクトリスト |
 | healthmonitors.pools.id | Body | UUID | プールID |
-| healthmonitors.url_path | Body | String | ヘルスチェックリクエストURL<br> ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitors.url_path | Body | String | ヘルスチェックリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitors.type | Body | Enum | ヘルスチェックに使用するプロトコル。 `TCP`、`HTTP`、`HTTPS`のうちいずれか1つ |
 | healthmonitors.id | Body | UUID | ヘルスモニターID |
 
@@ -1268,13 +1270,13 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | ヘルスモニター情報オブジェクト |
 | healthmonitor.admin_state_up | Body | Boolean | 管理者制御状態 |
 | healthmonitor.delay | Body | Integer | ヘルスチェック間隔(秒) |
-| healthmonitors.expected_codes | Body | String | 正常状態とみなすメンバーのHTTPレスポンスコード <br>単一値(200)、リスト(201,202)、または範囲(201-204)で使用可能。<br>ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitors.expected_codes | Body | String | 正常状態とみなすメンバーのHTTPレスポンスコード <br>単一値(200)、リスト(201,202)、または範囲(201-204)で使用可能。<br>ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.max_retries | Body | Integer | 最大再試行回数 |
-| healthmonitor.http_method | Body | Enum | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitor.http_method | Body | Enum | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.timeout | Body | Integer | ヘルスチェックレスポンス待機時間(秒) |
 | healthmonitor.pools | Body | Array | ヘルスモニターが接続されたプールオブジェクトリスト |
 | healthmonitor.pools.id | Body | UUID | プールID |
-| healthmonitor.url_path | Body | String | ヘルスチェックリクエストURL<br> ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitor.url_path | Body | String | ヘルスチェックリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.type | Body | Enum | ヘルスチェックに使用するプロトコル。 `TCP`、`HTTP`、`HTTPS`のうちいずれか1つ |
 | healthmonitor.id | Body | UUID | ヘルスモニターID |
 
@@ -1325,12 +1327,13 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | O | ヘルスモニター情報オブジェクト |
 | healthmonitor.pool_id | Body | UUID | O | ヘルスモニターが接続されるプールID |
 | healthmonitor.admin_state_up | Body | Boolean | - | 管理者制御状態 |
+| healthmonitor.health_check_port | Body | Integer | - | ヘルスチェックの対象となるメンバーポート |
 | healthmonitor.delay | Body | Integer | O | ヘルスチェック間隔(秒) |
-| healthmonitor.expected_codes | Body | String | - | 正常状態とみなすメンバーのHTTPレスポンスコード。省略すると200に設定される。<br>単一値(200)、リスト(201,202)、または範囲(201-204)で使用可能。<br>ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitor.expected_codes | Body | String | - | 正常状態とみなすメンバーのHTTPレスポンスコード。省略すると200に設定される。<br>単一値(200)、リスト(201,202)、または範囲(201-204)で使用可能。<br>ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.max_retries | Body | Integer | O | 最大再試行回数 |
-| healthmonitor.http_method | Body | Enum | - | ヘルスチェックに使用するHTTP Method. 省略すると`GET`が使用される。<br> ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitor.http_method | Body | Enum | - | ヘルスチェックに使用するHTTP Method. 省略すると`GET`が使用される。<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.timeout | Body | Integer | O | ヘルスチェックレスポンス待機時間(秒) |
-| healthmonitor.url_path | Body | String | - | ヘルスチェックリクエストURL。省略すると`/`が設定される。<br> ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitor.url_path | Body | String | - | ヘルスチェックリクエストURL。省略すると`/`が設定される。<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.type | Body | Enum  | O | ヘルスチェックに使用するプロトコル。 `TCP`、`HTTP`、`HTTPS`のうちいずれか1つ |
 
 
@@ -1365,13 +1368,13 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | ヘルスモニター情報オブジェクト |
 | healthmonitor.admin_state_up | Body | Boolean | 管理者制御状態 |
 | healthmonitor.delay | Body | Integer | ヘルスチェック間隔(秒) |
-| healthmonitor.expected_codes | Body | String | 正常状態とみなすメンバーのHTTPレスポンスコード。省略すると200に設定される。<br> 単一値(200)、リスト(201,202)、または範囲(201-204)を使用可能。<br>ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitor.expected_codes | Body | String | 正常状態とみなすメンバーのHTTPレスポンスコード。省略すると200に設定される。<br> 単一値(200)、リスト(201,202)、または範囲(201-204)を使用可能。<br>ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.max_retries | Body | Integer | 最大再試行回数 |
-| healthmonitor.http_method | Body | Enum | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitor.http_method | Body | Enum | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.timeout | Body | Integer | ヘルスチェックレスポンス待機時間(秒) |
 | healthmonitor.pools | Body | Array | ヘルスモニターが接続されたプールオブジェクトリスト |
 | healthmonitor.pools.id | Body | UUID | プールID |
-| healthmonitor.url_path | Body | String | ヘルスチェックリクエストURL<br> ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitor.url_path | Body | String | ヘルスチェックリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.type | Body | Enum | ヘルスチェックに使用するプロトコル。 `TCP`、`HTTP`、`HTTPS`のうちいずれか1つ |
 | healthmonitor.id | Body | UUID | ヘルスモニターID |
 
@@ -1421,11 +1424,11 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | O | ヘルスモニター情報オブジェクト |
 | healthmonitor.admin_state_up | Body | Boolean | - | 管理者制御状態 |
 | healthmonitor.delay | Body | Integer | - | ヘルスチェック間隔(秒) |
-| healthmonitor.expected_codes | Body | String | - | 正常状態とみなすメンバーのHTTPレスポンスコード。<br> 単一値(200)、リスト(201,202)、または範囲(201-204)を使用可能。<br>ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitor.expected_codes | Body | String | - | 正常状態とみなすメンバーのHTTPレスポンスコード。<br> 単一値(200)、リスト(201,202)、または範囲(201-204)を使用可能。<br>ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.max_retries | Body | Integer | - | 最大再試行回数 |
-| healthmonitor.http_method | Body | Enum | - | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitor.http_method | Body | Enum | - | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.timeout | Body | Integer | - | ヘルスチェックレスポンス待機時間(秒) |
-| healthmonitor.url_path | Body | String | - | ヘルスチェックリクエストURL<br> ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitor.url_path | Body | String | - | ヘルスチェックリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 
 <details><summary>例</summary>
 <p>
@@ -1454,13 +1457,13 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | ヘルスモニター情報オブジェクト |
 | healthmonitor.admin_state_up | Body | Boolean | 管理者制御状態 |
 | healthmonitor.delay | Body | Integer | ヘルスチェック間隔(秒) |
-| healthmonitor.expected_codes | Body | String | 正常状態とみなすメンバーのHTTPレスポンスコード。<br> 単一値(200)、リスト(201,202)、または範囲(201-204)を使用可能。<br>ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitor.expected_codes | Body | String | 正常状態とみなすメンバーのHTTPレスポンスコード。<br> 単一値(200)、リスト(201,202)、または範囲(201-204)を使用可能。<br>ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.max_retries | Body | Integer | 最大再試行回数 |
-| healthmonitor.http_method | Body | Enum | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitor.http_method | Body | Enum | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.timeout | Body | Integer | ヘルスチェックレスポンス待機時間(秒) |
 | healthmonitor.pools | Body | Array | ヘルスモニターが接続されたプールオブジェクトリスト |
 | healthmonitor.pools.id | Body | UUID | プールID |
-| healthmonitor.url_path | Body | String | ヘルスチェックリクエストURL<br> ヘルスチェックタイプが`HTTP`、`HTTPS`の場合にのみ使用。 |
+| healthmonitor.url_path | Body | String | ヘルスチェックリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.type | Body | Enum | ヘルスチェックに使用するプロトコル。 `TCP`、`HTTP`、`HTTPS`のうちいずれか1つ |
 | healthmonitor.id | Body | UUID | ヘルスモニターID |
 
@@ -1849,7 +1852,7 @@ X-Auth-Token: {tokenId}
 
 | タイプ | リージョン | エンドポイント |
 |---|---|---|
-| key-manager | 韓国(パンギョ)リージョン<br>韓国(坪村)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://kr2-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
+| key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
 APIレスポンスには、ガイドに明示されていないフィールドが表示される場合があります。これらのフィールドはTOAST内部用で使用され、事前の告知なく変更される場合があるため使用しません。
 
@@ -2179,7 +2182,7 @@ X-Auth-Token: {tokenId}
 
 | タイプ | リージョン | エンドポイント |
 |---|---|---|
-| key-manager | 韓国(パンギョ)リージョン<br>韓国(坪村)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://kr2-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
+| key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
 APIレスポンスには、ガイドに明示されていないフィールドが表示される場合があります。これらのフィールドはTOAST内部用で使用され、事前の告知なく変更される場合があるため使用しません。
 
@@ -2392,28 +2395,9 @@ X-Auth-Token: {tokenId}
 | 名前 | 種類 | 形式 | 必須 | 説明 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | トークンID |
-| containerId | Body | UUID | シークレットコンテナID |
+| containerId | URL | UUID | シークレットコンテナID |
 
 
 #### レスポンス
 
 このAPIはレスポンス本文を返しません。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

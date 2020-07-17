@@ -1,7 +1,7 @@
 ## Network > Load Balancer > 콘솔 사용 가이드
 
 ## 동영상 가이드
-<iframe width="560" height="315" src="https://www.youtube.com/embed/YMW3K2hlJm4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NQsVhkLuo5o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## 로드 밸런서 관리
 ### 로드 밸런서 생성

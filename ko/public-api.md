@@ -54,9 +54,9 @@ X-Auth-Token: {tokenId}
 | loadbalancers.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancers.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancers.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 할당된 IP ACL 그룹 바인딩 개체 |
+| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 할당된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 
 <details><summary>예시</summary>
 ```json
@@ -136,9 +136,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 할당된 IP ACL 그룹 바인딩 개체 |
+| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 할당된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -238,9 +238,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 할당된 IP ACL 그룹 바인딩 개체 |
+| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 할당된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -329,9 +329,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 할당된 IP ACL 그룹 바인딩 개체 |
+| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 할당된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -2568,13 +2568,13 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 | --- | --- | --- | --- | --- |
 | tokenId | Header | String | O | 토큰 ID |
-| ipacl_group | Body | Object |  | IP ACL 그룹 객체 |
-| ipacl_group.description | Body | String |  | IP ACL 그룹 설명 |
+| ipacl_group | Body | Object | O | IP ACL 그룹 객체 |
+| ipacl_group.description | Body | String | -  | IP ACL 그룹 설명 |
 | ipacl_group.action | Body | Enum | O | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
-| ipacl_group.name | Body | String |  | IP ACL 그룹 명 |
-| ipacl_group.ipacl_targets | Body | Object |  | IP ACL 타깃 객체, 값 입력시 타깃도 함께 생성함 |
+| ipacl_group.name | Body | String | -  | IP ACL 그룹 명 |
+| ipacl_group.ipacl_targets | Body | Object | - | IP ACL 타깃 객체, 값 입력시 타깃도 함께 생성함 |
 | ipacl_group.ipacl_targets.cidr_address | Body | String | O (ipacl_targets 객체가 추가된 경우) | IP ACL 타깃 CIDR<br>단독 IP 주소, 또는 CIDR 형식의 IP RANGE 입력 |
-| ipacl_group.ipacl_targets.descripion | Body | String |  | IP ACL 타깃 설명 |
+| ipacl_group.ipacl_targets.descripion | Body | String | - | IP ACL 타깃 설명 |
 
 <details><summary>예시</summary>
 <p>
@@ -2656,11 +2656,11 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | ipaclGroupId | URL | UUID | O | IP ACL 그룹 ID |
 | ipacl_group | Body | String | O | IP ACL 그룹 객체 |
-| ipacl_group.name | Body | String |  | IP ACL 그룹 명 |
-| ipacl_group.description | Body | String |  | IP ACL 그룹 설명 |
-| ipacl_group.ipacl_targets | Body | Object |  | IP ACL 타깃 객체, 값 입력시 타깃도 함께 생성함 |
+| ipacl_group.name | Body | String | - | IP ACL 그룹 명 |
+| ipacl_group.description | Body | String | - | IP ACL 그룹 설명 |
+| ipacl_group.ipacl_targets | Body | Object | - | IP ACL 타깃 객체, 값 입력시 타깃도 함께 생성함 |
 | ipacl_group.ipacl_targets.cidr_address | Body | String | O (ipacl_targets 객체가 추가된 경우) | IP ACL 타깃 CIDR<br>단독 IP 주소, 또는 CIDR 형식의 IP RANGE 입력 |
-| ipacl_group.ipacl_targets.descripion | Body | String |  | IP ACL 타깃 설명 |
+| ipacl_group.ipacl_targets.descripion | Body | String | - | IP ACL 타깃 설명 |
 
 
 <details><summary>예시</summary>
@@ -2723,6 +2723,8 @@ X-Auth-Token: {tokenId}
 ```
 </p>
 </details>
+
+- - -
 
 ### IP ACL 그룹 삭제하기
 
@@ -3004,12 +3006,14 @@ X-Auth-Token: {tokenId}
 
 이 API는 응답 본문을 반환하지 않습니다.
 
-## 로드밸런서에 IP ACL 그룹 할당
+- - -
 
-로드밸런서에 IP ACL 그룹을 할당합니다.
-IP ACL 그룹을 할당받은 로드밸런서에는 그룹에 포함된 IP ACL 타겟 룰이 적용됩니다.
-여러 개의 그룹을 로드밸런서에 할당할 수 있습니다. 단, 그룹들의 action은 모두 동일해야 합니다.
-기존에 로드밸런서에 할당되어 있던 IP ACL 그룹은 모두 삭제되고 입력된 그룹 목록으로 재할당됩니다. 
+### 로드밸런서에 IP ACL 그룹 적용 
+
+로드밸런서에 IP ACL 그룹을 적용합니다.
+IP ACL 그룹을 적용받은 로드밸런서에는 그룹에 포함된 IP ACL 타겟 룰이 적용됩니다.
+여러 개의 그룹을 로드밸런서에 적용할 수 있습니다. 단, 그룹들의 action은 모두 동일해야 합니다.
+기존에 로드밸런서에 적용되어 있던 IP ACL 그룹은 모두 삭제되고 입력된 그룹 목록으로 재적용됩니다. 
 
 ```
 PUT /v2.0/lbaas/loadbalancers/{lb_id}/bind_ipacl_groups
@@ -3023,7 +3027,7 @@ X-auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | lb_id | URL | UUID | O | 로드밸런서 ID |
 | ipacl_groups_binding | Body | Object | O | IP ACL 바인딩 객체 |
-| ipacl_groups_binding.ipacl_group_id | Body | UUID | O | 로드밸런서에 할당할 IP ACL 그룹 ID |
+| ipacl_groups_binding.ipacl_group_id | Body | UUID | O | 로드밸런서에 적용할 IP ACL 그룹 ID |
 
 <details><summary>예시</summary>
 <p>

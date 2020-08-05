@@ -2435,6 +2435,39 @@ X-Auth-Token: {tokenId}
 이 API는 응답 본문을 반환하지 않습니다.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## IP ACL 그룹
 
 ### IP ACL 그룹 목록 보기
@@ -2456,7 +2489,7 @@ X-Auth-Token: {tokenId}
 | id | Query | String | - | IP ACL 그룹 ID |
 | name | Query | String | - | IP ACL 그룹 이름 |
 | description | Query | String | - | IP ACL 그룹 설명 |
-| action | Body | Enum | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |  |
+| action | Query | Enum | - | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
 
 #### 응답
 
@@ -2751,6 +2784,112 @@ IP ACL 그룹 삭제시 하위의 IP ACL 타깃도 모두 삭제됩니다.
 
 이 API는 응답 본문을 반환하지 않습니다.
 
+- - -
+
+
+### 로드밸런서에 IP ACL 그룹 적용
+
+로드밸런서에 IP ACL 그룹을 적용합니다.
+IP ACL 그룹을 적용받은 로드밸런서에는 그룹에 포함된 IP ACL 타겟 룰이 적용됩니다.
+여러 개의 그룹을 로드밸런서에 적용할 수 있습니다. 단, 그룹들의 action은 모두 동일해야 합니다.
+기존에 로드밸런서에 적용되어 있던 IP ACL 그룹은 모두 삭제되고 입력된 그룹 목록으로 재적용됩니다.
+
+```
+PUT /v2.0/lbaas/loadbalancers/{lb_id}/bind_ipacl_groups
+X-auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| lb_id | URL | UUID | O | 로드밸런서 ID |
+| ipacl_groups_binding | Body | Object | O | IP ACL 바인딩 객체 |
+| ipacl_groups_binding.ipacl_group_id | Body | UUID | O | 로드밸런서에 적용할 IP ACL 그룹 ID |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+{
+  "ipacl_groups_binding": [
+    {
+      "ipacl_group_id": "acc655d4-4735-4892-b32b-669cc21925ff"
+    },
+    {
+      "ipacl_group_id": "ef33c087-2dc9-4be6-a0d2-d24c9d84e66e"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+#### 응답
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| loadbalancer_id | Body | UUID | 로드밸런서 ID |
+| ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+[
+  {
+    "loadbalancer_id": "096ddfbf-aaf9-42d6-b93d-0036ec219479",
+    "ipacl_group_id": "acc655d4-4735-4892-b32b-669cc21925ff"
+  },
+  {
+    "loadbalancer_id": "096ddfbf-aaf9-42d6-b93d-0036ec219479",
+    "ipacl_group_id": "ef33c087-2dc9-4be6-a0d2-d24c9d84e66e"
+  }
+]
+```
+
+</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## IP ACL 타깃
 
 ### IP ACL 타깃 목록 보기
@@ -3005,73 +3144,6 @@ X-Auth-Token: {tokenId}
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
-
-- - -
-
-### 로드밸런서에 IP ACL 그룹 적용 
-
-로드밸런서에 IP ACL 그룹을 적용합니다.
-IP ACL 그룹을 적용받은 로드밸런서에는 그룹에 포함된 IP ACL 타겟 룰이 적용됩니다.
-여러 개의 그룹을 로드밸런서에 적용할 수 있습니다. 단, 그룹들의 action은 모두 동일해야 합니다.
-기존에 로드밸런서에 적용되어 있던 IP ACL 그룹은 모두 삭제되고 입력된 그룹 목록으로 재적용됩니다. 
-
-```
-PUT /v2.0/lbaas/loadbalancers/{lb_id}/bind_ipacl_groups
-X-auth-Token: {tokenId}
-```
-
-#### 요청
-
-| 이름 | 종류 | 형식 | 필수 | 설명 |
-| --- | --- | --- | --- | --- |
-| tokenId | Header | String | O | 토큰 ID |
-| lb_id | URL | UUID | O | 로드밸런서 ID |
-| ipacl_groups_binding | Body | Object | O | IP ACL 바인딩 객체 |
-| ipacl_groups_binding.ipacl_group_id | Body | UUID | O | 로드밸런서에 적용할 IP ACL 그룹 ID |
-
-<details><summary>예시</summary>
-<p>
-
-``` json
-{
-  "ipacl_groups_binding": [
-    {
-      "ipacl_group_id": "{% response 'body', 'req_7219c88b7b36457fa3a078e0264c0618', '$.ipacl_groups[0].id' %}"
-    },
-		{
-      "ipacl_group_id": "ef33c087-2dc9-4be6-a0d2-d24c9d84e66e"
-    }
-  ]
-}
-```
-
-</p>
-</details>
-
-#### 응답
-| 이름 | 종류 | 형식 | 설명 |
-| --- | --- | --- | --- |
-| loadbalancer_id | Body | UUID | 로드밸런서 ID |
-| ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-
-<details><summary>예시</summary>
-<p>
-
-``` json
-[
-  {
-    "loadbalancer_id": "096ddfbf-aaf9-42d6-b93d-0036ec219479",
-    "ipacl_group_id": "acc655d4-4735-4892-b32b-669cc21925ff"
-  },
-  {
-    "loadbalancer_id": "096ddfbf-aaf9-42d6-b93d-0036ec219479",
-    "ipacl_group_id": "ef33c087-2dc9-4be6-a0d2-d24c9d84e66e"
-  }
-]
-```
-
-</p>
-</details>
 
 - - -
 

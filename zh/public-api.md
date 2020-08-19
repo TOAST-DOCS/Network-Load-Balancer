@@ -10,7 +10,7 @@ API를 사용하려면 API 엔드포인트와 토큰 등이 필요합니다. [AP
 | key-manager | 한국(판교) 리전<br>일본 리전 | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
 
-API 응답에 가이드에 명시되지 않은 필드가 노출될 수 있습니다. 이런 필드는 TOAST 내부 용도로 사용되며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
+API 응답에 가이드에 명시되지 않은 필드가 나타날 수 있습니다. 이런 필드는 TOAST 내부 용도로 사용되며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
 
 ## 로드 밸런서
 
@@ -54,6 +54,9 @@ X-Auth-Token: {tokenId}
 | loadbalancers.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancers.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancers.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
+| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
+| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
+| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 
 <details><summary>예시</summary>
 ```json
@@ -83,7 +86,16 @@ X-Auth-Token: {tokenId}
       "vip_subnet_id": "dcb31578-1e16-407f-a117-a716795fabc4",
       "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
       "operating_status": "ONLINE",
-      "admin_state_up": true
+      "admin_state_up": true,
+      "ipacl_groups": [
+        {
+         "ipacl_group_id": "79ebf206-3463-4df1-a54c-4fc939f8c26c"
+         },
+         {
+         "ipacl_group_id": "947030cc-635f-42d3-b745-770cf7b562fd"
+         }
+       ],
+       "ipacl_group_action": "DENY"
     }
   ]
 }
@@ -124,6 +136,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
+| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
+| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
+| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -153,7 +168,16 @@ X-Auth-Token: {tokenId}
     "vip_subnet_id": "dcb31578-1e16-407f-a117-a716795fabc4",
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
-    "admin_state_up": true
+    "admin_state_up": true,
+    "ipacl_groups": [
+        {
+         "ipacl_group_id": "79ebf206-3463-4df1-a54c-4fc939f8c26c"
+         },
+         {
+         "ipacl_group_id": "947030cc-635f-42d3-b745-770cf7b562fd"
+         }
+     ],
+     "ipacl_group_action": "DENY
   }
 }
 ```
@@ -214,6 +238,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
+| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
+| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
+| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -244,7 +271,9 @@ X-Auth-Token: {tokenId}
     "vip_subnet_id": "dcb31578-1e16-407f-a117-a716795fabc4",
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
-    "admin_state_up": true
+    "admin_state_up": true,
+    "ipacl_groups": [],
+    "ipacl_group_action": null
   }
 }
 ```
@@ -300,6 +329,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
+| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
+| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
+| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -331,6 +363,8 @@ X-Auth-Token: {tokenId}
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
     "admin_state_up": true
+    "ipacl_groups": [],
+    "ipacl_group_action": null
   }
 }
 ```
@@ -782,7 +816,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | id | Query | UUID | - | 풀 ID |
 | name | Query | String | - | 풀 이름 |
-| lb_algorithm | Query | Enum | - | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
+| lb_algorithm | Query | Enum | - | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | protocol | Query | Enum | - | 멤버의 프로토콜 |
 | admin_state_up | Query | Boolean | - | 관리자 제어 상태 |
 | healthmonitor_id | Query | UUID | - | 풀의 헬스 모니터 ID |
@@ -792,14 +826,14 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | pools | Body | Array | 풀 정보 객체 목록 |
-| pools.lb_algorithm | Body | Enum | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
+| pools.lb_algorithm | Body | Enum | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pools.protocol | Body | Enum | 멤버의 프로토콜 |
 | pools.description | Body | String | 풀 설명 |
 | pools.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pools.tenant_id | Body | String | 테넌트 ID |
 | pools.session_persistence | Body | Object | 풀의 세션 지속성 객체 |
-| pools.session_persistence.type | Body | Enum | 세션 지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드 밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
-| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다. |
+| pools.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
+| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pools.healthmonitor_id | Body | String | 헬스 모니터 ID |
 | pools.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pools.listeners.id | Body | String | 리스너 ID |
@@ -866,15 +900,15 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | pool | Body | Object | 풀 정보 객체 |
-| pool.lb_algorithm | Body | Enum | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
+| pool.lb_algorithm | Body | Enum | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pool.protocol | Body | Enum | 멤버의 프로토콜 |
 | pool.description | Body | String | 풀 설명 |
 | pool.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pool.tenant_id | Body | String | 테넌트 ID |
 | pool.member_port | Body | Integer | 멤버의 포트<br> 웹콘솔에서 멤버를 생성할 경우 지정되는 멤버의 포트값 |
-| pools.session_persistence | Body | Object | 풀의 세션 지속성 객체 |
-| pools.session_persistence.type | Body | Enum | 세션 지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드 밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
-| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다. |
+| pool.session_persistence | Body | Object | 풀의 세션 지속성 객체 |
+| pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
+| pool.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.healthmonitor_id | Body | UUID | 헬스 모니터 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
@@ -936,14 +970,14 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | pool | Body | Object | O | 풀 정보 객체 |
 | pool.listener_id | Body | UUID | O | 풀이 등록될 리스너 ID |
-| pool.lb_algorithm | Body | Enum | O | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
+| pool.lb_algorithm | Body | Enum | O | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pool.protocol | Body | Enum | O | 멤버의 프로토콜 |
 | pool.description | Body | String | - | 풀 설명 |
 | pool.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
-| pool.member_port | Body | Integer | - | 멤버의 수신 포트<br>트래픽을 이 포트로 전달합니다.<br>기본 값은 -1 입니다. |
-| pools.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
-| pools.session_persistence.type | Body | Enum | - | 세션 지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드 밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
-| pools.session_persistence.cookie_name | Body | String | - | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다. |
+| pool.member_port | Body | Integer | - | 멤버의 수신 포트<br>트래픽을 이 포트로 전달합니다.<br>기본 값은 -1입니다. |
+| pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
+| pool.session_persistence.type | Body | Enum | - | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
+| pools.session_persistence.cookie_name | Body | String | - | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.name | Body | String | - | 풀 이름 |
 
 
@@ -973,12 +1007,13 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | pool | Body | Object | 풀 정보 객체 |
-| pool.lb_algorithm | Body | Enum | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
+| pool.lb_algorithm | Body | Enum | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pool.protocol | Body | Enum | 멤버의 프로토콜 |
 | pool.description | Body | String | 풀 설명 |
 | pool.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pool.tenant_id | Body | String | 테넌트 ID |
-| pool.session_persistence | Body | Enum | 세션 지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드 밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없으며, PROTOCOL에 따라 사용할 수 있는 다릅니다. |
+| pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
+| pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pool.healthmonitor_id | Body | String | 헬스 모니터 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
@@ -1039,12 +1074,12 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | poolId | URL | UUID | O | 풀 ID |
 | pool | Body | Object | O | 풀 정보 객체 |
-| pool.lb_algorithm | Body | Enum | - | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
+| pool.lb_algorithm | Body | Enum | - | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pool.description | Body | String | - |  풀 설명 |
 | pool.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
-| pools.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
-| pools.session_persistence.type | Body | Enum | - | 세션 지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br> 로드 밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
-| pools.session_persistence.cookie_name | Body | String | - | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다. |
+| pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
+| pool.session_persistence.type | Body | Enum | - | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
+| pools.session_persistence.cookie_name | Body | String | - | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.name | Body | String | - | 풀 이름 |
 
 
@@ -1072,14 +1107,14 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | pool | Body | Object | 풀 정보 객체 |
-| pool.lb_algorithm | Body | Enum | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP`중 하나 |
+| pool.lb_algorithm | Body | Enum | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pool.protocol | Body | Enum | 멤버의 프로토콜 |
 | pool.description | Body | String | 풀 설명 |
 | pool.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pool.tenant_id | Body | String | 테넌트 ID |
 | pools.session_persistence | Body | Object | 풀의 세션 지속성 객체 |
-| pools.session_persistence.type | Body | Enum | 세션 지속성<br>`SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`중 하나<br>로드 밸런싱 방식이 SOURCE_IP인 경우 사용할 수 없습니다.<br>프로토콜이 HTTPS이거나 TCP인 경우 `HTTP_COOKIE`와 `APP_COOKIE`를 사용할 수 없습니다. |
-| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 사용 가능합니다. |
+| pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
+| pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.healthmonitor_id | Body | UUID | 헬스 모니터 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
@@ -1188,11 +1223,11 @@ X-Auth-Token: {tokenId}
 | id | Query | UUID | - | 헬스 모니터 ID |
 | admin_state_up | Query | Boolean | - | 관리자 제어 상태 |
 | delay | Query | Integer | - | 상태 확인 간격(초) |
-| expected_codes | Query | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| expected_codes | Query | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다. |
 | max_retries | Query | Integer | - | 최대 재시도 횟수 |
-| http_method | Query | Enum | - | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| http_method | Query | Enum | - | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | timeout | Query | Integer | - | 상태 확인 응답 대기 시간(초) |
-| url_path | Query | String | - | 상태 확인 요청 URL<br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| url_path | Query | String | - | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | type | Query | Enum | - | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 
 
@@ -1204,13 +1239,13 @@ X-Auth-Token: {tokenId}
 | healthmonitors | Body | Array | 헬스 모니터 정보 객체 목록 |
 | healthmonitors.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitors.delay | Body | Integer | 상태 확인 간격(초) |
-| healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다. |
 | healthmonitors.max_retries | Body | Integer | 최대 재시도 횟수 |
-| healthmonitors.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitors.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitors.timeout | Body | Integer | 상태 확인 응답 대기 시간(초) |
 | healthmonitors.pools | Body | Array | 헬스 모니터가 연결된 풀 객체 목록 |
 | healthmonitors.pools.id | Body | UUID | 풀 ID |
-| healthmonitors.url_path | Body | String | 상태 확인 요청 URL<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitors.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitors.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 | healthmonitors.id | Body | UUID | 헬스 모니터 ID |
 
@@ -1268,13 +1303,13 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | 상태 확인 간격(초) |
-| healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.timeout | Body | Integer | 상태 확인 응답 대기 시간(초) |
 | healthmonitor.pools | Body | Array | 헬스 모니터가 연결된 풀 객체 목록 |
 | healthmonitor.pools.id | Body | UUID | 풀 ID |
-| healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 | healthmonitor.id | Body | UUID | 헬스 모니터 ID |
 
@@ -1325,13 +1360,13 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | O | 헬스 모니터 정보 객체 |
 | healthmonitor.pool_id | Body | UUID | O | 헬스 모니터가 연결될 풀 ID |
 | healthmonitor.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
-| healthmonitor.health_check_port | Body | Integer | - | 헬스체크의 대상이 되는 멤버 포트 |
+| healthmonitor.health_check_port | Body | Integer | - | 헬스 체크의 대상이 되는 멤버 포트 |
 | healthmonitor.delay | Body | Integer | O | 상태 확인 간격(초) |
-| healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | O | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | Enum | - | 상태 확인에 사용할 HTTP Method. 생략하면 `GET`이 사용됨. <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.http_method | Body | Enum | - | 상태 확인에 사용할 HTTP Method. 생략하면 `GET`이 사용됨. <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.timeout | Body | Integer | O | 상태 확인 응답 대기 시간(초) |
-| healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL. 생략하면 `/`가 설정됨. <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL. 생략하면 `/`가 설정됨. <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum  | O | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 
 
@@ -1366,13 +1401,13 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | 상태 확인 간격(초) |
-| healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.timeout | Body | Integer | 상태 확인 응답 대기 시간(초) |
 | healthmonitor.pools | Body | Array | 헬스 모니터가 연결된 풀 객체 목록 |
 | healthmonitor.pools.id | Body | UUID | 풀 ID |
-| healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 | healthmonitor.id | Body | UUID | 헬스 모니터 ID |
 
@@ -1422,11 +1457,11 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | O | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | - | 상태 확인 간격(초) |
-| healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드<br>단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드<br>단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | - | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | Enum | - | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.http_method | Body | Enum | - | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.timeout | Body | Integer | - | 상태 확인 응답 대기 시간(초) |
-| healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
 <details><summary>예시</summary>
 <p>
@@ -1455,13 +1490,13 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | 상태 확인 간격(초) |
-| healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드<br>단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드<br>단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
-| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.timeout | Body | Integer | 상태 확인 응답 대기 시간(초) |
 | healthmonitor.pools | Body | Array | 헬스 모니터가 연결된 풀 객체 목록 |
 | healthmonitor.pools.id | Body | UUID | 풀 ID |
-| healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br>상태 확인 타입이 `HTTP`, `HTTPS`일 경우에만 사용 |
+| healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 | healthmonitor.id | Body | UUID | 헬스 모니터 ID |
 
@@ -1871,7 +1906,7 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | offset | Query | Integer | - | 응답 목록의 오프셋, 기본값: 0 |
-| limit | Query | Integer| - | 응답 목록에 노출할 최대 갯수, 기본값: 10 |
+| limit | Query | Integer| - | 응답 목록에 노출할 최대 개수, 기본값: 10 |
 | name | Query | String | - | 시크릿 이름 |
 | alg | Query | String | - | 시크릿 알고리즘 |
 | mode | Query | String| - | 블록 암호 운용 방식 |
@@ -1883,7 +1918,7 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|
 | secrets | Body | Array | 시크릿 객체 목록 |
 | secrets.secret_ref | Body | String | 시크릿 주소<br>`<barbican endpoint>/v1/secrets/<secret id>` 형식 |
-| secrets.secret_type | Body | Enum | 시크릿 타입 <br> `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque`중 하나 |
+| secrets.secret_type | Body | Enum | 시크릿 타입 <br> `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque` 중 하나 |
 | secrets.status | Body | Enum | 시크릿 상태 |
 | secrets.content_types | Body | Array | 시크릿 페이로드의 콘텐츠 타입 목록 |
 | secrets.content_types.default | Body | String | 콘텐츠 타입 기본값 |
@@ -1969,7 +2004,7 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|
 | secret | Body | Object | 시크릿 객체 |
 | secret.secret_ref | Body | String | 시크릿 주소<br>`<barbican endpoint>/v1/secrets/<secret id>` 형식 |
-| secret.secret_type | Body | Enum | 시크릿 타입 <br> `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque`중 하나 |
+| secret.secret_type | Body | Enum | 시크릿 타입 <br> `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque` 중 하나 |
 | secret.status | Body | Enum | 시크릿 상태 |
 | secret.content_types | Body | Array | 시크릿 페이로드의 콘텐츠 타입 목록 |
 | secret.content_types.default | Body | String | 콘텐츠 타입 기본값 |
@@ -2027,7 +2062,7 @@ X-Auth-Token: {tokenId}
 | payload | Body | String | - | 암호화 키 페이로드 |
 | payload_content_type | Body | String | - | 암호화 키 페이로드 콘텐츠 타입<br> payload를 입력할 시 필수로 입력해야 함 <br>지원하는 콘텐츠 타입 목록: `text/plain`, `application/octet-stream`, `application/pkcs8`, `application/pkix-cert` |
 | payload_content_encoding | Body | Enum | - | 암호화 키 페이로드 인코딩 방식 <br>payload_content_type이 text/plain이 아닌 경우 필수로 입력해야 함<br> `base64` 만 지원 |
-| secret_type | Body | Enum | - | 시크릿 타입 <br> `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque`중 하나 |
+| secret_type | Body | Enum | - | 시크릿 타입 <br> `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque` 중 하나 |
 
 
 
@@ -2201,7 +2236,7 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | offset | Query | Integer | - | 응답 목록의 오프셋, 기본값: 0 |
-| limit | Query | Integer | - | 응답 목록에 노출할 최대 갯수, 기본값: 10 |
+| limit | Query | Integer | - | 응답 목록에 노출할 최대 개수, 기본값: 10 |
 
 #### 응답
 
@@ -2221,7 +2256,7 @@ X-Auth-Token: {tokenId}
 | containers.secret_refs.secret_ref | Body | String | 시크릿 주소 |
 | containers.secret_refs.name | Body | String | 컨테이너가 지정한 시크릿 이름<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정 |
 | containers.type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나|
-| total | Body | Integer | 요청 쿼리의 시크릿 컨테이너의 총 갯수 |
+| total | Body | Integer | 요청 쿼리의 시크릿 컨테이너의 총 개수 |
 | next | Body | String | 현재 조회된 목록의 다음 목록 URL |
 | previous | Body | String | 현재 조회된 목록의 이전 목록 URL |
 
@@ -2398,3 +2433,717 @@ X-Auth-Token: {tokenId}
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## IP ACL 그룹
+
+### IP ACL 그룹 목록 보기
+
+IP ACL 그룹 목록을 반환합니다.
+
+```
+GET /v2.0/lbaas/ipacl-groups
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| id | Query | String | - | IP ACL 그룹 ID |
+| name | Query | String | - | IP ACL 그룹 이름 |
+| description | Query | String | - | IP ACL 그룹 설명 |
+| action | Query | Enum | - | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| ipacl_groups | Body | Array | IP ACL 그룹 객체 목록 |
+| ipacl_groups.ipacl_target_count | Body | String | IP ACL 그룹에 포함된 타깃 개수 |
+| ipacl_groups.description | Body | String | IP ACL 그룹 설명 |
+| ipacl_groups.loadbalancers | Body | Object | IP ACL 그룹이 적용된 로드밸런서 객체 목록 |
+| ipacl_groups.loadbalancers.loadbalancer_id | Body | String | 로드밸런서 ID |
+| ipacl_groups.tenant_id | Body | String | 테넌트 ID |
+| ipacl_groups.action | Body | Enum | IP 접근제어 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
+| ipacl_groups.id | Body | UUID | IP ACL 그룹 ID |
+| ipacl_groups.name | Body | String | IP ACL 그룹 명 |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+{
+  "ipacl_groups": [
+      {
+      "ipacl_target_count": "1",
+      "description": "",
+      "loadbalancers": [
+        {
+          "loadbalancer_id": "7b4cef78-72b0-4c3c-9971-98763ef6284c"
+        }
+      ],
+      "tenant_id": "8258ab391d854e8b878642b737017a3b",
+      "action": "DENY",
+      "id": "04570ec5-456a-48ac-85ee-38adcc83ee70",
+      "name": "ip-acl-group-1"
+    }
+  ]
+}
+```
+</p>
+</details>
+
+### IP ACL 그룹 보기
+
+지정한 IP ACL 그룹을 반환합니다.
+
+```
+GET /v2.0/lbaas/ipacl-groups/{ipaclGroupId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| ipaclGroupId | Header | String | O | 토큰 ID |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| ipacl_group | Body | Object | IP ACL 그룹 객체 |
+| ipacl_group.ipacl_target_count | Body | String | IP ACL 그룹에 포함된 타깃 개수 |
+| ipacl_group.description | Body | String | IP ACL 그룹 설명 |
+| ipacl_group.loadbalancers | Body | Object | IP ACL 그룹이 적용된 로드밸런서 객체 목록 |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드밸런서 ID |
+| ipacl_group.tenant_id | Body | String | 테넌트 ID |
+| ipacl_group.action | Body | Enum | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
+| ipacl_group.id | Body | UUID | IP ACL 그룹 ID |
+| ipacl_group.name | Body | String | IP ACL 그룹 명 |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+{
+  "ipacl_group": {
+    "ipacl_target_count": "1",
+    "description": "",
+    "loadbalancers": [
+      {
+        "loadbalancer_id": "7b4cef78-72b0-4c3c-9971-98763ef6284c"
+      }
+    ],
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "action": "DENY",
+    "id": "04570ec5-456a-48ac-85ee-38adcc83ee70",
+    "name": "ip-acl-group-1"
+  }
+}
+```
+</p>
+</details>
+
+- - -
+
+### IP ACL 그룹 생성하기
+
+새로운 IP ACL 그룹을 생성합니다.
+
+```
+POST /v2.0/lbaas/ipacl-groups
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| ipacl_group | Body | Object | O | IP ACL 그룹 객체 |
+| ipacl_group.description | Body | String | -  | IP ACL 그룹 설명 |
+| ipacl_group.action | Body | Enum | O | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
+| ipacl_group.name | Body | String | -  | IP ACL 그룹 명 |
+| ipacl_group.ipacl_targets | Body | Object | - | IP ACL 타깃 객체, 값 입력시 타깃도 함께 생성함 |
+| ipacl_group.ipacl_targets.cidr_address | Body | String | O (ipacl_targets 객체가 추가된 경우) | IP ACL 타깃 CIDR<br>단독 IP 주소, 또는 CIDR 형식의 IP RANGE 입력 |
+| ipacl_group.ipacl_targets.descripion | Body | String | - | IP ACL 타깃 설명 |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+{
+  "ipacl_group": {
+    "action": "ALLOW",
+    "name": "example",
+    "description": "description",
+    "ipacl_targets": [
+			{
+				"cidr_address" : "192.168.0.5",
+				"description": "My Friend"
+			},
+			{
+				"cidr_address" : "10.10.22.3/24",
+				"description": "Your Friends"
+			}
+     ]
+  }
+}
+```
+</p>
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| ipacl_group | Body | Object | IP ACL 그룹 객체 |
+| ipacl_group.ipacl_target_count | Body | String | IP ACL 그룹에 포함된 타깃 개수 |
+| ipacl_group.description | Body | String | IP ACL 그룹 설명 |
+| ipacl_group.loadbalancers | Body | String | IP ACL 그룹이 적용된 로드밸런서 객체 목록 |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드밸런서 ID |
+| ipacl_group.tenant_id | Body | String | 테넌트 ID |
+| ipacl_group.action | Body | Enum | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
+| ipacl_group.id | Body | UUID | IP ACL 그룹 ID |
+| ipacl_group.name | Body | String | IP ACL 그룹 명 |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+{
+  "ipacl_group": {
+    "ipacl_target_count": "0",
+    "description": "description",
+    "loadbalancers": [],
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "action": "ALLOW",
+    "id": "e5e2627e-c1fc-4deb-a96d-f1213bb8227e",
+    "name": "example"
+  }
+}
+```
+</p>
+</details>
+
+- - -
+
+### IP ACL 그룹 수정하기
+
+기존 IP ACL 그룹을 수정합니다.
+ipacl_group.action은 변경할 수 없습니다.
+하위 IP ACL 타깃 목록을 전체적으로 교체할 때에 이 API를 사용할 수 있습니다. 
+단, IP ACL 그룹에 속했던 모든 기존의 타깃이 삭제되고 입력한 타깃 목록으로 대체됩니다. 
+입력한 타깃의 cidr_address는 중복되지 않아야 합니다.
+
+```
+PUT /v2.0/lbaas/ipacl-groups/{ipaclGroupId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| ipaclGroupId | URL | UUID | O | IP ACL 그룹 ID |
+| ipacl_group | Body | String | O | IP ACL 그룹 객체 |
+| ipacl_group.name | Body | String | - | IP ACL 그룹 명 |
+| ipacl_group.description | Body | String | - | IP ACL 그룹 설명 |
+| ipacl_group.ipacl_targets | Body | Object | - | IP ACL 타깃 객체, 값 입력시 타깃도 함께 생성함 |
+| ipacl_group.ipacl_targets.cidr_address | Body | String | O (ipacl_targets 객체가 추가된 경우) | IP ACL 타깃 CIDR<br>단독 IP 주소, 또는 CIDR 형식의 IP RANGE 입력 |
+| ipacl_group.ipacl_targets.descripion | Body | String | - | IP ACL 타깃 설명 |
+
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+{
+    "ipacl_group" : {
+    "name" : "HouseLannister",
+    "description" : "A Lannister always pays his debts",
+    "ipacl_targets" : [
+        {
+            "cidr_address" : "11.11.11.11",
+            "description" : "Jamie"
+        },
+        {
+            "cidr_address" : "22.22.22.22",
+            "description" : "Cercei"
+        },
+        {
+            "cidr_address" : "33.33.33.33",
+            "description" : "Tyrion"
+        }
+    ]
+    }
+}
+```
+</p>
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| ipacl_group | Body | Object | IP ACL 그룹 객체 |
+| ipacl_group.ipacl_target_count | Body | String | IP ACL 그룹에 포함된 타깃 개수 |
+| ipacl_group.description | Body | String | IP ACL 그룹 설명 |
+| ipacl_group.loadbalancers | Body | String | IP ACL 그룹이 적용된 로드밸런서 객체 목록 |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드밸런서 ID |
+| ipacl_group.tenant_id | Body | String | 테넌트 ID |
+| ipacl_group.action | Body | Enum | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
+| ipacl_group.id | Body | UUID | IP ACL 그룹 ID |
+| ipacl_group.name | Body | String | IP ACL 그룹 명 |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+{
+  "ipacl_group": {
+    "ipacl_target_count": "3",
+    "description": "A Lannister always pays his debts",
+    "loadbalancers": [],
+    "tenant_id": "18717b5d8a9d45b9af440c75d61235c7",
+    "action": "DENY",
+    "id": "acc655d4-4735-4892-b32b-669cc21925ff",
+    "name": "HouseLannister"
+  }
+}
+```
+</p>
+</details>
+
+- - -
+
+### IP ACL 그룹 삭제하기
+
+지정한 IP ACL 그룹을 삭제합니다.
+
+```
+GET /v2.0/lbaas/ipacl-groups/{ipaclGroupId}
+X-Auth-Token: {tokenId}
+```
+
+IP ACL 그룹 삭제시 하위의 IP ACL 타깃도 모두 삭제됩니다. 
+삭제되는 IP ACL 그룹을 사용하는 모든 로드밸런서에서 이 IP ACL 그룹 관련된 룰이 삭제됩니다.
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| ipaclGroupId | URL | UUID | O | IP ACL 그룹 ID |
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+- - -
+
+
+### 로드밸런서에 IP ACL 그룹 적용
+
+로드밸런서에 IP ACL 그룹을 적용합니다.
+IP ACL 그룹을 적용받은 로드밸런서에는 그룹에 포함된 IP ACL 타겟 룰이 적용됩니다.
+여러 개의 그룹을 로드밸런서에 적용할 수 있습니다. 단, 그룹들의 action은 모두 동일해야 합니다.
+기존에 로드밸런서에 적용되어 있던 IP ACL 그룹은 모두 삭제되고 입력된 그룹 목록으로 재적용됩니다.
+
+```
+PUT /v2.0/lbaas/loadbalancers/{lb_id}/bind_ipacl_groups
+X-auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| lb_id | URL | UUID | O | 로드밸런서 ID |
+| ipacl_groups_binding | Body | Object | O | IP ACL 바인딩 객체 |
+| ipacl_groups_binding.ipacl_group_id | Body | UUID | O | 로드밸런서에 적용할 IP ACL 그룹 ID |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+{
+  "ipacl_groups_binding": [
+    {
+      "ipacl_group_id": "acc655d4-4735-4892-b32b-669cc21925ff"
+    },
+    {
+      "ipacl_group_id": "ef33c087-2dc9-4be6-a0d2-d24c9d84e66e"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+#### 응답
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| loadbalancer_id | Body | UUID | 로드밸런서 ID |
+| ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+[
+  {
+    "loadbalancer_id": "096ddfbf-aaf9-42d6-b93d-0036ec219479",
+    "ipacl_group_id": "acc655d4-4735-4892-b32b-669cc21925ff"
+  },
+  {
+    "loadbalancer_id": "096ddfbf-aaf9-42d6-b93d-0036ec219479",
+    "ipacl_group_id": "ef33c087-2dc9-4be6-a0d2-d24c9d84e66e"
+  }
+]
+```
+
+</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## IP ACL 타깃
+
+### IP ACL 타깃 목록 보기
+
+IP ACL 타깃 목록을 반환합니다.
+
+```
+GET /v2.0/lbaas/ipacl-targets
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| id | Query | String | - | IP ACL 타깃 ID |
+| cidr_address | Query | String | - | IP ACL 타깃 CIDR<br>단독 IP 주소 또는 CIDR 형식의 IP RANGE |
+| ipacl_group_id | Query | String | - | IP ACL 그룹 id |
+| description | Query | String | - | IP ACL 그룹 설명 |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| ipacl_targets | Body | Array | IP ACL 타깃 정보 객체 목록 |
+| ipacl_targets.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
+| ipacl_targets.tenant_id | Body | String | 테넌트 ID |
+| ipacl_targets.cidr_address | Body | String | IP ACL 타깃 CIDR |
+| ipacl_targets.description | Body | String | IP ACL 타깃 설명 |
+| ipacl_targets.id | Body | UUID | IP ACL 타깃 ID |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+{
+  "ipacl_targets": [
+    {
+      "ipacl_group_id": "d240300b-53f2-4729-a6bb-b6f84f9be076",
+      "tenant_id": "8258ab391d854e8b878642b737017a3b",
+      "cidr_address": "10.0.0.0/24",
+      "description": "description",
+      "id": "08d06560-919d-4383-a491-70fd2aca3fb2"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+### IP ACL 타깃 보기
+
+지정한 IP ACL 타깃 정보를 반환합니다.
+
+```
+GET /v2.0/lbaas/ipacl-targets/{ipaclTargetId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| ipaclTargetId | URL | UUID | O | IP ACL 타깃 ID |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| ipacl_target | Body | Array | IP ACL 타깃 정보 객체 |
+| ipacl_target.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
+| ipacl_target.tenant_id | Body | String | 테넌트 ID |
+| ipacl_target.cidr_address | Body | String | IP ACL 타깃 CIDR<br>단독 IP 주소 또는 CIDR 형식의 IP RANGE |
+| ipacl_target.description | Body | String | IP ACL 타깃 설명 |
+| ipacl_target.id | Body | UUID | IP ACL 타깃 ID |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+{
+  "ipacl_target": {
+    "ipacl_group_id": "d240300b-53f2-4729-a6bb-b6f84f9be076",
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "cidr_address": "10.0.0.0/24",
+    "description": "description",
+    "id": "08d06560-919d-4383-a491-70fd2aca3fb2"
+  }
+}
+```
+
+</p>
+</details>
+
+- - -
+
+### IP ACL 타깃 생성하기
+
+IP ACL 타깃을 생성합니다.
+
+```
+POST /v2.0/lbaas/ipacl-targets
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| ipacl_target | Body | Object | O | IP ACL 타깃 정보 객체 |
+| ipacl_target.ipacl_group_id | Body | UUID | O | IP ACL 그룹 ID |
+| ipacl_target.cidr_address | Body | String | O | IP ACL 타깃 CIDR<br>단독 IP 주소 또는 CIDR 형식의 IP RANGE |
+| ipacl_target.description | Body | String | - | IP ACL 타깃 설명 |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+{
+  "ipacl_target": {
+    "ipacl_group_id": "d240300b-53f2-4729-a6bb-b6f84f9be076",
+    "cidr_address": "10.0.0.0/24",
+    "description": "description"
+  }
+}
+```
+
+</p>
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| ipacl_target | Body | Object | IP ACL 타깃 정보 객체 |
+| ipacl_target.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
+| ipacl_target.tenant_id | Body | String | 테넌트 ID |
+| ipacl_target.cidr_address | Body | String | IP ACL 타깃 CIDR<br>단독 IP 주소 또는 CIDR 형식의 IP RANGE |
+| ipacl_target.description | Body | String | IP ACL 타깃 설명 |
+| ipacl_target.id | Body | UUID | IP ACL 타깃 ID |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+{
+  "ipacl_target": {
+    "ipacl_group_id": "d240300b-53f2-4729-a6bb-b6f84f9be076",
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "cidr_address": "10.0.0.0/24",
+    "description": "description",
+    "id": "08d06560-919d-4383-a491-70fd2aca3fb2"
+  }
+}
+```
+
+</p>
+</details>
+
+- - -
+
+### IP ACL 타깃 수정하기
+
+기존 IP ACL 타깃을 변경합니다.
+description만 변경할 수 있습니다.
+
+```
+GET /v2.0/lbaas/ipacl-targets/{ipaclTargetId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| ipaclTargetId | URL | UUID | O | IP ACL 타깃 ID |
+| ipacl_target | Body | Object | O | IP ACL 타깃 정보 객체 |
+| ipacl_target.description | Body | String | - | IP ACL 타깃 설명 |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+{
+  "ipacl_target": {
+    "description": "description"
+  }
+}
+```
+
+</p>
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+| --- | --- | --- | --- |
+| ipacl_target | Body | Object | IP ACL 타깃 정보 객체 |
+| ipacl_target.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
+| ipacl_target.tenant_id | Body | String | 테넌트 ID |
+| ipacl_target.cidr_address | Body | String | IP ACL 타깃 CIDR<br>단독 IP 주소 또는 CIDR 형식의 IP RANGE |
+| ipacl_target.description | Body | String | IP ACL 타깃 설명 |
+| ipacl_target.id | Body | UUID | IP ACL 타깃 ID |
+
+<details><summary>예시</summary>
+<p>
+
+``` json
+{
+  "ipacl_target": {
+    "ipacl_group_id": "d240300b-53f2-4729-a6bb-b6f84f9be076",
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "cidr_address": "10.0.0.0/24",
+    "description": "description",
+    "id": "08d06560-919d-4383-a491-70fd2aca3fb2"
+  }
+}
+```
+
+</p>
+</details>
+
+- - -
+
+### IP ACL 타깃 삭제하기
+
+지정한 로드밸런서를 삭제합니다.
+
+```
+DELETE /v2.0/lbaas/ipacl-targets/{ipaclTargetId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | 토큰 ID |
+| ipaclTargetId | URL | UUID | O | IP ACL 타깃 ID |
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+- - -
+

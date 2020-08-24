@@ -2764,7 +2764,7 @@ X-Auth-Token: {tokenId}
 지정한 IP ACL 그룹을 삭제합니다.
 
 ```
-GET /v2.0/lbaas/ipacl-groups/{ipaclGroupId}
+DELETE /v2.0/lbaas/ipacl-groups/{ipaclGroupId}
 X-Auth-Token: {tokenId}
 ```
 
@@ -3065,7 +3065,7 @@ X-Auth-Token: {tokenId}
 description만 변경할 수 있습니다.
 
 ```
-GET /v2.0/lbaas/ipacl-targets/{ipaclTargetId}
+PUT /v2.0/lbaas/ipacl-targets/{ipaclTargetId}
 X-Auth-Token: {tokenId}
 ```
 

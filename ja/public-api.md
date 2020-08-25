@@ -6,8 +6,8 @@ APIを使用するにはAPIエンドポイントとトークンなどが必要�
 
 | タイプ | リージョン | エンドポイント |
 |---|---|---|
-| network | 韓国(パンギョ)リージョン<br>韓国(坪村)リージョン<br>日本リージョン | https://kr1-api-network.infrastructure.cloud.toast.com<br>https://kr2-api-network.infrastructure.cloud.toast.com<br>https://jp1-api-network.infrastructure.cloud.toast.com |
-| key-manager | 韓国(パンギョ)リージョン<br>韓国(坪村)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://kr2-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
+| network | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-network.infrastructure.cloud.toast.com<br>https://jp1-api-network.infrastructure.cloud.toast.com |
+| key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
 
 APIレスポンスにガイドに明示されていないフィールドが表示される場合があります。このようなフィールドはTOAST内部用で使用され、事前の告知なく変更される場合があるため使用しません。
@@ -54,6 +54,9 @@ X-Auth-Token: {tokenId}
 | loadbalancers.id | Body | UUID | ロードバランサーのID |
 | loadbalancers.operating_status | Body | Enum | ロードバランサーの運用状態 |
 | loadbalancers.admin_state_up | Body | Boolean | ロードバランサーの管理者制御状態 |
+| loadbalancers.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
+| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
+| loadbalancers.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
 
 <details><summary>例</summary>
 ```json
@@ -83,7 +86,16 @@ X-Auth-Token: {tokenId}
       "vip_subnet_id": "dcb31578-1e16-407f-a117-a716795fabc4",
       "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
       "operating_status": "ONLINE",
-      "admin_state_up": true
+      "admin_state_up": true,
+      "ipacl_groups": [
+        {
+         "ipacl_group_id": "79ebf206-3463-4df1-a54c-4fc939f8c26c"
+         },
+         {
+         "ipacl_group_id": "947030cc-635f-42d3-b745-770cf7b562fd"
+         }
+       ],
+       "ipacl_group_action": "DENY"
     }
   ]
 }
@@ -124,6 +136,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | ロードバランサーのID |
 | loadbalancer.operating_status | Body | Enum | ロードバランサーの運用状態 |
 | loadbalancer.admin_state_up | Body | Boolean | ロードバランサーの管理者制御状態 |
+| loadbalancers.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
+| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
+| loadbalancers.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
 
 
 <details><summary>例</summary>
@@ -153,7 +168,16 @@ X-Auth-Token: {tokenId}
     "vip_subnet_id": "dcb31578-1e16-407f-a117-a716795fabc4",
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
-    "admin_state_up": true
+    "admin_state_up": true,
+    "ipacl_groups": [
+        {
+         "ipacl_group_id": "79ebf206-3463-4df1-a54c-4fc939f8c26c"
+         },
+         {
+         "ipacl_group_id": "947030cc-635f-42d3-b745-770cf7b562fd"
+         }
+     ],
+     "ipacl_group_action": "DENY   
   }
 }
 ```
@@ -213,6 +237,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | ロードバランサーのID |
 | loadbalancer.operating_status | Body | Enum | ロードバランサーの運用状態 |
 | loadbalancer.admin_state_up | Body | Boolean | ロードバランサーの管理者制御状態 |
+| loadbalancers.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
+| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
+| loadbalancers.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
 
 
 <details><summary>例</summary>
@@ -243,7 +270,9 @@ X-Auth-Token: {tokenId}
     "vip_subnet_id": "dcb31578-1e16-407f-a117-a716795fabc4",
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
-    "admin_state_up": true
+    "admin_state_up": true,
+    "ipacl_groups": [],
+    "ipacl_group_action": null   
   }
 }
 ```
@@ -299,6 +328,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | ロードバランサーのID |
 | loadbalancer.operating_status | Body | Enum | ロードバランサーの運用状態 |
 | loadbalancer.admin_state_up | Body | Boolean | ロードバランサーの管理者制御状態 |
+| loadbalancers.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
+| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
+| loadbalancers.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
 
 
 <details><summary>例</summary>
@@ -330,6 +362,8 @@ X-Auth-Token: {tokenId}
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
     "admin_state_up": true
+    "ipacl_groups": [],
+    "ipacl_group_action": null        
   }
 }
 ```
@@ -2401,3 +2435,644 @@ X-Auth-Token: {tokenId}
 #### レスポンス
 
 このAPIはレスポンス本文を返しません。
+
+
+## IP ACLグループ
+
+### IP ACLグループリスト表示
+
+IP ACLグループリストを返します。
+
+```
+GET /v2.0/lbaas/ipacl-groups
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | トークンID |
+| id | Query | String | - | IP ACLグループID |
+| name | Query | String | - | IP ACLグループ名 |
+| description | Query | String | - | IP ACLグループ説明 |
+| action | Body | Enum | IP ACLグループの制御動作<br>`ALLOW`、`DENY`のいずれか |  |
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| ipacl_groups | Body | Array | IP ACLグループオブジェクトリスト |
+| ipacl_groups.ipacl_target_count | Body | String | IP ACLグループに含まれるターゲットの数 |
+| ipacl_groups.description | Body | String | IP ACLグループ説明 |
+| ipacl_groups.loadbalancers | Body | Object | IP ACLグループが適用されたロードバランサーオブジェクトリスト |
+| ipacl_groups.loadbalancers.loadbalancer_id | Body | String | ロードバランサーID |
+| ipacl_groups.tenant_id | Body | String | テナントID |
+| ipacl_groups.action | Body | Enum | IPアクセス制御グループの制御動作<br>`ALLOW`、`DENY`のいずれか |
+| ipacl_groups.id | Body | UUID | IP ACLグループID |
+| ipacl_groups.name | Body | String | IP ACLグループ名 |
+
+<details><summary>例</summary>
+<p>
+
+``` json
+{
+  "ipacl_groups": [
+      {
+      "ipacl_target_count": "1",
+      "description": "",
+      "loadbalancers": [
+        {
+          "loadbalancer_id": "7b4cef78-72b0-4c3c-9971-98763ef6284c"
+        }
+      ],
+      "tenant_id": "8258ab391d854e8b878642b737017a3b",
+      "action": "DENY",
+      "id": "04570ec5-456a-48ac-85ee-38adcc83ee70",
+      "name": "ip-acl-group-1"
+    }
+  ]
+}
+```
+</p>
+</details>
+
+### IP ACLグループ表示
+
+指定したIP ACLグループを返します。
+
+```
+GET /v2.0/lbaas/ipacl-groups/{ipaclGroupId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | トークンID |
+| ipaclGroupId | Header | String | O | トークンID |
+#### レスポンス
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| ipacl_group | Body | Object | IP ACLグループオブジェクト |
+| ipacl_group.ipacl_target_count | Body | String | IP ACLグループに含まれるターゲットの数 |
+| ipacl_group.description | Body | String | IP ACLグループ説明 |
+| ipacl_group.loadbalancers | Body | Object | IP ACLグループが適用されたロードバランサーオブジェクトリスト |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | ロードバランサーID |
+| ipacl_group.tenant_id | Body | String | テナントID |
+| ipacl_group.action | Body | Enum | IP ACLグループの制御動作<br>`ALLOW`、`DENY`のいずれか |
+| ipacl_group.id | Body | UUID | IP ACLグループID |
+| ipacl_group.name | Body | String | IP ACLグループ名 |
+
+<details><summary>例</summary>
+<p>
+
+``` json
+{
+  "ipacl_group": {
+    "ipacl_target_count": "1",
+    "description": "",
+    "loadbalancers": [
+      {
+        "loadbalancer_id": "7b4cef78-72b0-4c3c-9971-98763ef6284c"
+      }
+    ],
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "action": "DENY",
+    "id": "04570ec5-456a-48ac-85ee-38adcc83ee70",
+    "name": "ip-acl-group-1"
+  }
+}
+```
+</p>
+</details>
+
+- - -
+
+### IP ACLグループを作成する
+
+新しいIP ACLグループを作成します。
+
+```
+POST /v2.0/lbaas/ipacl-groups
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | トークンID |
+| ipacl_group | Body | Object | O | IP ACLグループオブジェクト |
+| ipacl_group.description | Body | String | -  | IP ACLグループ説明 |
+| ipacl_group.action | Body | Enum | O | IP ACLグループの制御動作<br>`ALLOW`、`DENY`のいずれか |
+| ipacl_group.name | Body | String | -  | IP ACLグループ名 |
+| ipacl_group.ipacl_targets | Body | Object | - | IP ACLターゲットオブジェクト。値入力時、ターゲットも一緒に作成する |
+| ipacl_group.ipacl_targets.cidr_address | Body | String | O (ipacl_targetsオブジェクトが追加された場合) | IP ACLターゲットCIDR<br>単独IPアドレス、またはCIDR形式のIP RANGE入力 |
+| ipacl_group.ipacl_targets.descripion | Body | String | - | IP ACLターゲット説明 |
+
+<details><summary>例</summary>
+<p>
+
+``` json
+{
+  "ipacl_group": {
+    "action": "ALLOW",
+    "name": "example",
+    "description": "description",
+    "ipacl_targets": [
+			{
+				"cidr_address" : "192.168.0.5",
+				"description": "My Friend"
+			},
+			{
+				"cidr_address" : "10.10.22.3/24",
+				"description": "Your Friends"
+			}
+     ]
+  }
+}
+```
+</p>
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| ipacl_group | Body | Object | IP ACLグループオブジェクト |
+| ipacl_group.ipacl_target_count | Body | String | IP ACLグループに含まれるターゲットの数 |
+| ipacl_group.description | Body | String | IP ACLグループ説明 |
+| ipacl_group.loadbalancers | Body | String | IP ACLグループが適用されたロードバランサーオブジェクトリスト |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | ロードバランサーID |
+| ipacl_group.tenant_id | Body | String | テナントID |
+| ipacl_group.action | Body | Enum | IP ACLグループの制御動作<br>`ALLOW`、`DENY`のいずれか |
+| ipacl_group.id | Body | UUID | IP ACLグループID |
+| ipacl_group.name | Body | String | IP ACLグループ名 |
+
+<details><summary>例</summary>
+<p>
+
+``` json
+{
+  "ipacl_group": {
+    "ipacl_target_count": "0",
+    "description": "description",
+    "loadbalancers": [],
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "action": "ALLOW",
+    "id": "e5e2627e-c1fc-4deb-a96d-f1213bb8227e",
+    "name": "example"
+  }
+}
+```
+</p>
+</details>
+
+- - -
+
+### IP ACLグループ修正
+
+既存IP ACLグループを修正します。
+ipacl_group.actionは変更できません。
+下位IP ACLターゲットリストを全体的に変更する時にこのAPIを使用できます。 
+ただし、IP ACLグループに属していたすべての既存のターゲットが削除され、入力したターゲットリストに代替されます。 
+入力したターゲットのcidr_addressは重複してはいけません。
+
+```
+PUT /v2.0/lbaas/ipacl-groups/{ipaclGroupId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | トークンID |
+| ipaclGroupId | URL | UUID | O | IP ACLグループID |
+| ipacl_group | Body | String | O | IP ACLグループオブジェクト |
+| ipacl_group.name | Body | String | - | IP ACLグループ名 |
+| ipacl_group.description | Body | String | - | IP ACLグループ説明 |
+| ipacl_group.ipacl_targets | Body | Object | - | IP ACLターゲットオブジェクト。値入力時、ターゲットも一緒に作成する | 
+| ipacl_group.ipacl_targets.cidr_address | Body | String | O (ipacl_targetsオブジェクトが追加された場合) | IP ACLターゲットCIDR<br>単独IPアドレス、またはCIDR形式のIP RANGE入力 |
+| ipacl_group.ipacl_targets.descripion | Body | String | - | IP ACLターゲット説明 |
+
+
+<details><summary>例</summary>
+<p>
+
+``` json
+{
+    "ipacl_group" : {
+    "name" : "HouseLannister",
+    "description" : "A Lannister always pays his debts",
+    "ipacl_targets" : [
+        {
+            "cidr_address" : "11.11.11.11",
+            "description" : "Jamie"
+        },
+        {
+            "cidr_address" : "22.22.22.22",
+            "description" : "Cercei"
+        },
+        {
+            "cidr_address" : "33.33.33.33",
+            "description" : "Tyrion"
+        }
+    ]
+    }
+}
+```
+</p>
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| ipacl_group | Body | Object | IP ACLグループオブジェクト |
+| ipacl_group.ipacl_target_count | Body | String | IP ACLグループに含まれるターゲットの数 |
+| ipacl_group.description | Body | String | IP ACLグループ説明 |
+| ipacl_group.loadbalancers | Body | String | IP ACLグループが適用されたロードバランサーオブジェクトリスト |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | ロードバランサーID |
+| ipacl_group.tenant_id | Body | String | テナントID |
+| ipacl_group.action | Body | Enum | IP ACLグループの制御動作<br>`ALLOW`、`DENY`のいずれか |
+| ipacl_group.id | Body | UUID | IP ACLグループID |
+| ipacl_group.name | Body | String | IP ACLグループ名 |
+
+<details><summary>例</summary>
+<p>
+
+``` json
+{
+  "ipacl_group": {
+    "ipacl_target_count": "3",
+    "description": "A Lannister always pays his debts",
+    "loadbalancers": [],
+    "tenant_id": "18717b5d8a9d45b9af440c75d61235c7",
+    "action": "DENY",
+    "id": "acc655d4-4735-4892-b32b-669cc21925ff",
+    "name": "HouseLannister"
+  }
+}
+```
+</p>
+</details>
+
+- - -
+
+### IP ACLグループ削除
+
+指定したIP ACLグループを削除します。
+
+```
+GET /v2.0/lbaas/ipacl-groups/{ipaclGroupId}
+X-Auth-Token: {tokenId}
+```
+
+IP ACLグループを削除すると、下位のIP ACLターゲットも全て削除されます。 
+削除されるIP ACLグループを使用するすべてのロードバランサーからこのIP ACLグループに関連するルールが削除されます。
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | トークンID |
+| ipaclGroupId | URL | UUID | O | IP ACLグループID |
+
+#### レスポンス
+
+このAPIはレスポンス本文を返しません。
+
+## IP ACLターゲット
+
+### IP ACLターゲットリスト表示
+
+IP ACLターゲットリストを返します。
+
+```
+GET /v2.0/lbaas/ipacl-targets
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | トークンID |
+| id | Query | String | - | IP ACLターゲットID |
+| cidr_address | Query | String | - | IP ACLターゲットCIDR<br>単独IPアドレスまたはCIDR形式のIP RANGE |
+| ipacl_group_id | Query | String | - | IP ACLグループid |
+| description | Query | String | - | IP ACLグループ説明 |
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| ipacl_targets | Body | Array | IP ACLターゲット情報オブジェクトリスト |
+| ipacl_targets.ipacl_group_id | Body | UUID | IP ACLグループID |
+| ipacl_targets.tenant_id | Body | String | テナントID |
+| ipacl_targets.cidr_address | Body | String | IP ACLターゲットCIDR |
+| ipacl_targets.description | Body | String | IP ACLターゲット説明 |
+| ipacl_targets.id | Body | UUID | IP ACLターゲットID |
+
+<details><summary>例</summary>
+<p>
+
+``` json
+{
+  "ipacl_targets": [
+    {
+      "ipacl_group_id": "d240300b-53f2-4729-a6bb-b6f84f9be076",
+      "tenant_id": "8258ab391d854e8b878642b737017a3b",
+      "cidr_address": "10.0.0.0/24",
+      "description": "description",
+      "id": "08d06560-919d-4383-a491-70fd2aca3fb2"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+### IP ACLターゲット表示
+
+指定したIP ACLターゲット情報を返します。
+
+```
+GET /v2.0/lbaas/ipacl-targets/{ipaclTargetId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | トークンID |
+| ipaclTargetId | URL | UUID | O | IP ACLターゲットID |
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| ipacl_target | Body | Array | IP ACLターゲット情報オブジェクト |
+| ipacl_target.ipacl_group_id | Body | UUID | IP ACLグループID |
+| ipacl_target.tenant_id | Body | String | テナントID |
+| ipacl_target.cidr_address | Body | String | IP ACLターゲットCIDR<br>単独IPアドレスまたはCIDR形式のIP RANGE |
+| ipacl_target.description | Body | String | IP ACLターゲット説明 |
+| ipacl_target.id | Body | UUID | IP ACLターゲットID |
+
+<details><summary>例</summary>
+<p>
+
+``` json
+{
+  "ipacl_target": {
+    "ipacl_group_id": "d240300b-53f2-4729-a6bb-b6f84f9be076",
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "cidr_address": "10.0.0.0/24",
+    "description": "description",
+    "id": "08d06560-919d-4383-a491-70fd2aca3fb2"
+  }
+}
+```
+
+</p>
+</details>
+
+- - -
+
+### IP ACLターゲット作成
+
+IP ACLターゲットを作成します。
+
+```
+POST /v2.0/lbaas/ipacl-targets
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | トークンID |
+| ipacl_target | Body | Object | O | IP ACLターゲット情報オブジェクト |
+| ipacl_target.ipacl_group_id | Body | UUID | O | IP ACLグループID |
+| ipacl_target.cidr_address | Body | String | O | IP ACLターゲットCIDR<br>単独IPアドレスまたはCIDR形式のIP RANGE |
+| ipacl_target.description | Body | String | - | IP ACLターゲット説明 |
+
+<details><summary>例</summary>
+<p>
+
+``` json
+{
+  "ipacl_target": {
+    "ipacl_group_id": "d240300b-53f2-4729-a6bb-b6f84f9be076",
+    "cidr_address": "10.0.0.0/24",
+    "description": "description"
+  }
+}
+```
+
+</p>
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| ipacl_target | Body | Object | IP ACLターゲット情報オブジェクト |
+| ipacl_target.ipacl_group_id | Body | UUID | IP ACLグループID |
+| ipacl_target.tenant_id | Body | String | テナントID |
+| ipacl_target.cidr_address | Body | String | IP ACLターゲットCIDR<br>単独IPアドレスまたはCIDR形式のIP RANGE |
+| ipacl_target.description | Body | String | IP ACLターゲット説明 |
+| ipacl_target.id | Body | UUID | IP ACLターゲットID |
+
+<details><summary>例</summary>
+<p>
+
+``` json
+{
+  "ipacl_target": {
+    "ipacl_group_id": "d240300b-53f2-4729-a6bb-b6f84f9be076",
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "cidr_address": "10.0.0.0/24",
+    "description": "description",
+    "id": "08d06560-919d-4383-a491-70fd2aca3fb2"
+  }
+}
+```
+
+</p>
+</details>
+
+- - -
+
+### IP ACLターゲット修正
+
+既存IP ACLターゲットを変更します。
+descriptionのみ変更できます。
+
+```
+GET /v2.0/lbaas/ipacl-targets/{ipaclTargetId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | トークンID |
+| ipaclTargetId | URL | UUID | O | IP ACLターゲットID |
+| ipacl_target | Body | Object | O | IP ACLターゲット情報オブジェクト |
+| ipacl_target.description | Body | String | - | IP ACLターゲット説明 |
+
+<details><summary>例</summary>
+<p>
+
+``` json
+{
+  "ipacl_target": {
+    "description": "description"
+  }
+}
+```
+
+</p>
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| ipacl_target | Body | Object | IP ACLターゲット情報オブジェクト |
+| ipacl_target.ipacl_group_id | Body | UUID | IP ACLグループID |
+| ipacl_target.tenant_id | Body | String | テナントID |
+| ipacl_target.cidr_address | Body | String | IP ACLターゲットCIDR<br>単独IPアドレスまたはCIDR形式のIP RANGE |
+| ipacl_target.description | Body | String | IP ACLターゲット説明 |
+| ipacl_target.id | Body | UUID | IP ACLターゲットID |
+
+<details><summary>例</summary>
+<p>
+
+``` json
+{
+  "ipacl_target": {
+    "ipacl_group_id": "d240300b-53f2-4729-a6bb-b6f84f9be076",
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "cidr_address": "10.0.0.0/24",
+    "description": "description",
+    "id": "08d06560-919d-4383-a491-70fd2aca3fb2"
+  }
+}
+```
+
+</p>
+</details>
+
+- - -
+
+### IP ACLターゲット削除
+
+指定したロードバランサーを削除します。
+
+```
+DELETE /v2.0/lbaas/ipacl-targets/{ipaclTargetId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | トークンID |
+| ipaclTargetId | URL | UUID | O | IP ACLターゲットID |
+
+#### レスポンス
+
+このAPIはレスポンス本文を返しません。
+
+- - -
+
+### ロードバランサーにIP ACLグループ適用
+
+ロードバランサーにIP ACLグループを適用します。
+IP ACLグループを適用されたロードバランサーにはグループに含まれるIP ACLターゲットのルールが適用されます。
+複数のグループをロードバランサーに適用できます。ただし、グループのactionはすべて同じにする必要があります。
+既にロードバランサーに適用されていたIP ACLグループはすべて削除され、入力されたグループリストで再適用されます。 
+
+```
+PUT /v2.0/lbaas/loadbalancers/{lb_id}/bind_ipacl_groups
+X-auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+| --- | --- | --- | --- | --- |
+| tokenId | Header | String | O | トークンID |
+| lb_id | URL | UUID | O | ロードバランサーID |
+| ipacl_groups_binding | Body | Object | O | IP ACLバインディングオブジェクト |
+| ipacl_groups_binding.ipacl_group_id | Body | UUID | O | ロードバランサーに適用するIP ACLグループID |
+
+<details><summary>例</summary>
+<p>
+
+``` json
+{
+  "ipacl_groups_binding": [
+    {
+      "ipacl_group_id": "{% response 'body', 'req_7219c88b7b36457fa3a078e0264c0618', '$.ipacl_groups[0].id' %}"
+    },
+		{
+      "ipacl_group_id": "ef33c087-2dc9-4be6-a0d2-d24c9d84e66e"
+    }
+  ]
+}
+```
+
+</p>
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+| --- | --- | --- | --- |
+| loadbalancer_id | Body | UUID | ロードバランサーID |
+| ipacl_group_id | Body | UUID | IP ACLグループID |
+
+<details><summary>例</summary>
+<p>
+
+``` json
+[
+  {
+    "loadbalancer_id": "096ddfbf-aaf9-42d6-b93d-0036ec219479",
+    "ipacl_group_id": "acc655d4-4735-4892-b32b-669cc21925ff"
+  },
+  {
+    "loadbalancer_id": "096ddfbf-aaf9-42d6-b93d-0036ec219479",
+    "ipacl_group_id": "ef33c087-2dc9-4be6-a0d2-d24c9d84e66e"
+  }
+]
+```
+
+</p>
+</details>
+
+- - -
+

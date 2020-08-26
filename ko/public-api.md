@@ -2503,7 +2503,7 @@ X-Auth-Token: {tokenId}
 | ipacl_groups.tenant_id | Body | String | 테넌트 ID |
 | ipacl_groups.action | Body | Enum | IP 접근제어 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
 | ipacl_groups.id | Body | UUID | IP ACL 그룹 ID |
-| ipacl_groups.name | Body | String | IP ACL 그룹 명 |
+| ipacl_groups.name | Body | String | IP ACL 그룹명 |
 
 <details><summary>예시</summary>
 <p>
@@ -2560,7 +2560,7 @@ X-Auth-Token: {tokenId}
 | ipacl_group.tenant_id | Body | String | 테넌트 ID |
 | ipacl_group.action | Body | Enum | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
 | ipacl_group.id | Body | UUID | IP ACL 그룹 ID |
-| ipacl_group.name | Body | String | IP ACL 그룹 명 |
+| ipacl_group.name | Body | String | IP ACL 그룹명 |
 
 <details><summary>예시</summary>
 <p>
@@ -2604,8 +2604,8 @@ X-Auth-Token: {tokenId}
 | ipacl_group | Body | Object | O | IP ACL 그룹 객체 |
 | ipacl_group.description | Body | String | -  | IP ACL 그룹 설명 |
 | ipacl_group.action | Body | Enum | O | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
-| ipacl_group.name | Body | String | -  | IP ACL 그룹 명 |
-| ipacl_group.ipacl_targets | Body | Object | - | IP ACL 타깃 객체, 값 입력시 타깃도 함께 생성함 |
+| ipacl_group.name | Body | String | -  | IP ACL 그룹명 |
+| ipacl_group.ipacl_targets | Body | Object | - | IP ACL 타깃 객체, 값 입력 시 타깃도 함께 생성함 |
 | ipacl_group.ipacl_targets.cidr_address | Body | String | O (ipacl_targets 객체가 추가된 경우) | IP ACL 타깃 CIDR<br>단독 IP 주소, 또는 CIDR 형식의 IP RANGE 입력 |
 | ipacl_group.ipacl_targets.descripion | Body | String | - | IP ACL 타깃 설명 |
 
@@ -2646,7 +2646,7 @@ X-Auth-Token: {tokenId}
 | ipacl_group.tenant_id | Body | String | 테넌트 ID |
 | ipacl_group.action | Body | Enum | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
 | ipacl_group.id | Body | UUID | IP ACL 그룹 ID |
-| ipacl_group.name | Body | String | IP ACL 그룹 명 |
+| ipacl_group.name | Body | String | IP ACL 그룹명 |
 
 <details><summary>예시</summary>
 <p>
@@ -2689,9 +2689,9 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | ipaclGroupId | URL | UUID | O | IP ACL 그룹 ID |
 | ipacl_group | Body | String | O | IP ACL 그룹 객체 |
-| ipacl_group.name | Body | String | - | IP ACL 그룹 명 |
+| ipacl_group.name | Body | String | - | IP ACL 그룹명 |
 | ipacl_group.description | Body | String | - | IP ACL 그룹 설명 |
-| ipacl_group.ipacl_targets | Body | Object | - | IP ACL 타깃 객체, 값 입력시 타깃도 함께 생성함 |
+| ipacl_group.ipacl_targets | Body | Object | - | IP ACL 타깃 객체, 값 입력 시 타깃도 함께 생성함 |
 | ipacl_group.ipacl_targets.cidr_address | Body | String | O (ipacl_targets 객체가 추가된 경우) | IP ACL 타깃 CIDR<br>단독 IP 주소, 또는 CIDR 형식의 IP RANGE 입력 |
 | ipacl_group.ipacl_targets.descripion | Body | String | - | IP ACL 타깃 설명 |
 
@@ -2736,7 +2736,7 @@ X-Auth-Token: {tokenId}
 | ipacl_group.tenant_id | Body | String | 테넌트 ID |
 | ipacl_group.action | Body | Enum | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
 | ipacl_group.id | Body | UUID | IP ACL 그룹 ID |
-| ipacl_group.name | Body | String | IP ACL 그룹 명 |
+| ipacl_group.name | Body | String | IP ACL 그룹명 |
 
 <details><summary>예시</summary>
 <p>

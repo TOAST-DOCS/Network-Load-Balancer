@@ -1,5 +1,5 @@
 ## Network > Load Balancer > Overview
-TOAST provides Load Balancer, by which:
+NHN Cloud provides Load Balancer, by which:
 
 - Throughput can increase by dispersing loads into many instances;
 - Availability may increase by automatically excluding faulty or under-maintenance instances from service.
@@ -30,7 +30,7 @@ Among those, TERMINATED_HTTPS gets HTTPS traffic and delivers the traffic in HTT
 ## SSL/TLS Version for Load Balancer
 * When creating a load balancer using the TERMINATED_HTTPS protocol, you may select a Secure Socket Layer (SSL) / Transport Layer Security (TLS) version for communication between client and load balancer.
 *  A lower SSL/TLS protocol version may be less secure and the algorithms comprising the cipher suite may be more vulnerable, too; hence, it is recommended to choose the highest possible version of SSL/TLS.
-* TOAST load balancer is about to support TLS v1.3.
+* NHN Cloud load balancer is about to support TLS v1.3.
 
 ### TLS Version
 Select a TLS version to create load balancer. The load balancer communicates with clients by using a selected version at its highest version only.
@@ -129,13 +129,13 @@ Following are the types of session persistence supported by load balancer:
 
 ## Check Instance Status
 
-TOAST Load Balancer conducts status checks periodically to see if member instances operate properly. Status check is conducted by confirming if responses come as specified protocol. If an instance does not send a normal response within specified number or time, it is considered abnormal and excluded from load dispersion. As such, service can be provided without suspension even with unexpected faults or maintenance.  
+NHN Cloud Load Balancer conducts status checks periodically to see if member instances operate properly. Status check is conducted by confirming if responses come as specified protocol. If an instance does not send a normal response within specified number or time, it is considered abnormal and excluded from load dispersion. As such, service can be provided without suspension even with unexpected faults or maintenance.  
 
 Status check protocols provided by load balancer are TCP, HTTP, and HTTPS. To check status more precisely, various methods can be applied for each protocol use. 
 
 ## Statistical Functions of Load Balancer 
 
-You can find many statistical indicators relevant to network flows processed by load balancer on charts. Features of statistics of TOAST Load Balancer are as follows:   
+You can find many statistical indicators relevant to network flows processed by load balancer on charts. Features of statistics of NHN Cloud Load Balancer are as follows:   
 
 * Provide charts of statistics by load balancer, or listener 
 * Classify periods by the hour, 24 hour, 1 week, 1 month or others as specified.  
@@ -198,7 +198,7 @@ To apply IP access control, configure as follows:
 * One access control target can have IP address range in the IP address or CIDR format. Enter IP address range in the CIDR format, and all bandwidth of the network are to be included as access control target. 
 
 > [Reference]
-> Check threatening remote IP from [TOAST Security Monitoring](/Security/Security%20Monitoring/en/Overview/). 
+> Check threatening remote IP from [NHN Cloud Security Monitoring](/Security/Security%20Monitoring/en/Overview/). 
 >
 > Create an IP access control group in the ‘Deny’ type of IP access control type, and add detected threatening IP as IP access control targets; then, security of the system can be enforced.
 >

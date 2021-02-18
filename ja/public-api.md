@@ -10,7 +10,7 @@ APIを使用するにはAPIエンドポイントとトークンなどが必要�
 | key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
 
-APIレスポンスにガイドに明示されていないフィールドが表示される場合があります。このようなフィールドはTOAST内部用で使用され、事前の告知なく変更される場合があるため使用しません。
+APIレスポンスにガイドに明示されていないフィールドが表示される場合があります。このようなフィールドはNHN Cloud内部用で使用され、事前の告知なく変更される場合があるため使用しません。
 
 ## ロードバランサー
 
@@ -1888,7 +1888,7 @@ X-Auth-Token: {tokenId}
 |---|---|---|
 | key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
-APIレスポンスには、ガイドに明示されていないフィールドが表示される場合があります。これらのフィールドはTOAST内部用で使用され、事前の告知なく変更される場合があるため使用しません。
+APIレスポンスには、ガイドに明示されていないフィールドが表示される場合があります。これらのフィールドはNHN Cloud内部用で使用され、事前の告知なく変更される場合があるため使用しません。
 
 
 ### シークレットリスト表示
@@ -2218,7 +2218,7 @@ X-Auth-Token: {tokenId}
 |---|---|---|
 | key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
-APIレスポンスには、ガイドに明示されていないフィールドが表示される場合があります。これらのフィールドはTOAST内部用で使用され、事前の告知なく変更される場合があるため使用しません。
+APIレスポンスには、ガイドに明示されていないフィールドが表示される場合があります。これらのフィールドはNHN Cloud内部用で使用され、事前の告知なく変更される場合があるため使用しません。
 
 
 ### シークレットコンテナリスト表示

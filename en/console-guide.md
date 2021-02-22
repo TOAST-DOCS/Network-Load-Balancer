@@ -1,7 +1,7 @@
 ## Network > Load Balancer > Console Guide
 ## Load Balancer Management
 ### Create Load Balancers 
-A load balancer can be easily created only by entering values in the TOAST Load Balancer console. 
+A load balancer can be easily created only by entering values in the NHN Cloud Load Balancer console. 
 
 #### Load Balancer Information 
 Enter basic information required for a load balancer as follows: 
@@ -12,7 +12,7 @@ Enter basic information required for a load balancer as follows:
 * Load Balancer Type : Specify type of the load balancer between Normal and Dedicated.
 
 #### Register Listeners 
-Define attributes of the traffic to be processed by a load balancer. TOAST Load Balancer, by default, has one listener, which may be added or deleted later in detail pages. 
+Define attributes of the traffic to be processed by a load balancer. NHN Cloud Load Balancer, by default, has one listener, which may be added or deleted later in detail pages. 
 
 * Load Balancing Type: Determines how a load balancer disperses traffic. Choose one of ROUND_ROBIN, LEAST_CONNECTIONS, or SOURCE_IP. 
 * Protocol: Specify the protocol of traffic to be processed by load balancer. Choose one of TCP, HTTP, HTTPS, or TERMINATED_HTTPS.
@@ -83,7 +83,7 @@ When TERMINATED_HTTPS is enabled for the listener, certificates can be registere
 > To apply the certificate which is registered at the Cert Manager to the listener, password of the ‘Private Key’ must be removed, or the format must be either PKCS#1 or PKCS#8 PEM.
 
 ##### Health Check
-Setting for status check is also determined when listener is created. TOAST Load Balancer can define status check operations per listener. Following items are required: 
+Setting for status check is also determined when listener is created. NHN Cloud Load Balancer can define status check operations per listener. Following items are required: 
 
 * Health Check Protocol: Determine the protocol to check status. Choose one of TCP, HTTP, or HTTPS. 
 * Health Check Port: Determine the port for member instance to try status check.
@@ -210,7 +210,7 @@ Many groups in the same "access control type" can be applied to load balancer.
 
 ## Guide for Restarting Load Balancers for Maintenance 
 
-TOAST updates load balancer software on a regular basis to enhance security and stability of its infrastructure services. 
+NHN Cloud updates load balancer software on a regular basis to enhance security and stability of its infrastructure services. 
 Load balancers that are running on target equipment for maintenance must be restarted and migrated to a load balancer equipment which is completed with maintenance. 
 
 To restart a load balancer, use the  **! Restart** button which is created next to each load balancer name. 
@@ -230,4 +230,4 @@ Go to a project which has a load balancer which is scheduled for maintenance.
     ![image-004](http://static.toastoven.net/prod_load_balancer/lb_p_migration_en_4.png)
 
 The load balancer becomes inoperable while restarting is underway. 
-Unless restarting load balancer is normally completed, it shall be automatically reported to the administrator, and you'll be contacted by TOAST. 
+Unless restarting load balancer is normally completed, it shall be automatically reported to the administrator, and you'll be contacted by NHN Cloud. 

@@ -10,7 +10,7 @@ Use `network`-type endpoint for Load Balancer, Listener, Pool, Health Monitor, o
 | key-manager | Korea (Pangyo)<br>Japan | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
 
-In API response, you may find fields that are not specified in the guide. Refrain from using them because such fields are only for the TOAST internal usage and might be changed without previous notice. 
+In API response, you may find fields that are not specified in the guide. Refrain from using them because such fields are only for the NHN Cloud internal usage and might be changed without previous notice. 
 
 ## Load Balancer
 
@@ -1867,7 +1867,7 @@ Call Secret API by using the the `key-manager`-type endpoint. For more details, 
 |---|---|---|
 | key-manager | Korea (Pangyo)<br>Japan | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
-In API response, you may find fields that are not specified in the guide. Refrain from using them because such fields are only for the TOAST internal usage and might be changed without previous notice. 
+In API response, you may find fields that are not specified in the guide. Refrain from using them because such fields are only for the NHN Cloud internal usage and might be changed without previous notice. 
 
 
 ### List Secrets 
@@ -2201,7 +2201,7 @@ Call Secret Container API by using the the `key-manager`-type endpoint. For more
 |---|---|---|
 | key-manager | Korea (Pangyo)<br>Japan | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
 
-In API response, you may find fields that are not specified in the guide. Refrain from using them because such fields are only for the TOAST internal usage and might be changed without previous notice. 
+In API response, you may find fields that are not specified in the guide. Refrain from using them because such fields are only for the NHN Cloud internal usage and might be changed without previous notice. 
 
 
 ### List Secret Containers 

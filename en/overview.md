@@ -127,11 +127,6 @@ Following are the types of session persistence supported by load balancer:
 
 [Note] TCP session maintenance time can be set for load balancer. By setting **Keepalive timeout** value, session persistence can be adjusted between client and load balancer, and load balancer and server. 
 
-
-## Block Invalid Request
-This feature blocks HTTP request headers if they contain invalid characters. HTTP request headers with invalid characters may be sent by a hacker trying to exploit the server's vulnerability or via a browser affected by bugs. When this feature is enabled, it prevents HTTP requests with invalid characters from being transferred to an instance and sends 400 response code (bad request) to the client.
-
-
 ## Check Instance Status
 
 NHN Cloud Load Balancer conducts status checks periodically to see if member instances operate properly. Status check is conducted by confirming if responses come as specified protocol. If an instance does not send a normal response within specified number or time, it is considered abnormal and excluded from load dispersion. As such, service can be provided without suspension even with unexpected faults or maintenance.  

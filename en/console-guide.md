@@ -230,4 +230,14 @@ Go to a project which has a load balancer which is scheduled for maintenance.
     ![image-004](http://static.toastoven.net/prod_load_balancer/lb_p_migration_en_4.png)
 
 The load balancer becomes inoperable while restarting is underway. 
-Unless restarting load balancer is normally completed, it shall be automatically reported to the administrator, and you'll be contacted by NHN Cloud. 
+Unless restarting load balancer is normally completed, it shall be automatically reported to the administrator, and you'll be contacted by NHN Cloud.
+
+## Difference between physical load balancers and regular load balancer
+The difference between the physical load balancer launched online in April, 2021 and the current load balancer (normal/dedicated) is as follows:
+
+* Physical load balancers are provided only in Pyeongchon Region, Korea.
+* Physical load balancers does not allow the connection of a floating IP. When creating a physical load balancer, an automatically assigned public IP is used to receive the traffic to balance. This public IP is displayed as service IP on the web console.
+* Physical basic load balancers can be created when there are 17 consecutive IPs unused by the subnet. The 17 IPs are assigned to the physical load balancer and displayed as reserved IP on the web console.
+* Physical Premium load balancers can be created when there are 50 consecutive IPs unused by the subnet. The 50 IPs are assigned to the physical load balancer and displayed as reserved IP on the web console.
+* Physical load balancers do not provide load balancer statistics.
+* Physical load balancers do not provide load balancer IP access control.

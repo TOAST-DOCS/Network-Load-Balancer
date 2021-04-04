@@ -140,7 +140,7 @@ Select a load balancer from the list, and a page of details shows, composed of t
 > [Note] Cannot change VPC and IP address to which load balancer is associated. 
 
 #### Add Listeners 
-To add a listener, select Listener on the detail page of load balancer, and click Add. Items required to add listeners are identical to those required for default listener when a load balancer is created. The load balancer port which existing listeners used cannot be applied to add listeners.  
+Listeners can be added by clicking the Add Listener button on the Listener tab in the detail screen of the load balancer. Items required to add listeners are the same as those required by the default listener during creation of the load balancer. When a listener is added, the load balancer port used by previous listeners can no longer be used.
 
 #### Modify Listeners 
 To modify the setting of a listener, click Modify. 
@@ -231,3 +231,13 @@ Go to a project which has a load balancer which is scheduled for maintenance.
 
 The load balancer becomes inoperable while restarting is underway. 
 Unless restarting load balancer is normally completed, it shall be automatically reported to the administrator, and you'll be contacted by NHN Cloud. 
+
+## Difference between physical load balancers and regular load balancer
+The difference between the physical load balancer launched online in April, 2021 and the current load balancer (normal/dedicated) is as follows:
+
+* Physical load balancers are provided only in Pyeongchon Region, Korea.
+* Physical load balancers does not allow the connection of a floating IP. When creating a physical load balancer, an automatically assigned public IP is used to receive the traffic to balance. This public IP is displayed as service IP on the web console.
+* Physical basic load balancers can be created when there are 17 consecutive IPs unused by the subnet. The 17 IPs are assigned to the physical load balancer and displayed as reserved IP on the web console.
+* Physical Premium load balancers can be created when there are 50 consecutive IPs unused by the subnet. The 50 IPs are assigned to the physical load balancer and displayed as reserved IP on the web console.
+* Physical load balancers do not provide load balancer statistics.
+* Physical load balancers do not provide load balancer IP access control.

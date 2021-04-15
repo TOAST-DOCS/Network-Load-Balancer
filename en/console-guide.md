@@ -9,7 +9,7 @@ Enter basic information required for a load balancer as follows:
 * Name: Enter name of the load balancer.
 * Description: Describe the load balancer.
 * Network (Subnet): Specify the subnet to which load balancer is to be connected.
-* Load Balancer Type : Specify type of the load balancer between Normal and Dedicated.
+* Load Balancer Type : Specify type of the load balancer between Normal, Dedicated, Physical Basic and Physical Premium.
 
 #### Register Listeners 
 Define attributes of the traffic to be processed by a load balancer. NHN Cloud Load Balancer, by default, has one listener, which may be added or deleted later in detail pages. 

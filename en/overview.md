@@ -110,9 +110,9 @@ HTTP requests through load balancer include the **X-Forwarded-For** key. And the
 
 ## Restricted Connection
 
-To ensure QoS, load balancer restricts the number of maintainable connection per listener. If requests exceed a restricted value, they are queued and can be processed after previous requests are completed. Or, requests may be forced to stop, as they may not even be queued due to loads or timed out from server/client. This is when the client experiences unexpected response delay. Therefore, take a cautious approach to select your restriction value.  
+For assurance of service quality, the load balancer limits the number of connections that each listener can maintain at any given time. If a request exceed the set connection limit value, it will be queued internally in the load balancer and will be processed after older requests are completed. The request may be forced a shutdown if the queue is full or a server/client times out. In such cases, the client may experience unexpected delay in response.
 
-> [Note] The restriction value currently supported by load balancer is ranged between 2000 and 60000, and you are free to decide within the range. To readjust restriction, contact administrator. 
+> [Note] Each regular load balancer can connect up to 60,000 sessions, private road balancer up to 480,000 sessions, physical basic load balancer up to 1,000,000 sessions, and physical premium load balancer up to 3,000,000 sessions.
 
 ## Session Persistence
 

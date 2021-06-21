@@ -57,6 +57,7 @@ X-Auth-Token: {tokenId}
 | loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
 | loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancers.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
 
 <details><summary>예시</summary>
 ```json
@@ -102,7 +103,7 @@ X-Auth-Token: {tokenId}
 ```
 </details>
 
-
+---
 ### 로드 밸런서 보기
 
 ```
@@ -136,9 +137,10 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
-| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
+| loadbalancer.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -182,6 +184,7 @@ X-Auth-Token: {tokenId}
 }
 ```
 </details>
+
 ---
 ### 로드 밸런서 생성하기
 
@@ -201,6 +204,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.vip_subnet_id | Body | UUID | O | 로드 밸런서의 서브넷 ID |
 | loadbalancer.vip_address | Body | String | - | 로드 밸런서의 IP |
 | loadbalancer.admin_state_up | Body | Boolean | - | 로드 밸런서 관리자 제어 상태로 생략하면 `true`로 설정됨 |
+| loadbalancer.loadbalancer_type | Body | String | - | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
 
 
 
@@ -238,9 +242,10 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
-| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
+| loadbalancer.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -329,9 +334,10 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
-| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
+| loadbalancer.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
 
 
 <details><summary>예시</summary>

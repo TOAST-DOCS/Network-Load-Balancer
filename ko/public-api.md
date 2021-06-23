@@ -204,7 +204,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.vip_subnet_id | Body | UUID | O | 로드 밸런서의 서브넷 ID |
 | loadbalancer.vip_address | Body | String | - | 로드 밸런서의 IP |
 | loadbalancer.admin_state_up | Body | Boolean | - | 로드 밸런서 관리자 제어 상태로 생략하면 `true`로 설정됨 |
-| loadbalancer.loadbalancer_type | Body | String | - | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
+| loadbalancer.loadbalancer_type | Body | String | - | 로드 밸런서 타입으로 생략할 경우 `shared`로 설정됨<br>`shared` / `dedicated` 사용 가능 |
 
 
 

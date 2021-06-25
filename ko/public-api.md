@@ -35,6 +35,8 @@ X-Auth-Token: {tokenId}
 | vip_port_id | Query | UUID | - | 조회할 로드 밸런서의 포트 ID |
 | vip_subnet_id | Query | UUID | - | 조회할 로드 밸런서의 서브넷 ID |
 | operating_status | Query | Enum | - | 조회할 로드 밸런서의 운영 상태 |
+| loadbalancer_type | Query | String | - | 조회할 로드 밸런서의 타입<br>`shared` / `dedicated` 중 하나 |
+
 
 #### 응답
 

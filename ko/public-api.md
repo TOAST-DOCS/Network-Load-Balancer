@@ -60,6 +60,7 @@ X-Auth-Token: {tokenId}
 | loadbalancers.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
 
 <details><summary>예시</summary>
+
 ```json
 {
   "loadbalancers": [
@@ -144,6 +145,7 @@ X-Auth-Token: {tokenId}
 
 
 <details><summary>예시</summary>
+
 ```json
 {
   "loadbalancer": {

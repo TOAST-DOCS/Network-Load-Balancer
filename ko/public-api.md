@@ -56,9 +56,9 @@ X-Auth-Token: {tokenId}
 | loadbalancers.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancers.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancers.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancers.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
+| loadbalancers.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancers.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancers.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 | loadbalancers.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
 
 <details><summary>예시</summary>
@@ -140,9 +140,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancer.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
+| loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancer.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 | loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
 
 
@@ -208,7 +208,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.vip_subnet_id | Body | UUID | O | 로드 밸런서의 서브넷 ID |
 | loadbalancer.vip_address | Body | String | - | 로드 밸런서의 IP |
 | loadbalancer.admin_state_up | Body | Boolean | - | 로드 밸런서 관리자 제어 상태로 생략하면 `true`로 설정됨 |
-| loadbalancer.loadbalancer_type | Body | String | - | 로드 밸런서 타입으로 생략할 경우 `shared`로 설정됨<br>`shared` / `dedicated` 사용 가능 |
+| loadbalancer.loadbalancer_type | Body | String | - | 로드 밸런서 타입으로, `shared` / `dedicated` 사용 가능<br> 생략할 경우 `shared`로 설정됨 |
 
 
 
@@ -246,9 +246,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancer.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
+| loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancer.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 | loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
 
 
@@ -338,9 +338,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancer.ipacl_groups | Body | Object | 로드밸런서에 적용된 IP ACL 그룹 개체 |
+| loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancer.ipacl_action | Body | UUID | 로드밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 | loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
 
 
@@ -986,7 +986,7 @@ X-Auth-Token: {tokenId}
 | pool.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | pool.member_port | Body | Integer | - | 멤버의 수신 포트<br>트래픽을 이 포트로 전달합니다.<br>기본 값은 -1입니다. |
 | pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
-| pool.session_persistence.type | Body | Enum | - | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
+| pool.session_persistence.type | Body | Enum | - | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pools.session_persistence.cookie_name | Body | String | - | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.name | Body | String | - | 풀 이름 |
 
@@ -1088,7 +1088,7 @@ X-Auth-Token: {tokenId}
 | pool.description | Body | String | - |  풀 설명 |
 | pool.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
-| pool.session_persistence.type | Body | Enum | - | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
+| pool.session_persistence.type | Body | Enum | - | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pools.session_persistence.cookie_name | Body | String | - | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.name | Body | String | - | 풀 이름 |
 
@@ -2508,8 +2508,8 @@ X-Auth-Token: {tokenId}
 | ipacl_groups | Body | Array | IP ACL 그룹 객체 목록 |
 | ipacl_groups.ipacl_target_count | Body | String | IP ACL 그룹에 포함된 타깃 개수 |
 | ipacl_groups.description | Body | String | IP ACL 그룹 설명 |
-| ipacl_groups.loadbalancers | Body | Object | IP ACL 그룹이 적용된 로드밸런서 객체 목록 |
-| ipacl_groups.loadbalancers.loadbalancer_id | Body | String | 로드밸런서 ID |
+| ipacl_groups.loadbalancers | Body | Object | IP ACL 그룹이 적용된 로드 밸런서 객체 목록 |
+| ipacl_groups.loadbalancers.loadbalancer_id | Body | String | 로드 밸런서 ID |
 | ipacl_groups.tenant_id | Body | String | 테넌트 ID |
 | ipacl_groups.action | Body | Enum | IP 접근제어 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
 | ipacl_groups.id | Body | UUID | IP ACL 그룹 ID |
@@ -2565,8 +2565,8 @@ X-Auth-Token: {tokenId}
 | ipacl_group | Body | Object | IP ACL 그룹 객체 |
 | ipacl_group.ipacl_target_count | Body | String | IP ACL 그룹에 포함된 타깃 개수 |
 | ipacl_group.description | Body | String | IP ACL 그룹 설명 |
-| ipacl_group.loadbalancers | Body | Object | IP ACL 그룹이 적용된 로드밸런서 객체 목록 |
-| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드밸런서 ID |
+| ipacl_group.loadbalancers | Body | Object | IP ACL 그룹이 적용된 로드 밸런서 객체 목록 |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드 밸런서 ID |
 | ipacl_group.tenant_id | Body | String | 테넌트 ID |
 | ipacl_group.action | Body | Enum | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
 | ipacl_group.id | Body | UUID | IP ACL 그룹 ID |
@@ -2651,8 +2651,8 @@ X-Auth-Token: {tokenId}
 | ipacl_group | Body | Object | IP ACL 그룹 객체 |
 | ipacl_group.ipacl_target_count | Body | String | IP ACL 그룹에 포함된 타깃 개수 |
 | ipacl_group.description | Body | String | IP ACL 그룹 설명 |
-| ipacl_group.loadbalancers | Body | String | IP ACL 그룹이 적용된 로드밸런서 객체 목록 |
-| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드밸런서 ID |
+| ipacl_group.loadbalancers | Body | String | IP ACL 그룹이 적용된 로드 밸런서 객체 목록 |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드 밸런서 ID |
 | ipacl_group.tenant_id | Body | String | 테넌트 ID |
 | ipacl_group.action | Body | Enum | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
 | ipacl_group.id | Body | UUID | IP ACL 그룹 ID |
@@ -2741,8 +2741,8 @@ X-Auth-Token: {tokenId}
 | ipacl_group | Body | Object | IP ACL 그룹 객체 |
 | ipacl_group.ipacl_target_count | Body | String | IP ACL 그룹에 포함된 타깃 개수 |
 | ipacl_group.description | Body | String | IP ACL 그룹 설명 |
-| ipacl_group.loadbalancers | Body | String | IP ACL 그룹이 적용된 로드밸런서 객체 목록 |
-| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드밸런서 ID |
+| ipacl_group.loadbalancers | Body | String | IP ACL 그룹이 적용된 로드 밸런서 객체 목록 |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드 밸런서 ID |
 | ipacl_group.tenant_id | Body | String | 테넌트 ID |
 | ipacl_group.action | Body | Enum | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
 | ipacl_group.id | Body | UUID | IP ACL 그룹 ID |
@@ -2779,7 +2779,7 @@ X-Auth-Token: {tokenId}
 ```
 
 IP ACL 그룹 삭제시 하위의 IP ACL 타깃도 모두 삭제됩니다. 
-삭제되는 IP ACL 그룹을 사용하는 모든 로드밸런서에서 이 IP ACL 그룹 관련된 룰이 삭제됩니다.
+삭제되는 IP ACL 그룹을 사용하는 모든 로드 밸런서에서 이 IP ACL 그룹 관련된 룰이 삭제됩니다.
 
 #### 요청
 
@@ -2797,12 +2797,12 @@ IP ACL 그룹 삭제시 하위의 IP ACL 타깃도 모두 삭제됩니다.
 - - -
 
 
-### 로드밸런서에 IP ACL 그룹 적용
+### 로드 밸런서에 IP ACL 그룹 적용
 
-로드밸런서에 IP ACL 그룹을 적용합니다.
-IP ACL 그룹을 적용받은 로드밸런서에는 그룹에 포함된 IP ACL 타겟 룰이 적용됩니다.
-여러 개의 그룹을 로드밸런서에 적용할 수 있습니다. 단, 그룹들의 action은 모두 동일해야 합니다.
-기존에 로드밸런서에 적용되어 있던 IP ACL 그룹은 모두 삭제되고 입력된 그룹 목록으로 재적용됩니다.
+로드 밸런서에 IP ACL 그룹을 적용합니다.
+IP ACL 그룹을 적용받은 로드 밸런서에는 그룹에 포함된 IP ACL 타겟 룰이 적용됩니다.
+여러 개의 그룹을 로드 밸런서에 적용할 수 있습니다. 단, 그룹들의 action은 모두 동일해야 합니다.
+기존에 로드 밸런서에 적용되어 있던 IP ACL 그룹은 모두 삭제되고 입력된 그룹 목록으로 재적용됩니다.
 
 ```
 PUT /v2.0/lbaas/loadbalancers/{lb_id}/bind_ipacl_groups
@@ -2814,9 +2814,9 @@ X-auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 | --- | --- | --- | --- | --- |
 | tokenId | Header | String | O | 토큰 ID |
-| lb_id | URL | UUID | O | 로드밸런서 ID |
+| lb_id | URL | UUID | O | 로드 밸런서 ID |
 | ipacl_groups_binding | Body | Object | O | IP ACL 바인딩 객체 |
-| ipacl_groups_binding.ipacl_group_id | Body | UUID | O | 로드밸런서에 적용할 IP ACL 그룹 ID |
+| ipacl_groups_binding.ipacl_group_id | Body | UUID | O | 로드 밸런서에 적용할 IP ACL 그룹 ID |
 
 <details><summary>예시</summary>
 <p>
@@ -2840,7 +2840,7 @@ X-auth-Token: {tokenId}
 #### 응답
 | 이름 | 종류 | 형식 | 설명 |
 | --- | --- | --- | --- |
-| loadbalancer_id | Body | UUID | 로드밸런서 ID |
+| loadbalancer_id | Body | UUID | 로드 밸런서 ID |
 | ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
 
 <details><summary>예시</summary>
@@ -3135,7 +3135,7 @@ X-Auth-Token: {tokenId}
 
 ### IP ACL 타깃 삭제하기
 
-지정한 로드밸런서를 삭제합니다.
+지정한 로드 밸런서를 삭제합니다.
 
 ```
 DELETE /v2.0/lbaas/ipacl-targets/{ipaclTargetId}

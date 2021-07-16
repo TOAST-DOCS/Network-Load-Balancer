@@ -35,6 +35,8 @@ X-Auth-Token: {tokenId}
 | vip_port_id | Query | UUID | - | 照会するロードバランサーのポートID |
 | vip_subnet_id | Query | UUID | - | 照会するロードバランサーのサブネットID |
 | operating_status | Query | Enum | - | 照会するロードバランサーの運用状態 |
+| loadbalancer_type | Query | String | - | 照会するロードバランサーのタイプ<br>`shared` / `dedicated`のいずれか |
+
 
 #### レスポンス
 
@@ -57,8 +59,10 @@ X-Auth-Token: {tokenId}
 | loadbalancers.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
 | loadbalancers.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
+| loadbalancers.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared` / `dedicated`のいずれか |
 
 <details><summary>例</summary>
+
 ```json
 {
   "loadbalancers": [
@@ -102,7 +106,7 @@ X-Auth-Token: {tokenId}
 ```
 </details>
 
-
+---
 ### ロードバランサー表示
 
 ```
@@ -136,12 +140,14 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | ロードバランサーのID |
 | loadbalancer.operating_status | Body | Enum | ロードバランサーの運用状態 |
 | loadbalancer.admin_state_up | Body | Boolean | ロードバランサーの管理者制御状態 |
-| loadbalancers.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
-| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
-| loadbalancers.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
+| loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
+| loadbalancer.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
+| loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared` / `dedicated`のいずれか |
 
 
 <details><summary>例</summary>
+
 ```json
 {
   "loadbalancer": {
@@ -202,7 +208,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.vip_subnet_id | Body | UUID | O | ロードバランサーのサブネットID |
 | loadbalancer.vip_address | Body | String | - | ロードバランサーのIP |
 | loadbalancer.admin_state_up | Body | Boolean | - | ロードバランサーの管理者制御状態。省略すると`true`に設定される。 |
-
+| loadbalancer.loadbalancer_type | Body | String | - | ロードバランサーのタイプとして`shared` / `dedicated`を使用可能<br> 省略した場合は`shared`に設定される |
 
 <details><summary>例</summary>
 
@@ -237,9 +243,10 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | ロードバランサーのID |
 | loadbalancer.operating_status | Body | Enum | ロードバランサーの運用状態 |
 | loadbalancer.admin_state_up | Body | Boolean | ロードバランサーの管理者制御状態 |
-| loadbalancers.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
-| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
-| loadbalancers.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
+| loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
+| loadbalancer.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
+| loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared` / `dedicated`のいずれか |
 
 
 <details><summary>例</summary>
@@ -328,10 +335,10 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | ロードバランサーのID |
 | loadbalancer.operating_status | Body | Enum | ロードバランサーの運用状態 |
 | loadbalancer.admin_state_up | Body | Boolean | ロードバランサーの管理者制御状態 |
-| loadbalancers.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
-| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
-| loadbalancers.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
-
+| loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
+| loadbalancer.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
+| loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared` / `dedicated`のいずれか |
 
 <details><summary>例</summary>
 

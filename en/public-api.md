@@ -58,7 +58,7 @@ This API does not require a request body.
 | loadbalancers.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
 | loadbalancers.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
-| loadbalancers.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
+| loadbalancers.loadbalancer_type | Body | String | Load Balancer Type<br>` either shared` or `dedicated` |
 
 <details><summary>Example</summary>
 ```json

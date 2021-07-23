@@ -35,7 +35,7 @@ This API does not require a request body.
 | vip_port_id | Query | UUID | - | Port ID of load balancer to query |
 | vip_subnet_id | Query | UUID | - | Subnet ID of load balancer to query |
 | operating_status | Query | Enum | - | Operating status of load balancer to query |
-| loadbalancer_type | Query | String | - | 조회할 로드 밸런서의 타입<br>`shared` / `dedicated` 중 하나 |
+| loadbalancer_type | Query | String | - | The type of load balancer to view<br>Should be either `shared` or `dedicated` |
 
 #### Response
 
@@ -55,9 +55,9 @@ This API does not require a request body.
 | loadbalancers.id | Body | UUID | Load balancer ID |
 | loadbalancers.operating_status | Body | Enum | Operating status of load balancer |
 | loadbalancers.admin_state_up | Body | Boolean | Administrator control status of load balancer |
-| loadbalancers.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
-| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancers.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancers.ipacl_groups | Body | Object | IP ACL group object applied to the load balancer |
+| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL group ID |
+| loadbalancers.ipacl_action | Body | UUID | The action of IP ACL groups applied to the load balancer <br>Should be one of the following: `null`, `DENY`, or `ALLOW`  |
 | loadbalancers.loadbalancer_type | Body | String | Load Balancer Type<br>` either shared` or `dedicated` |
 
 <details><summary>Example</summary>
@@ -130,9 +130,9 @@ This API does not require a request body.
 | loadbalancer.id | Body | UUID | Load balancer ID |
 | loadbalancer.operating_status | Body | Enum | Operating status of load balancer |
 | loadbalancer.admin_state_up | Body | Boolean | Administrator control center of load balancer |
-| loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.ipacl_groups | Body | Object | IP ACL group object applied to the load balancer |
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL group ID |
+| loadbalancer.ipacl_action | Body | UUID | The action of IP ACL groups applied to the load balancer <br>Should be one of the following: `null`, `DENY`, or `ALLOW`  |
 | loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
 
 <details><summary>Example</summary>
@@ -224,9 +224,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | Load balancer ID |
 | loadbalancer.operating_status | Body | Enum | Operating status of load balancer |
 | loadbalancer.admin_state_up | Body | Boolean | Administrator control status of load balancer |
-| loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.ipacl_groups | Body | Object | IP ACL group object applied to the load balancer |
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL group ID |
+| loadbalancer.ipacl_action | Body | UUID | The action of IP ACL groups applied to the load balancer <br>Should be one of the following: `null`, `DENY`, or `ALLOW`  |
 | loadbalancer.loadbalancer_type | Body | String | Load Balancer Type<br>` either shared` or `dedicated` |
 
 <details><summary>Example</summary>
@@ -315,9 +315,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | Load balancer ID |
 | loadbalancer.operating_status | Body | Enum | Operating status of load balancer |
 | loadbalancer.admin_state_up | Body | Boolean | Administrator control status of load balancer |
-| loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.ipacl_groups | Body | Object | IP ACL group object applied to the load balancer |
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL group ID |
+| loadbalancer.ipacl_action | Body | UUID | The action of IP ACL groups applied to the load balancer <br>Should be one of the following: `null`, `DENY`, or `ALLOW`  |
 | loadbalancer.loadbalancer_type | Body | String | Load Balancer Type<br>` either shared` or `dedicated` |
 
 <details><summary>Example</summary>

@@ -133,7 +133,7 @@ This API does not require a request body.
 | loadbalancer.ipacl_groups | Body | Object | IP ACL group object applied to the load balancer |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL group ID |
 | loadbalancer.ipacl_action | Body | UUID | The action of IP ACL groups applied to the load balancer <br>Should be one of the following: `null`, `DENY`, or `ALLOW`  |
-| loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
+| loadbalancer.loadbalancer_type | Body | String | Load Balancer Type<br>` either shared` or `dedicated` |
 
 <details><summary>Example</summary>
 ```json

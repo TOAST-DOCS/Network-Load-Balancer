@@ -73,14 +73,14 @@ Define attributes of the traffic to be processed by a load balancer. NHN Cloud L
 >      (Private Key, omitted)
 >      -----END PRIVATE KEY-----
 
-##### Using Cert Manager
-When TERMINATED_HTTPS is enabled for the listener, certificates can be registered in either of the two methods: use a certificate registered at Cert Manager; or newly register a certificate.
+##### Using Certificate Manager
+When TERMINATED_HTTPS is enabled for the listener, certificates can be registered in either of the two methods: use a certificate registered at Certificate Manager; or newly register a certificate.
 
-* By registering a certificate at Cert Manager and connecting it to the listener, you can receive an email on certificate expiration date.
+* By registering a certificate at Certificate Manager and connecting it to the listener, you can receive an email on certificate expiration date.
 * No alarms will be sent for expiration if your certificate was directly registered at the listener. Still, you can find the expiration date on the listener page of the console.
 > [Caution]
-> When a certificate is updated at the Cert Manager, certificates of any other affected listener must be updated as well.
-> To apply the certificate which is registered at the Cert Manager to the listener, password of the ‘Private Key’ must be removed, or the format must be either PKCS#1 or PKCS#8 PEM.
+> When a certificate is updated at the Certificate Manager, certificates of any other affected listener must be updated as well.
+> To apply the certificate which is registered at the Certificate Manager to the listener, password of the ‘Private Key’ must be removed, or the format must be either PKCS#1 or PKCS#8 PEM.
 
 ##### Health Check
 Setting for status check is also determined when listener is created. NHN Cloud Load Balancer can define status check operations per listener. Following items are required: 

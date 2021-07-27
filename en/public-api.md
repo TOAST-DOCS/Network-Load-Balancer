@@ -1,6 +1,6 @@
 ## Network > Load Balancer > API v2 Guide 
 
- To enable APIs, API endpoint and token are required. Preparer information required to enable an API, in reference of  [Preparing for APIs](/Compute/Compute/ko/identity-api/)
+ To enable APIs, API endpoint and token are required. Preparer information required to enable an API, in reference of  [Preparing for APIs](/Compute/Compute/en/identity-api/)
 
 Use `network`-type endpoint for Load Balancer, Listener, Pool, Health Monitor, or Member API. For Secret, or Secret Container API, call by using the `key-manager`-type endpoint.  For more details, see `serviceCatalog` from response of token issuance. 
 

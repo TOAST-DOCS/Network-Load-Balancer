@@ -1,6 +1,6 @@
 ## Network > Load Balancer > API v2ガイド
 
-APIを使用するにはAPIエンドポイントとトークンなどが必要です。[API使用準備](/Compute/Compute/ko/identity-api/)を参照してAPI使用に必要な情報を準備します。
+APIを使用するにはAPIエンドポイントとトークンなどが必要です。[API使用準備](/Compute/Compute/ja/identity-api/)を参照してAPI使用に必要な情報を準備します。
 
 ロードバランサー、リスナー、プール、ヘルスモニター、メンバーAPIは`network`タイプエンドポイントを利用します。シークレット、シークレットコンテナAPIは`key-manager`タイプエンドポイントを利用して呼び出します。正確なエンドポイントはトークン発行レスポンスの`serviceCatalog`を参照します。
 

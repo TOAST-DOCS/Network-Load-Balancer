@@ -213,7 +213,8 @@ To apply IP access control, configure as follows:
 * Load balancers not applied by IP access control group allow access of all IPs. 
 
 > [Reference]
->* Operations when load balancer and IP access control are changed
+> 
+> * Operations when load balancer and IP access control are changed
 >     * When load balancer is deleted, access control binding is deleted; but, access control group is not deleted.  
 >     * When access control group is deleted, it is reflected on all load balancers which are bound with the group. 
 >     * When access control targets are added or deleted within an access control group, it is reflected on all load balancers which are bound with the group. 

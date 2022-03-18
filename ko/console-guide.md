@@ -1,8 +1,5 @@
 ## Network > Load Balancer > 콘솔 사용 가이드
 
-## 동영상 가이드
-<iframe width="560" height="315" src="https://www.youtube.com/embed/NQsVhkLuo5o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 ## 로드 밸런서 관리
 ### 로드 밸런서 생성
 NHN Cloud의 로드 밸런서 콘솔에서 설정값들을 입력하는 것만으로 쉽게 로드 밸런서를 생성할 수 있습니다.

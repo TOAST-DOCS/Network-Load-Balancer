@@ -1239,6 +1239,7 @@ This API does not require a request body.
 | timeout | Query | Integer | - | Timeout for status check (seconds) |
 | url_path | Query | String | - | URL requesting of status checks <br>When the status check type is set with `TCP`, value set in this field will be ignored. |
 | type | Query | Enum | - | Protocol to use for status check: One of `TCP`, `HTTP`, and `HTTPS` |
+| host_header | Query | String | - | Host header field value to use for status check<br> When the status check type is set with `TCP`, value set in this field will be ignored.|
 
 
 
@@ -1258,6 +1259,8 @@ This API does not require a request body.
 | healthmonitors.url_path | Body | String | URL requesting of status checks<br>When the status check type is set with `TCP`, value set in this field will be ignored. |
 | healthmonitors.type | Body | Enum | Protocol to use for status check: one of `TCP`, `HTTP`, and `HTTPS` |
 | healthmonitors.id | Body | UUID | Health monitor ID |
+| healthmonitors.host_header | Body | String | Host header field value to use for status check<br> When the status check type is set with `TCP`, value set in this field will be ignored.|
+
 
 
 <details><summary>Example</summary>
@@ -1322,6 +1325,8 @@ This API does not require a request body.
 | healthmonitor.url_path | Body | String | URL requesting of status checks <br>When the status check type is set with `TCP`, value set in this field will be ignored. |
 | healthmonitor.type | Body | Enum | Protocol to use for status check: one of `TCP`, `HTTP`, and `HTTPS` |
 | healthmonitor.id | Body | UUID | Health monitor ID |
+| healthmonitors.host_header | Body | String | Host header field value to use for status check<br> When the status check type is set with `TCP`, value set in this field will be ignored.|
+
 
 
 <details><summary>Example</summary>
@@ -1378,6 +1383,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.timeout | Body | Integer | O | Timeout for status checks |
 | healthmonitor.url_path | Body | String | - | URL requesting of status checks: if left blank, `/`is set. <br>When the status check type is set with `TCP`, value set for this field will be ignored. |
 | healthmonitor.type | Body | Enum  | O | Protocol to use for status check: one of `TCP`, `HTTP`, and  `HTTPS` |
+| healthmonitors.host_header | Body | String | - | Host header field value to use for status check<br> When the status check type is set with `TCP`, value set in this field will be ignored.|
 
 
 
@@ -1420,6 +1426,8 @@ X-Auth-Token: {tokenId}
 | healthmonitor.url_path | Body | String | URL requesting of status checks<br>When the status check type is set with `TCP`, value set for this field will be ignored. |
 | healthmonitor.type | Body | Enum | Protocol to use for status check: One of `TCP`, `HTTP`, and `HTTPS` |
 | healthmonitor.id | Body | UUID | Health monitor ID |
+| healthmonitors.host_header | Body | String | Host header field value to use for status check<br> When the status check type is set with `TCP`, value set in this field will be ignored.|
+
 
 
 <details><summary>Example</summary>
@@ -1472,6 +1480,8 @@ X-Auth-Token: {tokenId}
 | healthmonitor.http_method | Body | Enum | - | HTTP Method to use for status check <br>When the status check type is set with `TCP`, value set for this field will be ignored. |
 | healthmonitor.timeout | Body | Integer | - | Timeout for status checks (seconds) |
 | healthmonitor.url_path | Body | String | - | URL requesting of status checks<br/>When the status check type is set with `TCP`, value set for this field will be ignored. |
+| healthmonitors.host_header | Body | String | - | Host header field value to use for status check<br> When the status check type is set with `TCP`, value set in this field will be ignored.|
+
 
 <details><summary>Example</summary>
 <p>
@@ -1510,6 +1520,7 @@ When the status check type is set with `TCP`, value set for this field will be i
 | healthmonitor.url_path | Body | String | URL requesting of status checks<br/>When the status check type is set with `TCP`, value set for this field will be ignored. |
 | healthmonitor.type | Body | Enum | Protocol to use for status check: One of `TCP`, `HTTP`, and `HTTPS` |
 | healthmonitor.id | Body | UUID | Health monitor ID |
+| healthmonitors.host_header | Body | String | Host header field value to use for status check<br> When the status check type is set with `TCP`, value set in this field will be ignored.|
 
 
 <details><summary>Example</summary>

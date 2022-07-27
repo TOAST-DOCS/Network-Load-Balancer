@@ -1237,7 +1237,7 @@ X-Auth-Token: {tokenId}
 | timeout | Query | Integer | - | ヘルスチェックレスポンス待機時間(秒) |
 | url_path | Query | String | - | ヘルスチェックリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | type | Query | Enum | - | ヘルスチェックに使用するプロトコル。 `TCP`、`HTTP`、`HTTPS`のうちいずれか1つ |
-
+| host_header | Query | String | - | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 
 
 #### レスポンス
@@ -1256,6 +1256,8 @@ X-Auth-Token: {tokenId}
 | healthmonitors.url_path | Body | String | ヘルスチェックリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitors.type | Body | Enum | ヘルスチェックに使用するプロトコル。 `TCP`、`HTTP`、`HTTPS`のうちいずれか1つ |
 | healthmonitors.id | Body | UUID | ヘルスモニターID |
+
+| healthmonitors.host_header | Body | String | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 
 
 <details><summary>例</summary>
@@ -1320,6 +1322,8 @@ X-Auth-Token: {tokenId}
 | healthmonitor.url_path | Body | String | ヘルスチェックリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.type | Body | Enum | ヘルスチェックに使用するプロトコル。 `TCP`、`HTTP`、`HTTPS`のうちいずれか1つ |
 | healthmonitor.id | Body | UUID | ヘルスモニターID |
+| healthmonitors.host_header | Body | String | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
+
 
 
 <details><summary>例</summary>
@@ -1376,6 +1380,8 @@ X-Auth-Token: {tokenId}
 | healthmonitor.timeout | Body | Integer | O | ヘルスチェックレスポンス待機時間(秒) |
 | healthmonitor.url_path | Body | String | - | ヘルスチェックリクエストURL。省略すると`/`が設定される。<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.type | Body | Enum  | O | ヘルスチェックに使用するプロトコル。 `TCP`、`HTTP`、`HTTPS`のうちいずれか1つ |
+| healthmonitors.host_header | Body | String | - | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
+
 
 
 
@@ -1470,6 +1476,8 @@ X-Auth-Token: {tokenId}
 | healthmonitor.http_method | Body | Enum | - | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.timeout | Body | Integer | - | ヘルスチェックレスポンス待機時間(秒) |
 | healthmonitor.url_path | Body | String | - | ヘルスチェックリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
+| healthmonitors.host_header | Body | String | - | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
+
 
 <details><summary>例</summary>
 <p>
@@ -1507,6 +1515,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.url_path | Body | String | ヘルスチェックリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.type | Body | Enum | ヘルスチェックに使用するプロトコル。 `TCP`、`HTTP`、`HTTPS`のうちいずれか1つ |
 | healthmonitor.id | Body | UUID | ヘルスモニターID |
+| healthmonitors.host_header | Body | String | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 
 
 <details><summary>例</summary>
@@ -3082,4 +3091,3 @@ X-auth-Token: {tokenId}
 </details>
 
 - - -
-

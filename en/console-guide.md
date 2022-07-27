@@ -100,6 +100,7 @@ The settings for health check are also determined when creating the listener. NH
 * Health Check Cycle: Enter the cycle of health checks. The unit is seconds and health checks are tried at every specified cycle.
 * Maximum Wait Time for Response: Specify the maximum time to wait for a normal response after health checks. The unit is seconds and exceeding the specified wait time is considered a failure.
 * Maximum Number of Retries: Specify the maximum number of retry attempts for health checks. If the maximum number of retries is 2 or higher, it is not immediately considered a failure when a normal response to the health check is not received. If it fails repeatedly for the maximum number of retries, the instance is excluded from load balancing.
+* Host Header: Enter the field value to use in the host header for health checks. This setting is enabled only when HTTP or HTTPS is selected.
 
 ##### Connect
 Specify settings related to the connection.

@@ -162,7 +162,7 @@ To modify the setting of a listener, click Modify.
 #### Delete Listeners
 To delete a listener, click Delete: cannot delete, though, if the load balancer has only one listener.
 
-> [Caution] Add/Modify/Delete Listeners causes reboot of a load balancer: its abrupt suspension may cause unexpected malfunctioning. Change of listeners, therefore, is recommended when its influence on services is limited.
+> [Caution] Add/Modify/Delete listeners causes reboot of a load balancer. During the reboot, existing connected sessions are maintained, but new sessions cannot be processed (less than 1 second). Therefore, it is recommended to proceed at a time that does not affect the service.
 
 #### Add Members
 Register a new instance as member of load balancer in the instance tab. Only those instances that belong to VPC with which load balancer is associated can be added.
@@ -180,10 +180,11 @@ The usage item of the excluded instance is changed to **False** and the member i
 > | ONLINE | A member instance has been disabled |
 > | OFFLINE | Failed to connect to a member instance<br> Contact the administrator.|
 
+
 #### Delete Members
 Instances that are no longer used may be deleted. Click Detach Instance of the instance to exclude, and it is deleted from the member of load balancer. Deletion from load balancer member does not mean its instance is also deleted.
 
-> [Caution] Add/Disable/Delete Members causes reboot of a load balancer: its abrupt suspension may cause unexpected malfunctioning. Change of members, therefore, is recommended when its influence on services is limited.
+> [Caution] Add/Disable/Delete Members causes reboot of a load balancer. During the reboot, existing connected sessions are maintained, but new sessions cannot be processed (less than 1 second). Therefore, it is recommended to proceed at a time that does not affect the service.
 
 ### Delete Load Balancers
 Select the load balancer you want to delete from the load balancer list screen and click the Delete button to delete the load balancer.

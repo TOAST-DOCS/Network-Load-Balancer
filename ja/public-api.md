@@ -1902,7 +1902,7 @@ X-Auth-Token: {tokenId}
 
 | タイプ | リージョン | エンドポイント |
 |---|---|---|
-| key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
+| key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com |
 
 APIレスポンスには、ガイドに明示されていないフィールドが表示される場合があります。これらのフィールドはNHN Cloud内部用で使用され、事前の告知なく変更される場合があるため使用しません。
 

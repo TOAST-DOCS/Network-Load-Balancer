@@ -2237,7 +2237,7 @@ You can call the Secret Container API by using the `key-manager` type endpoint. 
 
 | Type | Region | Endpoint |
 |---|---|---|
-| key-manager | Korea (Pangyo) Region<br>Japan Region | https://kr1-api-key-manager.infrastructure.cloud.toast.com<br>https://jp1-api-key-manager.infrastructure.cloud.toast.com |
+| key-manager | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan Region | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com |
 
 In the API response, you may find fields that are not specified in the guide. Refrain from using them because such fields are only for the NHN Cloud internal usage and might be changed without prior notice.
 

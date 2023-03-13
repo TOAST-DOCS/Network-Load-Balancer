@@ -486,7 +486,7 @@ X-Auth-Token: {tokenId}
       "keepalive_timeout": 300,
       "tls_version": "TLSv1.0",
       "sni_container_ids": [],
-      "default_tls_container_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+      "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
       "sni_container_refs": [],
       "protocol_port": 443,
       "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -559,7 +559,7 @@ X-Auth-Token: {tokenId}
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -614,7 +614,7 @@ X-Auth-Token: {tokenId}
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
-    "default_tls_container_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443
   }
@@ -665,7 +665,7 @@ X-Auth-Token: {tokenId}
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -712,7 +712,7 @@ X-Auth-Token: {tokenId}
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
-    "default_tls_container_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": []
   }
 }
@@ -763,7 +763,7 @@ X-Auth-Token: {tokenId}
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -1968,7 +1968,7 @@ X-Auth-Token: {tokenId}
       "expiration": null,
       "mode": null,
       "name": "certificate",
-      "secret_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+      "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
       "secret_type": "certificate",
       "status": "ACTIVE",
       "updated": "2019-12-17T08:50:39"
@@ -1984,15 +1984,15 @@ X-Auth-Token: {tokenId}
       "expiration": null,
       "mode": null,
       "name": "private_key",
-      "secret_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+      "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
       "secret_type": "private",
       "status": "ACTIVE",
       "updated": "2019-12-17T08:50:39"
     }
   ],
   "total": 10,
-  "next": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/secrets?limit=1&offset=2",
-  "previous": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/secrets?limit=1&offset=0"
+  "next": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets?limit=1&offset=2",
+  "previous": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets?limit=1&offset=0"
 }
 
 ```
@@ -2045,7 +2045,7 @@ X-Auth-Token: {tokenId}
   "name": "certificate",
   "algorithm": null,
   "created": "2019-12-17T08:50:39",
-  "secret_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+  "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
   "content_types": {
     "default": "text/plain"
   },
@@ -2133,7 +2133,7 @@ base64でペイロード転送
 
 ```json
 {
-    "secret_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/secrets/9b2dcb7b-51fe-4408-a2bb-23da731758a6"
+    "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/9b2dcb7b-51fe-4408-a2bb-23da731758a6"
 }
 ```
 </p>
@@ -2232,7 +2232,7 @@ X-Auth-Token: {tokenId}
 
 | タイプ | リージョン | エンドポイント |
 |---|---|---|
-| key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager.infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager.infrastructure.nhncloudservice.com |
+| key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com |
 
 APIレスポンスには、ガイドに明示されていないフィールドが表示される場合があります。これらのフィールドはNHN Cloud内部用で使用され、事前の告知なく変更される場合があるため使用しません。
 
@@ -2285,8 +2285,8 @@ X-Auth-Token: {tokenId}
 ```json
 {
   "total": 10,
-  "previous": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/containers?limit=1&offset=0",
-  "next": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/containers?limit=1&offset=2",
+  "previous": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers?limit=1&offset=0",
+  "next": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers?limit=1&offset=2",
   "containers": [
     {
       "status": "ACTIVE",
@@ -2294,15 +2294,15 @@ X-Auth-Token: {tokenId}
       "name": "The Certificate",
       "consumers": [],
       "created": "2019-12-17T08:50:39",
-      "container_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
+      "container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
       "creator_id": "1da4ce9f59ed4f6487c9be39fa792be4",
       "secret_refs": [
         {
-          "secret_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+          "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
           "name": "certificate"
         },
         {
-          "secret_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+          "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
           "name": "private_key"
         }
       ],
@@ -2359,15 +2359,15 @@ X-Auth-Token: {tokenId}
     "name": "The Certificate",
     "consumers": [],
     "created": "2019-12-17T08:50:39",
-    "container_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
+    "container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
     "creator_id": "1da4ce9f59ed4f6487c9be39fa792be4",
     "secret_refs": [
         {
-            "secret_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+            "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
             "name": "private_key"
         },
         {
-            "secret_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+            "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
             "name": "certificate"
         }
     ],
@@ -2406,7 +2406,7 @@ X-Auth-Token: {tokenId}
     "secret_refs": [
         {
             "name": "private_key",
-            "secret_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/cf11edcf-f475-47f3-92c3-29de8bcdd639"
+            "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/cf11edcf-f475-47f3-92c3-29de8bcdd639"
         }
     ]
 }
@@ -2424,7 +2424,7 @@ X-Auth-Token: {tokenId}
 
 ```json
 {
-    "container_ref": "https://kr1-api-key-manager.infrastructure.nhncloudservice.com/v1/containers/ea2e90fc-1ba2-412b-b7a0-61da4402bf58"
+    "container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/ea2e90fc-1ba2-412b-b7a0-61da4402bf58"
 }
 ```
 </p>

@@ -11,6 +11,7 @@ Enter basic information required for a load balancer as follows:
 * Description: Enter the description of the load balancer.
 * Network (Subnet): Specify the subnet of the VPC with which the load balancer is to be associated.
 * Load Balancer Type: Specify the type of the load balancer among Normal, Dedicated, Physical Basic, and Physical Premium.
+* Subnet Static Route: Select whether to apply static route settings of the subnet where the load balancer will be located to the load balancer.
 
 > [Note] For more information about the load balancer types, see [Load Balancer Type](https://www.toast.com/service/network/load-balancer).
 
@@ -144,7 +145,7 @@ After a load balancer is created, you will be returned to the load balancer list
 ### Modify Load Balancers and Details
 Select a load balancer from the list, and a page of details shows up at the bottom, which is composed of the following tabs:
 
-* Details of Load Balancer: Shows detailed information of a load balancer. Name and description of a selected listener can be changed.
+* Details of Load Balancer: Shows detailed information of a load balancer. Name and description of the selected load balancer, and whether to apply subnet static routing can be changed.
 * Listener: Check detailed setting of listeners created under a selected load balancer. Add or delete listeners.
 * Instance: View the list of instances registered as members to a selected load balancer. Register new instances as members or exclude existing ones.
 * Statistics: Statistical information of a selected load balancer is available.

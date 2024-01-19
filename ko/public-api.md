@@ -1935,7 +1935,7 @@ X-Auth-Token: {tokenId}
 | l7policies.action | Body | String | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
 | l7policies.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용됩니다. |
 | l7policies.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용됩니다. |
-| l7policies.position | Body | String | Integer | L7 정책의 우선순위 |
+| l7policies.position | Body | Integer | L7 정책의 우선순위 |
 
 <details><summary>예시</summary>
 
@@ -1996,7 +1996,7 @@ X-Auth-Token: {tokenId}
 | l7policy.action | Body | String | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용됩니다. |
 | l7policy.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용됩니다. |
-| l7policy.position | Body | String | Integer | L7 정책의 우선순위 |
+| l7policy.position | Body | Integer | L7 정책의 우선순위 |
 
 
 <details><summary>예시</summary>
@@ -2045,7 +2045,7 @@ X-Auth-Token: {tokenId}
 | l7policy.action | Body | String | O | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | - | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우 필수 |
 | l7policy.redirect_url | Body | String | - | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우 필수 |
-| l7policy.position | Body | String | Integer | L7 정책의 우선순위로, 생략하면 `2147483647`로 설정됨 |
+| l7policy.position | Body | Integer | - | L7 정책의 우선순위로, 생략하면 우선순위 마지막으로 설정 |
 
 
 
@@ -2079,7 +2079,7 @@ X-Auth-Token: {tokenId}
 | l7policy.action | Body | String | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용됩니다. |
 | l7policy.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용됩니다. |
-| l7policy.position | Body | String | Integer | L7 정책의 우선순위 |
+| l7policy.position | Body | Integer | L7 정책의 우선순위 |
 
 
 <details><summary>예시</summary>
@@ -2125,17 +2125,17 @@ X-Auth-Token: {tokenId}
 | l7policy.action | Body | String | - | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | - | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우 필수 |
 | l7policy.redirect_url | Body | String | - | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우 필수 |
-| l7policy.position | Body | String | Integer | L7 정책의 우선순위 |
+| l7policy.position | Body | Integer | - | L7 정책의 우선순위 |
 
 <details><summary>예시</summary>
 
 ```json
 {
-    "loadbalancer": {
-        "name": "LB-1",
-        "description": "",
-        "admin_state_up": true
-    }
+  "l7policy": {
+    "name": "L7Policy",
+    "position": 255,
+    "admin_state_up": true
+  }
 }
 ```
 </details>
@@ -2144,67 +2144,48 @@ X-Auth-Token: {tokenId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| loadbalancer | Body | Object | 로드 밸런서 정보 객체 |
-| loadbalancer.description | Body | String | 로드 밸런서 설명 |
-| loadbalancer.provisioning_status | Body | Enum | 로드 밸런서 프로비저닝 상태 |
-| loadbalancer.tenant_id | Body | String | 테넌트 ID |
-| loadbalancer.provider | Body | String | 로드 밸런서 프로바이더(공급자) 이름 |
-| loadbalancer.name | Body | String | 로드 밸런서 이름 |
-| loadbalancer.listeners | Body | Object | 로드 밸런서 리스너 객체 목록 |
-| loadbalancer.listeners.id | Body | UUID | 리스너 ID |
-| loadbalancer.vip_address | Body | String | 로드 밸런서 IP |
-| loadbalancer.vip_port_id | Body | UUID | 로드 밸런서 포트 ID |
-| loadbalancer.vip_subnet_id | Body | UUID | 로드 밸런서 서브넷 ID |
-| loadbalancer.id | Body | UUID | 로드 밸런서 ID |
-| loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
-| loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
-| loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
+| l7policy | Body | Array | L7 정책 객체 |
+| l7policy.description | Body | String | L7 정책 설명 |
+| l7policy.tenant_id | Body | String | 테넌트 ID |
+| l7policy.listener_id | Body | UUID | L7 정책의 리스너 ID |
+| l7policy.name | Body | String | L7 정책 이름 |
+| l7policy.rules | Body | Object | L7 정책 룰 객체 목록 |
+| l7policy.rules.id | Body | UUID | L7 룰 ID |
+| l7policy.id | Body | UUID | L7 정책 ID |
+| l7policy.admin_state_up | Body | Boolean | L7 정책 관리자 제어 상태 |
+| l7policy.action | Body | String | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
+| l7policy.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용됩니다. |
+| l7policy.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용됩니다. |
+| l7policy.position | Body | Integer | L7 정책의 우선순위 |
 
 
 <details><summary>예시</summary>
 
 ```json
 {
-  "loadbalancer": {
-    "ipacl_group_action": "DENY",
+  "l7policy": {
+    "redirect_pool_id": null,
     "description": "",
-    "provisioning_status": "ACTIVE",
+    "admin_state_up": true,
+    "rules": [
+    ],
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
-    "provider": "haproxy",
-    "ipacl_groups": [
-      {
-        "ipacl_group_id": "04570ec5-456a-48ac-85ee-38adcc83ee70"
-      }
-    ],
-    "name": "LB-1",
-    "loadbalancer_type": "shared",
-    "listeners": [
-      {
-        "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
-      }
-    ],
-    "vip_address": "192.168.0.187",
-    "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
-    "workflow_status": "SUCCESS",
-    "vip_subnet_id": "dcb31578-1e16-407f-a117-a716795fabc4",
-    "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
-    "operating_status": "ONLINE",
-    "admin_state_up": true
-    "ipacl_groups": [],
-    "ipacl_group_action": null
+    "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+    "redirect_url": null,
+    "action": "REJECT",
+    "position": 255,
+    "id": "9376c901-64cc-46a0-bab3-1b4bf42699ad",
+    "name": "L7Policy"
   }
 }
 ```
 </details>
 
 ---
-### 로드 밸런서 삭제하기
+### L7 정책 삭제하기
 
 ```
-DELETE /v2.0/lbaas/loadbalancers/{loadbalancerId}
+DELETE /v2.0/lbaas/l7policies/{l7policyId}
 X-Auth-Token: {tokenId}
 ```
 
@@ -2214,7 +2195,7 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
-| loadbalancerId | URL | UUID | O | 로드 밸런서 ID |
+| l7policyId | URL | UUID | O | L7 정책 ID |
 
 
 #### 응답

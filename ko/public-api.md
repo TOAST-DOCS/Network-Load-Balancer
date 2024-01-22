@@ -2407,12 +2407,27 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | l7policyId | URL | UUID | O | L7 정책 ID |
 | l7ruleId | URL | UUID | O | L7 룰 ID |
+| rule | Body | Object | O | L7 룰 객체 |
+| rule.admin_state_up | Body | Boolean | - | L7 룰 관리자 제어 상태 |
+| rule.invert | Body | Boolean | - | 매칭 결과에 대한 invert 설정 |
+| rule.key | Body | String | - | L7 룰 매칭 시 사용되는 키<br> `COOKIE` / `HEADER`인 경우에만 적용 |
+| rule.value | Body | String | - | L7 룰 매칭 시 사용되는 값 |
+| rule.type | Query | Enum | - | L7 룰 타입 <br> `COOKIE` / `FILE_TYPE` / `HEADER` / `HOST_NAME` / `PATH` 중 하나 |
+| rule.compare_type | Query | Enum | - |L7 룰 비교 방식<br> `CONTAINS` / `ENDS_WITH` / `STARTS_WITH` / `EQUAL_TO` / `REGEX` 중 하나 |
 
 
 <details><summary>예시</summary>
 
 ```json
-
+{
+  "rule": {
+    "compare_type": "REGEX",
+    "invert": true,
+    "type": "PATH",
+    "value": "/images/modify",
+    "admin_state_up": true
+  }
+}
 ```
 </details>
 
@@ -2431,11 +2446,21 @@ X-Auth-Token: {tokenId}
 | rule.compare_type | Query | Enum | L7 룰 비교 방식<br> `CONTAINS` / `ENDS_WITH` / `STARTS_WITH` / `EQUAL_TO` / `REGEX` 중 하나 |
 
 
-
 <details><summary>예시</summary>
 
 ```json
-
+{
+  "rule": {
+    "compare_type": "REGEX",
+    "admin_state_up": true,
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "invert": true,
+    "value": "/images/modify",
+    "key": null,
+    "type": "PATH",
+    "id": "3c88bc9b-8fac-4a73-a611-df85417b656e"
+  }
+}
 ```
 </details>
 

@@ -1913,7 +1913,7 @@ X-Auth-Token: {tokenId}
 | name | Query | String | - | 조회할 L7 정책 이름 |
 | description | Query | String | - | 조회할 L7 정책의 설명 |
 | listener_id | Query | UUID | - | 조회할 L7 정책의 리스너 ID |
-| action | Query | String | - | 조회할 L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
+| action | Query | Enum | - | 조회할 L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
 | redirect_pool_id | Query | UUID | - | 조회할 L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
 | redirect_url | Query | String | - | 조회할 L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
 | position | Query | Integer | - | 조회할 L7 정책의 우선순위 |
@@ -1932,7 +1932,7 @@ X-Auth-Token: {tokenId}
 | l7policies.rules.id | Body | UUID | L7 룰 ID |
 | l7policies.id | Body | UUID | L7 정책 ID |
 | l7policies.admin_state_up | Body | Boolean | L7 정책 관리자 제어 상태 |
-| l7policies.action | Body | String | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
+| l7policies.action | Body | Enum | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
 | l7policies.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
 | l7policies.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
 | l7policies.position | Body | Integer | L7 정책의 우선순위 |
@@ -1993,7 +1993,7 @@ X-Auth-Token: {tokenId}
 | l7policy.rules.id | Body | UUID | L7 룰 ID |
 | l7policy.id | Body | UUID | L7 정책 ID |
 | l7policy.admin_state_up | Body | Boolean | L7 정책 관리자 제어 상태 |
-| l7policy.action | Body | String | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
+| l7policy.action | Body | Enum | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
 | l7policy.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
 | l7policy.position | Body | Integer | L7 정책의 우선순위 |
@@ -2042,7 +2042,7 @@ X-Auth-Token: {tokenId}
 | l7policy.listener_id | Body | UUID | O | L7 정책의 리스너 ID |
 | l7policy.name | Body | String | - | L7 정책 이름 |
 | l7policy.admin_state_up | Body | Boolean | - | L7 정책 관리자 제어 상태로 생략하면 `true`로 설정 |
-| l7policy.action | Body | String | O | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
+| l7policy.action | Body | Enum | O | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | - | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우 필수 |
 | l7policy.redirect_url | Body | String | - | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우 필수 |
 | l7policy.position | Body | Integer | - | L7 정책의 우선순위로, 생략하면 우선순위 마지막으로 설정 |
@@ -2076,7 +2076,7 @@ X-Auth-Token: {tokenId}
 | l7policy.rules.id | Body | UUID | L7 룰 ID |
 | l7policy.id | Body | UUID | L7 정책 ID |
 | l7policy.admin_state_up | Body | Boolean | L7 정책 관리자 제어 상태 |
-| l7policy.action | Body | String | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
+| l7policy.action | Body | Enum | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
 | l7policy.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
 | l7policy.position | Body | Integer | L7 정책의 우선순위 |
@@ -2122,7 +2122,7 @@ X-Auth-Token: {tokenId}
 | l7policy.name | Body | String | - | L7 정책 이름 |
 | l7policy.description | Body | String | - | L7 정책 설명 |
 | l7policy.admin_state_up | Body | Boolean | - | L7 정책의 관리자 제어 상태 |
-| l7policy.action | Body | String | - | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
+| l7policy.action | Body | Enum | - | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | - | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우 필수 |
 | l7policy.redirect_url | Body | String | - | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우 필수 |
 | l7policy.position | Body | Integer | - | L7 정책의 우선순위 |
@@ -2153,7 +2153,7 @@ X-Auth-Token: {tokenId}
 | l7policy.rules.id | Body | UUID | L7 룰 ID |
 | l7policy.id | Body | UUID | L7 정책 ID |
 | l7policy.admin_state_up | Body | Boolean | L7 정책 관리자 제어 상태 |
-| l7policy.action | Body | String | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
+| l7policy.action | Body | Enum | L7 정책의 액션<br> `REDIRECT_TO_POOL` / `REDIRECT_TO_URL` / `REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
 | l7policy.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
 | l7policy.position | Body | Integer | L7 정책의 우선순위 |
@@ -2233,8 +2233,8 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | l7policyId | URL | UUID | O | L7 룰이 속한 L7 정책 ID |
 | id | Query | UUID | - | 조회할 L7 룰 ID |
-| type | Query | String | - | 조회할 L7 룰의 타입 <br> `COOKIE` / `FILE_TYPE` / `HEADER` / `HOST_NAME` / `PATH` 중 하나 |
-| compare_type | Query | String | - | 조회할 L7 룰의 비교 방식<br> `CONTAINS` / `ENDS_WITH` / `STARTS_WITH` / `EQUAL_TO` / `REGEX` 중 하나 |
+| type | Query | Enum | - | 조회할 L7 룰의 타입 <br> `COOKIE` / `FILE_TYPE` / `HEADER` / `HOST_NAME` / `PATH` 중 하나 |
+| compare_type | Query | Enum | - | 조회할 L7 룰의 비교 방식<br> `CONTAINS` / `ENDS_WITH` / `STARTS_WITH` / `EQUAL_TO` / `REGEX` 중 하나 |
 
 
 #### 응답
@@ -2248,8 +2248,8 @@ X-Auth-Token: {tokenId}
 | rules.invert | Body | Boolean | 매칭 결과에 대한 invert 설정 |
 | rules.key | Body | String | L7 룰 매칭 시 사용되는 키<br> `COOKIE` / `HEADER`인 경우에만 적용 |
 | rules.value | Body | String | L7 룰 매칭 시 사용되는 값 |
-| rules.type | Query | String | L7 룰 타입 <br> `COOKIE` / `FILE_TYPE` / `HEADER` / `HOST_NAME` / `PATH` 중 하나 |
-| rules.compare_type | Query | String | L7 룰 비교 방식<br> `CONTAINS` / `ENDS_WITH` / `STARTS_WITH` / `EQUAL_TO` / `REGEX` 중 하나 |
+| rules.type | Query | Enum | L7 룰 타입 <br> `COOKIE` / `FILE_TYPE` / `HEADER` / `HOST_NAME` / `PATH` 중 하나 |
+| rules.compare_type | Query | Enum | L7 룰 비교 방식<br> `CONTAINS` / `ENDS_WITH` / `STARTS_WITH` / `EQUAL_TO` / `REGEX` 중 하나 |
 
 <details><summary>예시</summary>
 
@@ -2299,8 +2299,8 @@ X-Auth-Token: {tokenId}
 | rule.invert | Body | Boolean | 매칭 결과에 대한 invert 설정 |
 | rule.key | Body | String | L7 룰 매칭 시 사용되는 키<br> `COOKIE` / `HEADER`인 경우에만 적용 |
 | rule.value | Body | String | L7 룰 매칭 시 사용되는 값 |
-| rule.type | Query | String | L7 룰 타입 <br> `COOKIE` / `FILE_TYPE` / `HEADER` / `HOST_NAME` / `PATH` 중 하나 |
-| rule.compare_type | Query | String | L7 룰 비교 방식<br> `CONTAINS` / `ENDS_WITH` / `STARTS_WITH` / `EQUAL_TO` / `REGEX` 중 하나 |
+| rule.type | Query | Enum | L7 룰 타입 <br> `COOKIE` / `FILE_TYPE` / `HEADER` / `HOST_NAME` / `PATH` 중 하나 |
+| rule.compare_type | Query | Enum | L7 룰 비교 방식<br> `CONTAINS` / `ENDS_WITH` / `STARTS_WITH` / `EQUAL_TO` / `REGEX` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -2340,8 +2340,8 @@ X-Auth-Token: {tokenId}
 | rule.invert | Body | Boolean | - | 매칭 결과에 대한 invert 설정으로 생략하면 `true`로 설정됨 |
 | rule.key | Body | String | - | L7 룰 매칭 시 사용되는 키<br> `COOKIE` / `HEADER`인 경우 필수 |
 | rule.value | Body | String | O | L7 룰 매칭 시 사용되는 값 |
-| rule.type | Query | String | O | L7 룰 타입 <br> `COOKIE` / `FILE_TYPE` / `HEADER` / `HOST_NAME` / `PATH` 중 하나 |
-| rule.compare_type | Query | String | O | L7 룰 비교 방식<br> `CONTAINS` / `ENDS_WITH` / `STARTS_WITH` / `EQUAL_TO` / `REGEX` 중 하나 |
+| rule.type | Query | Enum | O | L7 룰 타입 <br> `COOKIE` / `FILE_TYPE` / `HEADER` / `HOST_NAME` / `PATH` 중 하나 |
+| rule.compare_type | Query | Enum | O | L7 룰 비교 방식<br> `CONTAINS` / `ENDS_WITH` / `STARTS_WITH` / `EQUAL_TO` / `REGEX` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -2370,8 +2370,8 @@ X-Auth-Token: {tokenId}
 | rule.invert | Body | Boolean | 매칭 결과에 대한 invert 설정 |
 | rule.key | Body | String | L7 룰 매칭 시 사용되는 키<br> `COOKIE` / `HEADER`인 경우에만 적용 |
 | rule.value | Body | String | L7 룰 매칭 시 사용되는 값 |
-| rule.type | Query | String | L7 룰 타입 <br> `COOKIE` / `FILE_TYPE` / `HEADER` / `HOST_NAME` / `PATH` 중 하나 |
-| rule.compare_type | Query | String | L7 룰 비교 방식<br> `CONTAINS` / `ENDS_WITH` / `STARTS_WITH` / `EQUAL_TO` / `REGEX` 중 하나 |
+| rule.type | Query | Enum | L7 룰 타입 <br> `COOKIE` / `FILE_TYPE` / `HEADER` / `HOST_NAME` / `PATH` 중 하나 |
+| rule.compare_type | Query | Enum | L7 룰 비교 방식<br> `CONTAINS` / `ENDS_WITH` / `STARTS_WITH` / `EQUAL_TO` / `REGEX` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -2427,8 +2427,8 @@ X-Auth-Token: {tokenId}
 | rule.invert | Body | Boolean | 매칭 결과에 대한 invert 설정 |
 | rule.key | Body | String | L7 룰 매칭 시 사용되는 키<br> `COOKIE` / `HEADER`인 경우에만 적용 |
 | rule.value | Body | String | L7 룰 매칭 시 사용되는 값 |
-| rule.type | Query | String | L7 룰 타입 <br> `COOKIE` / `FILE_TYPE` / `HEADER` / `HOST_NAME` / `PATH` 중 하나 |
-| rule.compare_type | Query | String | L7 룰 비교 방식<br> `CONTAINS` / `ENDS_WITH` / `STARTS_WITH` / `EQUAL_TO` / `REGEX` 중 하나 |
+| rule.type | Query | Enum | L7 룰 타입 <br> `COOKIE` / `FILE_TYPE` / `HEADER` / `HOST_NAME` / `PATH` 중 하나 |
+| rule.compare_type | Query | Enum | L7 룰 비교 방식<br> `CONTAINS` / `ENDS_WITH` / `STARTS_WITH` / `EQUAL_TO` / `REGEX` 중 하나 |
 
 
 

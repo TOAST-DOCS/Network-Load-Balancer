@@ -845,6 +845,8 @@ X-Auth-Token: {tokenId}
 | pools.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pools.healthmonitor_id | Body | String | 헬스 모니터 ID |
+| pools.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
+| pools.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pools.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pools.listeners.id | Body | String | 리스너 ID |
 | pools.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -867,6 +869,11 @@ X-Auth-Token: {tokenId}
       "member_port": 80,
       "session_persistence": null,
       "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+      "loadbalancers": [
+        {
+          "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+        }
+      ],
       "listeners": [
         {
           "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -920,6 +927,8 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pool.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.healthmonitor_id | Body | UUID | 헬스 모니터 ID |
+| pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
+| pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -941,6 +950,11 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+    "loadbalancers": [
+      {
+        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+      }
+    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -979,7 +993,8 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | pool | Body | Object | O | 풀 정보 객체 |
-| pool.listener_id | Body | UUID | O | 풀이 등록될 리스너 ID |
+| pool.loadbalancer_id | Body | UUID | - | 풀이 등록될 로드밸런서 ID, 로드밸런서 ID나 리스너 ID 중 하나는 필수로 입력되어야 합니다. |
+| pool.listener_id | Body | UUID | - | 풀이 등록될 리스너 ID, 로드밸런서 ID나 리스너 ID 중 하나는 필수로 입력되어야 합니다. |
 | pool.lb_algorithm | Body | Enum | O | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pool.protocol | Body | Enum | O | 멤버의 프로토콜 |
 | pool.description | Body | String | - | 풀 설명 |
@@ -1025,6 +1040,8 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pool.healthmonitor_id | Body | String | 헬스 모니터 ID |
+| pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
+| pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -1046,6 +1063,11 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+    "loadbalancers": [
+      {
+        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+      }
+    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -1126,6 +1148,8 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.healthmonitor_id | Body | UUID | 헬스 모니터 ID |
+| pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
+| pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -1147,6 +1171,11 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+    "loadbalancers": [
+      {
+        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+      }
+    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"

@@ -1887,7 +1887,7 @@ X-Auth-Token: {tokenId}
 | name | Query | String | - | 조회할 L7 정책 이름 |
 | description | Query | String | - | 조회할 L7 정책의 설명 |
 | listener_id | Query | UUID | - | 조회할 L7 정책의 리스너 ID |
-| action | Query | Enum | - | 조회할 L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
+| action | Query | Enum | - | 조회할 L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
 | redirect_pool_id | Query | UUID | - | 조회할 L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
 | redirect_url | Query | String | - | 조회할 L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
 | position | Query | Integer | - | 조회할 L7 정책의 우선순위 |

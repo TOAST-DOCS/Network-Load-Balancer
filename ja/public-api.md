@@ -1,6 +1,6 @@
 ## Network > Load Balancer > API v2ガイド
 
-APIを使用するにはAPIエンドポイントとトークンなどが必要です。[API使用準備](/Compute/Compute/ja/identity-api/)を参照してAPI使用に必要な情報を準備します。
+APIを使用するにはAPIエンドポイントとトークンなどが必要です。[API使用準備](/Compute/Compute/ja/identity-api/)を参照してAPIの使用に必要な情報を準備します。
 
 ロードバランサー、リスナー、プール、ヘルスモニター、メンバーAPIは`network`タイプエンドポイントを利用します。シークレット、シークレットコンテナAPIは`key-manager`タイプエンドポイントを利用して呼び出します。正確なエンドポイントはトークン発行レスポンスの`serviceCatalog`を参照します。
 
@@ -35,7 +35,7 @@ X-Auth-Token: {tokenId}
 | vip_port_id | Query | UUID | - | 照会するロードバランサーのポートID |
 | vip_subnet_id | Query | UUID | - | 照会するロードバランサーのサブネットID |
 | operating_status | Query | Enum | - | 照会するロードバランサーの運用状態 |
-| loadbalancer_type | Query | String | - | 照会するロードバランサーのタイプ<br>`shared` / `dedicated`のいずれか |
+| loadbalancer_type | Query | String | - | 照会するロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
 
 
 #### レスポンス
@@ -59,7 +59,7 @@ X-Auth-Token: {tokenId}
 | loadbalancers.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
 | loadbalancers.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
-| loadbalancers.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared` / `dedicated`のいずれか |
+| loadbalancers.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
 
 <details><summary>例</summary>
 
@@ -143,7 +143,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
 | loadbalancer.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
-| loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared` / `dedicated`のいずれか |
+| loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
 
 
 <details><summary>例</summary>
@@ -208,7 +208,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.vip_subnet_id | Body | UUID | O | ロードバランサーのサブネットID |
 | loadbalancer.vip_address | Body | String | - | ロードバランサーのIP |
 | loadbalancer.admin_state_up | Body | Boolean | - | ロードバランサーの管理者制御状態。省略すると`true`に設定される。 |
-| loadbalancer.loadbalancer_type | Body | String | - | ロードバランサーのタイプとして`shared` / `dedicated`を使用可能<br> 省略した場合は`shared`に設定される |
+| loadbalancer.loadbalancer_type | Body | String | - | ロードバランサーのタイプとして`shared`/`dedicated`を使用可能<br> 省略した場合は`shared`に設定される |
 
 <details><summary>例</summary>
 
@@ -246,7 +246,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
 | loadbalancer.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
-| loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared` / `dedicated`のいずれか |
+| loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
 
 
 <details><summary>例</summary>
@@ -338,7 +338,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
 | loadbalancer.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
-| loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared` / `dedicated`のいずれか |
+| loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
 
 <details><summary>例</summary>
 
@@ -843,6 +843,8 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうち、いずれか1つ設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定した場合、接続されたリスナーのプロトコルが`HTTP`または`TERMINATED_HTTPS`に設定されていることを確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション持続性を`HTTP_COOKIE`、`APP_COOKIE`に設定してもロードバランサーはセッション持続性関連の動作を行いません。 |
 | pools.session_persistence.cookie_name | Body | String | Cookie名<br>セッション持続性タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
 | pools.healthmonitor_id | Body | String | ヘルスモニターID |
+| pools.loadbalancers | Body | Array | プールが登録されたロードバランサーオブジェクトリスト |
+| pools.loadbalancers.id | Body | UUID | ロードバランサーID |
 | pools.listeners | Body | Array | プールが登録されたリスナーオブジェクトリスト |
 | pools.listeners.id | Body | String | リスナーID |
 | pools.members | Body | Array | プールに登録されたメンバーオブジェクトリスト |
@@ -865,6 +867,11 @@ X-Auth-Token: {tokenId}
       "member_port": 80,
       "session_persistence": null,
       "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+      "loadbalancers": [
+        {
+          "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+        }
+      ],
       "listeners": [
         {
           "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -918,6 +925,8 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうち、いずれか1つ設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定した場合、接続されたリスナーのプロトコルが`HTTP`または`TERMINATED_HTTPS`に設定されていることを確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション持続性を`HTTP_COOKIE`、`APP_COOKIE`に設定してもロードバランサーはセッション持続性関連の動作を行いません。 |
 | pool.session_persistence.cookie_name | Body | String | Cookie名<br>セッション持続性タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
 | pool.healthmonitor_id | Body | UUID | ヘルスモニターID |
+| pool.loadbalancers | Body | Array | プールが登録されたロードバランサーオブジェクトのリスト |
+| pool.loadbalancers.id | Body | UUID | ロードバランサーID |
 | pool.listeners | Body | Array | プールが登録されたリスナーオブジェクトリスト |
 | pool.listeners.id | Body | UUID | リスナーID |
 | pool.members | Body | Array | プールに登録されたメンバーオブジェクトリスト |
@@ -939,6 +948,11 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+    "loadbalancers": [
+      {
+        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+      }
+    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -977,7 +991,8 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | トークンID |
 | pool | Body | Object | O | プール情報オブジェクト |
-| pool.listener_id | Body | UUID | O | プールが登録されるリスナーID |
+| pool.loadbalancer_id | Body | UUID | - | プールが登録されるロードバランサーID。ロードバランサーIDまたはリスナーIDのどちらかは必須で入力する必要があります。 |
+| pool.listener_id | Body | UUID | - | プールが登録されるリスナーID、ロードバランサーIDかリスナーIDのどちらかは必須で入力する必要があります。 |
 | pool.lb_algorithm | Body | Enum | O | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のうちいずれかつ |
 | pool.protocol | Body | Enum | O | メンバーのプロトコル |
 | pool.description | Body | String | - | プールの説明 |
@@ -1023,6 +1038,8 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - | プールのセッション持続性オブジェクト |
 | pool.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうち、いずれか1つ設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定した場合、接続されたリスナーのプロトコルが`HTTP`または`TERMINATED_HTTPS`に設定されていることを確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション持続性を`HTTP_COOKIE`、`APP_COOKIE`に設定してもロードバランサーはセッション持続性関連の動作を行いません。 |
 | pool.healthmonitor_id | Body | String | ヘルスモニターID |
+| pool.loadbalancers | Body | Array | プールが登録されたロードバランサーオブジェクトのリスト |
+| pool.loadbalancers.id | Body | UUID | ロードバランサーID |
 | pool.listeners | Body | Array | プールが登録されたリスナーオブジェクトリスト |
 | pool.listeners.id | Body | UUID | リスナーID |
 | pool.members | Body | Array | プールに登録されたメンバーオブジェクトリスト |
@@ -1044,6 +1061,11 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+    "loadbalancers": [
+      {
+        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+      }
+    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -1124,6 +1146,8 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のうち、いずれか1つ設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定した場合、接続されたリスナーのプロトコルが`HTTP`または`TERMINATED_HTTPS`に設定されていることを確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション持続性を`HTTP_COOKIE`、`APP_COOKIE`に設定してもロードバランサーはセッション持続性関連の動作を行いません。 |
 | pools.session_persistence.cookie_name | Body | String | Cookie名<br>セッション持続性タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
 | pool.healthmonitor_id | Body | UUID | ヘルスモニターID |
+| pool.loadbalancers | Body | Array | プールが登録されているロードバランサーオブジェクトの一覧｜｜ pool.loadbalancers.id
+| pool.loadbalancers.id | Body | UUID | ロードバランサーID |
 | pool.listeners | Body | Array | プールが登録されたリスナーオブジェクトリスト |
 | pool.listeners.id | Body | UUID | リスナーID |
 | pool.members | Body | Array | プールに登録されたメンバーオブジェクトリスト |
@@ -1145,6 +1169,11 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+    "loadbalancers": [
+      {
+        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+      }
+    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -1875,6 +1904,610 @@ X-Auth-Token: {tokenId}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## L7ポリシー
+
+### L7ポリシーリスト表示
+
+```
+GET /v2.0/lbaas/l7policies
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | トークンID |
+| id | Query | UUID | - | 照会するL7ポリシーID |
+| name | Query | String | - | 照会するL7ポリシー名 |
+| description | Query | String | - | 照会するL7ポリシーの説明 |
+| listener_id | Query | UUID | - | 照会するL7ポリシーのリスナーID |
+| action | Query | Enum | - | 照会するL7ポリシーのアクション<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT`のいずれか |
+| redirect_pool_id | Query | UUID | - | 照会するL7ポリシーのリダイレクトプールID<br>アクションが`REDIRECT_TO_POOL`の場合にのみ適用 |
+| redirect_url | Query | String | - | 照会するL7ポリシーのリダイレクトURL<br>アクションが`REDIRECT_TO_URL`の場合にのみ適用 |
+| position | Query | Integer | - | 照会するL7ポリシーの優先順位 |
+
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+|---|---|---|---|
+| l7policies | Body | Array | L7ポリシーオブジェクトリスト |
+| l7policies.description | Body | String | L7ポリシーの説明 |
+| l7policies.tenant_id | Body | String | テナントID |
+| l7policies.listener_id | Body | UUID | L7ポリシーのリスナーID |
+| l7policies.name | Body | String | L7ポリシー名 |
+| l7policies.rules | Body | Object | L7ポリシールールオブジェクトリスト |
+| l7policies.rules.id | Body | UUID | L7ルールID |
+| l7policies.id | Body | UUID | L7ポリシーID |
+| l7policies.admin_state_up | Body | Boolean | L7ポリシー管理者制御状態 |
+| l7policies.action | Body | Enum | L7ポリシーのアクション<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT`のいずれか |
+| l7policies.redirect_pool_id | Body | UUID | L7ポリシーのリダイレクトプールID<br>アクションが`REDIRECT_TO_POOL`の場合にのみ適用 |
+| l7policies.redirect_url | Body | String | L7ポリシーのリダイレクトURL<br>アクションが`REDIRECT_TO_URL`の場合にのみ適用 |
+| l7policies.position | Body | Integer | L7ポリシーの優先順位 |
+
+<details><summary>例</summary>
+
+```json
+{
+  "l7policies": [
+    {
+      "redirect_pool_id": null,
+      "description": "",
+      "admin_state_up": true,
+      "rules": [
+        {
+          "id": "1e982fc1-0e54-4e1c-96c3-c9796cba373b"
+        }
+      ],
+      "tenant_id": "8258ab391d854e8b878642b737017a3b",
+      "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+      "redirect_url": null,
+      "action": "REJECT",
+      "position": 1,
+      "id": "9376c901-64cc-46a0-bab3-1b4bf42699ad",
+      "name": "L7Policy"
+    }
+  ]
+}
+```
+</details>
+
+---
+### L7ポリシー表示
+
+```
+GET /v2.0/lbaas/l7policies/{l7policyId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | トークンID |
+| l7policyId | URL | UUID | O | L7ポリシーID |
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+|---|---|---|---|
+| l7policy | Body | Object | L7ポリシーオブジェクト |
+| l7policy.description | Body | String | L7ポリシー説明 |
+| l7policy.tenant_id | Body | String | テナントID |
+| l7policy.listener_id | Body | UUID | L7ポリシーのリスナーID |
+| l7policy.name | Body | String | L7ポリシー名 |
+| l7policy.rules | Body | Object | L7ポリシールールオブジェクトリスト |
+| l7policy.rules.id | Body | UUID | L7ルールID |
+| l7policy.id | Body | UUID | L7ポリシーID |
+| l7policy.admin_state_up | Body | Boolean | L7ポリシー管理者制御状態 |
+| l7policy.action | Body | Enum | L7ポリシーのアクション<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT`のいずれか |
+| l7policy.redirect_pool_id | Body | UUID | L7ポリシーのリダイレクトプールID<br>アクションが`REDIRECT_TO_POOL`の場合にのみ適用 |
+| l7policy.redirect_url | Body | String | L7ポリシーのリダイレクトURL<br>アクションが`REDIRECT_TO_URL`の場合にのみ適用 |
+| l7policy.position | Body | Integer | L7ポリシーの優先順位 |
+
+
+<details><summary>例</summary>
+
+```json
+{
+  "l7policy": {
+    "redirect_pool_id": null,
+    "description": "",
+    "admin_state_up": true,
+    "rules": [
+      {
+        "id": "1e982fc1-0e54-4e1c-96c3-c9796cba373b"
+      }
+    ],
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+    "redirect_url": null,
+    "action": "REJECT",
+    "position": 1,
+    "id": "9376c901-64cc-46a0-bab3-1b4bf42699ad",
+    "name": "L7Policy"
+  }
+}
+```
+</details>
+
+---
+### L7ポリシーを作成する
+
+```
+POST /v2.0/lbaas/l7policies
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | トークンID |
+| l7policy | Body | Object | - | L7ポリシーオブジェクト |
+| l7policy.description | Body | String | - | L7ポリシー説明 |
+| l7policy.listener_id | Body | UUID | O | L7ポリシーのリスナーID |
+| l7policy.name | Body | String | - | L7ポリシー名 |
+| l7policy.admin_state_up | Body | Boolean | - | L7ポリシー管理者制御状態。省略した場合、`true`に設定 |
+| l7policy.action | Body | Enum | O | L7ポリシーのアクション<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT`のいずれか |
+| l7policy.redirect_pool_id | Body | UUID | - | L7ポリシーのリダイレクトプールID<br>アクションが`REDIRECT_TO_POOL`の場合必須 |
+| l7policy.redirect_url | Body | String | - | L7ポリシーのリダイレクトURL<br>アクションが`REDIRECT_TO_URL`の場合必須 |
+| l7policy.position | Body | Integer | - | L7ポリシーの優先順位。省略した場合、最後の順位に設定 |
+
+
+
+<details><summary>例</summary>
+
+```json
+{
+  "l7policy": {
+    "action": "REJECT",
+    "position": 1,
+    "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+    "admin_state_up": true
+  }
+}
+```
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+|---|---|---|---|
+| l7policy | Body | Object | L7ポリシーオブジェクト |
+| l7policy.description | Body | String | L7ポリシー説明 |
+| l7policy.tenant_id | Body | String | テナントID |
+| l7policy.listener_id | Body | UUID | L7ポリシーのリスナーID |
+| l7policy.name | Body | String | L7ポリシー名 |
+| l7policy.rules | Body | Object | L7ポリシールールオブジェクトのリスト
+| l7policy.rules.id | Body | UUID | L7ルールID | String
+| l7policy.id | Body | UUID | L7ポリシーID |
+| l7policy.admin_state_up | Body | Boolean | L7ポリシー管理者制御状態 |
+| l7policy.action | Body | Enum | L7ポリシーのアクション<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT`のいずれかを指定します。
+| l7policy.redirect_pool_id | Body | UUID | L7ポリシーのリダイレクトプールID<br> アクションが`REDIRECT_TO_POOL`の場合のみ適用されます。
+| l7policy.redirect_url | Body | String | L7ポリシーのリダイレクトURL<br>アクションが`REDIRECT_TO_URL`の場合のみ適用します。
+| l7policy.position | Body | Integer | L7ポリシーの優先順位 |
+
+
+<details><summary>例</summary>
+
+```json
+{
+  "l7policy": {
+    "redirect_pool_id": null,
+    "description": "",
+    "admin_state_up": true,
+    "rules": [
+    ],
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+    "redirect_url": null,
+    "action": "REJECT",
+    "position": 1,
+    "id": "9376c901-64cc-46a0-bab3-1b4bf42699ad",
+    "name": ""
+  }
+}
+```
+</details>
+
+---
+### L7ポリシーを修正する
+
+```
+PUT /v2.0/lbaas/l7policies/{l7policyId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | トークンID |
+| l7policyId | URL | UUID | O | L7ポリシーID |
+| l7policy | Body | Object | O | L7ポリシーオブジェクト |
+| l7policy.name | Body | String | - | L7ポリシー名 |
+| l7policy.description | Body | String | - | L7ポリシー説明 |
+| l7policy.admin_state_up | Body | Boolean | - | L7ポリシーの管理者制御状態 |
+| l7policy.action | Body | Enum | - | L7ポリシーのアクション<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT`のいずれか |
+| l7policy.redirect_pool_id | Body | UUID | - | L7ポリシーのリダイレクトプールID<br>アクションが`REDIRECT_TO_POOL`の場合、必須です。
+| l7policy.redirect_url | Body | String | - | L7ポリシーのリダイレクトURL<br>アクションが`REDIRECT_TO_URL`の場合は必須です。
+| l7policy.position | Body | Integer | - | L7ポリシーの優先順位 |
+
+<details><summary>例</summary>
+
+```json
+{
+  "l7policy": {
+    "name": "L7Policy",
+    "position": 255,
+    "admin_state_up": true
+  }
+}
+```
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+|---|---|---|---|
+| l7policy | Body | Object | L7ポリシーオブジェクト |
+| l7policy.description | Body | String | L7ポリシー説明 |
+| l7policy.tenant_id | Body | String | テナントID |
+| l7policy.listener_id | Body | UUID | L7ポリシーのリスナーID |
+| l7policy.name | Body | String | L7ポリシー名 |
+| l7policy.rules | Body | Object | L7ポリシールールオブジェクトのリスト
+| l7policy.rules.id | Body | UUID | L7ルールID | String
+| l7policy.id | Body | UUID | L7ポリシーID |
+| l7policy.admin_state_up | Body | Boolean | L7ポリシー管理者制御状態 |
+| l7policy.action | Body | Enum | L7ポリシーのアクション<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT`のいずれかを指定します。
+| l7policy.redirect_pool_id | Body | UUID | L7ポリシーのリダイレクトプールID<br> アクションが`REDIRECT_TO_POOL`の場合のみ適用されます。
+| l7policy.redirect_url | Body | String | L7ポリシーのリダイレクトURL<br>アクションが`REDIRECT_TO_URL`の場合のみ適用します。
+| l7policy.position | Body | Integer | L7ポリシーの優先順位 |
+
+
+<details><summary>例</summary>
+
+```json
+{
+  "l7policy": {
+    "redirect_pool_id": null,
+    "description": "",
+    "admin_state_up": true,
+    "rules": [
+    ],
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+    "redirect_url": null,
+    "action": "REJECT",
+    "position": 255,
+    "id": "9376c901-64cc-46a0-bab3-1b4bf42699ad",
+    "name": "L7Policy"
+  }
+}
+```
+</details>
+
+---
+### L7ポリシーを削除する
+
+```
+DELETE /v2.0/lbaas/l7policies/{l7policyId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | トークンID |
+| l7policyId | URL | UUID | O | L7ポリシーID |
+
+
+#### レスポンス
+このAPIはレスポンス本文を返しません。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## L7ルール
+
+### L7ルールリスト表示
+
+```
+GET /v2.0/lbaas/l7policies/{l7policyId}/rules
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | トークンID |
+| l7policyId | URL | UUID | O | L7ルールが属するL7ポリシーID |
+| id | Query | UUID | - | 照会するL7ルールID |
+| type | Query | Enum | - | 照会するL7ルールのタイプ <br> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH`のいずれか |
+| compare_type | Query | Enum | - | 照会するL7ルールの比較方式<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX`のいずれか |
+
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+|---|---|---|---|
+| rules | Body | Array | L7ルールオブジェクトリスト |
+| rules.tenant_id | Body | String | テナントID |
+| rules.id | Body | UUID | L7ルールID |
+| rules.admin_state_up | Body | Boolean | L7ルール管理者制御状態 |
+| rules.invert | Body | Boolean | マッチング結果に対するinvert設定 |
+| rules.key | Body | String | L7ルールマッチング時に使用されるキー<br> `COOKIE`/`HEADER`の場合にのみ適用 |
+| rules.value | Body | String | L7ルールマッチング時に使用される値 |
+| rules.type | Query | Enum | L7ルールタイプ <br> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH`のいずれか |
+| rules.compare_type | Query | Enum | L7ルール比較方式<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX`のいずれか |
+
+<details><summary>例</summary>
+
+```json
+{
+  "rules": [
+    {
+      "compare_type": "EQUAL_TO",
+      "admin_state_up": true,
+      "tenant_id": "8258ab391d854e8b878642b737017a3b",
+      "invert": false,
+      "value": "Value",
+      "key": null,
+      "type": "HOST_NAME",
+      "id": "37492146-9105-40eb-9640-4da2e10c748a"
+    }
+  ]
+}
+```
+</details>
+
+---
+### L7ルール表示
+
+```
+GET /v2.0/lbaas/l7policies/{l7policyId}/rules/{l7ruleId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | トークンID |
+| l7policyId | URL | UUID | O | L7ポリシーID |
+| l7ruleId | URL | UUID | O | L7ルールID |
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+|---|---|---|---|
+| rule | Body | Object | L7ルールオブジェクト |
+| rule.tenant_id | Body | String | テナントID |
+| rule.id | Body | UUID | L7ルールID |
+| rule.admin_state_up | Body | Boolean | L7ルール管理者制御状態 |
+| rule.invert | Body | Boolean | マッチング結果に対するinvert設定 |
+| rule.key | Body | String | L7ルールマッチング時に使用されるキー<br> `COOKIE`/`HEADER`の場合にのみ適用 |
+| rule.value | Body | String | L7ルールマッチング時に使用される値 |
+| rule.type | Query | Enum | L7ルールタイプ <br> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH`のいずれか |
+| rule.compare_type | Query | Enum | L7ルール比較方式<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX`のいずれか |
+
+
+<details><summary>例</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "EQUAL_TO",
+    "admin_state_up": true,
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "invert": false,
+    "value": "Value",
+    "key": null,
+    "type": "HOST_NAME",
+    "id": "37492146-9105-40eb-9640-4da2e10c748a"
+  }
+}
+```
+</details>
+
+---
+### L7ルールを作成する
+
+```
+POST /v2.0/lbaas/l7policies/{l7policyId}/rules/
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | トークンID |
+| l7policyId | URL | UUID | O | L7ポリシーID |
+| rule | Body | Object | O | L7ルールオブジェクト |
+| rule.admin_state_up | Body | Boolean | - | L7ルール管理者制御状態 |
+| rule.invert | Body | Boolean | - | マッチング結果に対するinvert設定。省略した場合、`true`に設定される |
+| rule.key | Body | String | - | L7ルールマッチング時に使用されるキー<br> `COOKIE`/`HEADER`の場合は必須 |
+| rule.value | Body | String | O | L7ルールマッチング時に使用される値 |
+| rule.type | Query | Enum | O | L7ルールタイプ <br> `COOKIE`/ `FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH`のいずれか |
+| rule.compare_type | Query | Enum | O | L7ルール比較方式<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX`のいずれか |
+
+
+<details><summary>例</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "STARTS_WITH",
+    "invert": false,
+    "type": "PATH",
+    "value": "/images",
+    "admin_state_up": true
+  }
+}
+```
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+|---|---|---|---|
+| rule｜Body｜Object｜L7ルールオブジェクト｜ | rule.tenant_id｜Body｜String｜Tenant ID
+| rule.tenant_id | Body | String | テナントID |
+| rule.id | Body | UUID | L7ルールID | String
+rule.admin_state_up | Body | Boolean | L7ルール管理者制御状態｜ | rule.invert | Body | UUID
+rule.invert | Body | Boolean | マッチング結果のinvert設定｜ | rule.key | Body | String
+rule.key | Body | String | L7ルールマッチング時に使用されるキー<br> `COOKIE`/`HEADER`の場合のみ適用 | | rule.value | Body | String | L7ルール管理者の制御状態
+| rule.value | Body | String | L7ルールマッチング時に使用される値｜｜ rule.type | Query | L7ルールマッチング時に使用される値｜｜ rule.key
+| rule.type | Query | Enum | L7ルールタイプ <br> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH`のいずれか｜｜ | rule.compare_type | Query
+| rule.compare_type | Query | Enum | L7ルール比較方式<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX`のいずれか｜ <BR> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH`のいずれか
+
+
+<details><summary>例</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "STARTS_WITH",
+    "admin_state_up": true,
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "invert": false,
+    "value": "/images",
+    "key": null,
+    "type": "PATH",
+    "id": "3c88bc9b-8fac-4a73-a611-df85417b656e"
+  }
+}
+```
+</details>
+
+---
+### L7ルールを修正する
+
+```
+PUT /v2.0/lbaas/l7policies/{l7policyId}/rules/{l7ruleId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | トークンID |
+| l7policyId | URL | UUID | O | L7ポリシーID |
+l7ruleId | URL | UUID | O | L7ルールID | O | L7ルールID
+rule | Body | Object | O | L7ルールオブジェクト｜ O | L7ルールオブジェクト｜ | rule.admin_state_up
+| rule.admin_state_up | Body | Boolean | - | L7ルール管理者制御状態｜ - | L7ルール管理者制御状態｜ O
+| rule.invert | Body | Boolean | - | マッチング結果に対するinvert設定 |
+| rule.key | Body | String | - | L7ルールマッチング時に使用されるキー<br> `COOKIE`/`HEADER`の場合にのみ適用 |
+| rule.value | Body | String | - | L7ルールマッチング時に使用される値 |
+| rule.type | Query | Enum | - | L7ルールタイプ <br> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH`のいずれか |
+| rule.compare_type | Query | Enum | - |L7ルール比較方式<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX`のいずれか |
+
+
+<details><summary>例</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "REGEX",
+    "invert": true,
+    "type": "PATH",
+    "value": "/images/modify",
+    "admin_state_up": true
+  }
+}
+```
+</details>
+
+#### レスポンス
+
+| 名前 | 種類 | 形式 | 説明 |
+|---|---|---|---|
+| rule｜Body｜Object｜L7ルールオブジェクト｜ | rule.tenant_id｜Body｜String｜Tenant ID
+| rule.tenant_id | Body | String | テナントID |
+| rule.id | Body | UUID | L7ルールID | String
+rule.admin_state_up | Body | Boolean | L7ルール管理者制御状態｜ | rule.invert | Body | UUID
+rule.invert | Body | Boolean | マッチング結果のinvert設定｜ | rule.key | Body | String
+rule.key | Body | String | L7ルールマッチング時に使用されるキー<br> `COOKIE`/`HEADER`の場合のみ適用 | | rule.value | Body | String | L7ルール管理者の制御状態
+| rule.value | Body | String | L7ルールマッチング時に使用される値｜｜ rule.type | Query | L7ルールマッチング時に使用される値｜｜ rule.key
+| rule.type | Query | Enum | L7ルールタイプ <br> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH`のいずれか｜｜ | rule.compare_type | Query
+| rule.compare_type | Query | Enum | L7ルール比較方式<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX`のいずれか｜ <BR> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH`のいずれか
+
+
+<details><summary>例</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "REGEX",
+    "admin_state_up": true,
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "invert": true,
+    "value": "/images/modify",
+    "key": null,
+    "type": "PATH",
+    "id": "3c88bc9b-8fac-4a73-a611-df85417b656e"
+  }
+}
+```
+</details>
+
+---
+### L7ルールを削除する
+
+```
+DELETE /v2.0/lbaas/l7policies/{l7policyId}/rules/{l7ruleId}
+X-Auth-Token: {tokenId}
+```
+
+#### リクエスト
+このAPIはリクエスト本文を要求しません。
+
+| 名前 | 種類 | 形式 | 必須 | 説明 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | トークンID |
+| l7policyId | URL | UUID | O | L7ポリシーID |
+| l7ruleId | URL | UUID | O | L7ルールID | L7ルールID
+
+
+#### レスポンス
+このAPIはレスポンス本文を返しません。
 
 
 

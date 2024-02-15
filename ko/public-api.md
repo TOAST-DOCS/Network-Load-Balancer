@@ -35,7 +35,7 @@ X-Auth-Token: {tokenId}
 | vip_port_id | Query | UUID | - | 조회할 로드 밸런서의 포트 ID |
 | vip_subnet_id | Query | UUID | - | 조회할 로드 밸런서의 서브넷 ID |
 | operating_status | Query | Enum | - | 조회할 로드 밸런서의 운영 상태 |
-| loadbalancer_type | Query | String | - | 조회할 로드 밸런서의 타입<br>`shared` / `dedicated` 중 하나 |
+| loadbalancer_type | Query | String | - | 조회할 로드 밸런서의 타입<br>`shared`/`dedicated` 중 하나 |
 
 
 #### 응답
@@ -59,7 +59,7 @@ X-Auth-Token: {tokenId}
 | loadbalancers.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
 | loadbalancers.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
-| loadbalancers.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
+| loadbalancers.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
 
 <details><summary>예시</summary>
 
@@ -143,7 +143,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
 | loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
-| loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
+| loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -208,7 +208,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.vip_subnet_id | Body | UUID | O | 로드 밸런서의 서브넷 ID |
 | loadbalancer.vip_address | Body | String | - | 로드 밸런서의 IP |
 | loadbalancer.admin_state_up | Body | Boolean | - | 로드 밸런서 관리자 제어 상태로 생략하면 `true`로 설정됨 |
-| loadbalancer.loadbalancer_type | Body | String | - | 로드 밸런서 타입으로, `shared` / `dedicated` 사용 가능<br> 생략할 경우 `shared`로 설정됨 |
+| loadbalancer.loadbalancer_type | Body | String | - | 로드 밸런서 타입으로, `shared`/`dedicated` 사용 가능<br> 생략할 경우 `shared`로 설정됨 |
 
 
 
@@ -249,7 +249,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
 | loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
-| loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
+| loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -341,7 +341,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
 | loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
-| loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared` / `dedicated` 중 하나 |
+| loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -845,6 +845,8 @@ X-Auth-Token: {tokenId}
 | pools.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pools.healthmonitor_id | Body | String | 헬스 모니터 ID |
+| pools.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
+| pools.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pools.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pools.listeners.id | Body | String | 리스너 ID |
 | pools.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -867,6 +869,11 @@ X-Auth-Token: {tokenId}
       "member_port": 80,
       "session_persistence": null,
       "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+      "loadbalancers": [
+        {
+          "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+        }
+      ],
       "listeners": [
         {
           "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -920,6 +927,8 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pool.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.healthmonitor_id | Body | UUID | 헬스 모니터 ID |
+| pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
+| pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -941,6 +950,11 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+    "loadbalancers": [
+      {
+        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+      }
+    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -979,7 +993,8 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | pool | Body | Object | O | 풀 정보 객체 |
-| pool.listener_id | Body | UUID | O | 풀이 등록될 리스너 ID |
+| pool.loadbalancer_id | Body | UUID | - | 풀이 등록될 로드밸런서 ID, 로드밸런서 ID나 리스너 ID 중 하나는 필수로 입력되어야 합니다. |
+| pool.listener_id | Body | UUID | - | 풀이 등록될 리스너 ID, 로드밸런서 ID나 리스너 ID 중 하나는 필수로 입력되어야 합니다. |
 | pool.lb_algorithm | Body | Enum | O | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pool.protocol | Body | Enum | O | 멤버의 프로토콜 |
 | pool.description | Body | String | - | 풀 설명 |
@@ -1025,6 +1040,8 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pool.healthmonitor_id | Body | String | 헬스 모니터 ID |
+| pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
+| pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -1046,6 +1063,11 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+    "loadbalancers": [
+      {
+        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+      }
+    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -1126,6 +1148,8 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.healthmonitor_id | Body | UUID | 헬스 모니터 ID |
+| pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
+| pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -1147,6 +1171,11 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+    "loadbalancers": [
+      {
+        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+      }
+    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -1894,6 +1923,610 @@ X-Auth-Token: {tokenId}
 
 
 
+## L7 정책
+
+### L7 정책 목록 보기
+
+```
+GET /v2.0/lbaas/l7policies
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| id | Query | UUID | - | 조회할 L7 정책 ID |
+| name | Query | String | - | 조회할 L7 정책 이름 |
+| description | Query | String | - | 조회할 L7 정책의 설명 |
+| listener_id | Query | UUID | - | 조회할 L7 정책의 리스너 ID |
+| action | Query | Enum | - | 조회할 L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
+| redirect_pool_id | Query | UUID | - | 조회할 L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
+| redirect_url | Query | String | - | 조회할 L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
+| position | Query | Integer | - | 조회할 L7 정책의 우선순위 |
+
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| l7policies | Body | Array | L7 정책 객체 목록 |
+| l7policies.description | Body | String | L7 정책 설명 |
+| l7policies.tenant_id | Body | String | 테넌트 ID |
+| l7policies.listener_id | Body | UUID | L7 정책의 리스너 ID |
+| l7policies.name | Body | String | L7 정책 이름 |
+| l7policies.rules | Body | Object | L7 정책 룰 객체 목록 |
+| l7policies.rules.id | Body | UUID | L7 룰 ID |
+| l7policies.id | Body | UUID | L7 정책 ID |
+| l7policies.admin_state_up | Body | Boolean | L7 정책 관리자 제어 상태 |
+| l7policies.action | Body | Enum | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
+| l7policies.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
+| l7policies.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
+| l7policies.position | Body | Integer | L7 정책의 우선순위 |
+
+<details><summary>예시</summary>
+
+```json
+{
+  "l7policies": [
+    {
+      "redirect_pool_id": null,
+      "description": "",
+      "admin_state_up": true,
+      "rules": [
+        {
+          "id": "1e982fc1-0e54-4e1c-96c3-c9796cba373b"
+        }
+      ],
+      "tenant_id": "8258ab391d854e8b878642b737017a3b",
+      "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+      "redirect_url": null,
+      "action": "REJECT",
+      "position": 1,
+      "id": "9376c901-64cc-46a0-bab3-1b4bf42699ad",
+      "name": "L7Policy"
+    }
+  ]
+}
+```
+</details>
+
+---
+### L7 정책 보기
+
+```
+GET /v2.0/lbaas/l7policies/{l7policyId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| l7policyId | URL | UUID | O | L7 정책 ID |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| l7policy | Body | Object | L7 정책 객체 |
+| l7policy.description | Body | String | L7 정책 설명 |
+| l7policy.tenant_id | Body | String | 테넌트 ID |
+| l7policy.listener_id | Body | UUID | L7 정책의 리스너 ID |
+| l7policy.name | Body | String | L7 정책 이름 |
+| l7policy.rules | Body | Object | L7 정책 룰 객체 목록 |
+| l7policy.rules.id | Body | UUID | L7 룰 ID |
+| l7policy.id | Body | UUID | L7 정책 ID |
+| l7policy.admin_state_up | Body | Boolean | L7 정책 관리자 제어 상태 |
+| l7policy.action | Body | Enum | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
+| l7policy.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
+| l7policy.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
+| l7policy.position | Body | Integer | L7 정책의 우선순위 |
+
+
+<details><summary>예시</summary>
+
+```json
+{
+  "l7policy": {
+    "redirect_pool_id": null,
+    "description": "",
+    "admin_state_up": true,
+    "rules": [
+      {
+        "id": "1e982fc1-0e54-4e1c-96c3-c9796cba373b"
+      }
+    ],
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+    "redirect_url": null,
+    "action": "REJECT",
+    "position": 1,
+    "id": "9376c901-64cc-46a0-bab3-1b4bf42699ad",
+    "name": "L7Policy"
+  }
+}
+```
+</details>
+
+---
+### L7 정책 생성하기
+
+```
+POST /v2.0/lbaas/l7policies
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| l7policy | Body | Object | - | L7 정책 객체 |
+| l7policy.description | Body | String | - | L7 정책 설명 |
+| l7policy.listener_id | Body | UUID | O | L7 정책의 리스너 ID |
+| l7policy.name | Body | String | - | L7 정책 이름 |
+| l7policy.admin_state_up | Body | Boolean | - | L7 정책 관리자 제어 상태로 생략하면 `true`로 설정 |
+| l7policy.action | Body | Enum | O | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
+| l7policy.redirect_pool_id | Body | UUID | - | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우 필수 |
+| l7policy.redirect_url | Body | String | - | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우 필수 |
+| l7policy.position | Body | Integer | - | L7 정책의 우선순위. 생략할 경우 마지막 순위로 설정 |
+
+
+
+<details><summary>예시</summary>
+
+```json
+{
+  "l7policy": {
+    "action": "REJECT",
+    "position": 1,
+    "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+    "admin_state_up": true
+  }
+}
+```
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| l7policy | Body | Object | L7 정책 객체 |
+| l7policy.description | Body | String | L7 정책 설명 |
+| l7policy.tenant_id | Body | String | 테넌트 ID |
+| l7policy.listener_id | Body | UUID | L7 정책의 리스너 ID |
+| l7policy.name | Body | String | L7 정책 이름 |
+| l7policy.rules | Body | Object | L7 정책 룰 객체 목록 |
+| l7policy.rules.id | Body | UUID | L7 룰 ID |
+| l7policy.id | Body | UUID | L7 정책 ID |
+| l7policy.admin_state_up | Body | Boolean | L7 정책 관리자 제어 상태 |
+| l7policy.action | Body | Enum | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
+| l7policy.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
+| l7policy.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
+| l7policy.position | Body | Integer | L7 정책의 우선순위 |
+
+
+<details><summary>예시</summary>
+
+```json
+{
+  "l7policy": {
+    "redirect_pool_id": null,
+    "description": "",
+    "admin_state_up": true,
+    "rules": [
+    ],
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+    "redirect_url": null,
+    "action": "REJECT",
+    "position": 1,
+    "id": "9376c901-64cc-46a0-bab3-1b4bf42699ad",
+    "name": ""
+  }
+}
+```
+</details>
+
+---
+### L7 정책 수정하기
+
+```
+PUT /v2.0/lbaas/l7policies/{l7policyId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| l7policyId | URL | UUID | O | L7 정책 ID |
+| l7policy | Body | Object | O | L7 정책 객체 |
+| l7policy.name | Body | String | - | L7 정책 이름 |
+| l7policy.description | Body | String | - | L7 정책 설명 |
+| l7policy.admin_state_up | Body | Boolean | - | L7 정책의 관리자 제어 상태 |
+| l7policy.action | Body | Enum | - | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
+| l7policy.redirect_pool_id | Body | UUID | - | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우 필수 |
+| l7policy.redirect_url | Body | String | - | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우 필수 |
+| l7policy.position | Body | Integer | - | L7 정책의 우선순위 |
+
+<details><summary>예시</summary>
+
+```json
+{
+  "l7policy": {
+    "name": "L7Policy",
+    "position": 255,
+    "admin_state_up": true
+  }
+}
+```
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| l7policy | Body | Object | L7 정책 객체 |
+| l7policy.description | Body | String | L7 정책 설명 |
+| l7policy.tenant_id | Body | String | 테넌트 ID |
+| l7policy.listener_id | Body | UUID | L7 정책의 리스너 ID |
+| l7policy.name | Body | String | L7 정책 이름 |
+| l7policy.rules | Body | Object | L7 정책 룰 객체 목록 |
+| l7policy.rules.id | Body | UUID | L7 룰 ID |
+| l7policy.id | Body | UUID | L7 정책 ID |
+| l7policy.admin_state_up | Body | Boolean | L7 정책 관리자 제어 상태 |
+| l7policy.action | Body | Enum | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
+| l7policy.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
+| l7policy.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
+| l7policy.position | Body | Integer | L7 정책의 우선순위 |
+
+
+<details><summary>예시</summary>
+
+```json
+{
+  "l7policy": {
+    "redirect_pool_id": null,
+    "description": "",
+    "admin_state_up": true,
+    "rules": [
+    ],
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+    "redirect_url": null,
+    "action": "REJECT",
+    "position": 255,
+    "id": "9376c901-64cc-46a0-bab3-1b4bf42699ad",
+    "name": "L7Policy"
+  }
+}
+```
+</details>
+
+---
+### L7 정책 삭제하기
+
+```
+DELETE /v2.0/lbaas/l7policies/{l7policyId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| l7policyId | URL | UUID | O | L7 정책 ID |
+
+
+#### 응답
+이 API는 응답 본문을 반환하지 않습니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## L7 룰
+
+### L7 룰 목록 보기
+
+```
+GET /v2.0/lbaas/l7policies/{l7policyId}/rules
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| l7policyId | URL | UUID | O | L7 룰이 속한 L7 정책 ID |
+| id | Query | UUID | - | 조회할 L7 룰 ID |
+| type | Query | Enum | - | 조회할 L7 룰의 타입 <br> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH` 중 하나 |
+| compare_type | Query | Enum | - | 조회할 L7 룰의 비교 방식<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX` 중 하나 |
+
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| rules | Body | Array | L7 룰 객체 목록 |
+| rules.tenant_id | Body | String | 테넌트 ID |
+| rules.id | Body | UUID | L7 룰 ID |
+| rules.admin_state_up | Body | Boolean | L7 룰 관리자 제어 상태 |
+| rules.invert | Body | Boolean | 매칭 결과에 대한 invert 설정 |
+| rules.key | Body | String | L7 룰 매칭 시 사용되는 키<br> `COOKIE`/`HEADER`인 경우에만 적용 |
+| rules.value | Body | String | L7 룰 매칭 시 사용되는 값 |
+| rules.type | Query | Enum | L7 룰 타입 <br> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH` 중 하나 |
+| rules.compare_type | Query | Enum | L7 룰 비교 방식<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX` 중 하나 |
+
+<details><summary>예시</summary>
+
+```json
+{
+  "rules": [
+    {
+      "compare_type": "EQUAL_TO",
+      "admin_state_up": true,
+      "tenant_id": "8258ab391d854e8b878642b737017a3b",
+      "invert": false,
+      "value": "Value",
+      "key": null,
+      "type": "HOST_NAME",
+      "id": "37492146-9105-40eb-9640-4da2e10c748a"
+    }
+  ]
+}
+```
+</details>
+
+---
+### L7 룰 보기
+
+```
+GET /v2.0/lbaas/l7policies/{l7policyId}/rules/{l7ruleId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| l7policyId | URL | UUID | O | L7 정책 ID |
+| l7ruleId | URL | UUID | O | L7 룰 ID |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| rule | Body | Object | L7 룰 객체 |
+| rule.tenant_id | Body | String | 테넌트 ID |
+| rule.id | Body | UUID | L7 룰 ID |
+| rule.admin_state_up | Body | Boolean | L7 룰 관리자 제어 상태 |
+| rule.invert | Body | Boolean | 매칭 결과에 대한 invert 설정 |
+| rule.key | Body | String | L7 룰 매칭 시 사용되는 키<br> `COOKIE`/`HEADER`인 경우에만 적용 |
+| rule.value | Body | String | L7 룰 매칭 시 사용되는 값 |
+| rule.type | Query | Enum | L7 룰 타입 <br> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH` 중 하나 |
+| rule.compare_type | Query | Enum | L7 룰 비교 방식<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX` 중 하나 |
+
+
+<details><summary>예시</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "EQUAL_TO",
+    "admin_state_up": true,
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "invert": false,
+    "value": "Value",
+    "key": null,
+    "type": "HOST_NAME",
+    "id": "37492146-9105-40eb-9640-4da2e10c748a"
+  }
+}
+```
+</details>
+
+---
+### L7 룰 생성하기
+
+```
+POST /v2.0/lbaas/l7policies/{l7policyId}/rules/
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| l7policyId | URL | UUID | O | L7 정책 ID |
+| rule | Body | Object | O | L7 룰 객체 |
+| rule.admin_state_up | Body | Boolean | - | L7 룰 관리자 제어 상태 |
+| rule.invert | Body | Boolean | - | 매칭 결과에 대한 invert 설정으로 생략하면 `true`로 설정됨 |
+| rule.key | Body | String | - | L7 룰 매칭 시 사용되는 키<br> `COOKIE`/`HEADER`인 경우 필수 |
+| rule.value | Body | String | O | L7 룰 매칭 시 사용되는 값 |
+| rule.type | Query | Enum | O | L7 룰 타입 <br> `COOKIE`/ `FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH` 중 하나 |
+| rule.compare_type | Query | Enum | O | L7 룰 비교 방식<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX` 중 하나 |
+
+
+<details><summary>예시</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "STARTS_WITH",
+    "invert": false,
+    "type": "PATH",
+    "value": "/images",
+    "admin_state_up": true
+  }
+}
+```
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| rule | Body | Object | L7 룰 객체 |
+| rule.tenant_id | Body | String | 테넌트 ID |
+| rule.id | Body | UUID | L7 룰 ID |
+| rule.admin_state_up | Body | Boolean | L7 룰 관리자 제어 상태 |
+| rule.invert | Body | Boolean | 매칭 결과에 대한 invert 설정 |
+| rule.key | Body | String | L7 룰 매칭 시 사용되는 키<br> `COOKIE`/`HEADER`인 경우에만 적용 |
+| rule.value | Body | String | L7 룰 매칭 시 사용되는 값 |
+| rule.type | Query | Enum | L7 룰 타입 <br> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH` 중 하나 |
+| rule.compare_type | Query | Enum | L7 룰 비교 방식<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX` 중 하나 |
+
+
+<details><summary>예시</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "STARTS_WITH",
+    "admin_state_up": true,
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "invert": false,
+    "value": "/images",
+    "key": null,
+    "type": "PATH",
+    "id": "3c88bc9b-8fac-4a73-a611-df85417b656e"
+  }
+}
+```
+</details>
+
+---
+### L7 룰 수정하기
+
+```
+PUT /v2.0/lbaas/l7policies/{l7policyId}/rules/{l7ruleId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| l7policyId | URL | UUID | O | L7 정책 ID |
+| l7ruleId | URL | UUID | O | L7 룰 ID |
+| rule | Body | Object | O | L7 룰 객체 |
+| rule.admin_state_up | Body | Boolean | - | L7 룰 관리자 제어 상태 |
+| rule.invert | Body | Boolean | - | 매칭 결과에 대한 invert 설정 |
+| rule.key | Body | String | - | L7 룰 매칭 시 사용되는 키<br> `COOKIE`/`HEADER`인 경우에만 적용 |
+| rule.value | Body | String | - | L7 룰 매칭 시 사용되는 값 |
+| rule.type | Query | Enum | - | L7 룰 타입 <br> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH` 중 하나 |
+| rule.compare_type | Query | Enum | - |L7 룰 비교 방식<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX` 중 하나 |
+
+
+<details><summary>예시</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "REGEX",
+    "invert": true,
+    "type": "PATH",
+    "value": "/images/modify",
+    "admin_state_up": true
+  }
+}
+```
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| rule | Body | Object | L7 룰 객체 |
+| rule.tenant_id | Body | String | 테넌트 ID |
+| rule.id | Body | UUID | L7 룰 ID |
+| rule.admin_state_up | Body | Boolean | L7 룰 관리자 제어 상태 |
+| rule.invert | Body | Boolean | 매칭 결과에 대한 invert 설정 |
+| rule.key | Body | String | L7 룰 매칭 시 사용되는 키<br> `COOKIE`/`HEADER`인 경우에만 적용 |
+| rule.value | Body | String | L7 룰 매칭 시 사용되는 값 |
+| rule.type | Query | Enum | L7 룰 타입 <br> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH` 중 하나 |
+| rule.compare_type | Query | Enum | L7 룰 비교 방식<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX` 중 하나 |
+
+
+<details><summary>예시</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "REGEX",
+    "admin_state_up": true,
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "invert": true,
+    "value": "/images/modify",
+    "key": null,
+    "type": "PATH",
+    "id": "3c88bc9b-8fac-4a73-a611-df85417b656e"
+  }
+}
+```
+</details>
+
+---
+### L7 룰 삭제하기
+
+```
+DELETE /v2.0/lbaas/l7policies/{l7policyId}/rules/{l7ruleId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| l7policyId | URL | UUID | O | L7 정책 ID |
+| l7ruleId | URL | UUID | O | L7 룰 ID |
+
+
+#### 응답
+이 API는 응답 본문을 반환하지 않습니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1903,7 +2536,7 @@ X-Auth-Token: {tokenId}
 
 ## 시크릿
 
-시크릿 API는 `key-manager` 타입 앤드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
+시크릿 API는 `key-manager` 타입 엔드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
@@ -2233,7 +2866,7 @@ X-Auth-Token: {tokenId}
 
 ## 시크릿 컨테이너
 
-시크릿 컨테이너 API는 `key-manager` 타입 앤드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
+시크릿 컨테이너 API는 `key-manager` 타입 엔드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|

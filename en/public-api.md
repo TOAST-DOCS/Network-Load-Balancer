@@ -2536,13 +2536,13 @@ This API does not return a response body.
 
 ## Secret
 
-Secret API uses the `key-manager` type endpoint. Refer to the `serviceCatalog` in the token issuance response for the valid endpoint.
+You can call the Secret API by using the `key-manager` type endpoint. For the exact endpoint, see `serviceCatalog` in the response of token issuance.
 
 | Type | Region | Endpoint |
 |---|---|---|
-| key-manager | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan |https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com |
+| key-manager | Korea (Pangyo) Region<br>Japan Region | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com |
 
-In each API response, you may find fields that are not specified within this guide. Those fields are for NHN Cloud internal usage, so refrain from using them because they may be changed without prior notice.
+In the API response, you may find fields that are not specified in the guide. Refrain from using them because such fields are only for the NHN Cloud internal usage and might be changed without prior notice.
 
 
 ### List Secrets
@@ -2560,34 +2560,34 @@ This API does not require a request body.
 | Name | Type | Format | Required | Description |
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
-| offset | Query | Integer | - | Offset in response list, default: 0 |
-| limit | Query | Integer| - | Maximum number to expose in the response list, default: 10 |
+| offset | Query | Integer | - | Offset of response list: default is 0 |
+| limit | Query | Integer| - | Maximum number of exposure on response list: default is 10 |
 | name | Query | String | - | Secret name |
 | alg | Query | String | - | Secret algorithm |
-| mode | Query | String| - | How block encryption work |
-| bits | Query | Integer| - | Encryption key length |
+| mode | Query | String| - | Operating mode of block encryption |
+| bits | Query | Integer| - | Length of encryption key |
 
 #### Response
 
 | Name | Type | Format | Description |
 |---|---|---|---|
-| secrets | Body | Array | Secret objects |
-| secrets.secret_ref | Body | String | Secret address<br>`<barbican endpoint>/v1/secrets/<secret id>` format |
-| secrets.secret_type | Body | Enum | Secret type <br> One of the following: `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque`  |
+| secrets | Body | Array | List of secret objects |
+| secrets.secret_ref | Body | String | Secret address<br>In the`<barbican endpoint>/v1/secrets/<secret id>` format |
+| secrets.secret_type | Body | Enum | Secret type <br>One of `symmetric`, `public`, `private`, `passphrase`, `certificate`, and `opaque` |
 | secrets.status | Body | Enum | Secret status |
-| secrets.content_types | Body | Array | List of content types in a secret payload |
-| secrets.content_types.default | Body | String | Content type default |
-| secrets.creator_id | Body | String | ID of user creating instance |
-| secrets.mode | Body | String | How block encryption work. User input metadata |
-| secrets.algorithm | Body | String | Encryption algorithm. User input metadata |
-| secrets.bit_length | Body | Integer | Encryption key length. User input metadata |
-| secrets.expiration | Body | Datetime | Expiration date. User input metadata <br>`YYYY-MM-DDThh:mm:ss`<br> Secrets that have expired are automatically deleted |
+| secrets.content_types | Body | Array | List of content types of secret payload |
+| secrets.content_types.default | Body | String | Default for content type |
+| secrets.creator_id | Body | String | User ID creating a secret |
+| secrets.mode | Body | String | Operating mode of block encryption: user-input metadata |
+| secrets.algorithm | Body | String | Encryption algorithm: user-input metadata |
+| secrets.bit_length | Body | Integer | Length of encryption key: user-input metadata |
+| secrets.expiration | Body | Datetime | Expiration date: user-input metadata <br>`YYYY-MM-DDThh:mm:ss`<br>Expired secrets are automatically deleted |
 | secrets.name| Body | String | Secret name |
 | secrets.created | Body | Datetime | Created time <br> `YYYY-MM-DDThh:mm:ss` |
-| secrets.updated | Body | Datetime | Modified time <br> `YYYY-MM-DDThh:mm:ss` |
-| total | Body | Integer | Total number of secrets in the request query |
-| next | Body | String | URL of the next list in the currently viewed list |
-| previous | Body | String | URL of the previous list in the currently viewed list |
+| secrets.updated | Body | Datetime | Updated time <br> `YYYY-MM-DDThh:mm:ss` |
+| total | Body | Integer | Total secret count of requested queries |
+| next | Body | String | URL of the next list to the current queried list |
+| previous | Body | String | URL of the previous list of the current queried list |
 
 <details><summary>Example</summary>
 <p>
@@ -2639,7 +2639,7 @@ This API does not require a request body.
 </details>
 
 
-### List Secret
+### Get Secret
 Returns the specified secret information.
 ```
 GET /v1/secrets/{secretId}
@@ -2658,19 +2658,19 @@ This API does not require a request body.
 | Name | Type | Format | Description |
 |---|---|---|---|
 | secret | Body | Object | Secret object |
-| secret.secret_ref | Body | String | Secret address<br>`<barbican endpoint>/v1/secrets/<secret id>` format |
-| secret.secret_type | Body | Enum | Secret type <br> One of the following: `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque`  |
+| secret.secret_ref | Body | String | Secret address<br>In the`<barbican endpoint>/v1/secrets/<secret id>` format |
+| secret.secret_type | Body | Enum | Secret type <br>One of `symmetric`, `public`, `private`, `passphrase`, `certificate`, and `opaque` |
 | secret.status | Body | Enum | Secret status |
-| secret.content_types | Body | Array | List of content types in a secret payload |
-| secret.content_types.default | Body | String | Content type default |
-| secret.creator_id | Body | String | ID of user creating instance |
-| secret.mode | Body | String | How block encryption work. User input metadata |
-| secret.algorithm | Body | String | Encryption algorithm. User input metadata |
-| secret.bit_length | Body | Integer | Encryption key length. User input metadata |
-| secret.expiration | Body | Datetime | Expiration date. User input metadata <br>`YYYY-MM-DDThh:mm:ss`<br> Secrets that have expired are automatically deleted |
+| secret.content_types | Body | Array | List of content types of secret payload |
+| secret.content_types.default | Body | String | Default for content type |
+| secret.creator_id | Body | String | User ID creating a secret |
+| secret.mode | Body | String | Operating mode of block encryption: user-input metadata |
+| secret.algorithm | Body | String | Encryption algorithm: user-input metadata |
+| secret.bit_length | Body | Integer | Length of encryption key: user-input metadata |
+| secret.expiration | Body | Datetime | Expiration date: user-input metadata <br>`YYYY-MM-DDThh:mm:ss`<br>Expired secrets are automatically deleted |
 | secret.name| Body | String | Secret name |
 | secret.created | Body | Datetime | Created time <br> `YYYY-MM-DDThh:mm:ss` |
-| secret.updated | Body | Datetime | Modified time <br> `YYYY-MM-DDThh:mm:ss` |
+| secret.updated | Body | Datetime | Updated time <br> `YYYY-MM-DDThh:mm:ss` |
 
 <details><summary>Example</summary>
 <p>
@@ -2698,7 +2698,7 @@ This API does not require a request body.
 
 ---
 ### Create Secret
-Creates a new secret.
+Create a new secret.
 ```
 POST /v1/secrets
 X-Auth-Token: {tokenId}
@@ -2710,19 +2710,19 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
 | name | Body | String | - | Secret name |
-| expiration | Body | Datetime | - | Expiration date. Request in ISO8601 format |
+| expiration | Body | Datetime | - | Expiration date: requested in the ISO8601 format |
 | algorithm | Body | String | - | Encryption algorithm |
-| bit_length | Body | String | - | Encryption key length|
-| mode | Body | String | - | How block encryption work |
-| payload | Body | String | - | Encryption key payload |
-| payload_content_type | Body | String | - | Encryption key payload content type<br> Required when entering a payload <br>List of supported content types: `text/plain`, `application/octet-stream`, `application/pkcs8`, `application/pkix-cert` |
-| payload_content_encoding | Body | Enum | - | Encoding encryption key payload <br>Required if payload_content_type is not text/plain<br> Only supports `base64` |
-| secret_type | Body | Enum | - | Secret type <br> One of the following: `symmetric`, `public`, `private`, `passphrase`, `certificate`, `opaque`  |
+| bit_length | Body | String | - | Length of encryption key |
+| mode | Body | String | - | Operating mode of block encryption |
+| payload | Body | String | - | Payload of encryption key |
+| payload_content_type | Body | String | - | Content type of encryption key payload <br>Must be included to enter payload <br>List of supported content types:  `text/plain`, `application/octet-stream`, `application/pkcs8`, and `application/pkix-cert` |
+| payload_content_encoding | Body | Enum | - | Encoding mode of encryption key payload <br>Must be included if the payload_content_type is not text/plain<br>Supports only `base64` |
+| secret_type | Body | Enum | - | Secret type <br>One of `symmetric`, `public`, `private`, `passphrase`, `certificate`, and  `opaque` |
 
 
 
 <details><summary>Example</summary>
-Generate metadata only
+Create metadata only
 ```json
 {
     "name": "example key",
@@ -2733,7 +2733,7 @@ Generate metadata only
 }
 ```
 
-Send payloads as text
+Send payload on text
 ```json
 {
     "name": "example key",
@@ -2746,7 +2746,7 @@ Send payloads as text
 }
 ```
 
-Send payloads in base64
+Send payload via base64
 ```json
 {
     "name": "example key",
@@ -2764,7 +2764,7 @@ Send payloads in base64
 #### Response
 | Name | Type | Format | Description |
 |---|---|---|---|
-| secret_ref | Body | String | Secret address<br>`<barbican endpoint>/v1/secrets/<secret id>` format |
+| secret_ref | Body | String | Secret address<br>In the format of`<barbican endpoint>/v1/secrets/<secret id>` |
 
 <details><summary>Example</summary>
 <p>
@@ -2779,11 +2779,11 @@ Send payloads in base64
 
 ---
 ### Modify Secret
-Enter the payload data for a secret for which you previously entered only metadata.
+Enters payload data of the secret that previously had metadata only.
 ```
 PUT /v1/secrets/{secretId}
 X-Auth-Token: {tokenId}
-Content-Type: {ConetentType}
+Content-Type: {ContentType}
 ```
 
 #### Request
@@ -2792,8 +2792,8 @@ Content-Type: {ConetentType}
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
 | secretId | URL | UUID | O | Secret ID |
-| ContentType| Header | Enum | O | One of `text/plain`, `application/octet-stream`, `application/pkcs8`, `application/pkix-cert` <br> Set to `text/plain` when omitted |
-| payload | Body | String | O | Encryption key payload |
+| ContentType| Header | Enum | O | One of `text/plain`, `application/octet-stream`, `application/pkcs8`, and `application/pkix-cert` <br>If left blank, `text/plain` is configured. |
+| payload | Body | String | O | Payload for encryption key |
 
 <details><summary>Example</summary>
 ```
@@ -2809,7 +2809,7 @@ This API does not return a response body.
 
 ---
 ### Delete Secret
-Deletes a specified secret.
+Delete the specified secret.
 ```
 DELETE /v1/secrets/{secretId}
 X-Auth-Token: {tokenId}
@@ -2866,18 +2866,18 @@ This API does not return a response body.
 
 ## Secret Container
 
-Secret container API uses the `key-manager` type endpoint. Refer to the `serviceCatalog` in the token issuance response for the valid endpoint.
+You can call the Secret Container API by using the `key-manager` type endpoint. For the exact endpoint, see `serviceCatalog` from the response of token issuance.
 
 | Type | Region | Endpoint |
 |---|---|---|
-| key-manager | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan |https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com |
+| key-manager | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan Region | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com |
 
-In each API response, you may find fields that are not specified within this guide. Those fields are for NHN Cloud internal usage, so refrain from using them because they may be changed without prior notice.
+In the API response, you may find fields that are not specified in the guide. Refrain from using them because such fields are only for the NHN Cloud internal usage and might be changed without prior notice.
 
 
 ### List Secret Containers
 
-Returns a list of secret containers.
+Return the list of secret containers.
 
 ```
 GET /v1/containers
@@ -2890,30 +2890,30 @@ This API does not require a request body.
 | Name | Type | Format | Required | Description |
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
-| offset | Query | Integer | - | Offset in response list, default: 0 |
-| limit | Query | Integer | - | Maximum number to expose in the response list, default: 10 |
+| offset | Query | Integer | - | Offset of response list, default: 0 |
+| limit | Query | Integer | - | Maximum count to show on the response list, default: 10 |
 
 #### Response
 
 | Name | Type | Format | Description |
 |---|---|---|---|
-| containers | Body | Array | Container objects |
+| containers | Body | Array | List of container objects |
 | containers.status | Body | Enum | Container status |
-| containers.updated | Body | Datetime | Modified Time `YYYY-MM-DDThh:mm:ss` |
+| containers.updated | Body | Datetime | Updated time, `YYYY-MM-DDThh:mm:ss` |
 | containers.name | Body | String | Container name |
-| containers.consumers | Body | Array | Consumer list |
-| containers.consumers.URL | Body | String |  |
-| containers.consumers.name | Body | String |  |
-| containers.created | Body | Datetime | |
-| containers.container_ref | Body | String |  |
-| containers.creator_id | Body | String |  |
-| containers.secret_refs | Body | Array |  |
+| containers.consumers | Body | Array | List of consumers |
+| containers.consumers.URL | Body | String | Consumer URL |
+| containers.consumers.name | Body | String | Consumer name |
+| containers.created | Body | Datetime | Created time, `YYYY-MM-DDThh:mm:ss` |
+| containers.container_ref | Body | String | Container address |
+| containers.creator_id | Body | String | User ID creating container |
+| containers.secret_refs | Body | Array | List of secrets |
 | containers.secret_refs.secret_ref | Body | String | Secret address |
-| containers.secret_refs.name | Body | String | The secret name specified by the container<br> If container type is `certificate`: Specify `as` `certificate`, `private_key`, `private_key_passphrase`, and `intermediates`<br> If container type is `rsa`: Specify `as` `private_key`, `private_key_passphrase`, and `public_key` |
-| containers.type | Body | Enum | Container type<br> One of `generic`, `rsa`, `certificate` |
-| total | Body | Integer |  |
-| next | Body | String | URL of the next list in the currently viewed list |
-| previous | Body | String | URL of the previous list in the currently viewed list |
+| containers.secret_refs.name | Body | String | Secret name as specified by container<br>When the container type is `certificate`: specify `certificate`, `private_key`, `private_key_passphrase`, or`intermediates`<br>When the container type is `rsa`: specify  `private_key`, `private_key_passphrase`, or`public_key` |
+| containers.type | Body | Enum | Container type<br>One of `generic`, `rsa`, and `certificate` |
+| total | Body | Integer | Total number of secret containers of a requested query |
+| next | Body | String | URL of the next list to the current queried list |
+| previous | Body | String | URL of the previous list of the current queried list |
 
 
 
@@ -2955,8 +2955,8 @@ This API does not require a request body.
 </details>
 
 
-### 
-
+### Get Secret Container
+Returns the specified secret container information.
 ```
 GET /v1/containers/{containerId}
 X-Auth-Token: {tokenId}
@@ -2968,24 +2968,24 @@ This API does not require a request body.
 | Name | Type | Format | Required | Description |
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
-| containerId | URL | UUID | O |  |
+| containerId | URL | UUID | O | Secret container ID |
 
 #### Response
 | Name | Type | Format | Description |
 |---|---|---|---|
 | status | Body | Enum | Container status |
-| updated | Body | Datetime | Modified Time `YYYY-MM-DDThh:mm:ss` |
+| updated | Body | Datetime | Updated time, `YYYY-MM-DDThh:mm:ss` |
 | name | Body | String | Container name |
-| consumers | Body | Array | Consumers |
+| consumers | Body | Array | List of consumers |
 | consumers.URL | Body | String | Consumer URL |
 | consumers.name | Body | String | Consumer name |
-| created | Body | Datetime | Created time `YYYY-MM-DDThh:mm:ss`|
-| container_ref | Body | String | Container type |
-| creator_id | Body | String | ID of user creating container |
-| secret_refs | Body | Array | List of secrets registered in the container |
+| created | Body | Datetime | Created time, `YYYY-MM-DDThh:mm:ss` |
+| container_ref | Body | String | Container address |
+| creator_id | Body | String | User ID creating container |
+| secret_refs | Body | Array | List of secrets registered at container |
 | secret_refs.secret_ref | Body | String | Secret address |
-| secret_refs.name | Body | String| The secret name specified by the container<br>If container type is `certificate`: Specify `as` `certificate`, `private_key`, `private_key_passphrase`, and `intermediates`<br> If container type is `rsa`: Specify `as` `private_key`, `private_key_passphrase`, and `public_key` |
-| type | Body | Enum | Container type<br> One of `generic`, `rsa`, `certificate`  |
+| secret_refs.name | Body | String| Secret name as specified by container<br>When the container type is `certificate`: specify  `certificate`, `private_key`, `private_key_passphrase`, or `intermediates`<br> When the container type is `rsa`: Specify`private_key`, `private_key_passphrase`, or `public_key` |
+| type | Body | Enum | Container type<br>One of `generic`, `rsa`, and `certificate` |
 
 
 <details><summary>Example</summary>
@@ -3016,7 +3016,7 @@ This API does not require a request body.
 
 ---
 ### Create Secret Container
-Creates a new secret container.
+Create a new secret container.
 ```
 POST /v1/containers
 X-Auth-Token: {tokenId}
@@ -3027,11 +3027,11 @@ X-Auth-Token: {tokenId}
 | Name | Type | Format | Required | Description |
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
-| type | Body | Enum | O | Container type<br> One of `generic`, `rsa`, `certificate`  |
+| type | Body | Enum | O | Container type<br>One of `generic`, `rsa`, and  `certificate` |
 | name | Body | String | - | Container name |
-| secret_refs | Body | Array | - | List of secrets to register in the container |
+| secret_refs | Body | Array | - | Secret list to be registered at container |
 | secret_refs.secret_ref | Body | String | - | Secret address |
-| secret_refs.name | Body | String | - | The secret name specified by the container<br> If container type is `certificate`: Specify `as` `certificate`, `private_key`, `private_key_passphrase`, and `intermediates`<br> If container type is `rsa`: Specify `as` `private_key`, `private_key_passphrase`, and `public_key` |
+| secret_refs.name | Body | String | - | Secret name as specified by container<br>When the container type is `certificate`: Specify `certificate`, `private_key`, `private_key_passphrase`, or `intermediates`<br>When the container type is `rsa`: Specify `private_key`, `private_key_passphrase`, or`public_key` |
 
 
 <details><summary>Example</summary>
@@ -3070,7 +3070,7 @@ X-Auth-Token: {tokenId}
 
 ---
 ### Delete Secret Container
-Deletes a new secret container.
+Delete the specified secret container.
 ```
 DELETE /v1/containers/{containerId}
 X-Auth-Token: {tokenId}
@@ -3082,7 +3082,7 @@ This API does not require a request body.
 | Name | Type | Format | Required | Description |
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
-| containerId | URL | UUID | Secret container ID |
+| containerId | URL | UUID | Secret container ID ||
 
 
 #### Response
@@ -3138,27 +3138,27 @@ X-Auth-Token: {tokenId}
 
 This API does not require a request body.
 
-| Name | Type | Format | Required | Description |
-| --- | --- | --- | --- | --- |
-| tokenId | Header | String | O | Token ID |
-| id | Query | String | - | IP ACL Group ID |
-| name | Query | String | - | IP ACL group name |
-| description | Query | String | - | IP ACL group description |
-| Endpoint stage ID | Query | Enum | - | Control behavior of IP ACL group<br>Either `ALLOW` or `DENY` |
+| Name        | Type   | Format   | Required                                              | Description             |
+| ----------- | ------ | ------ | ------------------------------------------------- | ---------------- |
+| tokenId     | Header | String | O                                                 | Token ID          |
+| id          | Query  | String | -                                                 | IP ACL group ID   |
+| name        | Query  | String | -                                                 | IP ACL group name |
+| description | Query  | String | -                                                 | IP ACL group description |
+| action      | Body   | Enum   | Control action of IP ACL group<br>One of `ALLOW`, `DENY` |                  |
 
 #### Response
 
-| Name | Type | Format | Description |
-| --- | --- | --- | --- |
-| ipacl_groups | Body | Array | IP ACL group object list |
-| ipacl_groups.ipacl_target_count | Body | String | Number of targets included in an IP ACL group |
-| ipacl_groups.description | Body | String | IP ACL group description |
-| ipacl_groups.loadbalancers | Body | Object | List of load balancer objects with IP ACL groups applied |
-| ipacl_groups.loadbalancers.loadbalancer_id | Body | String | Load balancer ID |
-| ipacl_groups.tenant_id | Body | String | Tenant ID |
-| ipacl_groups.action | Body | Enum | Control behavior of IP access control group<br>Either `ALLOW` or `DENY` |
-| ipacl_groups.id | Body | UUID | IP ACL Group ID |
-| ipacl_groups.name | Body | String | IP ACL group name |
+| Name                                       | Type | Format   | Description                                                   |
+| ------------------------------------------ | ---- | ------ | ------------------------------------------------------ |
+| ipacl_groups                               | Body | Array  | IP ACL group object list                                  |
+| ipacl_groups.ipacl_target_count            | Body | String | Number of targets included in IP ACL group                         |
+| ipacl_groups.description                   | Body | String | IP ACL group description                                       |
+| ipacl_groups.loadbalancers                 | Body | Object | List of load balancer objects with the IP ACL group applied              |
+| ipacl_groups.loadbalancers.loadbalancer_id | Body | String | Load balancer ID                                          |
+| ipacl_groups.tenant_id                     | Body | String | Tenant ID                                              |
+| ipacl_groups.action                        | Body | Enum   | Control action of IP ACL group<br>One of `ALLOW`, `DENY` |
+| ipacl_groups.id                            | Body | UUID   | IP ACL group ID                                         |
+| ipacl_groups.name                          | Body | String | IP ACL group name                                         |
 
 <details><summary>Example</summary>
 <p>
@@ -3185,7 +3185,7 @@ This API does not require a request body.
 </p>
 </details>
 
-### List IP ACL Group
+### Get IP ACL Group
 
 Returns the specified IP ACL group.
 
@@ -3198,24 +3198,24 @@ X-Auth-Token: {tokenId}
 
 This API does not require a request body.
 
-| Name | Type | Format | Required | Description |
-| --- | --- | --- | --- | --- |
-| tokenId | Header | String | O | Token ID |
-| ipaclGroupId | Header | String | O | Token ID |
+| Name         | Type   | Format   | Required | Description    |
+| ------------ | ------ | ------ | ---- | ------- |
+| tokenId      | Header | String | O    | Token ID |
+| ipaclGroupId | Header | String | O    | IP ACL group ID |
 
 #### Response
 
-| Name | Type | Format | Description |
-| --- | --- | --- | --- |
-| ipacl_group | Body | Object | IP ACL group object |
-| ipacl_group.ipacl_target_count | Body | String | Number of targets included in an IP ACL group |
-| ipacl_group.description | Body | String | IP ACL group description |
-| ipacl_group.loadbalancers | Body | Object | List of load balancer objects with IP ACL groups applied |
-| ipacl_group.loadbalancers.loadbalancer_id | Body | String | Load balancer ID |
-| ipacl_group.tenant_id | Body | String | Tenant ID |
-| ipacl_group.action | Body | Enum | Control behavior of IP ACL group<br>Either `ALLOW` or `DENY` |
-| ipacl_group.id | Body | UUID | IP ACL Group ID |
-| ipacl_group.name | Body | String | IP ACL group name |
+| Name                                      | Type | Format   | Description                                              |
+| ----------------------------------------- | ---- | ------ | ------------------------------------------------- |
+| ipacl_group                               | Body | Object | IP ACL group object                                  |
+| ipacl_group.ipacl_target_count            | Body | String | Number of targets included in IP ACL group                    |
+| ipacl_group.description                   | Body | String | IP ACL group description                                  |
+| ipacl_group.loadbalancers                 | Body | Object | List of load balancer objects with the IP ACL group applied         |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | Load balancer ID                                     |
+| ipacl_group.tenant_id                     | Body | String | Tenant ID                                         |
+| ipacl_group.action                        | Body | Enum   | Control action of IP ACL group<br>One of `ALLOW`, `DENY` |
+| ipacl_group.id                            | Body | UUID   | IP ACL group ID                                    |
+| ipacl_group.name                          | Body | String | IP ACL group name                                    |
 
 <details><summary>Example</summary>
 <p>
@@ -3242,9 +3242,9 @@ This API does not require a request body.
 
 - - -
 
-### Create an IP ACL group
+### Create IP ACL Group
 
-Create a new IP ACL group.
+Creates a new IP ACL group.
 
 ```
 POST /v2.0/lbaas/ipacl-groups
@@ -3253,16 +3253,16 @@ X-Auth-Token: {tokenId}
 
 #### Request
 
-| Name | Type | Format | Required | Description |
-| --- | --- | --- | --- | --- |
-| tokenId | Header | String | O | Token ID |
-| ipacl_group | Body | Object | O | IP ACL group object |
-| ipacl_group.description | Body | String | -  | IP ACL group description |
-| ipacl_group.action | Body | Enum | O | Control behavior of IP ACL group<br>Either `ALLOW` or `DENY` |
-| ipacl_group.name | Body | String | -  | IP ACL group name |
-| ipacl_group.ipacl_targets | Body | Object | - | IP ACL target object, which also creates a target when you enter a value |
-| ipacl_group.ipacl_targets.cidr_address | Body | String | O (if an ipacl_targets object is added) | IP ACL Target CIDR<br>Enter a single IP address, or an IP RANGE in CIDR format |
-| ipacl_group.ipacl_targets.descripion | Body | String | - | IP ACL target description |
+| Name                    | Type   | Format   | Required | Description                                              |
+| ----------------------- | ------ | ------ | ---- | ------------------------------------------------- |
+| tokenId                 | Header | String | O    | Token ID                                           |
+| ipacl_group             | Body   | Object | O    | IP ACL group object                                  |
+| ipacl_group.description | Body   | String | -    | IP ACL group description                                  |
+| ipacl_group.action      | Body   | Enum   | O    | Control action of IP ACL group<br>One of `ALLOW`, `DENY` |
+| ipacl_group.name        | Body   | String | -    | IP ACL group name                                    |
+| ipacl_group.ipacl_targets | Body | Object | - | `IP ACL target object. When entering a value, the target is also created. |
+| ipacl_group.ipacl_targets.cidr_address | Body | String | O (if ipacl_targets object has been added) | IP ACL target CIDR<br>Enter a single IP address, or IP range in CIDR format |
+| ipacl_group.ipacl_targets.description | Body | String | - | IP ACL target description |
 
 <details><summary>Example</summary>
 <p>
@@ -3291,17 +3291,17 @@ X-Auth-Token: {tokenId}
 
 #### Response
 
-| Name | Type | Format | Description |
-| --- | --- | --- | --- |
-| ipacl_group | Body | Object | IP ACL group object |
-| ipacl_group.ipacl_target_count | Body | String | Number of targets included in an IP ACL group |
-| ipacl_group.description | Body | String | IP ACL group description |
-| ipacl_group.loadbalancers | Body | String | List of load balancer objects with IP ACL groups applied |
-| ipacl_group.loadbalancers.loadbalancer_id | Body | String | Load balancer ID |
-| ipacl_group.tenant_id | Body | String | Tenant ID |
-| ipacl_group.action | Body | Enum | Control behavior of IP ACL group<br>Either `ALLOW` or `DENY` |
-| ipacl_group.id | Body | UUID | IP ACL Group ID |
-| ipacl_group.name | Body | String | IP ACL group name |
+| Name                                      | Type | Format   | Description                                              |
+| ----------------------------------------- | ---- | ------ | ------------------------------------------------- |
+| ipacl_group                               | Body | Object | IP ACL group object                                  |
+| ipacl_group.ipacl_target_count            | Body | String | Number of targets included in IP ACL group                    |
+| ipacl_group.description                   | Body | String | IP ACL group description                                  |
+| ipacl_group.loadbalancers                 | Body | String | List of load balancer objects with the IP ACL group applied         |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | Load balancer ID                                     |
+| ipacl_group.tenant_id                     | Body | String | Tenant ID                                         |
+| ipacl_group.action                        | Body | Enum   | Control action of IP ACL group<br>One of `ALLOW`, `DENY` |
+| ipacl_group.id                            | Body | UUID   | IP ACL group ID                                    |
+| ipacl_group.name                          | Body | String | IP ACL group name                                    |
 
 <details><summary>Example</summary>
 <p>
@@ -3326,11 +3326,11 @@ X-Auth-Token: {tokenId}
 
 ### Modify IP ACL Group
 
-Modify an existing IP ACL group.
-You cannot change ipacl_group.action.
-You can use this API to globally replace a list of child IP ACL targets.
-However, all existing targets that were part of the IP ACL group are deleted and replaced with the list of targets you enter.
-The cidr_addresses of the targets you enter must not be duplicates.
+Modifies an existing IP ACL group.
+ipacl_group.action cannot be changed.
+This API may be used to replace the list of sub-IP ACL targets globally.
+However, all existing targets belonging to the IP ACL group will be deleted and replaced with the entered target list.
+The cidr_address of the entered target must not be duplicated.
 
 ```
 PUT /v2.0/lbaas/ipacl-groups/{ipaclGroupId}
@@ -3339,16 +3339,16 @@ X-Auth-Token: {tokenId}
 
 #### Request
 
-| Name | Type | Format | Required | Description |
-| --- | --- | --- | --- | --- |
-| tokenId | Header | String | O | Token ID |
-| ipaclGroupId | URL | UUID | O | IP ACL Group ID |
-| ipacl_group | Body | String | O | IP ACL group object |
-| ipacl_group.name | Body | String | - | IP ACL group name |
-| ipacl_group.description | Body | String | - | IP ACL group description |
-| ipacl_group.ipacl_targets | Body | Object | - | IP ACL target object; target is created when a value is entered |
-| ipacl_group.ipacl_targets.cidr_address | Body | String | O (if an ipacl_targets object is added) | IP ACL Target CIDR<br>Enter a single IP address, or an IP RANGE in CIDR format |
-| ipacl_group.ipacl_targets.descripion | Body | String | - | IP ACL target description |
+| Name             | Type   | Format   | Required | Description             |
+| ---------------- | ------ | ------ | ---- | ---------------- |
+| tokenId          | Header | String | O    | Token ID          |
+| ipaclGroupId     | URL    | UUID   | O    | IP ACL group ID   |
+| ipacl_group      | Body   | String | O    | IP ACL group object |
+| ipacl_group.name | Body   | String | -    | IP ACL group name   |
+| ipacl_group.description | Body | String | - | IP ACL Group Description |
+| ipacl_group.ipacl_targets | Body | Object | - | `IP ACL target object. When entering a value, the target is also created. |
+| ipacl_group.ipacl_targets.cidr_address | Body | String | O (if ipacl_targets object has been added) | IP ACL target CIDR<br>Enter a single IP address, or IP range in CIDR format |
+| ipacl_group.ipacl_targets.description | Body | String | - | IP ACL target description |
 
 
 <details><summary>Example</summary>
@@ -3381,17 +3381,17 @@ X-Auth-Token: {tokenId}
 
 #### Response
 
-| Name | Type | Format | Description |
-| --- | --- | --- | --- |
-| ipacl_group | Body | Object | IP ACL group object |
-| ipacl_group.ipacl_target_count | Body | String | Number of targets included in an IP ACL group |
-| ipacl_group.description | Body | String | IP ACL group description |
-| ipacl_group.loadbalancers | Body | String | List of load balancer objects with IP ACL groups applied |
-| ipacl_group.loadbalancers.loadbalancer_id | Body | String | Load balancer ID |
-| ipacl_group.tenant_id | Body | String | Tenant ID |
-| ipacl_group.action | Body | Enum | Control behavior of IP ACL group<br>Either `ALLOW` or `DENY` |
-| ipacl_group.id | Body | UUID | IP ACL Group ID |
-| ipacl_group.name | Body | String | IP ACL group name |
+| Name                                      | Type | Format   | Description                                              |
+| ----------------------------------------- | ---- | ------ | ------------------------------------------------- |
+| ipacl_group                               | Body | Object | IP ACL group object                                  |
+| ipacl_group.ipacl_target_count            | Body | String | Number of targets included in IP ACL group                    |
+| ipacl_group.description                   | Body | String | IP ACL group description                                  |
+| ipacl_group.loadbalancers                 | Body | String | List of load balancer objects with the IP ACL group applied         |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | Load balancer ID                                     |
+| ipacl_group.tenant_id                     | Body | String | Tenant ID                                         |
+| ipacl_group.action                        | Body | Enum   | Control action of IP ACL group<br>One of `ALLOW`, `DENY` |
+| ipacl_group.id                            | Body | UUID   | IP ACL group ID                                    |
+| ipacl_group.name                          | Body | String | IP ACL group name                                    |
 
 <details><summary>Example</summary>
 <p>
@@ -3414,26 +3414,26 @@ X-Auth-Token: {tokenId}
 
 - - -
 
-### Delete IP ACL group
+### Delete IP ACL Group
 
-Deletes the specified IP ACL group.
+Deletes the specified IP ACL Group.
 
 ```
 DELETE /v2.0/lbaas/ipacl-groups/{ipaclGroupId}
 X-Auth-Token: {tokenId}
 ```
 
-Deleting an IP ACL group also deletes all of its child IP ACL targets.
-Rules associated with this IP ACL group are deleted from all load balancers that use the deleted IP ACL group.
+When an IP ACL group is deleted, all sub-IP ACL targets are also deleted.
+Rules associated with this IP ACL group are deleted from all load balancers that use the IP ACL group being deleted.
 
 #### Request
 
 This API does not require a request body.
 
-| Name | Type | Format | Required | Description |
-| --- | --- | --- | --- | --- |
-| tokenId | Header | String | O | Token ID |
-| ipaclGroupId | URL | UUID | O | IP ACL Group ID |
+| Name         | Type   | Format   | Required | Description           |
+| ------------ | ------ | ------ | ---- | -------------- |
+| tokenId      | Header | String | O    | Token ID        |
+| ipaclGroupId | URL    | UUID   | O    | IP ACL group ID |
 
 #### Response
 
@@ -3444,10 +3444,10 @@ This API does not return a response body.
 
 ### Apply IP ACL Group to Load Balancer
 
-Apply an IP ACL group to a load balancer.
-Load balancers that have an IP ACL group applied to them are subject to the IP ACL target rules contained in the group.
-You can apply multiple groups to a load balancer. However, the groups must all have the same action.
-Any IP ACL groups that were previously applied to the load balancer are deleted and reapplied with the entered list of groups.
+Applies an IP ACL group to a load balancer.
+The IP ACL target rules included in the group are applied to the load balancer to which the IP ACL group is applied.
+Multiple groups can be applied to a load balancer. However, the actions of all groups must be the same.
+All IP ACL groups previously applied to the load balancer are deleted and the entered group list are applied.
 
 ```
 PUT /v2.0/lbaas/loadbalancers/{lb_id}/bind_ipacl_groups
@@ -3456,12 +3456,12 @@ X-auth-Token: {tokenId}
 
 #### Request
 
-| Name | Type | Format | Required | Description |
-| --- | --- | --- | --- | --- |
-| tokenId | Header | String | O | Token ID |
-| lb_id | URL | UUID | O | Load balancer ID |
-| ipacl_groups_binding | Body | Object | O | IP ACL binding object |
-| ipacl_groups_binding.ipacl_group_id | Body | UUID | O | IP ACL group ID to apply to the load balancer |
+| Name                                | Type   | Format   | Required | Description                               |
+| ----------------------------------- | ------ | ------ | ---- | ---------------------------------- |
+| tokenId                             | Header | String | O    | Token ID                            |
+| lb_id                               | URL    | UUID   | O    | Load balancer ID                      |
+| ipacl_groups_binding                | Body   | Object | O    | IP ACL binding object                 |
+| ipacl_groups_binding.ipacl_group_id | Body   | UUID   | O    | IP ACL group ID to be applied to a load balancer |
 
 <details><summary>Example</summary>
 <p>
@@ -3483,10 +3483,10 @@ X-auth-Token: {tokenId}
 </details>
 
 #### Response
-| Name | Type | Format | Description |
-| --- | --- | --- | --- |
-| loadbalancer_id | Body | UUID | Load balancer ID |
-| ipacl_group_id | Body | UUID | IP ACL Group ID |
+| Name            | Type | Format | Description  |
+| --------------- | ---- | ---- | -------------- |
+| loadbalancer_id | Body | UUID | Load balancer ID  |
+| ipacl_group_id  | Body | UUID | IP ACL group ID |
 
 <details><summary>Example</summary>
 <p>
@@ -3545,9 +3545,9 @@ X-auth-Token: {tokenId}
 
 
 
-## IP ACL target
+## IP ACL Target
 
-### List IP ACL targets
+### List IP ACL Targets
 
 Returns a list of IP ACL targets.
 
@@ -3560,24 +3560,24 @@ X-Auth-Token: {tokenId}
 
 This API does not require a request body.
 
-| Name | Type | Format | Required | Description |
-| --- | --- | --- | --- | --- |
-| tokenId | Header | String | O | Token ID |
-| id | Query | String | - | IP ACL target ID |
-| cidr_address | Query | String | - | IP ACL Target CIDR<br>A single IP address, or an IP RANGE in CIDR format |
-| ipacl_group_id | Query | String | - | IP ACL group ID |
-| description | Query | String | - | IP ACL group description |
+| Name           | Type   | Format   | Required | Description                                                       |
+| -------------- | ------ | ------ | ---- | ---------------------------------------------------------- |
+| tokenId        | Header | String | O    | Token ID                                                    |
+| id             | Query  | String | -    | IP ACL target ID                                             |
+| cidr_address   | Query  | String | -    | IP ACL target CIDR<br>Single IP Address or IP range in CIDR format |
+| ipacl_group_id | Query  | String | -    | IP ACL group ID                                             |
+| description    | Query  | String | -    | IP ACL group description                                           |
 
 #### Response
 
-| Name | Type | Format | Description |
-| --- | --- | --- | --- |
-| ipacl_targets | Body | Array | IP ACL target information object list |
-| ipacl_targets.ipacl_group_id | Body | UUID | IP ACL Group ID |
-| ipacl_targets.tenant_id | Body | String | Tenant ID |
-| ipacl_targets.cidr_address | Body | String | IP ACL Target CIDR |
-| ipacl_targets.description | Body | String | IP ACL target description |
-| ipacl_targets.id | Body | UUID | IP ACL target ID |
+| Name                         | Type | Format   | Description                       |
+| ---------------------------- | ---- | ------ | -------------------------- |
+| ipacl_targets                | Body | Array  | IP ACL target information object list |
+| ipacl_targets.ipacl_group_id | Body | UUID   | IP ACL group ID             |
+| ipacl_targets.tenant_id      | Body | String | Tenant ID                  |
+| ipacl_targets.cidr_address   | Body | String | IP ACL target CIDR           |
+| ipacl_targets.description    | Body | String | IP ACL target description           |
+| ipacl_targets.id             | Body | UUID   | IP ACL target ID             |
 
 <details><summary>Example</summary>
 <p>
@@ -3599,7 +3599,7 @@ This API does not require a request body.
 </p>
 </details>
 
-### List IP ACL Target
+### Get IP ACL Target
 
 Returns the specified IP ACL target information.
 
@@ -3612,21 +3612,21 @@ X-Auth-Token: {tokenId}
 
 This API does not require a request body.
 
-| Name | Type | Format | Required | Description |
-| --- | --- | --- | --- | --- |
-| tokenId | Header | String | O | Token ID |
-| ipaclTargetId | URL | UUID | O | IP ACL target ID |
+| Name          | Type   | Format   | Required | Description           |
+| ------------- | ------ | ------ | ---- | -------------- |
+| tokenId       | Header | String | O    | Token ID        |
+| ipaclTargetId | URL    | UUID   | O    | IP ACL target ID |
 
 #### Response
 
-| Name | Type | Format | Description |
-| --- | --- | --- | --- |
-| ipacl_target | Body | Array | IP ACL target information object |
-| ipacl_target.ipacl_group_id | Body | UUID | IP ACL Group ID |
-| ipacl_target.tenant_id | Body | String | Tenant ID |
-| ipacl_target.cidr_address | Body | String | IP ACL Target CIDR<br>A single IP address, or an IP RANGE in CIDR format |
-| ipacl_target.description | Body | String | IP ACL target description |
-| ipacl_target.id | Body | UUID | IP ACL target ID |
+| Name                        | Type | Format   | Description                                                       |
+| --------------------------- | ---- | ------ | ---------------------------------------------------------- |
+| ipacl_target                | Body | Array  | IP ACL target information object                                       |
+| ipacl_target.ipacl_group_id | Body | UUID   | IP ACL group ID                                             |
+| ipacl_target.tenant_id      | Body | String | Tenant ID                                                  |
+| ipacl_target.cidr_address   | Body | String | IP ACL target CIDR<br>Single IP Address or IP range in CIDR format |
+| ipacl_target.description    | Body | String | IP ACL target description                                           |
+| ipacl_target.id             | Body | UUID   | IP ACL target ID                                             |
 
 <details><summary>Example</summary>
 <p>
@@ -3648,9 +3648,9 @@ This API does not require a request body.
 
 - - -
 
-### Create IP ACL target
+### Create IP ACL Target
 
-Creates an IP ACL target.
+Creates IP ACL target.
 
 ```
 POST /v2.0/lbaas/ipacl-targets
@@ -3659,13 +3659,13 @@ X-Auth-Token: {tokenId}
 
 #### Request
 
-| Name | Type | Format | Required | Description |
-| --- | --- | --- | --- | --- |
-| tokenId | Header | String | O | Token ID |
-| ipacl_target | Body | Object | O | IP ACL target information object |
-| ipacl_target.ipacl_group_id | Body | UUID | O | IP ACL Group ID |
-| ipacl_target.cidr_address | Body | String | O | IP ACL Target CIDR<br>A single IP address, or an IP RANGE in CIDR format |
-| ipacl_target.description | Body | String | - | IP ACL target description |
+| Name                        | Type   | Format   | Required | Description                                                       |
+| --------------------------- | ------ | ------ | ---- | ---------------------------------------------------------- |
+| tokenId                     | Header | String | O    | Token ID                                                    |
+| ipacl_target                | Body   | Object | O    | IP ACL target information object                                       |
+| ipacl_target.ipacl_group_id | Body   | UUID   | O    | IP ACL group ID                                             |
+| ipacl_target.cidr_address   | Body   | String | O    | IP ACL target CIDR<br>Single IP Address or IP range in CIDR format |
+| ipacl_target.description    | Body   | String | -    | IP ACL target description                                           |
 
 <details><summary>Example</summary>
 <p>
@@ -3685,14 +3685,14 @@ X-Auth-Token: {tokenId}
 
 #### Response
 
-| Name | Type | Format | Description |
-| --- | --- | --- | --- |
-| ipacl_target | Body | Object | IP ACL target information object |
-| ipacl_target.ipacl_group_id | Body | UUID | IP ACL Group ID |
-| ipacl_target.tenant_id | Body | String | Tenant ID |
-| ipacl_target.cidr_address | Body | String | IP ACL Target CIDR<br>A single IP address, or an IP RANGE in CIDR format |
-| ipacl_target.description | Body | String | IP ACL target description |
-| ipacl_target.id | Body | UUID | IP ACL target ID |
+| Name                        | Type | Format   | Description                                                       |
+| --------------------------- | ---- | ------ | ---------------------------------------------------------- |
+| ipacl_target                | Body | Object | IP ACL target information object                                       |
+| ipacl_target.ipacl_group_id | Body | UUID   | IP ACL group ID                                             |
+| ipacl_target.tenant_id      | Body | String | Tenant ID                                                  |
+| ipacl_target.cidr_address   | Body | String | IP ACL target CIDR<br>Single IP Address or IP range in CIDR format |
+| ipacl_target.description    | Body | String | IP ACL target description                                           |
+| ipacl_target.id             | Body | UUID   | IP ACL target ID                                             |
 
 <details><summary>Example</summary>
 <p>
@@ -3714,10 +3714,10 @@ X-Auth-Token: {tokenId}
 
 - - -
 
-### Modify IP ACL target
+### Modify IP ACL Target
 
 Modifies an existing IP ACL target.
-You can only modify the description.
+Only description can be changed.
 
 ```
 PUT /v2.0/lbaas/ipacl-targets/{ipaclTargetId}
@@ -3726,12 +3726,12 @@ X-Auth-Token: {tokenId}
 
 #### Request
 
-| Name | Type | Format | Required | Description |
-| --- | --- | --- | --- | --- |
-| tokenId | Header | String | O | Token ID |
-| ipaclTargetId | URL | UUID | O | IP ACL target ID |
-| ipacl_target | Body | Object | O | IP ACL target information object |
-| ipacl_target.description | Body | String | - | IP ACL target description |
+| Name                     | Type   | Format   | Required | Description                  |
+| ------------------------ | ------ | ------ | ---- | --------------------- |
+| tokenId                  | Header | String | O    | Token ID               |
+| ipaclTargetId            | URL    | UUID   | O    | IP ACL target ID        |
+| ipacl_target             | Body   | Object | O    | IP ACL target information object  |
+| ipacl_target.description | Body   | String | -    | IP ACL target description      |
 
 <details><summary>Example</summary>
 <p>
@@ -3749,14 +3749,14 @@ X-Auth-Token: {tokenId}
 
 #### Response
 
-| Name | Type | Format | Description |
-| --- | --- | --- | --- |
-| ipacl_target | Body | Object | IP ACL target information object |
-| ipacl_target.ipacl_group_id | Body | UUID | IP ACL Group ID |
-| ipacl_target.tenant_id | Body | String | Tenant ID |
-| ipacl_target.cidr_address | Body | String | IP ACL Target CIDR<br>A single IP address, or an IP RANGE in CIDR format |
-| ipacl_target.description | Body | String | IP ACL target description |
-| ipacl_target.id | Body | UUID | IP ACL target ID |
+| Name                        | Type | Format   | Description                                                       |
+| --------------------------- | ---- | ------ | ---------------------------------------------------------- |
+| ipacl_target                | Body | Object | IP ACL target information object                                       |
+| ipacl_target.ipacl_group_id | Body | UUID   | IP ACL group ID                                             |
+| ipacl_target.tenant_id      | Body | String | Tenant ID                                                  |
+| ipacl_target.cidr_address   | Body | String | IP ACL target CIDR<br>Single IP Address or IP range in CIDR format |
+| ipacl_target.description    | Body | String | IP ACL target description                                           |
+| ipacl_target.id             | Body | UUID   | IP ACL target ID                                             |
 
 <details><summary>Example</summary>
 <p>
@@ -3778,7 +3778,7 @@ X-Auth-Token: {tokenId}
 
 - - -
 
-### Delete IP ACL target
+### Delete IP ACL Target
 
 Deletes the specified load balancer.
 
@@ -3791,15 +3791,14 @@ X-Auth-Token: {tokenId}
 
 This API does not require a request body.
 
-| Name | Type | Format | Required | Description |
-| --- | --- | --- | --- | --- |
-| tokenId | Header | String | O | Token ID |
-| ipaclTargetId | URL | UUID | O | IP ACL target ID |
+| Name          | Type   | Format   | Required | Description           |
+| ------------- | ------ | ------ | ---- | -------------- |
+| tokenId       | Header | String | O    | Token ID        |
+| ipaclTargetId | URL    | UUID   | O    | IP ACL target ID |
 
 #### Response
 
 This API does not return a response body.
 
 - - -
-
 

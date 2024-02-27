@@ -6,7 +6,6 @@ For Load Balancer, Listener, Pool, Health Monitor, and Member API, use `network`
 
 | Type | Region | Endpoint |
 |---|---|---|
-
 | network | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan Region | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com |
 | key-manager | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan Region | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com |
 
@@ -846,6 +845,8 @@ This API does not require a request body.
 | pools.session_persistence.type | Body | Enum | Session persistence<br>Set one of `SOURCE_IP`, `HTTP_COOKIE`, and `APP_COOKIE` <br>For `HTTP_COOKIE` or `APP_COOKIE` settings, it is recommended to check if the protocol of attached listener is set with `HTTP` or `TERMINATED_HTTPS`.<br>Even if the listener protocol is set with  `TCP` or `HTTPS`, there's no load balancer operation related with session persistence. |
 | pools.session_persistence.cookie_name | Body | String | Cookie name <br>Set value is applied when the session persistence type is `APP_COOKIE` |
 | pools.healthmonitor_id | Body | String | Health monitor ID |
+| pools.loadbalancers | Body | Array | List of load balancer objects with the pool registered |
+| pools.loadbalancers.id | Body | UUID | Load balancer ID |
 | pools.listeners | Body | Array | List of listener objects in which pool is registered |
 | pools.listeners.id | Body | String | Listener ID |
 | pools.members | Body | Array | List of member objects registered at pool |
@@ -868,6 +869,11 @@ This API does not require a request body.
       "member_port": 80,
       "session_persistence": null,
       "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+      "loadbalancers": [
+        {
+          "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+        }
+      ],
       "listeners": [
         {
           "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -921,6 +927,8 @@ This API does not require a request body.
 | pool.session_persistence.type | Body | Enum | Session persistence<br>Set one of `SOURCE_IP`, `HTTP_COOKIE`, and `APP_COOKIE` <br>For `HTTP_COOKIE` or `APP_COOKIE` settings, it is recommended to check if the protocol of attached listener is set with `HTTP` or `TERMINATED_HTTPS`.<br/>Even if the listener protocol is set with  `TCP` or `HTTPS`, and if session persistence is set with `HTTP_COOKIE`, `APP_COOKIE`, there's no load balancer operation related with session persistence. |
 | pool.session_persistence.cookie_name | Body | String | Cookie name <br>Set value is applied only when the session persistence type is `APP_COOKIE` |
 | pool.healthmonitor_id | Body | UUID | Health monitor ID |
+| pools.loadbalancers | Body | Array | List of load balancer objects with the pool registered |
+| pools.loadbalancers.id | Body | UUID | Load balancer ID |
 | pool.listeners | Body | Array | List of listener objects registered at the pool |
 | pool.listeners.id | Body | UUID | Listener ID |
 | pool.members | Body | Array | List of member objects registered at the pool |
@@ -942,6 +950,11 @@ This API does not require a request body.
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+    "loadbalancers": [
+      {
+        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+      }
+    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -980,7 +993,8 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
 | pool | Body | Object | O | Pool information object |
-| pool.listener_id | Body | UUID | O | Listener ID to register a pool |
+| pool.loadbalancer_id | Body | UUID | - | At least one of the load balancer IDs, load balancer ID or listener ID, must be entered for the pool to be registered. |
+| pool.listener_id | Body | UUID | - | At least one of the listener ID, load balancer ID, or listener ID to which the pool will be registered must be entered. |
 | pool.lb_algorithm | Body | Enum | O | Load balancing method of the pool <br>One of `ROUND_ROBIN`, `LEAST_CONNECTIONS`, and `SOURCE_IP` |
 | pool.protocol | Body | Enum | O | Member protocol |
 | pool.description | Body | String | - | Pool description |
@@ -1026,6 +1040,8 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - |
 | pool.session_persistence.type | Body | Enum | Session persistence<br>One of `SOURCE_IP`, `HTTP_COOKIE`, and `APP_COOKIE` <br>For `HTTP_COOKIE` or `APP_COOKIE` settings, it is recommended to check if the protocol of attached listener is set with `HTTP` or `TERMINATED_HTTPS`.<br/>Even if the listener protocol is set with  `TCP` or `HTTPS`, and if session persistence is set with `HTTP_COOKIE`, `APP_COOKIE`, there's no load balancer operation related with session persistence. |
 | pool.healthmonitor_id | Body | String | Health monitor ID |
+| pool.loadbalancers | Body | Array | List of load balancer objects with the pool registered |
+| pool.loadbalancers.id | Body | UUID | Load balancer ID |
 | pool.listeners | Body | Array | List of listener objects in which pool is registered |
 | pool.listeners.id | Body | UUID | Listener ID |
 | pool.members | Body | Array | List of member objects registered at pool |
@@ -1047,6 +1063,11 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+    "loadbalancers": [
+      {
+        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+      }
+    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -1128,6 +1149,8 @@ X-Auth-Token: {tokenId}
 | pools.session_persistence.cookie_name | Body | String | Cookie name <br>The setting value is applied only when the session persistence type is `APP_COOKIE`. |
 | pool.healthmonitor_id         | Body | UUID    | Health monitor ID                                            |
 | pool.listeners                | Body | Array   | List of listener objects in which pool is registered         |
+| pool.loadbalancers.id | Body | UUID | Load balancer ID |
+| pool.listeners | Body | Array | List of listener objects with the pool registered |
 | pool.listeners.id             | Body | UUID    | Listener ID                                                  |
 | pool.members                  | Body | Array   | List of member objects registered at pool                    |
 | pool.members.id               | Body | UUID    | Member ID                                                    |
@@ -1148,6 +1171,11 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
+    "loadbalancers": [
+      {
+        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
+      }
+    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -1389,7 +1417,8 @@ X-Auth-Token: {tokenId}
 
 
 
-<details><summary>Example</summary>
+
+<details><summary>예시</summary>
 <p>
 
 ```json
@@ -1511,8 +1540,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | Health monitor information object |
 | healthmonitor.admin_state_up | Body | Boolean | Administrator control status |
 | healthmonitor.delay | Body | Integer | Status check interval (seconds) |
-| healthmonitor.expected_codes | Body | String | HTTP response code of members to be considered in normal status<br/>Available as a single value (200), list (201,202), or range (201-204)
-When the status check type is set with `TCP`, value set for this field will be ignored. |
+| healthmonitor.expected_codes | Body | String | HTTP response code of members to be considered in normal status<br/>Available as a single value (200), list (201,202), or range (201-204) When the status check type is set with `TCP`, value set for this field will be ignored. |
 | healthmonitor.max_retries | Body | Integer | Number of maximum retries |
 | healthmonitor.http_method | Body | Enum | HTTP Method to use for status check <br/>When the status check type is set with `TCP`, value set for this field will be ignored. |
 | healthmonitor.timeout | Body | Integer | Timeout for status checks (seconds) |
@@ -1881,6 +1909,610 @@ This API does not return a response body.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## L7 Policy
+
+### List L7 Policies
+
+```
+GET /v2.0/lbaas/l7policies
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| id | Query | UUID | - | L7 policy to query |
+| name | Query | String | - | L7 policy name to query |
+| description | Query | String | - | Description of the L7 policy to query |
+| listener_id | Query | UUID | - | Listener ID of L7 policy to query |
+| Endpoint stage ID | Query | Enum | - | Action of  L7 policy to query <br> Either `REDIRECT_TO_POOL or REDIRECT_TO_URL/REJECT`  |
+| redirect_pool_id | Query | UUID | - | Redirect pool ID of L7 policy to query<br>Applies only if action is `REDIRECT_TO_POOL` |
+| redirect_url | Query | String | - | Redirect URL of L7 policy to query<br>Applies only if action is `REDIRECT_TO_URL` |
+| position | Query | Integer | - | Priority of L7 policy to query |
+
+
+#### Response
+
+| Name | Type | Format | Description |
+|---|---|---|---|
+| l7policies | Body | Array | List of L7 policy objects |
+| l7policies.description | Body | String | L7 policy description |
+| l7policies.tenant_id | Body | String | Tenant ID |
+| l7policies.listener_id | Body | UUID | Listener ID for L7 policy |
+| l7policies.name | Body | String | L7 policy description |
+| l7policies.rules | Body | Object | List of L7 policy rule objects |
+| l7policies.rules.id | Body | UUID | L7 Rule ID |
+| l7policies.id | Body | UUID | L7 Policy ID |
+| l7policies.admin_state_up | Body | Boolean | L7 policy manager control status |
+| l7policies.action | Body | Enum | Action of L7 policy<br> One of the following: `REDIRECT_TO_POOL`, `REDIRECT_TO_URL`, or `REJECT` |
+| l7policies.redirect_pool_id | Body | UUID | Redirect pool ID of  L7 policy<br>Applies only if action is `REDIRECT_TO_POOL` |
+| l7policies.redirect_url | Body | String | Redirect URL of L7 policy<br>Applies only if action is `REDIRECT_TO_URL` |
+| l7policies.position | Body | Integer | Prioritization of L7 policies |
+
+<details><summary>Example</summary>
+
+```json
+{
+  "l7policies": [
+    {
+      "redirect_pool_id": null,
+      "description": "",
+      "admin_state_up": true,
+      "rules": [
+        {
+          "id": "1e982fc1-0e54-4e1c-96c3-c9796cba373b"
+        }
+      ],
+      "tenant_id": "8258ab391d854e8b878642b737017a3b",
+      "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+      "redirect_url": null,
+      "action": "REJECT",
+      "position": 1,
+      "id": "9376c901-64cc-46a0-bab3-1b4bf42699ad",
+      "name": "L7Policy"
+    }
+  ]
+}
+```
+</details>
+
+---
+### List L7 policies
+
+```
+GET /v2.0/lbaas/l7policies/{l7policyId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| l7policyId | URL | UUID | O | L7 Policy ID |
+
+#### Response
+
+| Name | Type | Format | Description |
+|---|---|---|---|
+| l7policy | Body | Object | L7 policy object |
+| l7policy.description | Body | String | L7 policy description |
+| l7policy.tenant_id | Body | String | Tenant ID |
+| l7policy.listener_id | Body | UUID | Listener ID for L7 policy |
+| l7policy.name | Body | String | L7 policy description |
+| l7policy.rules | Body | Object | List of L7 policy rule objects |
+| l7policy.rules.id | Body | UUID | L7 Rule ID |
+| l7policy.id | Body | UUID | L7 Policy ID |
+| l7policy.admin_state_up | Body | Boolean | L7 policy manager control status |
+| l7policy.action | Body | Enum | Action of L7 policy<br> One of the following: `REDIRECT_TO_POOL`, `REDIRECT_TO_URL`, or `REJECT` |
+| l7policy.redirect_pool_id | Body | UUID | Redirect pool ID of L7 policy<br>Applies only if action is `REDIRECT_TO_POOL` |
+| l7policy.redirect_url | Body | String | Redirect URL of L7 policy<br>Applies only if action is `REDIRECT_TO_URL` |
+| l7policy.position | Body | Integer | Prioritization of L7 policies |
+
+
+<details><summary>Example</summary>
+
+```json
+{
+  "l7policy": {
+    "redirect_pool_id": null,
+    "description": "",
+    "admin_state_up": true,
+    "rules": [
+      {
+        "id": "1e982fc1-0e54-4e1c-96c3-c9796cba373b"
+      }
+    ],
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+    "redirect_url": null,
+    "action": "REJECT",
+    "position": 1,
+    "id": "9376c901-64cc-46a0-bab3-1b4bf42699ad",
+    "name": "L7Policy"
+  }
+}
+```
+</details>
+
+---
+### Create L7 policy
+
+```
+POST /v2.0/lbaas/l7policies
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| l7policy | Body | Object | - | L7 policy object |
+| l7policy.description | Body | String | - | L7 policy description |
+| l7policy.listener_id | Body | UUID | O | Listener ID for L7 policy |
+| l7policy.name | Body | String | - | L7 policy description |
+| l7policy.admin_state_up | Body | Boolean | - | Set to `true`if omitted as L7 Policy Manager control status |
+| l7policy.action | Body | Enum | O | Action of L7 policy<br> One of the following: `REDIRECT_TO_POOL`, `REDIRECT_TO_URL`, or `REJECT` |
+| l7policy.redirect_pool_id | Body | UUID | - | Redirect pool ID of L7 policy<br>Required if action is `REDIRECT_TO_POOL` |
+| l7policy.redirect_url | Body | String | - | Redirect URL of L7 policy<br>Required if action is `REDIRECT_TO_URL` |
+| l7policy.position | Body | Integer | - | Priority of the L7 policy. Sets to last priority if omitted |
+
+
+
+<details><summary>Example</summary>
+
+```json
+{
+  "l7policy": {
+    "action": "REJECT",
+    "position": 1,
+    "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+    "admin_state_up": true
+  }
+}
+```
+</details>
+
+#### Response
+
+| Name | Type | Format | Description |
+|---|---|---|---|
+| l7policy | Body | Object | L7 policy object |
+| l7policy.description | Body | String | L7 policy description |
+| l7policy.tenant_id | Body | String | Tenant ID |
+| l7policy.listener_id | Body | UUID | Listener ID for L7 policy |
+| l7policy.name | Body | String | L7 policy description |
+| l7policy.rules | Body | Object | List of L7 policy rule objects |
+| l7policy.rules.id | Body | UUID | L7 Rule ID |
+| l7policy.id | Body | UUID | L7 Policy ID |
+| l7policy.admin_state_up | Body | Boolean | Administrator control status of L7 policy |
+| l7policy.action | Body | Enum | Action of L7 policy<br> One of the following: `REDIRECT_TO_POOL`, `REDIRECT_TO_URL`, or `REJECT` |
+| l7policy.redirect_pool_id | Body | UUID | Redirect pool ID of L7 policy<br>Applies only if action is `REDIRECT_TO_POOL` |
+| l7policy.redirect_url | Body | String | Redirect URL of L7 policy<br>Applies only if action is `REDIRECT_TO_URL` |
+| l7policy.position | Body | Integer | Prioritization of L7 policies |
+
+
+<details><summary>Example</summary>
+
+```json
+{
+  "l7policy": {
+    "redirect_pool_id": null,
+    "description": "",
+    "admin_state_up": true,
+    "rules": [
+    ],
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+    "redirect_url": null,
+    "action": "REJECT",
+    "position": 1,
+    "id": "9376c901-64cc-46a0-bab3-1b4bf42699ad",
+    "name": ""
+  }
+}
+```
+</details>
+
+---
+### Modify L7 Policy
+
+```
+PUT /v2.0/lbaas/l7policies/{l7policyId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| l7policyId | URL | UUID | O | L7 Policy ID |
+| l7policy | Body | Object | O | L7 policy object |
+| l7policy.name | Body | String | - | L7 policy description |
+| l7policy.description | Body | String | - | L7 policy description |
+| l7policy.admin_state_up | Body | Boolean | - | Administrator control status of L7 policy |
+| l7policy.action | Body | Enum | - | Action of L7 policy<br> One of the following: `REDIRECT_TO_POOL`, `REDIRECT_TO_URL`, or `REJECT` |
+| l7policy.redirect_pool_id | Body | UUID | - | Redirect pool ID of L7 policy<br>Required if action is `REDIRECT_TO_POOL` |
+| l7policy.redirect_url | Body | String | - | Redirect URL of L7 policy<br>Required if action is `REDIRECT_TO_URL` |
+| l7policy.position | Body | Integer | - | Prioritization of L7 policies |
+
+<details><summary>Example</summary>
+
+```json
+{
+  "l7policy": {
+    "name": "L7Policy",
+    "position": 255,
+    "admin_state_up": true
+  }
+}
+```
+</details>
+
+#### Response
+
+| Name | Type | Format | Description |
+|---|---|---|---|
+| l7policy | Body | Object | L7 policy object |
+| l7policy.description | Body | String | L7 policy description |
+| l7policy.tenant_id | Body | String | Tenant ID |
+| l7policy.listener_id | Body | UUID | Listener ID for L7 policy |
+| l7policy.name | Body | String | L7 policy description |
+| l7policy.rules | Body | Object | List of L7 policy rule objects |
+| l7policy.rules.id | Body | UUID | L7 Rule ID |
+| l7policy.id | Body | UUID | L7 Policy ID |
+| l7policy.admin_state_up | Body | Boolean | Administrator control status of L7 policy |
+| l7policy.action | Body | Enum | Action of L7 policy<br> One of the following: `REDIRECT_TO_POOL`, `REDIRECT_TO_URL`, or `REJECT` |
+| l7policy.redirect_pool_id | Body | UUID | Redirect pool ID of L7 policy<br>Applies only if action is `REDIRECT_TO_POOL` |
+| l7policy.redirect_url | Body | String | Redirect URL of L7 policy<br>Applies only if action is `REDIRECT_TO_URL` |
+| l7policy.position | Body | Integer | Prioritization of L7 policies |
+
+
+<details><summary>Example</summary>
+
+```json
+{
+  "l7policy": {
+    "redirect_pool_id": null,
+    "description": "",
+    "admin_state_up": true,
+    "rules": [
+    ],
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "listener_id": "2a38f448-c898-4694-9808-685dd6360dab",
+    "redirect_url": null,
+    "action": "REJECT",
+    "position": 255,
+    "id": "9376c901-64cc-46a0-bab3-1b4bf42699ad",
+    "name": "L7Policy"
+  }
+}
+```
+</details>
+
+---
+### Delete L7 Policy
+
+```
+DELETE /v2.0/lbaas/l7policies/{l7policyId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| l7policyId | URL | UUID | O | L7 Policy ID |
+
+
+#### Response
+This API does not return a response body.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## L7 Rules
+
+### View an ACL List
+
+```
+GET /v2.0/lbaas/l7policies/{l7policyId}/rules
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| l7policyId | URL | UUID | O | The L7 policy ID to which the L7 rule belongs |
+| id | Query | UUID | - | L7 rule ID to query |
+| type | Query | Enum | - | Type of L7 rule to query <br> One of the following: Either `COOKIE`, `FILE_TYPE`, `HEADER`, `HOST_NAME`, or `PATH`  |
+| compare_type | Query | Enum | - | Compare type of L7 rule to query<br> One of the following: `CONTAINS`, `ENDS_WITH`, `STARTS_WITH`, `EQUAL_TO`, or `REGEX` |
+
+
+#### Response
+
+| Name | Type | Format | Description |
+|---|---|---|---|
+| rules | Body | Array | L7 rule objects |
+| rules.tenant_id | Body | String | Tenant ID |
+| rules.id | Body | UUID | L7 Rule ID |
+| rules.admin_state_up | Body | Boolean | Administrator control status of L7 rule |
+| rules.invert | Body | Boolean | Setting invert for matching results |
+| rules.key | Body | String | Key used when matching L7 rules<br> Applies only if COOKIE or `HEADER` |
+| rules.value | Body | String | Value used when matching L7 rules |
+| rules.type | Query | Enum | L7 rule type <br> One of the following: Either `COOKIE`, `FILE_TYPE`, `HEADER`, `HOST_NAME`, or `PATH`  |
+| rules.compare_type | Query | Enum | Compare type of L7 rule<br> One of the following: `CONTAINS`, `ENDS_WITH`, `STARTS_WITH`, `EQUAL_TO`, or `REGEX` |
+
+<details><summary>Example</summary>
+
+```json
+{
+  "rules": [
+    {
+      "compare_type": "EQUAL_TO",
+      "admin_state_up": true,
+      "tenant_id": "8258ab391d854e8b878642b737017a3b",
+      "invert": false,
+      "value": "Value",
+      "key": null,
+      "type": "HOST_NAME",
+      "id": "37492146-9105-40eb-9640-4da2e10c748a"
+    }
+  ]
+}
+```
+</details>
+
+---
+### List L7 Rule
+
+```
+GET /v2.0/lbaas/l7policies/{l7policyId}/rules/{l7ruleId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| l7policyId | URL | UUID | O | L7 Policy ID |
+| l7ruleId | URL | UUID | O | L7 Rule ID |
+
+#### Response
+
+| Name | Type | Format | Description |
+|---|---|---|---|
+| rule | Body | Object | L7 rule object |
+| rule.tenant_id | Body | String | Tenant ID |
+| rule.id | Body | UUID | L7 Rule ID |
+| rule.admin_state_up | Body | Boolean | Administrator control status of L7 rule |
+| rule.invert | Body | Boolean | Setting invert for matching results |
+| rule.key | Body | String | Key used when matching L7 rules<br> Applies only if COOKIE or `HEADER` |
+| rule.value | Body | String | Value used when matching L7 rules |
+| rule.type | Query | Enum | L7 rule type <br> One of the following: Either `COOKIE`, `FILE_TYPE`, `HEADER`, `HOST_NAME`, or `PATH`  |
+| rule.compare_type | Query | Enum | Compare type of L7 rule<br> One of the following: `CONTAINS`, `ENDS_WITH`, `STARTS_WITH`, `EQUAL_TO`, or `REGEX` |
+
+
+<details><summary>Example</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "EQUAL_TO",
+    "admin_state_up": true,
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "invert": false,
+    "value": "Value",
+    "key": null,
+    "type": "HOST_NAME",
+    "id": "37492146-9105-40eb-9640-4da2e10c748a"
+  }
+}
+```
+</details>
+
+---
+### Create L7 Rule
+
+```
+POST /v2.0/lbaas/l7policies/{l7policyId}/rules/
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| l7policyId | URL | UUID | O | L7 Policy ID |
+| rule | Body | Object | O | L7 rule object |
+| rule.admin_state_up | Body | Boolean | - | Administrator control status of L7 rule |
+| rule.invert | Body | Boolean | - | Set to `true`if omitted with invert setting for matching results |
+| rule.key | Body | String | - | Key used when matching L7 rules<br> Required if `COOKIE` or `HEADER` |
+| rule.value | Body | String | O | Value used when matching L7 rules |
+| rule.type | Query | Enum | O | L7 rule type <br> One of the following: Either `COOKIE`, `FILE_TYPE`, `HEADER`, `HOST_NAME`, or `PATH`  |
+| rule.compare_type | Query | Enum | O | Compare type of L7 rule<br> One of the following: `CONTAINS`, `ENDS_WITH`, `STARTS_WITH`, `EQUAL_TO`, or `REGEX` |
+
+
+<details><summary>Example</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "STARTS_WITH",
+    "invert": false,
+    "type": "PATH",
+    "value": "/images",
+    "admin_state_up": true
+  }
+}
+```
+</details>
+
+#### Response
+
+| Name | Type | Format | Description |
+|---|---|---|---|
+| rule | Body | Object | L7 rule object |
+| rule.tenant_id | Body | String | Tenant ID |
+| rule.id | Body | UUID | L7 Rule ID |
+| rule.admin_state_up | Body | Boolean | Administrator control status of L7 rule |
+| rule.invert | Body | Boolean | Setting invert for matching results |
+| rule.key | Body | String | Key used when matching L7 rules<br> Applies only if COOKIE or `HEADER` |
+| rule.value | Body | String | Value used when matching L7 rules |
+| rule.type | Query | Enum | L7 rule type <br> One of the following: Either `COOKIE`, `FILE_TYPE`, `HEADER`, `HOST_NAME`, or `PATH`  |
+| rule.compare_type | Query | Enum | Compare type of L7 rule<br> One of the following: `CONTAINS`, `ENDS_WITH`, `STARTS_WITH`, `EQUAL_TO`, or `REGEX` |
+
+
+<details><summary>Example</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "STARTS_WITH",
+    "admin_state_up": true,
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "invert": false,
+    "value": "/images",
+    "key": null,
+    "type": "PATH",
+    "id": "3c88bc9b-8fac-4a73-a611-df85417b656e"
+  }
+}
+```
+</details>
+
+---
+### Modify L7 Rule
+
+```
+PUT /v2.0/lbaas/l7policies/{l7policyId}/rules/{l7ruleId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| l7policyId | URL | UUID | O | L7 Policy ID |
+| l7ruleId | URL | UUID | O | L7 Rule ID |
+| rule | Body | Object | O | L7 rule object |
+| rule.admin_state_up | Body | Boolean | - | Administrator control status of L7 rule |
+| rule.invert | Body | Boolean | - | Setting invert for matching results |
+| rule.key | Body | String | - | Key used when matching L7 rules<br> Applies only if COOKIE or `HEADER` |
+| rule.value | Body | String | - | Value used when matching L7 rules |
+| rule.type | Query | Enum | - | L7 rule type <br> One of the following: Either `COOKIE`, `FILE_TYPE`, `HEADER`, `HOST_NAME`, or `PATH`  |
+| rule.compare_type | Query | Enum | - |Compare type of L7 rule<br> One of the following: `CONTAINS`, `ENDS_WITH`, `STARTS_WITH`, `EQUAL_TO`, or `REGEX` |
+
+
+<details><summary>Example</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "REGEX",
+    "invert": true,
+    "type": "PATH",
+    "value": "/images/modify",
+    "admin_state_up": true
+  }
+}
+```
+</details>
+
+#### Response
+
+| Name | Type | Format | Description |
+|---|---|---|---|
+| rule | Body | Object | L7 rule object |
+| rule.tenant_id | Body | String | Tenant ID |
+| rule.id | Body | UUID | L7 Rule ID |
+| rule.admin_state_up | Body | Boolean | Administrator control status of L7 rule |
+| rule.invert | Body | Boolean | Setting invert for matching results |
+| rule.key | Body | String | Key used when matching L7 rules<br> Applies only if COOKIE or `HEADER` |
+| rule.value | Body | String | Value used when matching L7 rules |
+| rule.type | Query | Enum | L7 rule type <br> One of the following: Either `COOKIE`, `FILE_TYPE`, `HEADER`, `HOST_NAME`, or `PATH`  |
+| rule.compare_type | Query | Enum | Compare type of L7 rule<br> One of the following: `CONTAINS`, `ENDS_WITH`, `STARTS_WITH`, `EQUAL_TO`, or `REGEX` |
+
+
+<details><summary>Example</summary>
+
+```json
+{
+  "rule": {
+    "compare_type": "REGEX",
+    "admin_state_up": true,
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "invert": true,
+    "value": "/images/modify",
+    "key": null,
+    "type": "PATH",
+    "id": "3c88bc9b-8fac-4a73-a611-df85417b656e"
+  }
+}
+```
+</details>
+
+---
+### Delete L7 Rule
+
+```
+DELETE /v2.0/lbaas/l7policies/{l7policyId}/rules/{l7ruleId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| l7policyId | URL | UUID | O | L7 Policy ID |
+| l7ruleId | URL | UUID | O | L7 Rule ID |
+
+
+#### Response
+This API does not return a response body.
 
 
 

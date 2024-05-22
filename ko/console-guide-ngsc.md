@@ -192,7 +192,7 @@ NHN Cloud의 로드 밸런서 콘솔에서 설정값들을 입력하는 것만�
 
 
 ## IP 접근제어 그룹
-IP 접근제어 기능에 대한 자세한 사항은 [IP 접근제어](/Network/Load%20Balancer/ko/overview-gov/#ip) 문서를 참고합니다.
+IP 접근제어 기능에 대한 자세한 사항은 [IP 접근제어](/Network/Load%20Balancer/ko/overview/#ip) 문서를 참고합니다.
 
 #### IP 접근제어 그룹 생성
 IP 접근제어 그룹을 생성하려면 [접근제어 그룹 생성] 버튼을 누르고, 다음의 값을 입력합니다.

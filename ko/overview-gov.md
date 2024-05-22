@@ -63,7 +63,7 @@ SSL/TLS 버전 중 하나를 선택해 로드 밸런서를 생성합니다. 생�
 
 ## 로드 밸런서 생성
 
-로드 밸런서는 [VPC](/Network/VPC/ko/overview/#_2)의 [서브넷](/Network/VPC/ko/overview/#_2) 내에서 IP를 자동할당 받아 생성하거나, IP를 지정하여 생성할 수 있습니다. 
+로드 밸런서는 [VPC](/Network/VPC/ko/overview/#_2)의 [서브넷](/Network/VPC/ko/overview/#_2) 내에서 IP를 자동 할당 받아 생성하거나, IP를 지정하여 생성할 수 있습니다. 
 * 자동 할당하는 경우: 서브넷의 가용 IP 중 하나를 로드 밸런서의 IP로 사용합니다.
 * IP를 지정하는 경우: 지정된 IP를 로드 밸런서의 IP로 사용합니다. IP는 서브넷의 CIDR  범위 내에 있어야 합니다.
 

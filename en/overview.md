@@ -63,12 +63,25 @@ Select one of the SSL/TLS versions to create a load balancer. The created load b
 
 ## Create Load Balancers
 
-Load balancers are created in [subnets](/Network/VPC/en/overview/#_2) in your [VPC](/Network/VPC/en/overview/#_2). When a load balancer is created, it is assigned an IP address from the specified subnet and uses the address as its own IP address. It distributes incoming traffic by registering instances belonging to the same VPC as the specified subnet as members. You can also add as members the instances that belong to the VPC and a peering connection VPC of this VPC. Other instances cannot be added as members.
+Load balancers can be created with an IP automatically assigned within the [VPC's](/Network/VPC/en/overview/#_2) [subnet](/Network/VPC/en/overview/#_2), or you can specify an IP. 
+* Automatically assigned IP: Uses one of the available IPs on the subnet as the IP for the load balancer.
+* Specify an IP: Uses the specified IP as the IP for the load balancer. The IP must be within the CIDR range of the subnet.
 
-The incoming traffic that will be processed by the load balancer is defined by the listener. By defining the port to receive traffic and protocol for each listener, you can set the configuration so that one load balancer can handle various types of traffic. In general, a web server uses a port 80 listener to receive HTTP traffic and a port 443 listener to receive HTTPS traffic. Multiple listeners can be registered in one load balancer.
+The load balancer registers instances as members to distribute incoming traffic. Members can be registered in two ways
+* Instance: You can add instances that belong to this VPC and VPCs that are peered with the VPC as members.
+* IP address: You can register members by entering their IP directly. In this case, the communication path between the load balancer and the instance must be set appropriately.
 
-> [Caution] You cannot create duplicate listeners with the same incoming port on the load balancer.
+The traffic that flows into the load balancer is defined by listeners. By defining the ports and protocols on which to receive traffic per listener, you can set up a single load balancer to handle a wide variety of traffic. Generally, you would set up a port 80 listener on your web server to listen for HTTP traffic and a port 443 listener to listen for HTTPS traffic. You can register multiple listeners on one load balancer.
 
+> [Caution] You cannot create duplicate listeners with the same listening port on a load balancer.
+
+## L7 rules
+
+The load balancer can perform load balancing based on L7 data. When you select an L7 routing template to create a load balancer, you can create a load balancer with L7 policies.
+The available actions are as follows.
+* Forward to target group: Sends to a set target group when matched to an L7 rule. You can route packets to specific target groups based on L7 data.
+* Forward to URL: Redirects to a set URL when matched to an L7 rule. Redirection is performed by using Location of the HTTP header.
+* Block: Blocks when matched to an L7 rule. Returns a response as Forbidden (403).
 
 ## Load Balancer Proxy Mode
 

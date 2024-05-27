@@ -2349,7 +2349,7 @@ X-Auth-Token: {tokenId}
 ### L7ルールを作成する
 
 ```
-POST /v2.0/lbaas/l7policies/{l7policyId}/rules/
+POST /v2.0/lbaas/l7policies/{l7policyId}/rules
 X-Auth-Token: {tokenId}
 ```
 

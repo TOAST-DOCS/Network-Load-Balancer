@@ -2354,7 +2354,7 @@ This API does not require a request body.
 ### Create L7 Rule
 
 ```
-POST /v2.0/lbaas/l7policies/{l7policyId}/rules/
+POST /v2.0/lbaas/l7policies/{l7policyId}/rules
 X-Auth-Token: {tokenId}
 ```
 

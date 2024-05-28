@@ -2300,7 +2300,7 @@ X-Auth-Token: {tokenId}
 ### L7 룰 생성하기
 
 ```
-POST /v2.0/lbaas/l7policies/{l7policyId}/rules/
+POST /v2.0/lbaas/l7policies/{l7policyId}/rules
 X-Auth-Token: {tokenId}
 ```
 

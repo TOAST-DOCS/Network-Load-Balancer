@@ -8,7 +8,7 @@ NHN Cloud provides a load balancer, which enables you to achieve the following:
 
 ## Load Balancing Methods
 
-Load Balancer supports a total of three load balancing methods:e
+Load Balancer supports a total of three load balancing methods:
 
 * Round Robin (select sequentially): This is the most basic and popular load balancing method that sequentially selects instances to forward traffic to. This method can be used when all member instances make the same response to the same request.
 

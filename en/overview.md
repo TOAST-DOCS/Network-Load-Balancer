@@ -8,7 +8,7 @@ NHN Cloud provides a load balancer, which enables you to achieve the following:
 
 ## Load Balancing Methods
 
-Load Balancer supports a total of three load balancing methods:
+Load Balancer supports a total of three load balancing methods:e
 
 * Round Robin (select sequentially): This is the most basic and popular load balancing method that sequentially selects instances to forward traffic to. This method can be used when all member instances make the same response to the same request.
 
@@ -63,11 +63,13 @@ Select one of the SSL/TLS versions to create a load balancer. The created load b
 
 ## Create Load Balancers
 
-Load balancers can be created with an IP automatically assigned within the [VPC's](/Network/VPC/en/overview/#_2) [subnet](/Network/VPC/en/overview/#_2), or you can specify an IP. 
+Load balancers can be created with an IP automatically assigned within the [VPC's](/Network/VPC/en/overview/#_2) [subnet](/Network/VPC/en/overview/#_2), or you can specify an IP.
+
 * Automatically assigned IP: Uses one of the available IPs on the subnet as the IP for the load balancer.
 * Specify an IP: Uses the specified IP as the IP for the load balancer. The IP must be within the CIDR range of the subnet.
 
 The load balancer registers instances as members to distribute incoming traffic. Members can be registered in two ways
+
 * Instance: You can add instances that belong to this VPC and VPCs that are peered with the VPC as members.
 * IP address: You can register members by entering their IP directly. In this case, the communication path between the load balancer and the instance must be set appropriately.
 
@@ -79,6 +81,7 @@ The traffic that flows into the load balancer is defined by listeners. By defini
 
 The load balancer can perform load balancing based on L7 data. When you select an L7 routing template to create a load balancer, you can create a load balancer with L7 policies.
 The available actions are as follows.
+
 * Forward to target group: Sends to a set target group when matched to an L7 rule. You can route packets to specific target groups based on L7 data.
 * Forward to URL: Redirects to a set URL when matched to an L7 rule. Redirection is performed by using Location of the HTTP header.
 * Block: Blocks when matched to an L7 rule. Returns a response as Forbidden (403).

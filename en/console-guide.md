@@ -1,36 +1,47 @@
 ## Network > Load Balancer > Console Guide
 
-## Load Balancer Management
+## Manage Load Balancers
 ### Create Load Balancers
-You can easily create a load balancer by entering the setting values in the NHN Cloud Load Balancer console.
+You can easily create a load balancer by entering the setting values in the NHN Cloud Load Balancer console. Depending on your purpose, you can select either L4 routing or L7 routing mode to create it. <br>
+The mode refers to the template, not the actual type of load balancer. You can create a load balancer with L4 routing mode and add L7 rules.
 
-#### Load Balancer Information
-Enter basic information required for a load balancer as follows:
+* L4 Routing: A load balancer that performs load balancing based on IP and port. You can change it to a Layer7 load balancer by adding L7 rules after creation.
+* L7 Routing: A load balancer that performs load balancing based on L7 data.
+
+#### Set up Load balancers
+Set up basic information about the load balancer. The following items are required
 
 * Name: Enter the name of the load balancer.
 * Description: Enter the description of the load balancer.
+* Type: You can choose General, Dedicated, Physical Basic, or Physical Premium. Load balancers in L4 routing mode can be General, Dedicated, Physical Basic, or Physical Premium. Load balancers in L7 routing mode can choose between General or Dedicated.
 * Network (Subnet): Specify the subnet of the VPC with which the load balancer is to be associated.
-* Load Balancer Type: Specify the type of the load balancer among Normal, Dedicated, Physical Basic, and Physical Premium.
-* Subnet Static Route: Select whether to apply static route settings of the subnet where the load balancer will be located to the load balancer.
+* Subnet static routes: Select whether to apply the static route settings of the subnet where the load balancer will be located to the load balancer. If you select **Auto Assign**, the load balancer is assigned a private IP that is available within the subnet range. You can select **Specify** to give the load balancer a private IP of your choice. 
 
-> [Note] For more information about the load balancer types, see [Load Balancer Type](https://www.toast.com/service/network/load-balancer).
+> [Note] For more information about load balancer types, See [Load Balancer Types](https://www.toast.com/service/network/load-balancer).
 
-#### Register Listeners
+#### Set up Listeners
 
-Define properties of the traffic to be processed by a load balancer. By default, NHN Cloud Load Balancer has one listener, which can be added or deleted in the details page of the load balancer later.
+Defines the properties of the traffic that the load balancer will process. A load balancer in NHN Cloud can have one or more listeners.
 
-* Load Balancing Method: Determines how a load balancer distributes traffic. Choose one of ROUND_ROBIN, LEAST_CONNECTIONS, or SOURCE_IP.
-* Protocol: Specify the protocol of traffic to be processed by the load balancer. Choose one of TCP, HTTP, HTTPS, or TERMINATED_HTTPS.
-* Load Balancer Port: Specify the port for the default listener to receive traffic.
-* Instance Port: Specify the port for load balancer members. Inbound traffic to the load balancer port will be delivered to the instance port of a member instance.
-
-> [Note] Load balancer port and instance port have a value between 1 and 65535.
-
-> [Caution] Load balancer port, instance port, and protocol cannot be changed after a listener is created.
+* Name: Enter a name for the listener.
+* Description: Describe the listener.
+* Protocol: Specifies the protocol of the traffic that the load balancer will handle. Select one of the following: TCP/HTTP/HTTPS/TERMINATED_HTTPS.
+* Load balancer port: Specifies the port on which the default listener will listen for traffic.
+* Default member group: Specifies the member group that will be distributed by default when traffic is received.
+* Connection limit: Specifies the number of TCP sessions that the default listener will maintain simultaneously. You can set a maximum of 60,000 for a general load balancer and a maximum of 480,000 for a dedicated load balancer.
+* Keep-Alive timeout: Specifies the amount of time, in seconds, to keep a session alive with the client and server. The load balancer will keep the session alive for this amount of time as long as the other side keeps the session alive. We recommend that you set the Keep-Alive timeout value you set on your server here. The default value is set to 300 seconds.
+* Proxy protocols: Allows you to enable the load balancer to support proxy protocols. You should enable this value only if you have enabled proxy protocols for the server to know the client's IP. This is only available if you are using the TCP and HTTPS protocols.
+* Block invalid requests: When **Not use** is selected, blocks HTTP request headers if they contain invalid characters. Available only when using HTTP and the TERMINATED_HTTPS protocol.
 
 * SSL Certificate: Register a certificate to be used when TERMINATED_HTTPS is selected as the protocol.
 
-> [Note] Registering a TERMINATED_HTTPS certificate
+> [Caution] Load balancer port, instance port, and protocol cannot be changed after a listener is created.
+
+> [Note] Load balancer port and instance port have a value between 1 and 65535.
+
+> [Note] Health checks are performed only if the member group is either the default member group for the listener or is specified as the action target of an L7 rule; otherwise, health checks are not performed with that member group.
+
+> [Note] How to register TERMINATED_HTTPS certificates
 >
 > When TERMINATED_HTTPS is specified as listener protocol for load balancer, a button to register an SSL certificate is activated.
 >
@@ -88,6 +99,62 @@ When the listener uses TERMINATED_HTTPS, you can register a certificate in one o
 > When a certificate is updated in the Certificate Manager, certificates of any other affected listener must be updated as well.
 > To apply the certificate which is registered in the Certificate Manager to the listener, the password of the 'Private Key' must be removed, and the format must be PKCS#1 or PKCS#8 PEM.
 
+##### Set up L7 Rules
+The load balancer can perform load balancing based on L7 data. When you select an L7 routing template to create a load balancer, you can create a load balancer that includes L7 policies. L7 policies work well only when the protocol of the listener is HTTP/TERMINATED_HTTPS. Even if you create a load balancer with an L4 template, you can add L7 rules later.
+
+* Name: Enter a name for the L7 rule.
+* Description: Describe the L7 rule.
+* Action type: Specify the action to take when matching L7 rules. 
+  * Forward to member group: Send to a set member group when matched to an L7 rule. You can route packets to specific member groups based on L7 data.
+  * Forward to URL: This feature redirects to a set URL when an L7 rule is matched. It uses the Location in the HTTP header to perform the redirect.
+  * Block: Block if matched by an L7 rule. Returns a response as Forbidden (403).
+* Task target: Set a target based on the task type. The input varies depending on the task type.
+* Task priority: Set the L7 rule priority. The value you enter determines the priority within the task type, and if you enter a duplicate value, the new rule takes precedence.
+  * The order of rule application is **Block**, **Pass by URLL**, and  **Pass to Member Group**. Within the same action type, apply the priority entered by the user.
+  * The **Priority Order** column in the L7 Rules table makes it easy to understand the actual order in which rules are applied.
+  * Whenever you add or change an L7 rule, the task priorities you enter are reordered internally to re-prioritize them.
+  * The task priorities you see in **View Details** represent the relative values of the internally reordered priorities, not the absolute values you entered.
+  * If you want to add or change L7 rules in the future, you'll need to set priorities based on the relative values of the internally reordered priorities.
+* Condition: Describe the conditions to apply to the L7 rule. You can create up to 10 conditions per L7 rule.
+  * Condition type: Condition types support paths, headers, file types, cookies, and hostnames.
+    * Path: Examines the value of the URL path.
+    * Header: Examines the fields contained in the HTTP header. You must provide additional header field names.
+    * File type: Examines the end value of the URL path. This can be useful for matching extensions.
+    * Cookie: Examines the Cookie field in the HTTP request header. You must additionally enter the key of the cookie.
+    * Hostname: Examines the Host field in the HTTP request header.
+  * Comparison method: The comparison method can be selected from CONTAINS/EQUAL_TO/STARTS_WITH/ENDS_WITH/REGEX, depending on the condition type.
+    * CONTAINS: True if the string of the condition type contains the value you entered.
+    * EQUAL_TO: True if the string of the condition type matches the value you entered.
+    * STARTS_WITH: True if the string of the condition type starts with the value you entered.
+    * ENDS_WITH: True if the string of the condition type ends with the value you entered.
+    * REGEX: True if the string of the condition type conforms to the syntax of the regular expression you entered.
+  * Value: Enter the string you want to match. If the condition type is header or cookie, you must additionally enter key.
+
+> [Caution] Among condition types, hostnames are not case sensitive.
+
+> [Note] If there is no match to the L7 rules you set up, traffic is forwarded to the listener's default member group.
+
+> [Note] Health checks are performed only if the member group is either the default member group for the listener or is specified as the action target of an L7 rule; otherwise, health checks are not performed with that member group.
+
+> [Note] When a member group is deleted, any L7 rules that had that member group as an action target will have their action type changed to Block.
+
+
+
+#### Set up Member Groups
+Set the target member groups to forward load balancing traffic to. You can create additional member groups even after the load balancer creation is complete.
+
+* Name: Enter a name for the member group.
+* Description: Describe the member group.
+* Protocol: Specify the protocol of the traffic that the member group will handle. Select one of the following: HTTP/HTTPS/TCP.
+* Member port: Specify the ports on which the member group listens for traffic.
+* Load Balancing Method: Determines how the load balancer distributes traffic. Select one of the following. ROUND_ROBIN/LEAST_CONNECTIONS/SOURCE_IP.
+* Session Persistence: A setting that forces responses to requests to be made only on a specific instance to preserve the session. You can select one of the following: No session persistence/APP_COOKIE/HTTP_COOKIE/SOURCE_IP.
+
+
+> [Caution] Member ports and protocols cannot be changed after a member group is created.
+
+> [Note] Member ports have values between 1 and 65535.
+
 
 ##### Health Check
 
@@ -103,18 +170,17 @@ The settings for health check are also determined when creating the listener. NH
 * Maximum Number of Retries: Specify the maximum number of retry attempts for health checks. If the maximum number of retries is 2 or higher, it is not immediately considered a failure when a normal response to the health check is not received. If it fails repeatedly for the maximum number of retries, the instance is excluded from load balancing.
 * Host Header: Enter the field value to use in the host header for health checks. This setting is enabled only when HTTP or HTTPS is selected.
 
-##### Connect
-Specify settings related to the connection.
-
-* Session Persistence: Responses to requests are set to be made at specific instances only, so as to maintain a session. Choose one among No Session Persistence, APP_COOKIE, HTTP_COOKIE, or SOURCE_IP.
-* Association Limited: Specify the number of concurrent TCP sessions the default listener will maintain. You can set up to 60,000 for a regular load balancer and up to 480,000 for a dedicated load balancer.
-* Keepalive Timeout: Specify the duration of sessions to be maintained between the client and server (in seconds). The load balancer maintains the session for as long as the other party maintains the session. It is recommended to set the keepalive timeout value set in the server here. The default is set to 300 seconds.
-* Proxy Protocol: You can have your load balancer support the proxy protocol. You only need to enable this value if you have set the server to use the proxy protocol to find out the IP of the client. This setting is available only when using TCP or HTTPS protocol.
+> [Note] Health checks are performed only if the member group is either the default member group for the listener or is specified as the action target of an L7 rule; otherwise, health checks are not performed with that member group.
 
 
-#### Register Members
-Specify the instance to be registered as a member when the load balancer is created. It is possible to register members even after creating the load balancer. You can register as members the VPC with which the load balancer is associated and instances that belong to the peering connection VPC of this VPC.
-However, if you want to register an instance with a different subnet from the load balancer as a member, you need to register the two subnets in the routing table.
+##### Set up Members
+Specify instances or IPs to register as members when the load balancer is created. You can register members even after the load balancer is created. Members can be registered in two ways
+
+* Instance: You can add instances that belong to the VPC to which the load balancer is attached and to VPCs that are peered with that VPC as members. However, if you want to add an instance with a different subnet than the load balancer as a member, you must register both subnets in the routing table.
+* IP address: You can register members by entering an IP directly. In this case, the communication path between the load balancer and that IP must be set up appropriately.
+
+#### Delete Proteection
+Enabling delete protection protects a load balancer from accidental deletion. You cannot delete that load balancer until you disable delete protection. A load balancer with delete protection enabled cannot delete listeners.
 
 #### IP Access Control Groups
 Specify the IP access control group to apply when the load balancer is created. You can select multiple groups with the same access control type among the IP access control groups. You can change the IP access control group to be applied even after the load balancer is created.
@@ -125,11 +191,9 @@ After a load balancer is created, you will be returned to the load balancer list
 * Name: Name of the load balancer specified when it is created.
 * Type: Load balancer type
 * IP Address: A private IP assigned by the VPC associated with the load balancer. From inside the VPC, you can access the load balancer through this IP. To access the load balancer from outside the VPC, you need to associate a floating IP.
-* Load Balancer Port/Instance Port: A pair of listeners' port and instance port that belong to a load balancer.
-* Protocol: Protocol of listeners that belong to a load balancer.
-* IP Access Control Type: Shows the type of IP access control group specified for the load balancer. If an access control group is not specified, nothing is shown. If specified, the type is either 'Allow' or 'Block'.
 * Network: Name of the VPC associated with the load balancer and the subnet CIDR.
 * Status: Status of load balancer creation. ACTIVE means it has been created normally.
+* Load balancer details: View details of the listeners and member groups connected to the load balancer.
 
 > [Note] Provisioning status of a load balancer is determined as one of the following:
 
@@ -150,7 +214,8 @@ Select a load balancer from the list, and a page of details shows up at the bott
 * Instance: View the list of instances registered as members to a selected load balancer. Register new instances as members or exclude existing ones.
 * Statistics: Statistical information of a selected load balancer is available.
 
-> [Note] You cannot change VPC and IP address with which load balancer is associated.
+### Listener Changes and Details
+On the main screen of the load balancer, select the desired load balancer detail view to see the listeners and member groups connected to the load balancer. From there, you can select the **Listeners** tab to create, change, or delete listeners.
 
 #### Add Listeners
 Listeners can be added by clicking the Add Listener button on the Listener tab in the detail screen of the load balancer. Items required to add listeners are the same as those required by the default listener during creation of the load balancer. When a listener is added, the load balancer port used by previous listeners can no longer be used.
@@ -165,22 +230,42 @@ To delete a listener, click Delete: cannot delete, though, if the load balancer 
 
 > [Caution] Add/Modify/Delete listeners causes reboot of a load balancer. During the reboot, existing connected sessions are maintained, but new sessions cannot be processed (less than 1 second). Therefore, it is recommended to proceed at a time that does not affect the service.
 
-#### Add Members
-Register a new instance as member of load balancer in the instance tab. Only those instances that belong to VPC with which load balancer is associated can be added.
+### Member Group Changes and Details
+On the Load Balancers screen, select the desired load balancer's **View Details** to see the listeners and member groups connected to the load balancer. From there, you can select the **Member Groups** tab to create, change, or delete member groups.
 
-#### Disable Members
-You can exclude certain instances among member instances from the service temporarily. Select the instances you want to exclude, click the **Disable Instance** button, and then click **Confirm**.
-The usage item of the excluded instance is changed to **False** and the member instance status is changed to **ONLINE** .
+#### Create Member Groups
+Click **Create Member Group** to create additional member groups. The items required to create a member group are the same as those required for a member group when creating a load balancer.
 
-> [Note] The status of a member instance is determined as one of the following:
->
-> | Status | Description |
+#### Change Member Groups
+Click **Change Member Group** to change settings related to the member group.
+
+> [Caution] Member ports and protocols cannot be changed after a member group is created.
+
+#### Delete Member Groups
+Select the member group you want to delete and click **Delete Member Group** to delete that member group.
+
+> [Caution] Creating/editing/deleting a member group restarts the load balancer. During the restart, existing connected sessions are preserved, but new sessions cannot be processed (for less than a second). Therefore, we recommend doing this at a time that does not impact service.
+
+> [Note] When a member group is deleted, any L7 rules that had that member group as an action target will have their action type changed to Block.
+
+### Member changes and details
+On the Load Balancer **View Details** screen, select the **Member Group** tab, and then select the desired member group to view the details of the member group and the status of the members in the member group.
+
+#### Add a member
+After you select a member group, you'll see the **Basic Info**, **Members**, and **Check Status** tabs at the bottom of the screen. Select the **Members** tab to enroll the desired instances or IP addresses as members. You can only add instances that belong to the VPC to which the load balancer is attached and to VPCs that are peered to that VPC.
+
+#### Deactivate a member
+You can temporarily exclude specific members from the service. Select the members you want to exclude, click the **Deactivate members** button, and then click **OK**.
+The excluded members' permissions will change to **X** and their member status will change to **ONLINE**.
+
+> [Note] The status of a member is determined by one of the following
+> 
+> | Status | Meaning |
 > |--|--|
-> | ACTIVE | A member instance has been connected and is operating normally |
-> | INACTIVE | A health check of the member instance is not being performed |
-> | ONLINE | A member instance has been disabled |
-> | OFFLINE | Failed to connect to a member instance<br> Contact the administrator.|
-
+> | ACTIVE | Member connection complete, working fine |
+> | INACTIVE | A member's health check is not being performed |
+> | ONLINE | Member is disabled|
+> | OFFLINE | Member connection failure <br> Contact your administrator.|
 
 #### Delete Members
 Instances that are no longer used may be deleted. Click Detach Instance of the instance to exclude, and it is deleted from the member of load balancer. Deletion from load balancer member does not mean its instance is also deleted.

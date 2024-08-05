@@ -450,7 +450,7 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | listeners | Body | Array | 리스너 정보 객체 목록 |
-| listeners.default_pool_id | Body | UUID | 리스너에 등록된 풀 ID |
+| listeners.default_pool_id | Body | UUID | 리스너에 등록된 기본 멤버 그룹 ID |
 | listeners.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
 | listeners.description | Body | String | 리스너 설명 |
 | listeners.name | Body | String | 리스너 이름 |
@@ -524,7 +524,7 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | listener | Body | Object | 리스너 정보 객체 |
-| listener.default_pool_id | Body | UUID | 리스너에 등록된 풀 ID |
+| listener.default_pool_id | Body | UUID | 리스너에 등록된 기본 멤버 그룹 ID |
 | listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
 | listener.description | Body | String | 리스너 설명 |
 | listener.name | Body | String | 리스너 이름 |
@@ -593,6 +593,7 @@ X-Auth-Token: {tokenId}
 | listener.protocol | Body | Enum | O | 리스너 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
 | listener.description | Body | String | - | 리스너 설명 |
 | listener.name | Body | String | - | 리스너 이름 |
+| listener.default_pool_id | Body | UUID | - | 리스너의 기본 멤버 그룹<br>지정하지 않으면 `사용 안 함`으로 생성 |
 | listener.loadbalancer_id | Body | UUID | O | 로드 밸런서 ID |
 | listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
@@ -613,6 +614,7 @@ X-Auth-Token: {tokenId}
     "description": "",
     "name": "",
     "loadbalancer_id":"7b4cef78-72b0-4c3c-9971-98763ef6284c",
+    "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
@@ -631,7 +633,7 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | listener | Body | Object | 리스너 정보 객체 |
-| listener.default_pool_id | Body | UUID | 리스너에 등록된 풀 ID |
+| listener.default_pool_id | Body | UUID | 리스너에 등록된 기본 멤버 그룹 ID |
 | listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
 | listener.description | Body | String | 리스너 설명 |
 | listener.name | Body | String | 리스너 이름 |
@@ -696,6 +698,7 @@ X-Auth-Token: {tokenId}
 | listener | Body | Object | O | 리스너 정보 객체 |
 | listener.description | Body | String | - | 리스너 설명 |
 | listener.name | Body | String| - | 리스너 이름 |
+| listener.default_pool_id | Body | UUID | - | 리스너의 기본 멤버 그룹<br>해당 값을 null으로 지정하면 `사용 안 함`으로 변경 |
 | listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | - | 리스너의 keepalive timeout |
@@ -711,6 +714,7 @@ X-Auth-Token: {tokenId}
     "proxy_protocol": false,
     "description": "",
     "name": "",
+    "default_pool_id": null,
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
@@ -728,7 +732,7 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
 | listener | Body | Object | 리스너 정보 객체 |
-| listener.default_pool_id | Body | UUID | 리스너에 등록된 풀 ID |
+| listener.default_pool_id | Body | UUID | 리스너에 등록된 기본 멤버 그룹 ID |
 | listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
 | listener.description | Body | String | 리스너 설명 |
 | listener.name | Body | String | 리스너 이름 |

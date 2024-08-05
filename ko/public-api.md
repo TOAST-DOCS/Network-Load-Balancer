@@ -755,7 +755,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
-    "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
+    "default_pool_id": null,
     "protocol": "TERMINATED_HTTPS",
     "description": "",
     "name": "",

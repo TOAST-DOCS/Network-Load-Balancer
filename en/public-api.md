@@ -7,7 +7,7 @@ For Load Balancer, Listener, Pool, Health Monitor, and Member API, use `network`
 | Type | Region | Endpoint |
 |---|---|---|
 | network | Korea(Pangyo) Region<br>Korea(Pyeongchon) Region<br>Japan(Tokyo) Region<br>USA(California) Region | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com<br>https://us1-api-network-infrastructure.nhncloudservice.com |
-| key-manager | Korea(Pangyo) Region<br>Korea(Pyeongchon) Region<br>Japan Region<br>USA Region | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com<br>https://us1-api-key-manager-infrastructure.nhncloudservice.com |
+| key-manager | Korea(Pangyo) Region<br>Korea(Pyeongchon) Region<br>Japan(Tokyo) Region<br>USA(California) Region | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com<br>https://us1-api-key-manager-infrastructure.nhncloudservice.com |
 
 
 In the API response, you may find fields that are not specified in the guide. Refrain from using them because such fields are only for the NHN Cloud internal usage and might be changed without prior notice.

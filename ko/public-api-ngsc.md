@@ -1,17 +1,13 @@
 ## Network > Load Balancer > API v2 가이드
 
-API를 사용하려면 API 엔드포인트와 토큰 등이 필요합니다. [API 사용 준비](/Compute/Compute/ko/identity-api-gov/)를 참고하여 API 사용에 필요한 정보를 준비합니다.
+API를 사용하려면 API 엔드포인트와 토큰 등이 필요합니다. [API 사용 준비](/Compute/Compute/ko/identity-api-ngsc/)를 참고하여 API 사용에 필요한 정보를 준비합니다.
 
 로드 밸런서, 리스너, 풀, 헬스 모니터, 멤버 API는 `network` 타입 엔드포인트를 이용합니다. 시크릿, 시크릿 컨테이너 API는 `key-manager` 타입 엔드포인트를 이용해 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
-| network | 한국(판교) 리전 | https://kr1-api-network-infrastructure.gov-nhncloudservice.com |
-| network | 한국(평촌) 리전 | https://kr2-api-network-infrastructure.gov-nhncloudservice.com |
-| key-manager | 한국(판교) 리전 | https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com |
-| key-manager | 한국(평촌) 리전 | https://kr2-api-key-manager-infrastructure.gov-nhncloudservice.com |
-
-
+| network | 한국(판교) 리전 | https://kr1-api-network-infrastructure.gncloud.go.kr |
+| key-manager | 한국(판교) 리전 | https://kr1-api-key-manager-infrastructure.gncloud.go.kr |
 API 응답에 가이드에 명시되지 않은 필드가 나타날 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용되며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
 
 ## 로드 밸런서
@@ -409,7 +405,7 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|
 | listeners | Body | Array | 리스너 정보 객체 목록 |
 | listeners.default_pool_id | Body | UUID | 리스너에 등록된 기본 멤버 그룹(풀) ID |
-| listeners.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listeners.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
 | listeners.description | Body | String | 리스너 설명 |
 | listeners.name | Body | String | 리스너 이름 |
 | listeners.loadbalancers | Body | Array | 리스너가 등록된 로드 밸런서 객 목록 |
@@ -447,7 +443,7 @@ X-Auth-Token: {tokenId}
       "keepalive_timeout": 300,
       "tls_version": "TLSv1.0",
       "sni_container_ids": [],
-      "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+      "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
       "sni_container_refs": [],
       "protocol_port": 443,
       "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -520,7 +516,7 @@ X-Auth-Token: {tokenId}
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -549,10 +545,9 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | listener | Body | Object | O | 리스너 정보 객체 |
 | listener.protocol | Body | Enum | O | 리스너 프로토콜<br>`TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listener.default_pool_id | Body | UUID | - | 리스너에 등록된 기본 멤버 그룹(풀) ID<br>지정하지 않으면 `사용 안 함`으로 생성 |
 | listener.description | Body | String | - | 리스너 설명 |
 | listener.name | Body | String | - | 리스너 이름 |
-| listener.default_pool_id | Body | UUID | - | 리스너에 등록된 기본 멤버 그룹(풀) ID<br>지정하지 않으면 `사용 안 함`으로 생성 |
-
 | listener.loadbalancer_id | Body | UUID | O | 로드 밸런서 ID |
 | listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
@@ -578,7 +573,7 @@ X-Auth-Token: {tokenId}
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443
   }
@@ -629,7 +624,7 @@ X-Auth-Token: {tokenId}
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -658,7 +653,6 @@ X-Auth-Token: {tokenId}
 | listener.description | Body | String | - | 리스너 설명 |
 | listener.name | Body | String| - | 리스너 이름 |
 | listener.default_pool_id | Body | UUID | - | 리스너에 등록된 기본 멤버 그룹(풀) ID<br>해당 값을 null로 지정하면 `사용 안 함`으로 변경 |
-
 | listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | - | 리스너의 keepalive timeout |
@@ -679,7 +673,7 @@ X-Auth-Token: {tokenId}
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": []
   }
 }
@@ -730,7 +724,7 @@ X-Auth-Token: {tokenId}
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -809,8 +803,6 @@ X-Auth-Token: {tokenId}
 | pools.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pools.healthmonitor_id | Body | String | 헬스 모니터 ID |
-| pools.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
-| pools.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pools.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pools.listeners.id | Body | String | 리스너 ID |
 | pools.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -833,11 +825,6 @@ X-Auth-Token: {tokenId}
       "member_port": 80,
       "session_persistence": null,
       "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
-      "loadbalancers": [
-        {
-          "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
-        }
-      ],
       "listeners": [
         {
           "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -891,8 +878,6 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pool.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.healthmonitor_id | Body | UUID | 헬스 모니터 ID |
-| pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
-| pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -914,11 +899,6 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
-    "loadbalancers": [
-      {
-        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
-      }
-    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -957,8 +937,7 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | pool | Body | Object | O | 풀 정보 객체 |
-| pool.loadbalancer_id | Body | UUID | - | 풀이 등록될 로드밸런서 ID, 로드밸런서 ID나 리스너 ID 중 하나는 필수로 입력되어야 합니다. |
-| pool.listener_id | Body | UUID | - | 풀이 등록될 리스너 ID, 로드밸런서 ID나 리스너 ID 중 하나는 필수로 입력되어야 합니다. |
+| pool.listener_id | Body | UUID | O | 풀이 등록될 리스너 ID |
 | pool.lb_algorithm | Body | Enum | O | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pool.protocol | Body | Enum | O | 멤버의 프로토콜 |
 | pool.description | Body | String | - | 풀 설명 |
@@ -1004,8 +983,6 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pool.healthmonitor_id | Body | String | 헬스 모니터 ID |
-| pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
-| pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -1027,11 +1004,6 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
-    "loadbalancers": [
-      {
-        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
-      }
-    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -1112,8 +1084,6 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.healthmonitor_id | Body | UUID | 헬스 모니터 ID |
-| pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
-| pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -1135,11 +1105,6 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
-    "loadbalancers": [
-      {
-        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
-      }
-    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -1181,7 +1146,6 @@ X-Auth-Token: {tokenId}
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
-
 
 
 
@@ -2482,15 +2446,13 @@ X-Auth-Token: {tokenId}
 
 
 
-
 ## 시크릿
 
-시크릿 API는 `key-manager` 타입 엔드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
+시크릿 API는 `key-manager` 타입 앤드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
-| key-manager | 한국(판교) 리전 | https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com |
-| key-manager | 한국(평촌) 리전 | https://kr2-api-key-manager-infrastructure.gov-nhncloudservice.com |
+| key-manager | 한국(판교) 리전 | https://kr1-api-key-manager-infrastructure.gncloud.go.kr |
 
 API 응답에 가이드에 명시되지 않은 필드가 노출될 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용되며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
 
@@ -2556,7 +2518,7 @@ X-Auth-Token: {tokenId}
       "expiration": null,
       "mode": null,
       "name": "certificate",
-      "secret_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+      "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
       "secret_type": "certificate",
       "status": "ACTIVE",
       "updated": "2019-12-17T08:50:39"
@@ -2572,15 +2534,15 @@ X-Auth-Token: {tokenId}
       "expiration": null,
       "mode": null,
       "name": "private_key",
-      "secret_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+      "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
       "secret_type": "private",
       "status": "ACTIVE",
       "updated": "2019-12-17T08:50:39"
     }
   ],
   "total": 10,
-  "next": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/secrets?limit=1&offset=2",
-  "previous": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/secrets?limit=1&offset=0"
+  "next": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets?limit=1&offset=2",
+  "previous": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets?limit=1&offset=0"
 }
 
 ```
@@ -2633,7 +2595,7 @@ X-Auth-Token: {tokenId}
   "name": "certificate",
   "algorithm": null,
   "created": "2019-12-17T08:50:39",
-  "secret_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+  "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
   "content_types": {
     "default": "text/plain"
   },
@@ -2721,7 +2683,7 @@ base64로 페이로드 전송
 
 ```json
 {
-    "secret_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/secrets/9b2dcb7b-51fe-4408-a2bb-23da731758a6"
+    "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/9b2dcb7b-51fe-4408-a2bb-23da731758a6"
 }
 ```
 </p>
@@ -2816,12 +2778,11 @@ X-Auth-Token: {tokenId}
 
 ## 시크릿 컨테이너
 
-시크릿 컨테이너 API는 `key-manager` 타입 엔드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
+시크릿 컨테이너 API는 `key-manager` 타입 앤드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
-| key-manager | 한국(판교) 리전 | https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com |
-| key-manager | 한국(평촌) 리전 | https://kr2-api-key-manager-infrastructure.gov-nhncloudservice.com |
+| key-manager | 한국(판교) 리전 | https://kr1-api-key-manager-infrastructure.gncloud.go.kr |
 
 API 응답에 가이드에 명시되지 않은 필드가 노출될 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용되며 사전 공지없이 변경될 수 있으므로 사용하지 않습니다.
 
@@ -2874,8 +2835,8 @@ X-Auth-Token: {tokenId}
 ```json
 {
   "total": 10,
-  "previous": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers?limit=1&offset=0",
-  "next": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers?limit=1&offset=2",
+  "previous": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers?limit=1&offset=0",
+  "next": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers?limit=1&offset=2",
   "containers": [
     {
       "status": "ACTIVE",
@@ -2883,15 +2844,15 @@ X-Auth-Token: {tokenId}
       "name": "The Certificate",
       "consumers": [],
       "created": "2019-12-17T08:50:39",
-      "container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
+      "container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
       "creator_id": "1da4ce9f59ed4f6487c9be39fa792be4",
       "secret_refs": [
         {
-          "secret_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+          "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
           "name": "certificate"
         },
         {
-          "secret_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+          "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
           "name": "private_key"
         }
       ],
@@ -2948,15 +2909,15 @@ X-Auth-Token: {tokenId}
     "name": "The Certificate",
     "consumers": [],
     "created": "2019-12-17T08:50:39",
-    "container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
+    "container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
     "creator_id": "1da4ce9f59ed4f6487c9be39fa792be4",
     "secret_refs": [
         {
-            "secret_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+            "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
             "name": "private_key"
         },
         {
-            "secret_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+            "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
             "name": "certificate"
         }
     ],
@@ -2995,7 +2956,7 @@ X-Auth-Token: {tokenId}
     "secret_refs": [
         {
             "name": "private_key",
-            "secret_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/cf11edcf-f475-47f3-92c3-29de8bcdd639"
+            "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/cf11edcf-f475-47f3-92c3-29de8bcdd639"
         }
     ]
 }
@@ -3013,7 +2974,7 @@ X-Auth-Token: {tokenId}
 
 ```json
 {
-    "container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/ea2e90fc-1ba2-412b-b7a0-61da4402bf58"
+    "container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/ea2e90fc-1ba2-412b-b7a0-61da4402bf58"
 }
 ```
 </p>

@@ -593,7 +593,7 @@ X-Auth-Token: {tokenId}
 | listener.protocol | Body | Enum | O | 리스너 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
 | listener.description | Body | String | - | 리스너 설명 |
 | listener.name | Body | String | - | 리스너 이름 |
-| listener.default_pool_id | Body | UUID | - | 리스너에 등록된 기본 멤버 그룹(풀)<br>지정하지 않으면 `사용 안 함`으로 생성 |
+| listener.default_pool_id | Body | UUID | - | 리스너에 등록된 기본 멤버 그룹(풀) ID<br>지정하지 않으면 `사용 안 함`으로 생성 |
 | listener.loadbalancer_id | Body | UUID | O | 로드 밸런서 ID |
 | listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |

@@ -8,7 +8,8 @@ API를 사용하려면 API 엔드포인트와 토큰 등이 필요합니다. [AP
 |---|---|---|
 | network | 한국(판교) 리전 | https://kr1-api-network-infrastructure.gncloud.go.kr |
 | key-manager | 한국(판교) 리전 | https://kr1-api-key-manager-infrastructure.gncloud.go.kr |
-API 응답에 가이드에 명시되지 않은 필드가 나타날 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용되며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
+
+API 응답에 가이드에 명시되지 않은 필드가 나타날 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용하며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
 
 ## 로드 밸런서
 

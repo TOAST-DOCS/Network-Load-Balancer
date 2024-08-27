@@ -6,8 +6,8 @@ APIを使用するにはAPIエンドポイントとトークンなどが必要�
 
 | タイプ | リージョン | エンドポイント |
 |---|---|---|
-| network | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com |
-| key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com |
+| network | 韓国(パンギョ)リージョン<br>韓国(ピョンチョン)リージョン<br>日本(東京)リージョン<br>米国(カリフォルニア)リージョン | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com<br>https://us1-api-network-infrastructure.nhncloudservice.com |
+| key-manager | 韓国(パンギョ)リージョン<br>韓国(ピョンチョン)リージョン<br>日本(東京)リージョン<br>米国(カリフォルニア)リージョン | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com<br>https://us1-api-network-infrastructure.nhncloudservice.com |
 
 
 APIレスポンスにガイドに明示されていないフィールドが表示される場合があります。このようなフィールドはNHN Cloud内部用で使用され、事前の告知なく変更される場合があるため使用しません。
@@ -431,7 +431,7 @@ X-Auth-Token: {tokenId}
 | 名前 | 種類 | 形式 | 必須 | 説明 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | トークンID |
-| default_pool_id | Query | UUID | - | リスナーに登録されたプールID |
+| default_pool_id | Query | UUID | - | リスナーに登録された基本メンバーグループ(プール) ID |
 | protocol | Query | Enum | - | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のうちいずれか1つ |
 | description | Query | String | - | リスナーの説明 |
 | name | Query | String | - | リスナーの名前 |
@@ -447,7 +447,7 @@ X-Auth-Token: {tokenId}
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
 | listeners | Body | Array | リスナー情報オブジェクトリスト |
-| listeners.default_pool_id | Body | UUID | リスナーに登録されたプールID |
+| listeners.default_pool_id | Body | UUID | リスナーに登録された基本メンバーグループ(プール) ID |
 | listeners.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のうちいずれか1つ |
 | listeners.description | Body | String | リスナーの説明 |
 | listeners.name | Body | String | リスナーの名前 |
@@ -521,7 +521,7 @@ X-Auth-Token: {tokenId}
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
 | listener | Body | Object | リスナー情報オブジェクト |
-| listener.default_pool_id | Body | UUID | リスナーに登録されたプールID |
+| listener.default_pool_id | Body | UUID | リスナーに登録された基本メンバーグループ(プール) ID |
 | listener.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のうちいずれか1つ |
 | listener.description | Body | String | リスナーの説明 |
 | listener.name | Body | String | リスナーの名前 |
@@ -590,6 +590,7 @@ X-Auth-Token: {tokenId}
 | listener.protocol | Body | Enum | O | リスナープロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のうちいずれか1つ |
 | listener.description | Body | String | - | リスナーの説明 |
 | listener.name | Body | String | - | リスナーの名前 |
+| listener.default_pool_id | Body | UUID | - | リスナーに登録された基本メンバーグループ(プール) ID<br>指定しない場合は`使用しない`で作成 |
 | listener.loadbalancer_id | Body | UUID | O | ロードバランサーのID |
 | listener.admin_state_up | Body | Boolean | - | 管理者制御状態 |
 | listener.connection_limit | Body |  Integer | - | リスナーのconnection limit |
@@ -610,6 +611,7 @@ X-Auth-Token: {tokenId}
     "description": "",
     "name": "",
     "loadbalancer_id":"7b4cef78-72b0-4c3c-9971-98763ef6284c",
+    "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",    
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
@@ -628,7 +630,7 @@ X-Auth-Token: {tokenId}
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
 | listener | Body | Object | リスナー情報オブジェクト |
-| listener.default_pool_id | Body | UUID | リスナーに登録されたプールID |
+| listener.default_pool_id | Body | UUID | リスナーに登録された基本メンバーグループ(プール) ID |
 | listener.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のうちいずれか1つ |
 | listener.description | Body | String | リスナーの説明 |
 | listener.name | Body | String | リスナーの名前 |
@@ -693,6 +695,7 @@ X-Auth-Token: {tokenId}
 | listener | Body | Object | O | リスナー情報オブジェクト |
 | listener.description | Body | String | - | リスナーの説明 |
 | listener.name | Body | String| - | リスナーの名前 |
+| listener.default_pool_id | Body | UUID | - | リスナーに登録された基本メンバーグループ(プール) ID<br>該当値をnullに指定すると`使用しない`に変更 |
 | listener.admin_state_up | Body | Boolean | - | 管理者制御状態 |
 | listener.connection_limit | Body |  Integer | - | リスナーのconnection limit |
 | listener.keepalive_timeout | Body | Integer | - | リスナーのkeepalive timeout |
@@ -709,6 +712,7 @@ X-Auth-Token: {tokenId}
     "description": "",
     "name": "",
     "admin_state_up": true,
+    "default_pool_id": null,    
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
@@ -725,7 +729,7 @@ X-Auth-Token: {tokenId}
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
 | listener | Body | Object | リスナー情報オブジェクト |
-| listener.default_pool_id | Body | UUID | リスナーに登録されたプールID |
+| listener.default_pool_id | Body | UUID | リスナーに登録された基本メンバーグループ(プール) ID |
 | listener.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のうちいずれか1つ |
 | listener.description | Body | String | リスナーの説明 |
 | listener.name | Body | String | リスナーの名前 |
@@ -748,7 +752,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
-    "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
+    "default_pool_id": null,
     "protocol": "TERMINATED_HTTPS",
     "description": "",
     "name": "",
@@ -2535,7 +2539,7 @@ X-Auth-Token: {tokenId}
 
 | タイプ | リージョン | エンドポイント |
 |---|---|---|
-| key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com |
+| key-manager | 韓国(パンギョ)リージョン<br>韓国(ピョンチョン)リージョン<br>日本リージョン<br>米国リージョン |https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com<br>https://us1-api-key-manager-infrastructure.nhncloudservice.com |
 
 APIレスポンスには、ガイドに明示されていないフィールドが表示される場合があります。これらのフィールドはNHN Cloud内部用で使用され、事前の告知なく変更される場合があるため使用しません。
 
@@ -2865,7 +2869,7 @@ X-Auth-Token: {tokenId}
 
 | タイプ | リージョン | エンドポイント |
 |---|---|---|
-| key-manager | 韓国(パンギョ)リージョン<br>日本リージョン | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com |
+| key-manager | 韓国(パンギョ)リージョン<br>韓国(ピョンチョン)リージョン<br>日本リージョン<br>米国リージョン |https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com<br>https://us1-api-key-manager-infrastructure.nhncloudservice.com |
 
 APIレスポンスには、ガイドに明示されていないフィールドが表示される場合があります。これらのフィールドはNHN Cloud内部用で使用され、事前の告知なく変更される場合があるため使用しません。
 

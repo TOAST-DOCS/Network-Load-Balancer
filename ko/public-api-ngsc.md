@@ -1,14 +1,13 @@
 ## Network > Load Balancer > API v2 가이드
 
-API를 사용하려면 API 엔드포인트와 토큰 등이 필요합니다. [API 사용 준비](/Compute/Compute/ko/identity-api/)를 참고하여 API 사용에 필요한 정보를 준비합니다.
+API를 사용하려면 API 엔드포인트와 토큰 등이 필요합니다. [API 사용 준비](/Compute/Compute/ko/identity-api-ngsc/)를 참고하여 API 사용에 필요한 정보를 준비합니다.
 
 로드 밸런서, 리스너, 풀, 헬스 모니터, 멤버 API는 `network` 타입 엔드포인트를 이용합니다. 시크릿, 시크릿 컨테이너 API는 `key-manager` 타입 엔드포인트를 이용해 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
-| network | 한국(판교) 리전<br>한국(평촌) 리전<br>일본(도쿄) 리전<br>미국(캘리포니아) 리전 | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com<br>https://us1-api-network-infrastructure.nhncloudservice.com |
-| key-manager | 한국(판교) 리전<br>한국(평촌) 리전<br>일본(도쿄) 리전<br>미국(캘리포니아) 리전 |https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com<br>https://us1-api-key-manager-infrastructure.nhncloudservice.com |
-
+| network | 한국(판교) 리전 | https://kr1-api-network-infrastructure.gncloud.go.kr |
+| key-manager | 한국(판교) 리전 | https://kr1-api-key-manager-infrastructure.gncloud.go.kr |
 
 API 응답에 가이드에 명시되지 않은 필드가 나타날 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용하며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
 
@@ -35,8 +34,6 @@ X-Auth-Token: {tokenId}
 | vip_port_id | Query | UUID | - | 조회할 로드 밸런서의 포트 ID |
 | vip_subnet_id | Query | UUID | - | 조회할 로드 밸런서의 서브넷 ID |
 | operating_status | Query | Enum | - | 조회할 로드 밸런서의 운영 상태 |
-| loadbalancer_type | Query | String | - | 조회할 로드 밸런서의 타입<br>`shared`/`dedicated` 중 하나 |
-
 
 #### 응답
 
@@ -56,13 +53,8 @@ X-Auth-Token: {tokenId}
 | loadbalancers.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancers.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancers.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancers.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
-| loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancers.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
-| loadbalancers.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
 
 <details><summary>예시</summary>
-
 ```json
 {
   "loadbalancers": [
@@ -90,23 +82,14 @@ X-Auth-Token: {tokenId}
       "vip_subnet_id": "dcb31578-1e16-407f-a117-a716795fabc4",
       "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
       "operating_status": "ONLINE",
-      "admin_state_up": true,
-      "ipacl_groups": [
-        {
-         "ipacl_group_id": "79ebf206-3463-4df1-a54c-4fc939f8c26c"
-         },
-         {
-         "ipacl_group_id": "947030cc-635f-42d3-b745-770cf7b562fd"
-         }
-       ],
-       "ipacl_group_action": "DENY"
+      "admin_state_up": true
     }
   ]
 }
 ```
 </details>
 
----
+
 ### 로드 밸런서 보기
 
 ```
@@ -140,14 +123,9 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
-| loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
 
 
 <details><summary>예시</summary>
-
 ```json
 {
   "loadbalancer": {
@@ -174,21 +152,11 @@ X-Auth-Token: {tokenId}
     "vip_subnet_id": "dcb31578-1e16-407f-a117-a716795fabc4",
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
-    "admin_state_up": true,
-    "ipacl_groups": [
-        {
-         "ipacl_group_id": "79ebf206-3463-4df1-a54c-4fc939f8c26c"
-         },
-         {
-         "ipacl_group_id": "947030cc-635f-42d3-b745-770cf7b562fd"
-         }
-     ],
-     "ipacl_group_action": "DENY
+    "admin_state_up": true
   }
 }
 ```
 </details>
-
 ---
 ### 로드 밸런서 생성하기
 
@@ -208,7 +176,6 @@ X-Auth-Token: {tokenId}
 | loadbalancer.vip_subnet_id | Body | UUID | O | 로드 밸런서의 서브넷 ID |
 | loadbalancer.vip_address | Body | String | - | 로드 밸런서의 IP |
 | loadbalancer.admin_state_up | Body | Boolean | - | 로드 밸런서 관리자 제어 상태로 생략하면 `true`로 설정됨 |
-| loadbalancer.loadbalancer_type | Body | String | - | 로드 밸런서 타입으로, `shared`/`dedicated` 사용 가능<br> 생략할 경우 `shared`로 설정됨 |
 
 
 
@@ -246,10 +213,6 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
-| loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -280,9 +243,7 @@ X-Auth-Token: {tokenId}
     "vip_subnet_id": "dcb31578-1e16-407f-a117-a716795fabc4",
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
-    "admin_state_up": true,
-    "ipacl_groups": [],
-    "ipacl_group_action": null
+    "admin_state_up": true
   }
 }
 ```
@@ -338,10 +299,6 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
-| loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
-| loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -373,8 +330,6 @@ X-Auth-Token: {tokenId}
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
     "admin_state_up": true
-    "ipacl_groups": [],
-    "ipacl_group_action": null
   }
 }
 ```
@@ -451,7 +406,7 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|
 | listeners | Body | Array | 리스너 정보 객체 목록 |
 | listeners.default_pool_id | Body | UUID | 리스너에 등록된 기본 멤버 그룹(풀) ID |
-| listeners.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listeners.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
 | listeners.description | Body | String | 리스너 설명 |
 | listeners.name | Body | String | 리스너 이름 |
 | listeners.loadbalancers | Body | Array | 리스너가 등록된 로드 밸런서 객 목록 |
@@ -489,7 +444,7 @@ X-Auth-Token: {tokenId}
       "keepalive_timeout": 300,
       "tls_version": "TLSv1.0",
       "sni_container_ids": [],
-      "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+      "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
       "sni_container_refs": [],
       "protocol_port": 443,
       "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -562,7 +517,7 @@ X-Auth-Token: {tokenId}
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -590,10 +545,10 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | listener | Body | Object | O | 리스너 정보 객체 |
-| listener.protocol | Body | Enum | O | 리스너 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listener.protocol | Body | Enum | O | 리스너 프로토콜<br>`TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listener.default_pool_id | Body | UUID | - | 리스너에 등록된 기본 멤버 그룹(풀) ID<br>지정하지 않으면 `사용 안 함`으로 생성 |
 | listener.description | Body | String | - | 리스너 설명 |
 | listener.name | Body | String | - | 리스너 이름 |
-| listener.default_pool_id | Body | UUID | - | 리스너에 등록된 기본 멤버 그룹(풀) ID<br>지정하지 않으면 `사용 안 함`으로 생성 |
 | listener.loadbalancer_id | Body | UUID | O | 로드 밸런서 ID |
 | listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
@@ -619,7 +574,7 @@ X-Auth-Token: {tokenId}
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443
   }
@@ -670,7 +625,7 @@ X-Auth-Token: {tokenId}
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.cloud.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -719,7 +674,7 @@ X-Auth-Token: {tokenId}
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.cloud.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": []
   }
 }
@@ -770,7 +725,7 @@ X-Auth-Token: {tokenId}
     "keepalive_timeout": 300,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.cloud.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -849,8 +804,6 @@ X-Auth-Token: {tokenId}
 | pools.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pools.healthmonitor_id | Body | String | 헬스 모니터 ID |
-| pools.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
-| pools.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pools.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pools.listeners.id | Body | String | 리스너 ID |
 | pools.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -873,11 +826,6 @@ X-Auth-Token: {tokenId}
       "member_port": 80,
       "session_persistence": null,
       "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
-      "loadbalancers": [
-        {
-          "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
-        }
-      ],
       "listeners": [
         {
           "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -931,8 +879,6 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pool.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.healthmonitor_id | Body | UUID | 헬스 모니터 ID |
-| pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
-| pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -954,11 +900,6 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
-    "loadbalancers": [
-      {
-        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
-      }
-    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -997,8 +938,7 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | pool | Body | Object | O | 풀 정보 객체 |
-| pool.loadbalancer_id | Body | UUID | - | 풀이 등록될 로드밸런서 ID, 로드밸런서 ID나 리스너 ID 중 하나는 필수로 입력되어야 합니다. |
-| pool.listener_id | Body | UUID | - | 풀이 등록될 리스너 ID, 로드밸런서 ID나 리스너 ID 중 하나는 필수로 입력되어야 합니다. |
+| pool.listener_id | Body | UUID | O | 풀이 등록될 리스너 ID |
 | pool.lb_algorithm | Body | Enum | O | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pool.protocol | Body | Enum | O | 멤버의 프로토콜 |
 | pool.description | Body | String | - | 풀 설명 |
@@ -1044,8 +984,6 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pool.healthmonitor_id | Body | String | 헬스 모니터 ID |
-| pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
-| pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -1067,11 +1005,6 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
-    "loadbalancers": [
-      {
-        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
-      }
-    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -1152,8 +1085,6 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.healthmonitor_id | Body | UUID | 헬스 모니터 ID |
-| pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
-| pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
 | pool.listeners.id | Body | UUID | 리스너 ID |
 | pool.members | Body | Array | 풀에 등록된 멤버 객체 목록 |
@@ -1175,11 +1106,6 @@ X-Auth-Token: {tokenId}
     "member_port": 80,
     "session_persistence": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
-    "loadbalancers": [
-      {
-        "id": "2997cb9d-9c31-475d-b679-040569c9e27b"
-      }
-    ],
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20"
@@ -1295,7 +1221,6 @@ X-Auth-Token: {tokenId}
 | healthmonitors.host_header | Body | String | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
 
-
 <details><summary>예시</summary>
 <p>
 
@@ -1361,7 +1286,6 @@ X-Auth-Token: {tokenId}
 | healthmonitors.host_header | Body | String | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
 
-
 <details><summary>예시</summary>
 <p>
 
@@ -1421,7 +1345,6 @@ X-Auth-Token: {tokenId}
 
 
 
-
 <details><summary>예시</summary>
 <p>
 
@@ -1461,7 +1384,6 @@ X-Auth-Token: {tokenId}
 | healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 | healthmonitor.id | Body | UUID | 헬스 모니터 ID |
 | healthmonitors.host_header | Body | String | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
-
 
 
 <details><summary>예시</summary>
@@ -1515,7 +1437,6 @@ X-Auth-Token: {tokenId}
 | healthmonitor.timeout | Body | Integer | - | 상태 확인 응답 대기 시간(초) |
 | healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitors.host_header | Body | String | - | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
-
 
 <details><summary>예시</summary>
 <p>
@@ -1918,15 +1839,6 @@ X-Auth-Token: {tokenId}
 
 
 
-
-
-
-
-
-
-
-
-
 ## L7 정책
 
 ### L7 정책 목록 보기
@@ -2279,7 +2191,7 @@ X-Auth-Token: {tokenId}
 | rules.id | Body | UUID | L7 룰 ID |
 | rules.admin_state_up | Body | Boolean | L7 룰 관리자 제어 상태 |
 | rules.invert | Body | Boolean | 매칭 결과에 대한 invert 설정 |
-| rules.key | Body | String | L7 룰 매칭 시 사용되는 키<br> `COOKIE`/`HEADER`인 경우에만 적용 |
+| rules.key | Body | String | L7 룰 매칭 시 사용되는 키<br> `COOKIE` / `HEADER`인 경우에만 적용 |
 | rules.value | Body | String | L7 룰 매칭 시 사용되는 값 |
 | rules.type | Query | Enum | L7 룰 타입 <br> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH` 중 하나 |
 | rules.compare_type | Query | Enum | L7 룰 비교 방식<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX` 중 하나 |
@@ -2535,16 +2447,13 @@ X-Auth-Token: {tokenId}
 
 
 
-
-
-
 ## 시크릿
 
-시크릿 API는 `key-manager` 타입 엔드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
+시크릿 API는 `key-manager` 타입 앤드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
-| key-manager | 한국(판교) 리전<br>한국(평촌) 리전<br>일본 리전<br>미국 리전 |https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com<br>https://us1-api-key-manager-infrastructure.nhncloudservice.com |
+| key-manager | 한국(판교) 리전 | https://kr1-api-key-manager-infrastructure.gncloud.go.kr |
 
 API 응답에 가이드에 명시되지 않은 필드가 노출될 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용되며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
 
@@ -2610,7 +2519,7 @@ X-Auth-Token: {tokenId}
       "expiration": null,
       "mode": null,
       "name": "certificate",
-      "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+      "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
       "secret_type": "certificate",
       "status": "ACTIVE",
       "updated": "2019-12-17T08:50:39"
@@ -2626,15 +2535,15 @@ X-Auth-Token: {tokenId}
       "expiration": null,
       "mode": null,
       "name": "private_key",
-      "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+      "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
       "secret_type": "private",
       "status": "ACTIVE",
       "updated": "2019-12-17T08:50:39"
     }
   ],
   "total": 10,
-  "next": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets?limit=1&offset=2",
-  "previous": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets?limit=1&offset=0"
+  "next": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets?limit=1&offset=2",
+  "previous": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets?limit=1&offset=0"
 }
 
 ```
@@ -2687,7 +2596,7 @@ X-Auth-Token: {tokenId}
   "name": "certificate",
   "algorithm": null,
   "created": "2019-12-17T08:50:39",
-  "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+  "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
   "content_types": {
     "default": "text/plain"
   },
@@ -2775,7 +2684,7 @@ base64로 페이로드 전송
 
 ```json
 {
-    "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/9b2dcb7b-51fe-4408-a2bb-23da731758a6"
+    "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/9b2dcb7b-51fe-4408-a2bb-23da731758a6"
 }
 ```
 </p>
@@ -2870,11 +2779,11 @@ X-Auth-Token: {tokenId}
 
 ## 시크릿 컨테이너
 
-시크릿 컨테이너 API는 `key-manager` 타입 엔드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
+시크릿 컨테이너 API는 `key-manager` 타입 앤드포인트를 이용하여 호출합니다. 정확한 엔드포인트는 토큰 발급 응답의 `serviceCatalog`를 참조합니다.
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
-| key-manager | 한국(판교) 리전<br>한국(평촌) 리전<br>일본 리전<br>미국 리전 |https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com<br>https://us1-api-key-manager-infrastructure.nhncloudservice.com |
+| key-manager | 한국(판교) 리전 | https://kr1-api-key-manager-infrastructure.gncloud.go.kr |
 
 API 응답에 가이드에 명시되지 않은 필드가 노출될 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용되며 사전 공지없이 변경될 수 있으므로 사용하지 않습니다.
 
@@ -2927,8 +2836,8 @@ X-Auth-Token: {tokenId}
 ```json
 {
   "total": 10,
-  "previous": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers?limit=1&offset=0",
-  "next": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers?limit=1&offset=2",
+  "previous": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers?limit=1&offset=0",
+  "next": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers?limit=1&offset=2",
   "containers": [
     {
       "status": "ACTIVE",
@@ -2936,15 +2845,15 @@ X-Auth-Token: {tokenId}
       "name": "The Certificate",
       "consumers": [],
       "created": "2019-12-17T08:50:39",
-      "container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
+      "container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
       "creator_id": "1da4ce9f59ed4f6487c9be39fa792be4",
       "secret_refs": [
         {
-          "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+          "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
           "name": "certificate"
         },
         {
-          "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+          "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
           "name": "private_key"
         }
       ],
@@ -3001,15 +2910,15 @@ X-Auth-Token: {tokenId}
     "name": "The Certificate",
     "consumers": [],
     "created": "2019-12-17T08:50:39",
-    "container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
+    "container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/2d1dcf4d-2e92-475e-bde7-e469880be924",
     "creator_id": "1da4ce9f59ed4f6487c9be39fa792be4",
     "secret_refs": [
         {
-            "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
+            "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/36f88d4c-16f0-4db2-80bc-4dda0125589b",
             "name": "private_key"
         },
         {
-            "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
+            "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/secrets/adffcd66-ff63-4c66-8139-2f254e63aef5",
             "name": "certificate"
         }
     ],
@@ -3048,7 +2957,7 @@ X-Auth-Token: {tokenId}
     "secret_refs": [
         {
             "name": "private_key",
-            "secret_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/cf11edcf-f475-47f3-92c3-29de8bcdd639"
+            "secret_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/cf11edcf-f475-47f3-92c3-29de8bcdd639"
         }
     ]
 }
@@ -3066,7 +2975,7 @@ X-Auth-Token: {tokenId}
 
 ```json
 {
-    "container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/ea2e90fc-1ba2-412b-b7a0-61da4402bf58"
+    "container_ref": "https://kr1-api-key-manager-infrastructure.gncloud.go.kr/v1/containers/ea2e90fc-1ba2-412b-b7a0-61da4402bf58"
 }
 ```
 </p>
@@ -3092,12 +3001,6 @@ X-Auth-Token: {tokenId}
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
-
-
-
-
-
-
 
 
 
@@ -3157,8 +3060,8 @@ X-Auth-Token: {tokenId}
 | ipacl_groups | Body | Array | IP ACL 그룹 객체 목록 |
 | ipacl_groups.ipacl_target_count | Body | String | IP ACL 그룹에 포함된 타깃 개수 |
 | ipacl_groups.description | Body | String | IP ACL 그룹 설명 |
-| ipacl_groups.loadbalancers | Body | Object | IP ACL 그룹이 적용된 로드 밸런서 객체 목록 |
-| ipacl_groups.loadbalancers.loadbalancer_id | Body | String | 로드 밸런서 ID |
+| ipacl_groups.loadbalancers | Body | Object | IP ACL 그룹이 적용된 로드밸런서 객체 목록 |
+| ipacl_groups.loadbalancers.loadbalancer_id | Body | String | 로드밸런서 ID |
 | ipacl_groups.tenant_id | Body | String | 테넌트 ID |
 | ipacl_groups.action | Body | Enum | IP 접근제어 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
 | ipacl_groups.id | Body | UUID | IP ACL 그룹 ID |
@@ -3214,8 +3117,8 @@ X-Auth-Token: {tokenId}
 | ipacl_group | Body | Object | IP ACL 그룹 객체 |
 | ipacl_group.ipacl_target_count | Body | String | IP ACL 그룹에 포함된 타깃 개수 |
 | ipacl_group.description | Body | String | IP ACL 그룹 설명 |
-| ipacl_group.loadbalancers | Body | Object | IP ACL 그룹이 적용된 로드 밸런서 객체 목록 |
-| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드 밸런서 ID |
+| ipacl_group.loadbalancers | Body | Object | IP ACL 그룹이 적용된 로드밸런서 객체 목록 |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드밸런서 ID |
 | ipacl_group.tenant_id | Body | String | 테넌트 ID |
 | ipacl_group.action | Body | Enum | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
 | ipacl_group.id | Body | UUID | IP ACL 그룹 ID |
@@ -3300,8 +3203,8 @@ X-Auth-Token: {tokenId}
 | ipacl_group | Body | Object | IP ACL 그룹 객체 |
 | ipacl_group.ipacl_target_count | Body | String | IP ACL 그룹에 포함된 타깃 개수 |
 | ipacl_group.description | Body | String | IP ACL 그룹 설명 |
-| ipacl_group.loadbalancers | Body | String | IP ACL 그룹이 적용된 로드 밸런서 객체 목록 |
-| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드 밸런서 ID |
+| ipacl_group.loadbalancers | Body | String | IP ACL 그룹이 적용된 로드밸런서 객체 목록 |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드밸런서 ID |
 | ipacl_group.tenant_id | Body | String | 테넌트 ID |
 | ipacl_group.action | Body | Enum | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
 | ipacl_group.id | Body | UUID | IP ACL 그룹 ID |
@@ -3332,8 +3235,8 @@ X-Auth-Token: {tokenId}
 
 기존 IP ACL 그룹을 수정합니다.
 ipacl_group.action은 변경할 수 없습니다.
-하위 IP ACL 타깃 목록을 전체적으로 교체할 때에 이 API를 사용할 수 있습니다. 
-단, IP ACL 그룹에 속했던 모든 기존의 타깃이 삭제되고 입력한 타깃 목록으로 대체됩니다. 
+하위 IP ACL 타깃 목록을 전체적으로 교체할 때에 이 API를 사용할 수 있습니다.
+단, IP ACL 그룹에 속했던 모든 기존의 타깃이 삭제되고 입력한 타깃 목록으로 대체됩니다.
 입력한 타깃의 cidr_address는 중복되지 않아야 합니다.
 
 ```
@@ -3390,8 +3293,8 @@ X-Auth-Token: {tokenId}
 | ipacl_group | Body | Object | IP ACL 그룹 객체 |
 | ipacl_group.ipacl_target_count | Body | String | IP ACL 그룹에 포함된 타깃 개수 |
 | ipacl_group.description | Body | String | IP ACL 그룹 설명 |
-| ipacl_group.loadbalancers | Body | String | IP ACL 그룹이 적용된 로드 밸런서 객체 목록 |
-| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드 밸런서 ID |
+| ipacl_group.loadbalancers | Body | String | IP ACL 그룹이 적용된 로드밸런서 객체 목록 |
+| ipacl_group.loadbalancers.loadbalancer_id | Body | String | 로드밸런서 ID |
 | ipacl_group.tenant_id | Body | String | 테넌트 ID |
 | ipacl_group.action | Body | Enum | IP ACL 그룹의 제어 동작<br>`ALLOW`, `DENY`중 하나 |
 | ipacl_group.id | Body | UUID | IP ACL 그룹 ID |
@@ -3427,8 +3330,8 @@ DELETE /v2.0/lbaas/ipacl-groups/{ipaclGroupId}
 X-Auth-Token: {tokenId}
 ```
 
-IP ACL 그룹 삭제시 하위의 IP ACL 타깃도 모두 삭제됩니다. 
-삭제되는 IP ACL 그룹을 사용하는 모든 로드 밸런서에서 이 IP ACL 그룹 관련된 룰이 삭제됩니다.
+IP ACL 그룹 삭제시 하위의 IP ACL 타깃도 모두 삭제됩니다.
+삭제되는 IP ACL 그룹을 사용하는 모든 로드밸런서에서 이 IP ACL 그룹 관련된 룰이 삭제됩니다.
 
 #### 요청
 
@@ -3446,12 +3349,12 @@ IP ACL 그룹 삭제시 하위의 IP ACL 타깃도 모두 삭제됩니다.
 - - -
 
 
-### 로드 밸런서에 IP ACL 그룹 적용
+### 로드밸런서에 IP ACL 그룹 적용
 
-로드 밸런서에 IP ACL 그룹을 적용합니다.
-IP ACL 그룹을 적용받은 로드 밸런서에는 그룹에 포함된 IP ACL 타겟 룰이 적용됩니다.
-여러 개의 그룹을 로드 밸런서에 적용할 수 있습니다. 단, 그룹들의 action은 모두 동일해야 합니다.
-기존에 로드 밸런서에 적용되어 있던 IP ACL 그룹은 모두 삭제되고 입력된 그룹 목록으로 재적용됩니다.
+로드밸런서에 IP ACL 그룹을 적용합니다.
+IP ACL 그룹을 적용받은 로드밸런서에는 그룹에 포함된 IP ACL 타겟 룰이 적용됩니다.
+여러 개의 그룹을 로드밸런서에 적용할 수 있습니다. 단, 그룹들의 action은 모두 동일해야 합니다.
+기존에 로드밸런서에 적용되어 있던 IP ACL 그룹은 모두 삭제되고 입력된 그룹 목록으로 재적용됩니다.
 
 ```
 PUT /v2.0/lbaas/loadbalancers/{lb_id}/bind_ipacl_groups
@@ -3463,9 +3366,9 @@ X-auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 | --- | --- | --- | --- | --- |
 | tokenId | Header | String | O | 토큰 ID |
-| lb_id | URL | UUID | O | 로드 밸런서 ID |
+| lb_id | URL | UUID | O | 로드밸런서 ID |
 | ipacl_groups_binding | Body | Object | O | IP ACL 바인딩 객체 |
-| ipacl_groups_binding.ipacl_group_id | Body | UUID | O | 로드 밸런서에 적용할 IP ACL 그룹 ID |
+| ipacl_groups_binding.ipacl_group_id | Body | UUID | O | 로드밸런서에 적용할 IP ACL 그룹 ID |
 
 <details><summary>예시</summary>
 <p>
@@ -3489,7 +3392,7 @@ X-auth-Token: {tokenId}
 #### 응답
 | 이름 | 종류 | 형식 | 설명 |
 | --- | --- | --- | --- |
-| loadbalancer_id | Body | UUID | 로드 밸런서 ID |
+| loadbalancer_id | Body | UUID | 로드밸런서 ID |
 | ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
 
 <details><summary>예시</summary>
@@ -3784,7 +3687,7 @@ X-Auth-Token: {tokenId}
 
 ### IP ACL 타깃 삭제하기
 
-지정한 로드 밸런서를 삭제합니다.
+지정한 로드밸런서를 삭제합니다.
 
 ```
 DELETE /v2.0/lbaas/ipacl-targets/{ipaclTargetId}
@@ -3805,4 +3708,3 @@ X-Auth-Token: {tokenId}
 이 API는 응답 본문을 반환하지 않습니다.
 
 - - -
-

@@ -6,8 +6,8 @@ For Load Balancer, Listener, Pool, Health Monitor, and Member API, use `network`
 
 | Type | Region | Endpoint |
 |---|---|---|
-| network | Korea(Pangyo) Region<br>Korea(Pyeongchon) Region<br>Japan(Tokyo) Region<br>USA(California) Region | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com<br>https://us1-api-network-infrastructure.nhncloudservice.com |
-| key-manager | Korea(Pangyo) Region<br>Korea(Pyeongchon) Region<br>Japan(Tokyo) Region<br>USA(California) Region | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com<br>https://us1-api-key-manager-infrastructure.nhncloudservice.com |
+| network | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan(Tokyo) Region<br>USA (California) Region | https://kr1-api-network-infrastructure.nhncloudservice.com<br>https://kr2-api-network-infrastructure.nhncloudservice.com<br>https://jp1-api-network-infrastructure.nhncloudservice.com<br>https://us1-api-network-infrastructure.nhncloudservice.com |
+| key-manager | Korea (Pangyo) Region<br>Korea (Pyeongchon) Region<br>Japan (Tokyo) Region<br>USA (California) Region | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com<br>https://us1-api-key-manager-infrastructure.nhncloudservice.com |
 
 
 In the API response, you may find fields that are not specified in the guide. Refrain from using them because such fields are only for the NHN Cloud internal usage and might be changed without prior notice.
@@ -434,8 +434,8 @@ This API does not require a request body.
 | Name | Type | Format | Required | Description |
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
-| default_pool_id | Query | UUID | - | Pool ID registered at listener |
-| protocol | Query | Enum | - | Protocol of listener <br>One of `TCP`, `HTTP`,`HTTPS`, and `TERMINATED_HTTPS` |
+| default_pool_id | Query | UUID | - | ID of default member group (pool) registered at listener |
+| protocol | Query | Enum | - | Protocol of listener <br>One of `TCP`, `HTTP`, `HTTPS`, and `TERMINATED_HTTPS` |
 | description | Query | String | - | Description of listener |
 | name | Query | String | - | Name of listener |
 | admin_state_up | Query | Boolean | - | Administrator control status |
@@ -450,8 +450,8 @@ This API does not require a request body.
 | Name | Type | Format | Description |
 |---|---|---|---|
 | listeners | Body | Array | List of listener information objects |
-| listeners.default_pool_id | Body | UUID | Pool ID registered at listener |
-| listeners.protocol | Body | Enum | Protocol of listener <br>One of `TCP`, `HTTP`,`HTTPS`, and `TERMINATED_HTTPS` |
+| listeners.default_pool_id | Body | UUID | ID of default member group (pool) registered at listener |
+| listeners.protocol | Body | Enum | Protocol of listener <br>One of `TCP`, `HTTP`, `HTTPS`, and `TERMINATED_HTTPS` |
 | listeners.description | Body | String | Description of listener |
 | listeners.name | Body | String | Name of listener |
 | listeners.loadbalancers | Body | Array | List of load balancer objects in which listener is registered |
@@ -524,7 +524,7 @@ This API does not require a request body.
 | Name | Type | Format | Description |
 |---|---|---|---|
 | listener | Body | Object | Information object of listener |
-| listener.default_pool_id | Body | UUID | Pool ID registered at listener |
+| listener.default_pool_id | Body | UUID | ID of default member group (pool) registered at listener |
 | listener.protocol | Body | Enum | Protocol of listener <br>One of `TCP`, `HTTP`,`HTTPS`, and `TERMINATED_HTTPS` |
 | listener.description | Body | String | Description of listener |
 | listener.name | Body | String | Name of listener |
@@ -593,6 +593,7 @@ X-Auth-Token: {tokenId}
 | listener.protocol | Body | Enum | O | Listener protocol <br>One of `TCP`, `HTTP`,`HTTPS`, and `TERMINATED_HTTPS` |
 | listener.description | Body | String | - | Description of listener |
 | listener.name | Body | String | - | Name of listener |
+| listener.default_pool_id | Body | UUID | - | ID of the default member group (pool) registered at listener<br>Created as `Not use` if not specified |
 | listener.loadbalancer_id | Body | UUID | O | ID of load balancer |
 | listener.admin_state_up | Body | Boolean | - | Administrator control status |
 | listener.connection_limit | Body |  Integer | - | Connection limit of listener |
@@ -613,6 +614,7 @@ X-Auth-Token: {tokenId}
     "description": "",
     "name": "",
     "loadbalancer_id":"7b4cef78-72b0-4c3c-9971-98763ef6284c",
+    "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
@@ -631,7 +633,7 @@ X-Auth-Token: {tokenId}
 | Name | Type | Format | Description |
 |---|---|---|---|
 | listener | Body | Object | Information object of listener |
-| listener.default_pool_id | Body | UUID | Pool ID registered at listener |
+| listener.default_pool_id | Body | UUID | ID of default group member (pool) registered at listener |
 | listener.protocol | Body | Enum | Protocol of listener <br>One of `TCP`, `HTTP`,`HTTPS`, and `TERMINATED_HTTPS` |
 | listener.description | Body | String | Description of listener |
 | listener.name | Body | String | Name of listener |
@@ -696,6 +698,7 @@ X-Auth-Token: {tokenId}
 | listener | Body | Object | O | Information object of listener |
 | listener.description | Body | String | - | Listener description |
 | listener.name | Body | String| - | Listener name |
+| listener.default_pool_id | Body | UUID | - | ID of the default member group (pool) registered at listener<br>Created as `Not use` if not specified |
 | listener.admin_state_up | Body | Boolean | - | Administrator control status |
 | listener.connection_limit | Body |  Integer | - | Connection limit of listener |
 | listener.keepalive_timeout | Body | Integer | - | Keepalive timeout of listener |
@@ -711,6 +714,7 @@ X-Auth-Token: {tokenId}
     "proxy_protocol": false,
     "description": "",
     "name": "",
+    "default_pool_id": null,
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
@@ -728,7 +732,7 @@ X-Auth-Token: {tokenId}
 | Name | Type | Format | Description |
 |---|---|---|---|
 | listener | Body | Object | Listener information object |
-| listener.default_pool_id | Body | UUID | Pool ID registered at listener |
+| listener.default_pool_id | Body | UUID | ID of default member group (pull) registered at listener |
 | listener.protocol | Body | Enum | Listener protocol<br>One of `TCP`, `HTTP`,`HTTPS`, and `TERMINATED_HTTPS` |
 | listener.description | Body | String | Listener description |
 | listener.name | Body | String | Listener name |
@@ -751,7 +755,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
-    "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
+    "default_pool_id": null,
     "protocol": "TERMINATED_HTTPS",
     "description": "",
     "name": "",
@@ -2540,7 +2544,7 @@ You can call the Secret API by using the `key-manager` type endpoint. For the ex
 
 | Type | Region | Endpoint |
 |---|---|---|
-| key-manager | Korea(Pangyo) Region<br>Korea(Pyeongchon) Region<br>Japan Region<br>USA Region | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com<br>https://us1-api-key-manager-infrastructure.nhncloudservice.com |
+| key-manager | Korea (Pangyo) region<br>Korea (Pyeongchon) region<br>Japan region<br>US region |https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com<br>https://us1-api-key-manager-infrastructure.nhncloudservice.com |
 
 In the API response, you may find fields that are not specified in the guide. Refrain from using them because such fields are only for the NHN Cloud internal usage and might be changed without prior notice.
 
@@ -2870,7 +2874,7 @@ You can call the Secret Container API by using the `key-manager` type endpoint. 
 
 | Type | Region | Endpoint |
 |---|---|---|
-| key-manager | Korea(Pangyo) Region<br>Korea(Pyeongchon) Region<br>Japan Region<br>USA Region | https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com<br>https://us1-api-key-manager-infrastructure.nhncloudservice.com |
+| key-manager | Korea (Pangyo) region<br>Korea (Pyeongchon) region<br>Japan region<br>US region |https://kr1-api-key-manager-infrastructure.nhncloudservice.com<br>https://kr2-api-key-manager-infrastructure.nhncloudservice.com<br>https://jp1-api-key-manager-infrastructure.nhncloudservice.com<br>https://us1-api-key-manager-infrastructure.nhncloudservice.com |
 
 In the API response, you may find fields that are not specified in the guide. Refrain from using them because such fields are only for the NHN Cloud internal usage and might be changed without prior notice.
 

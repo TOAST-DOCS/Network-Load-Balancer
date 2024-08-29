@@ -27,7 +27,7 @@ Defines the properties of the traffic that the load balancer will process. A loa
 * Description: Describe the listener.
 * Protocol: Specifies the protocol of the traffic that the load balancer will handle. Select one of the following: TCP/HTTP/HTTPS/TERMINATED_HTTPS.
 * Load balancer port: Specifies the port on which the default listener will listen for traffic.
-* Default member group: Specifies the member group that will be distributed by default when traffic is received.
+* Default member group: Specifies the member group that will be distributed by default when traffic is received. You can specify the default member group for the listener as **Not use**. If there is no L7 rule, or even if there is, when you set to **Not use** because the rule does not meet the conditions, the request will return a 503.
 * Connection limit: Specifies the number of TCP sessions that the default listener will maintain simultaneously. You can set a maximum of 60,000 for a general load balancer and a maximum of 480,000 for a dedicated load balancer.
 * Keep-Alive timeout: Specifies the amount of time, in seconds, to keep a session alive with the client and server. The load balancer will keep the session alive for this amount of time as long as the other side keeps the session alive. We recommend that you set the Keep-Alive timeout value you set on your server here. The default value is set to 300 seconds.
 * Proxy protocols: Allows you to enable the load balancer to support proxy protocols. You should enable this value only if you have enabled proxy protocols for the server to know the client's IP. This is only available if you are using the TCP and HTTPS protocols.
@@ -37,7 +37,7 @@ Defines the properties of the traffic that the load balancer will process. A loa
 
 > [Caution] Load balancer port, instance port, and protocol cannot be changed after a listener is created.
 
-> [Note] Load balancer port and instance port have a value between 1 and 65535.
+> [Note] Load balancer port and instance port have a value between 1 and 65535. If there is no L7 rule, or even if there is, when you set to **Not use** because the rule does not meet the conditions, the request will return a 503.
 
 > [Note] Health checks are performed only if the member group is either the default member group for the listener or is specified as the action target of an L7 rule; otherwise, health checks are not performed with that member group.
 
@@ -252,7 +252,9 @@ Select the member group you want to delete and click **Delete Member Group** to 
 On the Load Balancer **View Details** screen, select the **Member Group** tab, and then select the desired member group to view the details of the member group and the status of the members in the member group.
 
 #### Add a member
-After you select a member group, you'll see the **Basic Info**, **Members**, and **Check Status** tabs at the bottom of the screen. Select the **Members** tab to enroll the desired instances or IP addresses as members. You can only add instances that belong to the VPC to which the load balancer is attached and to VPCs that are peered to that VPC.
+After you select a member group, you'll see the **Basic Info**, **Members**, and **Check Status** tabs at the bottom of the screen. Select the **Members** tab to enroll the desired instances or IP addresses as members. You can only add instances that belong to the VPC to which the load balancer is attached and to VPCs that are peered to that VPC. You can specify your own destination port number for each member, and load balancing will be done with that destination port number.
+
+> [Caution] Health checks are performed on a per-IP basis. If you have multiple IPs registered as members with the same port number, and the health check fails, all members on those IPs will become INACTIVE.
 
 #### Deactivate a member
 You can temporarily exclude specific members from the service. Select the members you want to exclude, click the **Deactivate members** button, and then click **OK**.

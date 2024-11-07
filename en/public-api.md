@@ -997,8 +997,8 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
 | pool | Body | Object | O | Pool information object |
-| pool.loadbalancer_id | Body | UUID | - | At least one of the load balancer IDs, load balancer ID or listener ID, must be entered for the pool to be registered. |
-| pool.listener_id | Body | UUID | - | At least one of the listener ID, load balancer ID, or listener ID to which the pool will be registered must be entered. |
+| pool.loadbalancer_id | Body | UUID | - | Load balancer ID to which the pool will be attached. At least one of the load balancer ID or listener ID must be specified. |
+| pool.listener_id | Body | UUID | - | Listener ID to which the pool will be attached. At least one of the load balancer ID or listener ID must be specified. |
 | pool.lb_algorithm | Body | Enum | O | Load balancing method of the pool <br>One of `ROUND_ROBIN`, `LEAST_CONNECTIONS`, and `SOURCE_IP` |
 | pool.protocol | Body | Enum | O | Member protocol |
 | pool.description | Body | String | - | Pool description |

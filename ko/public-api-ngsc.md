@@ -2670,6 +2670,7 @@ X-Auth-Token: {tokenId}
 
 <details><summary>예시</summary>
 메타데이터만 생성
+
 ```json
 {
     "name": "example key",

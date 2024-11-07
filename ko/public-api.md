@@ -60,7 +60,7 @@ X-Auth-Token: {tokenId}
 | loadbalancers.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
 | loadbalancers.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancers.ipacl_group_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancers.ipacl_group_action | Body | String | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 | loadbalancers.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
 
 <details><summary>예시</summary>

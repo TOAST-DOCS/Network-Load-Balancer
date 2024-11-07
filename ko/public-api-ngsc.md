@@ -136,6 +136,7 @@ X-Auth-Token: {tokenId}
 
 
 <details><summary>예시</summary>
+
 ```json
 {
   "loadbalancer": {

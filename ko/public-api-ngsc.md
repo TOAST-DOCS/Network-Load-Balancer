@@ -57,6 +57,7 @@ X-Auth-Token: {tokenId}
 | loadbalancers.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
 
 <details><summary>예시</summary>
+	
 ```json
 {
   "loadbalancers": [

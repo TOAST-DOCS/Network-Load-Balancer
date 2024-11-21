@@ -35,7 +35,7 @@ This API does not require a request body.
 | vip_port_id | Query | UUID | - | Port ID of load balancer to query |
 | vip_subnet_id | Query | UUID | - | Subnet ID of load balancer to query |
 | operating_status | Query | Enum | - | Operating status of load balancer to query |
-| loadbalancer_type | Query | String | - | The type of load balancer to view<br>Either `shared` or `dedicated` |
+| loadbalancer_type | Query | String | - | The type of load balancer to view<br>One of `shared`, `dedicated`, `physical_basic`, and `physical_dedicated`  |
 
 
 #### Response
@@ -50,6 +50,8 @@ This API does not require a request body.
 | loadbalancers.name | Body | String | Name of load balancer |
 | loadbalancers.listeners | Body | Object | List of load balancer listener objects |
 | loadbalancers.listeners.id | Body | UUID | Listener ID |
+| loadbalancers.pools | Body | Object | List of load balancer pool objects |
+| loadbalancers.pools.id | Body | UUID | Pool ID |
 | loadbalancers.vip_address | Body | String | Load balancer IP |
 | loadbalancers.vip_port_id | Body | UUID | Port ID of load balancer |
 | loadbalancers.vip_subnet_id | Body | UUID | Subnet ID of load balancer |
@@ -58,7 +60,7 @@ This API does not require a request body.
 | loadbalancers.admin_state_up | Body | Boolean | Administrator control status of load balancer |
 | loadbalancers.ipacl_groups | Body | Object | IP ACL group object applied to the load balancer |
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL group ID |
-| loadbalancers.ipacl_action | Body | UUID | The action of IP ACL groups applied to the load balancer <br>Should be one of the following: `null`, `DENY`, or `ALLOW`  |
+| loadbalancers.ipacl_group_action | Body | String | The action of IP ACL groups applied to the load balancer<br>One of `null`, `DENY`, and `ALLOW` |
 | loadbalancers.loadbalancer_type | Body | String | Load Balancer Type<br>Either `shared` or `dedicated` |
 
 <details><summary>Example</summary>
@@ -84,6 +86,11 @@ This API does not require a request body.
           "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
         }
       ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
       "vip_address": "192.168.0.187",
       "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
       "workflow_status": "SUCCESS",
@@ -98,8 +105,7 @@ This API does not require a request body.
          {
          "ipacl_group_id": "947030cc-635f-42d3-b745-770cf7b562fd"
          }
-       ],
-       "ipacl_group_action": "DENY"
+      ]
     }
   ]
 }
@@ -134,6 +140,8 @@ This API does not require a request body.
 | loadbalancer.name | Body | String | Name of load balancer |
 | loadbalancer.listeners | Body | Object | List of load balancer listener objects |
 | loadbalancer.listeners.id | Body | UUID | Listener ID |
+| loadbalancers.pools | Body | Object | List of load balancer pool objects |
+| loadbalancers.pools.id | Body | UUID | Pool ID |
 | loadbalancer.vip_address | Body | String | Load balancer IP |
 | loadbalancer.vip_port_id | Body | UUID | Port ID of load balancer |
 | loadbalancer.vip_subnet_id | Body | UUID | Subnet ID of load balancer |
@@ -142,7 +150,7 @@ This API does not require a request body.
 | loadbalancer.admin_state_up | Body | Boolean | Administrator control center of load balancer |
 | loadbalancer.ipacl_groups | Body | Object | IP ACL group object applied to the load balancer |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL group ID |
-| loadbalancer.ipacl_action | Body | UUID | The action of IP ACL groups applied to the load balancer <br>Should be one of the following: `null`, `DENY`, or `ALLOW`  |
+| loadbalancer.ipacl_group_action | Body | String | The action of IP ACL groups applied to the load balancer<br>One of `null`, `DENY`, and `ALLOW` |
 | loadbalancer.loadbalancer_type | Body | String | Load Balancer Type<br>Either `shared` or `dedicated` |
 
 
@@ -168,6 +176,11 @@ This API does not require a request body.
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
+        "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",
@@ -182,8 +195,7 @@ This API does not require a request body.
          {
          "ipacl_group_id": "947030cc-635f-42d3-b745-770cf7b562fd"
          }
-     ],
-     "ipacl_group_action": "DENY"
+    ]
   }
 }
 ```
@@ -240,6 +252,8 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | Name of load balancer |
 | loadbalancer.listeners | Body | Object | List of load balancer listener objects |
 | loadbalancer.listeners.id | Body | UUID | Listener ID |
+| loadbalancers.pools | Body | Object | List of load balancer pool objects |
+| loadbalancers.pools.id | Body | UUID | Pool ID |
 | loadbalancer.vip_address | Body | String | IP of load balancer |
 | loadbalancer.vip_port_id | Body | UUID | Port ID of load balancer |
 | loadbalancer.vip_subnet_id | Body | UUID | Subnet ID of load balancer |
@@ -248,7 +262,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.admin_state_up | Body | Boolean | Administrator control status of load balancer |
 | loadbalancer.ipacl_groups | Body | Object | IP ACL group object applied to the load balancer |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL group ID |
-| loadbalancer.ipacl_action | Body | UUID | The action of IP ACL groups applied to the load balancer <br>Should be one of the following: `null`, `DENY`, or `ALLOW`  |
+| loadbalancer.ipacl_group_action | Body | String | The action of IP ACL groups applied to the load balancer <br>Should be one of the following: `null`, `DENY`, or `ALLOW`  |
 | loadbalancer.loadbalancer_type | Body | String | Load Balancer Type<br>Either `shared` or `dedicated` |
 
 
@@ -274,6 +288,11 @@ X-Auth-Token: {tokenId}
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",
@@ -281,8 +300,7 @@ X-Auth-Token: {tokenId}
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
     "admin_state_up": true,
-    "ipacl_groups": [],
-    "ipacl_group_action": null
+    "ipacl_groups": []
   }
 }
 ```
@@ -332,6 +350,8 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | Name of load balancer |
 | loadbalancer.listeners | Body | Object | List of load balancer listener objects |
 | loadbalancer.listeners.id | Body | UUID | Listener ID |
+| loadbalancers.pools | Body | Object | List of load balancer pool objects |
+| loadbalancers.pools.id | Body | UUID | Pool ID |
 | loadbalancer.vip_address | Body | String | Load balancer IP |
 | loadbalancer.vip_port_id | Body | UUID | Port ID of load balancer |
 | loadbalancer.vip_subnet_id | Body | UUID | Subnet ID of load balancer |
@@ -340,7 +360,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.admin_state_up | Body | Boolean | Administrator control status of load balancer |
 | loadbalancer.ipacl_groups | Body | Object | IP ACL group object applied to the load balancer |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL group ID |
-| loadbalancer.ipacl_action | Body | UUID | The action of IP ACL groups applied to the load balancer <br>Should be one of the following: `null`, `DENY`, or `ALLOW`  |
+| loadbalancer.ipacl_group_action | Body | String | The action of IP ACL groups applied to the load balancer <br>Should be one of the following: `null`, `DENY`, or `ALLOW`  |
 | loadbalancer.loadbalancer_type | Body | String | Load Balancer Type<br>Either `shared` or `dedicated` |
 
 
@@ -366,6 +386,11 @@ X-Auth-Token: {tokenId}
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",
@@ -373,8 +398,7 @@ X-Auth-Token: {tokenId}
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
     "admin_state_up": true,
-    "ipacl_groups": [],
-    "ipacl_group_action": null
+    "ipacl_groups": []
   }
 }
 ```

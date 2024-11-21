@@ -35,7 +35,7 @@ X-Auth-Token: {tokenId}
 | vip_port_id | Query | UUID | - | 照会するロードバランサーのポートID |
 | vip_subnet_id | Query | UUID | - | 照会するロードバランサーのサブネットID |
 | operating_status | Query | Enum | - | 照会するロードバランサーの運用状態 |
-| loadbalancer_type | Query | String | - | 照会するロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
+| loadbalancer_type | Query | String | - | 照会するロードバランサーのタイプ<br>`shared`/`dedicated`/`physical_basic`/`physical_dedicated`のいずれか |
 
 
 #### レスポンス
@@ -50,6 +50,8 @@ X-Auth-Token: {tokenId}
 | loadbalancers.name | Body | String | ロードバランサーの名前 |
 | loadbalancers.listeners | Body | Object | ロードバランサーリスナーオブジェクトリスト |
 | loadbalancers.listeners.id | Body | UUID | リスナーID |
+| loadbalancers.pools | Body | Object | ロードバランサーのプールオブジェクトリスト |
+| loadbalancers.pools.id | Body | UUID | プールID |
 | loadbalancers.vip_address | Body | String | ロードバランサーのIP |
 | loadbalancers.vip_port_id | Body | UUID | ロードバランサーのポートID |
 | loadbalancers.vip_subnet_id | Body | UUID | ロードバランサーのサブネットID |
@@ -58,7 +60,7 @@ X-Auth-Token: {tokenId}
 | loadbalancers.admin_state_up | Body | Boolean | ロードバランサーの管理者制御状態 |
 | loadbalancers.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
-| loadbalancers.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
+| loadbalancers.ipacl_group_action | Body | String | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
 | loadbalancers.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
 
 <details><summary>例</summary>
@@ -84,6 +86,11 @@ X-Auth-Token: {tokenId}
           "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
         }
       ],
+            "pools": [
+              {
+                "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+              }
+            ],
       "vip_address": "192.168.0.187",
       "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
       "workflow_status": "SUCCESS",
@@ -98,8 +105,7 @@ X-Auth-Token: {tokenId}
          {
          "ipacl_group_id": "947030cc-635f-42d3-b745-770cf7b562fd"
          }
-       ],
-       "ipacl_group_action": "DENY"
+      ]
     }
   ]
 }
@@ -134,6 +140,8 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | ロードバランサーの名前 |
 | loadbalancer.listeners | Body | Object | ロードバランサーのリスナーオブジェクトリスト |
 | loadbalancer.listeners.id | Body | UUID | リスナーID |
+| loadbalancers.pools | Body | Object | ロードバランサーのプールオブジェクトリスト |
+| loadbalancers.pools.id | Body | UUID | プールID |
 | loadbalancer.vip_address | Body | String | ロードバランサーのIP |
 | loadbalancer.vip_port_id | Body | UUID | ロードバランサーのポートID |
 | loadbalancer.vip_subnet_id | Body | UUID | ロードバランサーのサブネットID |
@@ -142,7 +150,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.admin_state_up | Body | Boolean | ロードバランサーの管理者制御状態 |
 | loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
-| loadbalancer.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
+| loadbalancer.ipacl_group_action | Body | String | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
 | loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
 
 
@@ -168,6 +176,11 @@ X-Auth-Token: {tokenId}
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
+          "pools": [
+            {
+              "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+            }
+          ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",
@@ -182,8 +195,7 @@ X-Auth-Token: {tokenId}
          {
          "ipacl_group_id": "947030cc-635f-42d3-b745-770cf7b562fd"
          }
-     ],
-     "ipacl_group_action": "DENY   
+     ]
   }
 }
 ```
@@ -237,6 +249,8 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | ロードバランサーの名前 |
 | loadbalancer.listeners | Body | Object | ロードバランサーのリスナーオブジェクトリスト |
 | loadbalancer.listeners.id | Body | UUID | リスナーID |
+| loadbalancers.pools | Body | Object | ロードバランサーのプールオブジェクトリスト |
+| loadbalancers.pools.id | Body | UUID | プールID |
 | loadbalancer.vip_address | Body | String | ロードバランサーのIP |
 | loadbalancer.vip_port_id | Body | UUID | ロードバランサーのポートID |
 | loadbalancer.vip_subnet_id | Body | UUID | ロードバランサーのサブネットID |
@@ -245,7 +259,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.admin_state_up | Body | Boolean | ロードバランサーの管理者制御状態 |
 | loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
-| loadbalancer.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
+| loadbalancer.ipacl_group_action | Body | String | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
 | loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
 
 
@@ -271,6 +285,11 @@ X-Auth-Token: {tokenId}
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
+          "pools": [
+            {
+              "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+            }
+          ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",
@@ -278,8 +297,7 @@ X-Auth-Token: {tokenId}
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
     "admin_state_up": true,
-    "ipacl_groups": [],
-    "ipacl_group_action": null   
+    "ipacl_groups": []
   }
 }
 ```
@@ -329,6 +347,8 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | ロードバランサーの名前 |
 | loadbalancer.listeners | Body | Object | ロードバランサーのリスナーオブジェクトリスト |
 | loadbalancer.listeners.id | Body | UUID | リスナーID |
+| loadbalancers.pools | Body | Object | ロードバランサーのプールオブジェクトリスト |
+| loadbalancers.pools.id | Body | UUID | プールID |
 | loadbalancer.vip_address | Body | String | ロードバランサーのIP |
 | loadbalancer.vip_port_id | Body | UUID | ロードバランサーのポートID |
 | loadbalancer.vip_subnet_id | Body | UUID | ロードバランサーのサブネットID |
@@ -337,7 +357,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.admin_state_up | Body | Boolean | ロードバランサーの管理者制御状態 |
 | loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
-| loadbalancer.ipacl_action | Body | UUID | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
+| loadbalancer.ipacl_group_action | Body | String | ロードバランサーに適用されたIP ACLグループのaction<br>`null`/`DENY`/`ALLOW`のいずれか |
 | loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
 
 <details><summary>例</summary>
@@ -362,6 +382,11 @@ X-Auth-Token: {tokenId}
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
+          "pools": [
+            {
+              "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+            }
+          ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",
@@ -369,8 +394,7 @@ X-Auth-Token: {tokenId}
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
     "admin_state_up": true
-    "ipacl_groups": [],
-    "ipacl_group_action": null        
+    "ipacl_groups": []
   }
 }
 ```

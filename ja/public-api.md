@@ -86,11 +86,11 @@ X-Auth-Token: {tokenId}
           "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
         }
       ],
-            "pools": [
-              {
-                "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
-              }
-            ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
       "vip_address": "192.168.0.187",
       "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
       "workflow_status": "SUCCESS",
@@ -176,11 +176,11 @@ X-Auth-Token: {tokenId}
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
-          "pools": [
-            {
-              "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
-            }
-          ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",
@@ -285,11 +285,11 @@ X-Auth-Token: {tokenId}
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
-          "pools": [
-            {
-              "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
-            }
-          ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",
@@ -382,11 +382,11 @@ X-Auth-Token: {tokenId}
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
-          "pools": [
-            {
-              "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
-            }
-          ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",

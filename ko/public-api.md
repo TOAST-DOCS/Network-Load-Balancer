@@ -35,7 +35,7 @@ X-Auth-Token: {tokenId}
 | vip_port_id | Query | UUID | - | 조회할 로드 밸런서의 포트 ID |
 | vip_subnet_id | Query | UUID | - | 조회할 로드 밸런서의 서브넷 ID |
 | operating_status | Query | Enum | - | 조회할 로드 밸런서의 운영 상태 |
-| loadbalancer_type | Query | String | - | 조회할 로드 밸런서의 타입<br>`shared`/`dedicated` 중 하나 |
+| loadbalancer_type | Query | String | - | 조회할 로드 밸런서의 타입<br>`shared`/`dedicated`/`physical_basic`/`physical_dedicated` 중 하나 |
 
 
 #### 응답
@@ -50,6 +50,8 @@ X-Auth-Token: {tokenId}
 | loadbalancers.name | Body | String | 로드 밸런서 이름 |
 | loadbalancers.listeners | Body | Object | 로드 밸런서 리스너 객체 목록 |
 | loadbalancers.listeners.id | Body | UUID | 리스너 ID |
+| loadbalancers.pools | Body | Object | 로드 밸런서 풀 객체 목록 |
+| loadbalancers.pools.id | Body | UUID | 풀 ID |
 | loadbalancers.vip_address | Body | String | 로드 밸런서 IP |
 | loadbalancers.vip_port_id | Body | UUID | 로드 밸런서 포트 ID |
 | loadbalancers.vip_subnet_id | Body | UUID | 로드 밸런서 서브넷 ID |
@@ -58,7 +60,7 @@ X-Auth-Token: {tokenId}
 | loadbalancers.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
 | loadbalancers.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancers.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancers.ipacl_group_action | Body | String | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 | loadbalancers.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
 
 <details><summary>예시</summary>
@@ -84,6 +86,11 @@ X-Auth-Token: {tokenId}
           "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
         }
       ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
       "vip_address": "192.168.0.187",
       "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
       "workflow_status": "SUCCESS",
@@ -98,8 +105,7 @@ X-Auth-Token: {tokenId}
          {
          "ipacl_group_id": "947030cc-635f-42d3-b745-770cf7b562fd"
          }
-       ],
-       "ipacl_group_action": "DENY"
+       ]
     }
   ]
 }
@@ -134,6 +140,8 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | 로드 밸런서 이름 |
 | loadbalancer.listeners | Body | Object | 로드 밸런서 리스너 객체 목록 |
 | loadbalancer.listeners.id | Body | UUID | 리스너 ID |
+| loadbalancers.pools | Body | Object | 로드 밸런서 풀 객체 목록 |
+| loadbalancers.pools.id | Body | UUID | 풀 ID |
 | loadbalancer.vip_address | Body | String | 로드 밸런서 IP |
 | loadbalancer.vip_port_id | Body | UUID | 로드 밸런서 포트 ID |
 | loadbalancer.vip_subnet_id | Body | UUID | 로드 밸런서 서브넷 ID |
@@ -142,7 +150,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
 | loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.ipacl_group_action | Body | String | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 | loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
 
 
@@ -168,6 +176,11 @@ X-Auth-Token: {tokenId}
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",
@@ -182,8 +195,7 @@ X-Auth-Token: {tokenId}
          {
          "ipacl_group_id": "947030cc-635f-42d3-b745-770cf7b562fd"
          }
-     ],
-     "ipacl_group_action": "DENY
+     ]
   }
 }
 ```
@@ -240,6 +252,8 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | 로드 밸런서 이름 |
 | loadbalancer.listeners | Body | Object | 로드 밸런서 리스너 객체 목록 |
 | loadbalancer.listeners.id | Body | UUID | 리스너 ID |
+| loadbalancers.pools | Body | Object | 로드 밸런서 풀 객체 목록 |
+| loadbalancers.pools.id | Body | UUID | 풀 ID |
 | loadbalancer.vip_address | Body | String | 로드 밸런서 IP |
 | loadbalancer.vip_port_id | Body | UUID | 로드 밸런서 포트 ID |
 | loadbalancer.vip_subnet_id | Body | UUID | 로드 밸런서 서브넷 ID |
@@ -248,7 +262,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
 | loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.ipacl_group_action | Body | String | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 | loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
 
 
@@ -274,6 +288,11 @@ X-Auth-Token: {tokenId}
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",
@@ -281,8 +300,7 @@ X-Auth-Token: {tokenId}
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
     "admin_state_up": true,
-    "ipacl_groups": [],
-    "ipacl_group_action": null
+    "ipacl_groups": []
   }
 }
 ```
@@ -332,6 +350,8 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | 로드 밸런서 이름 |
 | loadbalancer.listeners | Body | Object | 로드 밸런서 리스너 객체 목록 |
 | loadbalancer.listeners.id | Body | UUID | 리스너 ID |
+| loadbalancers.pools | Body | Object | 로드 밸런서 풀 객체 목록 |
+| loadbalancers.pools.id | Body | UUID | 풀 ID |
 | loadbalancer.vip_address | Body | String | 로드 밸런서 IP |
 | loadbalancer.vip_port_id | Body | UUID | 로드 밸런서 포트 ID |
 | loadbalancer.vip_subnet_id | Body | UUID | 로드 밸런서 서브넷 ID |
@@ -340,7 +360,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
 | loadbalancer.ipacl_groups | Body | Object | 로드 밸런서에 적용된 IP ACL 그룹 개체 |
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
-| loadbalancer.ipacl_action | Body | UUID | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
+| loadbalancer.ipacl_group_action | Body | String | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 | loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
 
 
@@ -366,6 +386,11 @@ X-Auth-Token: {tokenId}
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",
@@ -373,8 +398,7 @@ X-Auth-Token: {tokenId}
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
     "admin_state_up": true
-    "ipacl_groups": [],
-    "ipacl_group_action": null
+    "ipacl_groups": []
   }
 }
 ```

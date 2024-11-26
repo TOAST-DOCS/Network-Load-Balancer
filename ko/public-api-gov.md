@@ -50,6 +50,8 @@ X-Auth-Token: {tokenId}
 | loadbalancers.name | Body | String | 로드 밸런서 이름 |
 | loadbalancers.listeners | Body | Object | 로드 밸런서 리스너 객체 목록 |
 | loadbalancers.listeners.id | Body | UUID | 리스너 ID |
+| loadbalancers.pools | Body | Object | 로드 밸런서 풀 객체 목록 |
+| loadbalancers.pools.id | Body | UUID | 풀 ID |
 | loadbalancers.vip_address | Body | String | 로드 밸런서 IP |
 | loadbalancers.vip_port_id | Body | UUID | 로드 밸런서 포트 ID |
 | loadbalancers.vip_subnet_id | Body | UUID | 로드 밸런서 서브넷 ID |
@@ -77,6 +79,11 @@ X-Auth-Token: {tokenId}
       "listeners": [
         {
           "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
+        }
+      ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
         }
       ],
       "vip_address": "192.168.0.187",
@@ -120,6 +127,8 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | 로드 밸런서 이름 |
 | loadbalancer.listeners | Body | Object | 로드 밸런서 리스너 객체 목록 |
 | loadbalancer.listeners.id | Body | UUID | 리스너 ID |
+| loadbalancers.pools | Body | Object | 로드 밸런서 풀 객체 목록 |
+| loadbalancers.pools.id | Body | UUID | 풀 ID |
 | loadbalancer.vip_address | Body | String | 로드 밸런서 IP |
 | loadbalancer.vip_port_id | Body | UUID | 로드 밸런서 포트 ID |
 | loadbalancer.vip_subnet_id | Body | UUID | 로드 밸런서 서브넷 ID |
@@ -149,6 +158,11 @@ X-Auth-Token: {tokenId}
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",
@@ -210,6 +224,8 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | 로드 밸런서 이름 |
 | loadbalancer.listeners | Body | Object | 로드 밸런서 리스너 객체 목록 |
 | loadbalancer.listeners.id | Body | UUID | 리스너 ID |
+| loadbalancers.pools | Body | Object | 로드 밸런서 풀 객체 목록 |
+| loadbalancers.pools.id | Body | UUID | 풀 ID |
 | loadbalancer.vip_address | Body | String | 로드 밸런서 IP |
 | loadbalancer.vip_port_id | Body | UUID | 로드 밸런서 포트 ID |
 | loadbalancer.vip_subnet_id | Body | UUID | 로드 밸런서 서브넷 ID |
@@ -240,6 +256,11 @@ X-Auth-Token: {tokenId}
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",
@@ -296,6 +317,8 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | 로드 밸런서 이름 |
 | loadbalancer.listeners | Body | Object | 로드 밸런서 리스너 객체 목록 |
 | loadbalancer.listeners.id | Body | UUID | 리스너 ID |
+| loadbalancers.pools | Body | Object | 로드 밸런서 풀 객체 목록 |
+| loadbalancers.pools.id | Body | UUID | 풀 ID |
 | loadbalancer.vip_address | Body | String | 로드 밸런서 IP |
 | loadbalancer.vip_port_id | Body | UUID | 로드 밸런서 포트 ID |
 | loadbalancer.vip_subnet_id | Body | UUID | 로드 밸런서 서브넷 ID |
@@ -326,6 +349,11 @@ X-Auth-Token: {tokenId}
         "id": "fe192219-0d4c-4145-9855-0af8c949dfe8"
       }
     ],
+      "pools": [
+        {
+          "id": "766e51ff-4d29-4ab4-bfb6-4dab8d62803f"
+        }
+      ],
     "vip_address": "192.168.0.187",
     "vip_port_id": "f3764f0d-b0da-4be1-a61f-fc5e8914278a",
     "workflow_status": "SUCCESS",

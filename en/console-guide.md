@@ -180,7 +180,7 @@ Specify instances or IPs to register as members when the load balancer is create
 * IP address: You can register members by entering an IP directly. In this case, the communication path between the load balancer and that IP must be set up appropriately.
 
 #### Delete Proteection
-Enabling delete protection protects a load balancer from accidental deletion. You cannot delete that load balancer until you disable delete protection. A load balancer with delete protection enabled cannot delete listeners.
+Enabling delete protection protects a load balancer from accidental deletion. You cannot delete that load balancer until you disable delete protection. A load balancer with delete protection enabled cannot delete listeners, member groups, and L7 rules, and also cannot delete and change health monitors.
 
 #### IP Access Control Groups
 Specify the IP access control group to apply when the load balancer is created. You can select multiple groups with the same access control type among the IP access control groups. You can change the IP access control group to be applied even after the load balancer is created.

@@ -1304,6 +1304,7 @@ X-Auth-Token: {tokenId}
 | healthmonitors | Body | Array | ヘルスモニター情報オブジェクトリスト |
 | healthmonitors.admin_state_up | Body | Boolean | 管理者制御状態 |
 | healthmonitors.delay | Body | Integer | ヘルスチェック間隔(秒) |
+| healthmonitors.health_check_port | Body | Integer | - | ヘルスチェックの対象となるメンバーポート <br> * 0を指定すると、各メンバーごとに指定されたポート番号を対象にヘルスチェックを行います。 <br> * 0以外の正数を入力すると、各メンバーごとに指定されたポート番号と関係なく、入力されたポート番号でヘルスチェックを行います。|
 | healthmonitors.expected_codes | Body | String | 正常状態と見なすメンバーのHTTPレスポンスコード <br>単一値(200)、リスト(201,202)、または範囲(201-204)で使用可能。<br>ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitors.max_retries | Body | Integer | 最大再試行回数 |
 | healthmonitors.http_method | Body | Enum | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
@@ -1429,6 +1430,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | O | ヘルスモニター情報オブジェクト |
 | healthmonitor.pool_id | Body | UUID | O | ヘルスモニターが接続されるプールID |
 | healthmonitor.admin_state_up | Body | Boolean | - | 管理者制御状態 |
+| healthmonitor.health_check_port | Body | Integer | - | ヘルスチェックの対象となるメンバーポート <br> * 0を指定すると、各メンバーごとに指定されたポート番号を対象にヘルスチェックを行います。 <br> * 0以外の正数を入力すると、各メンバーごとに指定されたポート番号と関係なく、入力されたポート番号でヘルスチェックを行います。|
 | healthmonitor.health_check_port | Body | Integer | - | ヘルスチェックの対象となるメンバーポート |
 | healthmonitor.delay | Body | Integer | O | ヘルスチェック間隔(秒) |
 | healthmonitor.expected_codes | Body | String | - | 正常状態とみなすメンバーのHTTPレスポンスコード。省略すると200に設定される。<br>単一値(200)、リスト(201,202)、または範囲(201-204)で使用可能。<br>ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
@@ -1437,7 +1439,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.timeout | Body | Integer | O | ヘルスチェックレスポンス待機時間(秒) |
 | healthmonitor.url_path | Body | String | - | ヘルスチェックリクエストURL。省略すると`/`が設定される。<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.type | Body | Enum  | O | ヘルスチェックに使用するプロトコル。 `TCP`、`HTTP`、`HTTPS`のうちいずれか1つ |
-| healthmonitors.host_header | Body | String | - | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
+| healthmonitor.host_header | Body | String | - | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 
 
 
@@ -1527,13 +1529,14 @@ X-Auth-Token: {tokenId}
 | healthmonitorId | URL | UUID | O | ヘルスモニターID |
 | healthmonitor | Body | Object | O | ヘルスモニター情報オブジェクト |
 | healthmonitor.admin_state_up | Body | Boolean | - | 管理者制御状態 |
+| healthmonitor.health_check_port | Body | Integer | - | ヘルスチェックの対象となるメンバーポート <br> * 0を指定すると、各メンバーごとに指定されたポート番号を対象にヘルスチェックを行います。 <br> * 0以外の正数を入力すると、各メンバーごとに指定されたポート番号と関係なく、入力されたポート番号でヘルスチェックを行います。|
 | healthmonitor.delay | Body | Integer | - | ヘルスチェック間隔(秒) |
 | healthmonitor.expected_codes | Body | String | - | 正常状態とみなすメンバーのHTTPレスポンスコード。<br> 単一値(200)、リスト(201,202)、または範囲(201-204)を使用可能。<br>ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.max_retries | Body | Integer | - | 最大再試行回数 |
 | healthmonitor.http_method | Body | Enum | - | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.timeout | Body | Integer | - | ヘルスチェックレスポンス待機時間(秒) |
 | healthmonitor.url_path | Body | String | - | ヘルスチェックリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
-| healthmonitors.host_header | Body | String | - | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
+| healthmonitor.host_header | Body | String | - | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 
 
 <details><summary>例</summary>
@@ -1563,7 +1566,8 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | ヘルスモニター情報オブジェクト |
 | healthmonitor.admin_state_up | Body | Boolean | 管理者制御状態 |
 | healthmonitor.delay | Body | Integer | ヘルスチェック間隔(秒) |
-| healthmonitor.expected_codes | Body | String | 正常状態とみなすメンバーのHTTPレスポンスコード。<br> 単一値(200)、リスト(201,202)、または範囲(201-204)を使用可能。<br>ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
+| healthmonitor.health_check_port | Body | Integer | - | ヘルスチェックの対象となるメンバーポート <br> * 0を指定すると、各メンバーごとに指定されたポート番号を対象にヘルスチェックを行います。 <br> * 0以外の正数を入力すると、各メンバーごとに指定されたポート番号と関係なく、入力されたポート番号でヘルスチェックを行います。|
+| healthmonitor.expected_codes | Body | String | 正常状態とみなすメンバーのHTTPレスポンスコード <br> 単一値(200)、リスト(201,202)、または範囲(201-204)で使用可能<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 | healthmonitor.max_retries | Body | Integer | 最大再試行回数 |
 | healthmonitor.http_method | Body | Enum | ヘルスチェックに使用するHTTP Method <br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.timeout | Body | Integer | ヘルスチェックレスポンス待機時間(秒) |
@@ -1572,7 +1576,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.url_path | Body | String | ヘルスチェックリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.type | Body | Enum | ヘルスチェックに使用するプロトコル。 `TCP`、`HTTP`、`HTTPS`のうちいずれか1つ |
 | healthmonitor.id | Body | UUID | ヘルスモニターID |
-| healthmonitors.host_header | Body | String | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
+| healthmonitor.host_header | Body | String | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 
 
 <details><summary>例</summary>

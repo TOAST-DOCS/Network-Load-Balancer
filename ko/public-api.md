@@ -1998,7 +1998,7 @@ X-Auth-Token: {tokenId}
 | l7policies.action | Body | Enum | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
 | l7policies.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
 | l7policies.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
-| l7policy.redirect_http_code | Body | Integer | - | L7 정책의 리다이렉트 HTTP 응답 코드 |
+| l7policies.redirect_http_code | Body | Integer | - | L7 정책의 리다이렉트 HTTP 응답 코드 |
 | l7policies.position | Body | Integer | L7 정책의 우선순위 |
 
 <details><summary>예시</summary>

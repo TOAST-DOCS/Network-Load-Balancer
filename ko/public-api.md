@@ -1998,7 +1998,7 @@ X-Auth-Token: {tokenId}
 | l7policies.action | Body | Enum | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
 | l7policies.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
 | l7policies.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
-| l7policy.redirect_http_code | Body | Integer | - | L7 정책의 리다이렉트 HTTP 응답 코드 |
+| l7policies.redirect_http_code | Body | Integer | - | L7 정책의 리다이렉트 HTTP 응답 코드 |
 | l7policies.position | Body | Integer | L7 정책의 우선순위 |
 
 <details><summary>예시</summary>
@@ -2109,8 +2109,8 @@ X-Auth-Token: {tokenId}
 | l7policy.admin_state_up | Body | Boolean | - | L7 정책 관리자 제어 상태로 생략하면 `true`로 설정 |
 | l7policy.action | Body | Enum | O | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | - | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우 필수 |
-| l7policy.redirect_url | Body | String | - | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우 필수 <br> * 입력 가능한 포맷은 `#{protocol}://#{host}:#{port}/#{path}?#{query}` 형태이며, `#{_}` 형태로 입력 시 기존 요청의 값을 유지합니다. `#{_}`가 아닌 값을 직접 입력할 경우 리다이렉트 URL에 해당 값이 적용되어 클라이언트에게 반환합니다. <br> * 무한한 리다이렉트를 방지하기 위하여 protocol, host, port, path 중에서 최소 1개 이상은 변경되어야 합니다.|
-| l7policy.redirect_http_code | Body | Integer | - | L7 정책의 리다이렉트 HTTP 응답 코드 <br> 301, 302, 303, 307, 308 중에서 하나. 기본 값 302 |
+| l7policy.redirect_url | Body | String | - | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우 필수 <br> * 입력 가능한 포맷은 `#{protocol}://#{host}:#{port}/#{path}?#{query}` 형태이며, `#{_}` 형태로 입력 시 기존 요청의 값을 유지합니다. `#{_}`가 아닌 값을 직접 입력할 경우 리다이렉트 URL에 해당 값이 적용되어 클라이언트에게 반환합니다. <br> * 무한한 리다이렉트를 방지하기 위하여 protocol, host, port, path 중에서 최소 1개 이상은 변경되어야 합니다. <br> * 올바르지 않은 형태로 입력 시, 리다이렉트 URL이 실제 입력과는 다른 값으로 변환이 될 수 있습니다.|
+| l7policy.redirect_http_code | Body | Integer | - | L7 정책의 리다이렉트 HTTP 응답 코드 <br> 301, 302 중에서 하나. 기본 값 302 |
 | l7policy.position | Body | Integer | - | L7 정책의 우선순위. 생략할 경우 마지막 순위로 설정 |
 
 

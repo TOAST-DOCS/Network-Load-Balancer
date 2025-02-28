@@ -108,6 +108,8 @@ The load balancer can perform load balancing based on L7 data. When you select a
   * Forward to member group: Send to a set member group when matched to an L7 rule. You can route packets to specific member groups based on L7 data.
   * Forward to URL: This feature redirects to a set URL when an L7 rule is matched. It uses the Location in the HTTP header to perform the redirect.
   * Block: Block if matched by an L7 rule. Returns a response as Forbidden (403).
+      * For **Forward to URL**, you can set the Redirect URL in fine detail. For each of the protocol, port, host, route, and query, you can keep the values or change them directly to redirect. See [Notes] below for more information.
+    * Status code: The HTTP response code that the load balancer will respond with when redirecting. 301, 302, 303, 307, and 308 are supported.
 * Task target: Set a target based on the task type. The input varies depending on the task type.
 * Task priority: Set the L7 rule priority. The value you enter determines the priority within the task type, and if you enter a duplicate value, the new rule takes precedence.
   * The order of rule application is **Block**, **Pass by URLL**, and  **Pass to Member Group**. Within the same action type, apply the priority entered by the user.
@@ -138,6 +140,7 @@ The load balancer can perform load balancing based on L7 data. When you select a
 
 > [Note] When a member group is deleted, any L7 rules that had that member group as an action target will have their action type changed to Block.
 
+> [Note] When setting **Forward to URL** in L7 rules, you can keep or customize some of the values in the URL that you want to redirect. If you want to keep the values of specific fields, enter them in each URI partial settings field in the following format: `#{protocol}`, `#{port}, #{host}`, `#{path}`, `#{query}`. For example, if you want to change only the protocol and port number to HTTPS and port 443 for requests that come in over HTTP, enter `HTTPS as`the protocol, port as `443`, host as `#{host}`, path ` as #{path}`, and query ` as #{query}`.
 
 
 #### Set up Member Groups
@@ -162,6 +165,7 @@ The settings for health check are also determined when creating the listener. NH
 
 * Health Check Protocol: Determine the protocol to use for health checks. Choose one of TCP, HTTP, or HTTPS.
 * Health Check Port: Determine the port of member instance to try health checks.
+* Health Check Port: Set the member's port to attempt health checks on. Select a member port to perform health checks on the port numbers specified for each member. If you select Custom, health checks are performed on a custom port number in bulk, independent of the port number for each member.
 * HTTP Method: Select the HTTP method to use for health checks. This setting is enabled only when HTTP or HTTPS is selected. Currently supports GET only.
 * HTTP Status Code: Enter the HTTP status code to consider as normal for a health check. This setting is enabled only when HTTP or HTTPS is selected. Currently supports GET only.
 * URL: Specify the path of the member instance to try health checks. This setting is enabled only when HTTP or HTTPS is selected.
@@ -170,7 +174,7 @@ The settings for health check are also determined when creating the listener. NH
 * Maximum Number of Retries: Specify the maximum number of retry attempts for health checks. If the maximum number of retries is 2 or higher, it is not immediately considered a failure when a normal response to the health check is not received. If it fails repeatedly for the maximum number of retries, the instance is excluded from load balancing.
 * Host Header: Enter the field value to use in the host header for health checks. This setting is enabled only when HTTP or HTTPS is selected.
 
-> [Note] Health checks are performed only if the member group is either the default member group for the listener or is specified as the action target of an L7 rule; otherwise, health checks are not performed with that member group.
+> [Caution] If you have multiple members in a member group with different port numbers, be careful about setting the health check port. For example, if you have two members, such as port 80 on 192.168.0.10 and port 8080 on 192.168.0.10, selecting Health check port as member port will perform health checks on port 80 and port 8080 respectively. If you select Custom as the health check port and type 80, it will check port 80 even if the member port is port 8080. If the 80 port on 192.168.0.10 is active, then the member on the 8080 port for 192.168.0.10 is also considered ACTIVE because it is checking the status of the 80 port for 192.168.0.10.
 
 
 ##### Set up Members
@@ -254,7 +258,7 @@ On the Load Balancer **View Details** screen, select the **Member Group** tab, a
 #### Add a member
 After you select a member group, you'll see the **Basic Info**, **Members**, and **Check Status** tabs at the bottom of the screen. Select the **Members** tab to enroll the desired instances or IP addresses as members. You can only add instances that belong to the VPC to which the load balancer is attached and to VPCs that are peered to that VPC. You can specify your own destination port number for each member, and load balancing will be done with that destination port number.
 
-> [Caution] Health checks are performed on a per-IP basis. If you have multiple IPs registered as members with the same port number, and the health check fails, all members on those IPs will become INACTIVE.
+> [Caution] If you have multiple members in a member group with different port numbers, be careful about setting the health check port. For example, if you have two members, such as port 80 on 192.168.0.10 and port 8080 on 192.168.0.10, selecting Health check port as member port will perform health checks on port 80 and port 8080 respectively. If you select Custom as the health check port and type 80, it will check port 80 even if the member port is port 8080. If the 80 port on 192.168.0.10 is active, then the member on the 8080 port for 192.168.0.10 is also considered ACTIVE because it is checking the status of the 80 port for 192.168.0.10.
 
 #### Deactivate a member
 You can temporarily exclude specific members from the service. Select the members you want to exclude, click the **Deactivate members** button, and then click **OK**.

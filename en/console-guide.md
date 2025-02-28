@@ -109,7 +109,7 @@ The load balancer can perform load balancing based on L7 data. When you select a
   * Forward to URL: This feature redirects to a set URL when an L7 rule is matched. It uses the Location in the HTTP header to perform the redirect.
   * Block: Block if matched by an L7 rule. Returns a response as Forbidden (403).
       * For **Forward to URL**, you can set the Redirect URL in fine detail. For each of the protocol, port, host, route, and query, you can keep the values or change them directly to redirect. See [Notes] below for more information.
-    * Status code: The HTTP response code that the load balancer will respond with when redirecting. 301, 302, 303, 307, and 308 are supported.
+    * Status code: The HTTP response code that the load balancer will respond with when redirecting. 301 and 302 are supported.
 * Task target: Set a target based on the task type. The input varies depending on the task type.
 * Task priority: Set the L7 rule priority. The value you enter determines the priority within the task type, and if you enter a duplicate value, the new rule takes precedence.
   * The order of rule application is **Block**, **Pass by URLL**, and  **Pass to Member Group**. Within the same action type, apply the priority entered by the user.

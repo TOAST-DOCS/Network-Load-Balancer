@@ -1307,6 +1307,7 @@ X-Auth-Token: {tokenId}
 | healthmonitors | Body | Array | 헬스 모니터 정보 객체 목록 |
 | healthmonitors.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitors.delay | Body | Integer | 상태 확인 간격(초) |
+| healthmonitors.health_check_port | Body | Integer | - | 헬스 체크의 대상이 되는 멤버 포트 <br> * 0으로 지정하면 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * 0이 아닌 양수를 입력하면 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
 | healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다. |
 | healthmonitors.max_retries | Body | Integer | 최대 재시도 횟수 |
 | healthmonitors.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
@@ -1373,7 +1374,8 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | 상태 확인 간격(초) |
-| healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
+| healthmonitor.health_check_port | Body | Integer | - | 헬스 체크의 대상이 되는 멤버 포트 <br> * 0으로 지정하면 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * 0이 아닌 양수를 입력하면 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
+| healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
 | healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.timeout | Body | Integer | 상태 확인 응답 대기 시간(초) |
@@ -1432,7 +1434,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | O | 헬스 모니터 정보 객체 |
 | healthmonitor.pool_id | Body | UUID | O | 헬스 모니터가 연결될 풀 ID |
 | healthmonitor.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
-| healthmonitor.health_check_port | Body | Integer | - | 헬스 체크의 대상이 되는 멤버 포트 |
+| healthmonitor.health_check_port | Body | Integer | - | 헬스 체크의 대상이 되는 멤버 포트 <br> * 0으로 지정하면 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * 0이 아닌 양수를 입력하면 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
 | healthmonitor.delay | Body | Integer | O | 상태 확인 간격(초) |
 | healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | O | 최대 재시도 횟수 |
@@ -1475,6 +1477,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | 상태 확인 간격(초) |
+| healthmonitor.health_check_port | Body | Integer | - | 헬스 체크의 대상이 되는 멤버 포트 <br> * 0으로 지정하면 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * 0이 아닌 양수를 입력하면 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
 | healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
 | healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
@@ -1484,7 +1487,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 | healthmonitor.id | Body | UUID | 헬스 모니터 ID |
-| healthmonitors.host_header | Body | String | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
+| healthmonitor.host_header | Body | String | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
 
 
@@ -1532,13 +1535,14 @@ X-Auth-Token: {tokenId}
 | healthmonitorId | URL | UUID | O | 헬스 모니터 ID |
 | healthmonitor | Body | Object | O | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
+| healthmonitor.health_check_port | Body | Integer | - | 헬스 체크의 대상이 되는 멤버 포트 <br> * 0으로 지정하면 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * 0이 아닌 양수를 입력하면 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
 | healthmonitor.delay | Body | Integer | - | 상태 확인 간격(초) |
 | healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드<br>단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | - | 최대 재시도 횟수 |
 | healthmonitor.http_method | Body | Enum | - | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.timeout | Body | Integer | - | 상태 확인 응답 대기 시간(초) |
 | healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
-| healthmonitors.host_header | Body | String | - | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
+| healthmonitor.host_header | Body | String | - | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
 
 <details><summary>예시</summary>
@@ -1568,6 +1572,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | 상태 확인 간격(초) |
+| healthmonitor.health_check_port | Body | Integer | - | 헬스 체크의 대상이 되는 멤버 포트 <br> * 0으로 지정하면 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * 0이 아닌 양수를 입력하면 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
 | healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드<br>단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
 | healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
@@ -1577,7 +1582,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 | healthmonitor.id | Body | UUID | 헬스 모니터 ID |
-| healthmonitors.host_header | Body | String | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
+| healthmonitor.host_header | Body | String | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
 
 <details><summary>예시</summary>
@@ -1972,7 +1977,8 @@ X-Auth-Token: {tokenId}
 | listener_id | Query | UUID | - | 조회할 L7 정책의 리스너 ID |
 | action | Query | Enum | - | 조회할 L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
 | redirect_pool_id | Query | UUID | - | 조회할 L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
-| redirect_url | Query | String | - | 조회할 L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
+| redirect_url | Query | String | - | 조회할 L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용|
+| redirect_http_code | Query | Integer | - | L7 정책의 리다이렉트 HTTP 응답 코드 |
 | position | Query | Integer | - | 조회할 L7 정책의 우선순위 |
 
 
@@ -1992,6 +1998,7 @@ X-Auth-Token: {tokenId}
 | l7policies.action | Body | Enum | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
 | l7policies.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
 | l7policies.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
+| l7policies.redirect_http_code | Body | Integer | - | L7 정책의 리다이렉트 HTTP 응답 코드 |
 | l7policies.position | Body | Integer | L7 정책의 우선순위 |
 
 <details><summary>예시</summary>
@@ -2053,6 +2060,7 @@ X-Auth-Token: {tokenId}
 | l7policy.action | Body | Enum | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
 | l7policy.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
+| l7policy.redirect_http_code | Body | Integer | - | L7 정책의 리다이렉트 HTTP 응답 코드 |
 | l7policy.position | Body | Integer | L7 정책의 우선순위 |
 
 
@@ -2101,7 +2109,8 @@ X-Auth-Token: {tokenId}
 | l7policy.admin_state_up | Body | Boolean | - | L7 정책 관리자 제어 상태로 생략하면 `true`로 설정 |
 | l7policy.action | Body | Enum | O | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | - | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우 필수 |
-| l7policy.redirect_url | Body | String | - | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우 필수 |
+| l7policy.redirect_url | Body | String | - | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우 필수 <br> * 입력 가능한 포맷은 `#{protocol}://#{host}:#{port}/#{path}?#{query}` 형태이며, `#{_}` 형태로 입력 시 기존 요청의 값을 유지합니다. `#{_}`가 아닌 값을 직접 입력할 경우 리다이렉트 URL에 해당 값이 적용되어 클라이언트에게 반환합니다. <br> * 무한한 리다이렉트를 방지하기 위하여 protocol, host, port, path 중에서 최소 1개 이상은 변경되어야 합니다. <br> * 올바르지 않은 형태로 입력 시, 리다이렉트 URL이 실제 입력과는 다른 값으로 변환이 될 수 있습니다.|
+| l7policy.redirect_http_code | Body | Integer | - | L7 정책의 리다이렉트 HTTP 응답 코드 <br> 301, 302 중에서 하나. 기본 값 302 |
 | l7policy.position | Body | Integer | - | L7 정책의 우선순위. 생략할 경우 마지막 순위로 설정 |
 
 
@@ -2136,6 +2145,7 @@ X-Auth-Token: {tokenId}
 | l7policy.action | Body | Enum | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
 | l7policy.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
+| l7policy.redirect_http_code | Body | Integer | - | L7 정책의 리다이렉트 HTTP 응답 코드 |
 | l7policy.position | Body | Integer | L7 정책의 우선순위 |
 
 
@@ -2182,6 +2192,7 @@ X-Auth-Token: {tokenId}
 | l7policy.action | Body | Enum | - | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | - | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우 필수 |
 | l7policy.redirect_url | Body | String | - | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우 필수 |
+| l7policy.redirect_http_code | Body | Integer | - | L7 정책의 리다이렉트 HTTP 응답 코드 |
 | l7policy.position | Body | Integer | - | L7 정책의 우선순위 |
 
 <details><summary>예시</summary>
@@ -2213,6 +2224,7 @@ X-Auth-Token: {tokenId}
 | l7policy.action | Body | Enum | L7 정책의 액션<br> `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` 중 하나 |
 | l7policy.redirect_pool_id | Body | UUID | L7 정책의 리다이렉트 풀 ID<br>액션이 `REDIRECT_TO_POOL`인 경우에만 적용 |
 | l7policy.redirect_url | Body | String | L7 정책의 리다이렉트 URL<br>액션이 `REDIRECT_TO_URL`인 경우에만 적용 |
+| l7policy.redirect_http_code | Body | Integer | - | L7 정책의 리다이렉트 HTTP 응답 코드 |
 | l7policy.position | Body | Integer | L7 정책의 우선순위 |
 
 

@@ -324,6 +324,7 @@ If you delete a target belonging to an access control group, the policy of the c
 Select the load balancer to apply the IP access control group to. Select the group you want to configure for that load balancer and click Confirm.
 Multiple groups with the same "access control type" can be applied to the load balancer.
 
+<a id='restarting-guide-for-maintenance'></a>
 ## Guide to Restarting Load Balancers for Maintenance
 
 NHN Cloud updates software of the load balancer equipment on a regular basis to enhance security and stability of the basic infrastructure services. For maintenance of the load balancer, the load balancer running in the maintenance target equipment must be restarted to be migrated to the load balancer equipment where maintenance has been completed.
@@ -345,14 +346,3 @@ Go to the project with the load balancer specified as the maintenance target and
 
 The load balancer becomes inoperable while restarting is underway.
 If the load balancer restart is not completed normally, it is automatically reported to the administrator, and NHN Cloud will contact you separately.
-
-## Differences Between Physical Load Balancers and Regular Load Balancers
-The differences between the physical load balancer launched online in April, 2021 and the previous load balancer (normal/dedicated) are as follows:
-
-* Physical load balancers are provided only in Pyeongchon Region, Korea.
-* Physical load balancers does not allow the association of a floating IP. When creating a physical load balancer, an automatically assigned public IP is used to receive the balancing target traffic. This public IP is displayed as a service IP on the web console.
-* Physical Basic load balancers can be created when there are 17 consecutive IPs unused by the subnet. These 17 IPs are assigned to the physical load balancer and displayed as reserved IPs on the web console.
-* Physical Premium load balancers can be created when there are 50 consecutive IPs unused by the subnet. These 50 IPs are assigned to the physical load balancer and displayed as reserved IPs on the web console.
-* Physical load balancers do not provide the proxy protocol feature.
-* Physical load balancers do not provide load balancer statistics.
-* Physical load balancers do not provide load balancer IP access control.

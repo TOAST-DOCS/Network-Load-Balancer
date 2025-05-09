@@ -35,7 +35,7 @@ This API does not require a request body.
 | vip_port_id | Query | UUID | - | Port ID of load balancer to query |
 | vip_subnet_id | Query | UUID | - | Subnet ID of load balancer to query |
 | operating_status | Query | Enum | - | Operating status of load balancer to query |
-| loadbalancer_type | Query | String | - | The type of load balancer to view<br>One of `shared`, `dedicated`, `physical_basic`, and `physical_dedicated`  |
+| loadbalancer_type | Query | String | - | The type of load balancer to view<br>Either `shared` or `dedicated` |
 
 
 #### Response

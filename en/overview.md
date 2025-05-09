@@ -136,7 +136,7 @@ HTTP requests coming in through the load balancer include the **X-Forwarded-For*
 
 To ensure QoS, the load balancer limits the number of concurrent connections per listener. If the number of incoming requests exceeds the specified connection limit value, the requests are queued in a queue inside the load balancer and processed after previous requests are completed. In addition, requests can be terminated forcibly if the queue is full or a server/client times out. In this case, the client side may experience unexpected response delays.
 
-> [Note] The maximum number of session connection limits are as follows: 60,000 for a general load balancer, 480,000 for a dedicated load balancer, 1,000,000 for a physical Basic load balancer, and 3,000,000 for a physical Premium load balancer.
+> [Note] The maximum number of session connection limits are as follows: 60,000 for a general load balancer and 480,000 for a dedicated load balancer.
 
 ## Session Persistence
 

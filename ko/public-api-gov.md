@@ -1351,6 +1351,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.host_header | Body | String | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
 
+
 <details><summary>예시</summary>
 <p>
 

@@ -1307,6 +1307,7 @@ This API does not require a request body.
 | healthmonitors | Body | Array | List of information objects of health monitor |
 | healthmonitors.admin_state_up | Body | Boolean | Administrator control status |
 | healthmonitors.delay | Body | Integer | Interval of status check (seconds) |
+| healthmonitor.health_check_port | Body | Integer | - | Member port targeted by health check <br> * If you specify 0, health checks are performed on the specified port number for each member. <br> * If you enter a non-zero positive number, health checks are performed on the entered port number, regardless of the port number specified for each member.|
 | healthmonitors.expected_codes | Body | String | HTTP response code of members to be considered in normal status <br/>Available as a single value (200), list (201,202), or range (201-204)<br/>When the status check type is set with `TCP`, value set in this field will be ignored. |
 | healthmonitors.max_retries | Body | Integer | Number of maximum retries |
 | healthmonitors.http_method | Body | Enum | HTTP Method to use for status check <br>When the status check type is set with `TCP`, value set in this field will be ignored. |
@@ -1374,6 +1375,8 @@ This API does not require a request body.
 | healthmonitor.admin_state_up | Body | Boolean | Administrator control status |
 | healthmonitor.delay | Body | Integer | Status check interval (seconds) |
 | healthmonitors.expected_codes | Body | String | HTTP response code of the member considered in normal status <br>Available as a single value (200), list (201,202), or range (201-204)<br>When the status check type is set with `TCP`, value set in this field will be ignored. |
+| healthmonitor.health_check_port | Body | Integer | - | Member port targeted by health check <br> * If you specify 0, health checks are performed on the specified port number for each member. <br> * If you enter a non-zero positive number, health checks are performed on the entered port number, regardless of the port number specified for each member.|
+| healthmonitor.expected_codes | Body | String | HTTP(S) response code of members to be considered as normal status<br>Available as a single value (200), list (201,202), or range (201-204)<br> If you set the health check type to `TCP`, the value you set in this field is ignored.|
 | healthmonitor.max_retries | Body | Integer | Number of maximum retries |
 | healthmonitor.http_method | Body | Enum | HTTP method to use for status check <br>When the status check type is set with `TCP`, value set in this field will be ignored. |
 | healthmonitor.timeout | Body | Integer | Timeout for status check (seconds) |
@@ -1432,7 +1435,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | O | Health monitor information object |
 | healthmonitor.pool_id | Body | UUID | O | ID of pool to be connected with health monitor |
 | healthmonitor.admin_state_up | Body | Boolean | - | Administrator control status |
-| healthmonitor.health_check_port | Body | Integer | - | Member port to be health-checked |
+| healthmonitor.health_check_port | Body | Integer | - | Member port targeted by health check <br> * If you specify 0, health checks are performed on the specified port number for each member. <br> * If you enter a non-zero positive number, health checks are performed on the entered port number, regardless of the port number specified for each member.|
 | healthmonitor.delay | Body | Integer | O | Interval of status check (seconds) |
 | healthmonitor.expected_codes | Body | String | - | HTTP response code of members to be considered in normal status: to be set with 200, if left blank. <br>Available as a single value (200), list (201,202), or range (201-204)<br>When the status check type is set with `TCP`, value set in this field will be ignored. |
 | healthmonitor.max_retries | Body | Integer | O | Number of maximum retries |
@@ -1475,6 +1478,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | Health monitor information object |
 | healthmonitor.admin_state_up | Body | Boolean | Administrator control status |
 | healthmonitor.delay | Body | Integer | Status check interval (seconds) |
+| healthmonitor.health_check_port | Body | Integer | - | Member port targeted by health check <br> * If you specify 0, health checks are performed on the specified port number for each member. <br> * If you enter a non-zero positive number, health checks are performed on the entered port number, regardless of the port number specified for each member.|
 | healthmonitor.expected_codes | Body | String | HTTP response code of members to be considered in normal status: if left blank, set with 200. <br>Available as a single value (200), list (201,202), or range (201-204)<br>When the status check type is set with `TCP`, value set for this field will be ignored. |
 | healthmonitor.max_retries | Body | Integer | Number of maximum retries |
 | healthmonitor.http_method | Body | Enum | HTTP method to use for status check <br>When the status check type is set with `TCP`, value set for this field will be ignored. |
@@ -1484,7 +1488,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.url_path | Body | String | URL requesting of status checks<br>When the status check type is set with `TCP`, value set for this field will be ignored. |
 | healthmonitor.type | Body | Enum | Protocol to use for status check: One of `TCP`, `HTTP`, and `HTTPS` |
 | healthmonitor.id | Body | UUID | Health monitor ID |
-| healthmonitors.host_header | Body | String | Host header field value to use for status check<br> When the status check type is set with `TCP`, value set in this field will be ignored.|
+| healthmonitor.host_header | Body | String | Host header field value to use for status check<br> When the status check type is set with `TCP`, value set in this field will be ignored.|
 
 
 
@@ -1532,13 +1536,14 @@ X-Auth-Token: {tokenId}
 | healthmonitorId | URL | UUID | O | Health monitor ID |
 | healthmonitor | Body | Object | O | Health monitor information object |
 | healthmonitor.admin_state_up | Body | Boolean | - | Administrator control status |
+| healthmonitor.health_check_port | Body | Integer | - | Member port targeted by health check <br> * If you specify 0, health checks are performed on the specified port number for each member. <br> * If you enter a non-zero positive number, health checks are performed on the entered port number, regardless of the port number specified for each member.|
 | healthmonitor.delay | Body | Integer | - | Status check interval (seconds) |
 | healthmonitor.expected_codes | Body | String | - | HTTP response code of members to be considered in normal status<br>Available as a single value (200), list (201,202), or range (201-204)<br>When the status check type is set with `TCP`, value set for this field will be ignored. |
 | healthmonitor.max_retries | Body | Integer | - | Number of maximum retries |
 | healthmonitor.http_method | Body | Enum | - | HTTP Method to use for status check <br>When the status check type is set with `TCP`, value set for this field will be ignored. |
 | healthmonitor.timeout | Body | Integer | - | Timeout for status checks (seconds) |
 | healthmonitor.url_path | Body | String | - | URL requesting of status checks<br/>When the status check type is set with `TCP`, value set for this field will be ignored. |
-| healthmonitors.host_header | Body | String | - | Host header field value to use for status check<br> When the status check type is set with `TCP`, value set in this field will be ignored.|
+| healthmonitor.host_header | Body | String | - | Host header field value to use for status check<br> When the status check type is set with `TCP`, value set in this field will be ignored.|
 
 
 <details><summary>Example</summary>
@@ -1568,6 +1573,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | Health monitor information object |
 | healthmonitor.admin_state_up | Body | Boolean | Administrator control status |
 | healthmonitor.delay | Body | Integer | Status check interval (seconds) |
+| healthmonitor.health_check_port | Body | Integer | - | Member port targeted by health check <br> * If you specify 0, health checks are performed on the specified port number for each member. <br> * If you enter a non-zero positive number, health checks are performed on the entered port number, regardless of the port number specified for each member.|
 | healthmonitor.expected_codes | Body | String | HTTP response code of members to be considered in normal status<br/>Available as a single value (200), list (201,202), or range (201-204) When the status check type is set with `TCP`, value set for this field will be ignored. |
 | healthmonitor.max_retries | Body | Integer | Number of maximum retries |
 | healthmonitor.http_method | Body | Enum | HTTP Method to use for status check <br/>When the status check type is set with `TCP`, value set for this field will be ignored. |
@@ -1577,7 +1583,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.url_path | Body | String | URL requesting of status checks<br/>When the status check type is set with `TCP`, value set for this field will be ignored. |
 | healthmonitor.type | Body | Enum | Protocol to use for status check: One of `TCP`, `HTTP`, and `HTTPS` |
 | healthmonitor.id | Body | UUID | Health monitor ID |
-| healthmonitors.host_header | Body | String | Host header field value to use for status check<br> When the status check type is set with `TCP`, value set in this field will be ignored.|
+| healthmonitor.host_header | Body | String | Host header field value to use for status check<br> When the status check type is set with `TCP`, value set in this field will be ignored.|
 
 
 <details><summary>Example</summary>
@@ -1972,7 +1978,8 @@ This API does not require a request body.
 | listener_id | Query | UUID | - | Listener ID of L7 policy to query |
 | Endpoint stage ID | Query | Enum | - | Action of  L7 policy to query <br> Either `REDIRECT_TO_POOL or REDIRECT_TO_URL/REJECT`  |
 | redirect_pool_id | Query | UUID | - | Redirect pool ID of L7 policy to query<br>Applies only if action is `REDIRECT_TO_POOL` |
-| redirect_url | Query | String | - | Redirect URL of L7 policy to query<br>Applies only if action is `REDIRECT_TO_URL` |
+| redirect_url |  | String | - | Redirect URL of the L7 policy to look up<br>Applies only if action is `REDIRECT_TO_URL`|
+| redirect_http_code | Query | Integer | - | Redirect HTTP response codes for L7 policies |
 | position | Query | Integer | - | Priority of L7 policy to query |
 
 
@@ -1992,6 +1999,7 @@ This API does not require a request body.
 | l7policies.action | Body | Enum | Action of L7 policy<br> One of the following: `REDIRECT_TO_POOL`, `REDIRECT_TO_URL`, or `REJECT` |
 | l7policies.redirect_pool_id | Body | UUID | Redirect pool ID of  L7 policy<br>Applies only if action is `REDIRECT_TO_POOL` |
 | l7policies.redirect_url | Body | String | Redirect URL of L7 policy<br>Applies only if action is `REDIRECT_TO_URL` |
+| l7policy.redirect_http_code  | Body | Integer | - | Redirect HTTP response codes for L7 policies |
 | l7policies.position | Body | Integer | Prioritization of L7 policies |
 
 <details><summary>Example</summary>
@@ -2053,6 +2061,7 @@ This API does not require a request body.
 | l7policy.action | Body | Enum | Action of L7 policy<br> One of the following: `REDIRECT_TO_POOL`, `REDIRECT_TO_URL`, or `REJECT` |
 | l7policy.redirect_pool_id | Body | UUID | Redirect pool ID of L7 policy<br>Applies only if action is `REDIRECT_TO_POOL` |
 | l7policy.redirect_url | Body | String | Redirect URL of L7 policy<br>Applies only if action is `REDIRECT_TO_URL` |
+| l7policy.redirect_http_code  | Body | Integer | - | Redirect HTTP response codes for L7 policies |
 | l7policy.position | Body | Integer | Prioritization of L7 policies |
 
 
@@ -2101,7 +2110,8 @@ X-Auth-Token: {tokenId}
 | l7policy.admin_state_up | Body | Boolean | - | Set to `true`if omitted as L7 Policy Manager control status |
 | l7policy.action | Body | Enum | O | Action of L7 policy<br> One of the following: `REDIRECT_TO_POOL`, `REDIRECT_TO_URL`, or `REJECT` |
 | l7policy.redirect_pool_id | Body | UUID | - | Redirect pool ID of L7 policy<br>Required if action is `REDIRECT_TO_POOL` |
-| l7policy.redirect_url | Body | String | - | Redirect URL of L7 policy<br>Required if action is `REDIRECT_TO_URL` |
+| l7policy.redirect_url | Body | String | - | Redirect URL of L7 policy<br>Required if action is `REDIRECT_TO_URL` <br> \* The acceptable format is `#{protocol}://#{host}:#{port}/#{path}?#{query}`, which will retain the value from the existing request when entered in `#{_}` form. If you enter a non `#{_}` value directly, the redirect URL will apply that value and return it to the client. <br> \* At least one of protocol, host, port, and path must be changed to prevent infinite redirects.|
+| l7policy.redirect_http_code | Body | Integer | - | Redirect HTTP response codes for L7 policies <br>  |
 | l7policy.position | Body | Integer | - | Priority of the L7 policy. Sets to last priority if omitted |
 
 
@@ -2136,6 +2146,7 @@ X-Auth-Token: {tokenId}
 | l7policy.action | Body | Enum | Action of L7 policy<br> One of the following: `REDIRECT_TO_POOL`, `REDIRECT_TO_URL`, or `REJECT` |
 | l7policy.redirect_pool_id | Body | UUID | Redirect pool ID of L7 policy<br>Applies only if action is `REDIRECT_TO_POOL` |
 | l7policy.redirect_url | Body | String | Redirect URL of L7 policy<br>Applies only if action is `REDIRECT_TO_URL` |
+| l7policy.redirect_http_code | Body | Integer | - | Redirect HTTP response codes for L7 policies |
 | l7policy.position | Body | Integer | Prioritization of L7 policies |
 
 
@@ -2182,6 +2193,7 @@ X-Auth-Token: {tokenId}
 | l7policy.action | Body | Enum | - | Action of L7 policy<br> One of the following: `REDIRECT_TO_POOL`, `REDIRECT_TO_URL`, or `REJECT` |
 | l7policy.redirect_pool_id | Body | UUID | - | Redirect pool ID of L7 policy<br>Required if action is `REDIRECT_TO_POOL` |
 | l7policy.redirect_url | Body | String | - | Redirect URL of L7 policy<br>Required if action is `REDIRECT_TO_URL` |
+| l7policy.redirect_http_code | Body | Integer | - | Redirect HTTP response codes for L7 policies |
 | l7policy.position | Body | Integer | - | Prioritization of L7 policies |
 
 <details><summary>Example</summary>
@@ -2213,6 +2225,7 @@ X-Auth-Token: {tokenId}
 | l7policy.action | Body | Enum | Action of L7 policy<br> One of the following: `REDIRECT_TO_POOL`, `REDIRECT_TO_URL`, or `REJECT` |
 | l7policy.redirect_pool_id | Body | UUID | Redirect pool ID of L7 policy<br>Applies only if action is `REDIRECT_TO_POOL` |
 | l7policy.redirect_url | Body | String | Redirect URL of L7 policy<br>Applies only if action is `REDIRECT_TO_URL` |
+| l7policy.redirect_http_code | Body | Integer | - | Redirect HTTP response codes for L7 policies |
 | l7policy.position | Body | Integer | Prioritization of L7 policies |
 
 

@@ -1272,7 +1272,7 @@ X-Auth-Token: {tokenId}
 | healthmonitors | Body | Array | 헬스 모니터 정보 객체 목록 |
 | healthmonitors.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitors.delay | Body | Integer | 상태 확인 간격(초) |
-| healthmonitors.health_check_port | Body | Integer | 헬스 체크의 대상이 되는 멤버 포트 <br> * `member-port`의 경우, 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * `member-port`가 아닌 양수의 경우, 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
+| healthmonitors.health_check_port | Body | Integer | 헬스 체크의 대상이 되는 멤버 포트 <br> * `member-port` 또는 0의 경우, 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * 양수의 경우, 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
 | healthmonitors.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다. |
 | healthmonitors.max_retries | Body | Integer | 최대 재시도 횟수 |
 | healthmonitors.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
@@ -1338,7 +1338,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | 상태 확인 간격(초) |
-| healthmonitor.health_check_port | Body | Integer | 헬스 체크의 대상이 되는 멤버 포트 <br> * `member-port`의 경우, 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * `member-port`가 아닌 양수의 경우, 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
+| healthmonitor.health_check_port | Body | Integer | 헬스 체크의 대상이 되는 멤버 포트 <br> * `member-port` 또는 0의 경우, 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * 양수의 경우, 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
 | healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드 <br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
 | healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
@@ -1398,7 +1398,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | O | 헬스 모니터 정보 객체 |
 | healthmonitor.pool_id | Body | UUID | O | 헬스 모니터가 연결될 풀 ID |
 | healthmonitor.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
-| healthmonitor.health_check_port | Body | Integer | - | 헬스 체크의 대상이 되는 멤버 포트 <br> * `member-port`로 지정하면 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * `member-port`가 아닌 양수를 입력하면 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다. |
+| healthmonitor.health_check_port | Body | Integer | - | 헬스 체크의 대상이 되는 멤버 포트 <br> * `member-port` 또는 0으로 지정하면 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * 양수를 입력하면 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다. |
 | healthmonitor.delay | Body | Integer | O | 상태 확인 간격(초) |
 | healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | O | 최대 재시도 횟수 |
@@ -1440,7 +1440,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor | Body | Object | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | healthmonitor.delay | Body | Integer | 상태 확인 간격(초) |
-| healthmonitor.health_check_port | Body | Integer | 헬스 체크의 대상이 되는 멤버 포트 <br> * `member-port`의 경우, 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * `member-port`가 아닌 양수의 경우, 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
+| healthmonitor.health_check_port | Body | Integer | 헬스 체크의 대상이 되는 멤버 포트 <br> * `member-port` 또는 0의 경우, 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * 양수의 경우, 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
 | healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드. 생략하면 200으로 설정됨.<br> 단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |
 | healthmonitor.http_method | Body | Enum | 상태 확인에 사용할 HTTP Method <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
@@ -1497,7 +1497,7 @@ X-Auth-Token: {tokenId}
 | healthmonitorId | URL | UUID | O | 헬스 모니터 ID |
 | healthmonitor | Body | Object | O | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
-| healthmonitor.health_check_port | Body | Integer | - | 헬스 체크의 대상이 되는 멤버 포트 <br> * `member-port`로 지정하면 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * `member-port`가 아닌 양수를 입력하면 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
+| healthmonitor.health_check_port | Body | Integer | - | 헬스 체크의 대상이 되는 멤버 포트 <br> * `member-port` 또는 0으로 지정하면 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * 양수를 입력하면 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
 | healthmonitor.delay | Body | Integer | - | 상태 확인 간격(초) |
 | healthmonitor.expected_codes | Body | String | - | 정상 상태로 간주할 멤버의 HTTP 응답 코드<br>단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | - | 최대 재시도 횟수 |
@@ -1532,7 +1532,7 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|
 | healthmonitor | Body | Object | 헬스 모니터 정보 객체 |
 | healthmonitor.admin_state_up | Body | Boolean | 관리자 제어 상태 |
-| healthmonitor.health_check_port | Body | Integer | 헬스 체크의 대상이 되는 멤버 포트 <br> * `member-port`의 경우, 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * `member-port`가 아닌 양수의 경우, 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
+| healthmonitor.health_check_port | Body | Integer | 헬스 체크의 대상이 되는 멤버 포트 <br> * `member-port` 또는 0의 경우, 각 멤버별로 지정된 포트 번호를 대상으로 상태 확인을 수행합니다. <br> * 양수의 경우, 각 멤버별로 지정된 포트 번호와 관계없이 입력된 포트 번호로 상태 확인을 수행합니다.|
 | healthmonitor.delay | Body | Integer | 상태 확인 간격(초) |
 | healthmonitor.expected_codes | Body | String | 정상 상태로 간주할 멤버의 HTTP 응답 코드<br>단일값(200), 목록(201,202), 또는 범위(201-204)로 사용 가능<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.max_retries | Body | Integer | 최대 재시도 횟수 |

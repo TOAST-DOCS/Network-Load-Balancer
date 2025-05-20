@@ -324,6 +324,7 @@ If you delete a target belonging to an access control group, the policy of the c
 Select the load balancer to apply the IP access control group to. Select the group you want to configure for that load balancer and click Confirm.
 Multiple groups with the same "access control type" can be applied to the load balancer.
 
+<a id='restarting-guide-for-maintenance'></a>
 ## Guide to Restarting Load Balancers for Maintenance
 
 NHN Cloud updates software of the load balancer equipment on a regular basis to enhance security and stability of the basic infrastructure services. For maintenance of the load balancer, the load balancer running in the maintenance target equipment must be restarted to be migrated to the load balancer equipment where maintenance has been completed.

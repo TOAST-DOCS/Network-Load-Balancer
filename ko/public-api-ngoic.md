@@ -6,8 +6,8 @@ API를 사용하려면 API 엔드포인트와 토큰 등이 필요합니다. [AP
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
-| network | 한국(판교) 리전 | https://kr4-api-network-infrastructure.ngoic.com |
-| key-manager | 한국(판교) 리전 | https://kr4-api-key-manager-infrastructure.ngoic.com |
+| network | 한국(대구) 리전 | https://kr4-api-network-infrastructure.ngoic.com |
+| key-manager | 한국(대구) 리전 | https://kr4-api-key-manager-infrastructure.ngoic.com |
 
 API 응답에 가이드에 명시되지 않은 필드가 나타날 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용하며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
 
@@ -2499,7 +2499,7 @@ X-Auth-Token: {tokenId}
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
-| key-manager | 한국(판교) 리전 | https://kr4-api-key-manager-infrastructure.ngoic.com |
+| key-manager | 한국(대구) 리전 | https://kr4-api-key-manager-infrastructure.ngoic.com |
 
 API 응답에 가이드에 명시되지 않은 필드가 노출될 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용되며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
 
@@ -2830,7 +2830,7 @@ X-Auth-Token: {tokenId}
 
 | 타입 | 리전 | 엔드포인트 |
 |---|---|---|
-| key-manager | 한국(판교) 리전 | https://kr4-api-key-manager-infrastructure.ngoic.com |
+| key-manager | 한국(대구) 리전 | https://kr4-api-key-manager-infrastructure.ngoic.com |
 
 API 응답에 가이드에 명시되지 않은 필드가 노출될 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용되며 사전 공지없이 변경될 수 있으므로 사용하지 않습니다.
 

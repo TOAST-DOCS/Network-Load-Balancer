@@ -690,6 +690,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | - | 리스너의 keepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot 헤더 on/off<br>기본값: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port 헤더 on/off<br>기본값: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | HAProxy `option forwardfor` 및 X-Forwarded-For 헤더 on/off<br>기본값: `true` |
 | listener.default_tls_container_ref | Body | String | - | key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | - | key-manager에 등록된 SNI 인증서 경로 목록 |
 
@@ -706,6 +709,9 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "enable_x_forwarded_proto": true,
+    "enable_x_forwarded_port": true,
+    "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": []
@@ -730,6 +736,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | listener.connection_limit | Body | Integer | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | X-Forwarded-Proto/X-Forwarded-Prot 헤더 on/off |
+| listener.enable_x_forwarded_port | Body | Boolean | X-Forwarded-Port 헤더 on/off |
+| listener.enable_x_forwarded_for | Body | Boolean | HAProxy `option forwardfor` 및 X-Forwarded-For 헤더 on/off |
 | listener.default_tls_container_ref | Body | String | key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
@@ -756,6 +765,9 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "enable_x_forwarded_proto": true,
+    "enable_x_forwarded_port": true,
+    "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",

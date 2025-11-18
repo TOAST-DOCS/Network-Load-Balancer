@@ -792,7 +792,7 @@ X-Auth-Token: {tokenId}
 이 API는 응답 본문을 반환하지 않습니다.
 ---
 
-### 에러페이지 생성하기
+### 사용자 정의 응답 생성하기
 
 ```
 POST /v2.0/lbaas/listeners/{listenerId}/errorpages
@@ -805,10 +805,10 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | listenerId | URL | UUID | O | 리스너 ID |
-| errorpage | Body | Object | O | 에러페이지 정보 객체 |
+| errorpage | Body | Object | O | 사용자 정의 응답 정보 객체 |
 | errorpage.code | Body | Integer | O | 에러 코드<br>`400`, `403`, `408`, `500`, `502`, `503`, `504` 중 하나 |
 | errorpage.content_type | Body | Enum | O | 콘텐츠 타입<br>`application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` 중 하나 |
-| errorpage.body | Body | String | O | 에러페이지 본문 (1024자 이내) |
+| errorpage.body | Body | String | O | 사용자 정의 응답 본문 (1024자 이내) |
 
 **참고**: 동일 리스너에 중복된 코드는 생성할 수 없습니다. (예: 504를 여러 개 생성하는 경우)
 
@@ -831,11 +831,11 @@ X-Auth-Token: {tokenId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| errorpage | Body | Object | 에러페이지 정보 객체 |
-| errorpage.id | Body | UUID | 에러페이지 ID |
+| errorpage | Body | Object | 사용자 정의 응답 정보 객체 |
+| errorpage.id | Body | UUID | 사용자 정의 응답 ID |
 | errorpage.code | Body | Integer | 에러 코드 |
 | errorpage.content_type | Body | Enum | 콘텐츠 타입 |
-| errorpage.body | Body | String | 에러페이지 본문 |
+| errorpage.body | Body | String | 사용자 정의 응답 본문 |
 | errorpage.tenant_id | Body | String | 테넌트 ID |
 
 <details><summary>예시</summary>
@@ -857,7 +857,7 @@ X-Auth-Token: {tokenId}
 
 ---
 
-### 에러페이지 수정하기
+### 사용자 정의 응답 수정하기
 
 ```
 PUT /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
@@ -870,10 +870,10 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | listenerId | URL | UUID | O | 리스너 ID |
-| errorpageId | URL | UUID | O | 에러페이지 ID |
-| errorpage | Body | Object | O | 에러페이지 정보 객체 |
+| errorpageId | URL | UUID | O | 사용자 정의 응답 ID |
+| errorpage | Body | Object | O | 사용자 정의 응답 정보 객체 |
 | errorpage.content_type | Body | Enum | O | 콘텐츠 타입<br>`application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` 중 하나 |
-| errorpage.body | Body | String | O | 에러페이지 본문 (1024자 이내) |
+| errorpage.body | Body | String | O | 사용자 정의 응답 본문 (1024자 이내) |
 
 **참고**: `code`는 수정할 수 없습니다.
 
@@ -895,11 +895,11 @@ X-Auth-Token: {tokenId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| errorpage | Body | Object | 에러페이지 정보 객체 |
-| errorpage.id | Body | UUID | 에러페이지 ID |
+| errorpage | Body | Object | 사용자 정의 응답 정보 객체 |
+| errorpage.id | Body | UUID | 사용자 정의 응답 ID |
 | errorpage.code | Body | Integer | 에러 코드 |
 | errorpage.content_type | Body | Enum | 콘텐츠 타입 |
-| errorpage.body | Body | String | 에러페이지 본문 |
+| errorpage.body | Body | String | 사용자 정의 응답 본문 |
 | errorpage.tenant_id | Body | String | 테넌트 ID |
 
 <details><summary>예시</summary>
@@ -921,7 +921,7 @@ X-Auth-Token: {tokenId}
 
 ---
 
-### 에러페이지 삭제하기
+### 사용자 정의 응답 삭제하기
 
 ```
 DELETE /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
@@ -936,7 +936,7 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | listenerId | URL | UUID | O | 리스너 ID |
-| errorpageId | URL | UUID | O | 에러페이지 ID |
+| errorpageId | URL | UUID | O | 사용자 정의 응답 ID |
 
 #### 응답
 
@@ -944,7 +944,7 @@ X-Auth-Token: {tokenId}
 
 ---
 
-### 에러페이지 보기
+### 사용자 정의 응답 보기
 
 ```
 GET /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
@@ -959,17 +959,17 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | listenerId | URL | UUID | O | 리스너 ID |
-| errorpageId | URL | UUID | O | 에러페이지 ID |
+| errorpageId | URL | UUID | O | 사용자 정의 응답 ID |
 
 #### 응답
 
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| errorpage | Body | Object | 에러페이지 정보 객체 |
-| errorpage.id | Body | UUID | 에러페이지 ID |
+| errorpage | Body | Object | 사용자 정의 응답 정보 객체 |
+| errorpage.id | Body | UUID | 사용자 정의 응답 ID |
 | errorpage.code | Body | Integer | 에러 코드 |
 | errorpage.content_type | Body | Enum | 콘텐츠 타입 |
-| errorpage.body | Body | String | 에러페이지 본문 |
+| errorpage.body | Body | String | 사용자 정의 응답 본문 |
 | errorpage.tenant_id | Body | String | 테넌트 ID |
 
 <details><summary>예시</summary>
@@ -991,7 +991,7 @@ X-Auth-Token: {tokenId}
 
 ---
 
-### 에러페이지 목록 보기
+### 사용자 정의 응답 목록 보기
 
 ```
 GET /v2.0/lbaas/listeners/{listenerId}/errorpages
@@ -1011,11 +1011,11 @@ X-Auth-Token: {tokenId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |---|---|---|---|
-| errorpages | Body | Array | 에러페이지 정보 객체 목록 |
-| errorpages.id | Body | UUID | 에러페이지 ID |
+| errorpages | Body | Array | 사용자 정의 응답 정보 객체 목록 |
+| errorpages.id | Body | UUID | 사용자 정의 응답 ID |
 | errorpages.code | Body | Integer | 에러 코드 |
 | errorpages.content_type | Body | Enum | 콘텐츠 타입 |
-| errorpages.body | Body | String | 에러페이지 본문 |
+| errorpages.body | Body | String | 사용자 정의 응답 본문 |
 | errorpages.tenant_id | Body | String | 테넌트 ID |
 
 <details><summary>예시</summary>

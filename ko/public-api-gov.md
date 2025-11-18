@@ -789,7 +789,261 @@ X-Auth-Token: {tokenId}
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
+---
 
+### 에러페이지 생성하기
+
+```
+POST /v2.0/lbaas/listeners/{listenerId}/errorpages
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| listenerId | URL | UUID | O | 리스너 ID |
+| errorpage | Body | Object | O | 에러페이지 정보 객체 |
+| errorpage.code | Body | Integer | O | 에러 코드<br>`400`, `403`, `408`, `500`, `502`, `503`, `504` 중 하나 |
+| errorpage.content_type | Body | Enum | O | 콘텐츠 타입<br>`application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` 중 하나 |
+| errorpage.body | Body | String | O | 에러페이지 본문 (1024자 이내) |
+
+**참고**: 동일 리스너에 중복된 코드는 생성할 수 없습니다. (예: 504를 여러 개 생성하는 경우)
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "code": 502,
+    "content_type": "text/html",
+    "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>"
+  }
+}
+```
+</p>
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| errorpage | Body | Object | 에러페이지 정보 객체 |
+| errorpage.id | Body | UUID | 에러페이지 ID |
+| errorpage.code | Body | Integer | 에러 코드 |
+| errorpage.content_type | Body | Enum | 콘텐츠 타입 |
+| errorpage.body | Body | String | 에러페이지 본문 |
+| errorpage.tenant_id | Body | String | 테넌트 ID |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
+    "code": 502,
+    "content_type": "text/html",
+    "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>",
+    "tenant_id": "419a823563124dc5b5627f5e79db8174"
+  }
+}
+```
+</p>
+</details>
+
+---
+
+### 에러페이지 수정하기
+
+```
+PUT /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| listenerId | URL | UUID | O | 리스너 ID |
+| errorpageId | URL | UUID | O | 에러페이지 ID |
+| errorpage | Body | Object | O | 에러페이지 정보 객체 |
+| errorpage.content_type | Body | Enum | O | 콘텐츠 타입<br>`application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` 중 하나 |
+| errorpage.body | Body | String | O | 에러페이지 본문 (1024자 이내) |
+
+**참고**: `code`는 수정할 수 없습니다.
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "content_type": "application/json",
+    "body": "{"error": {"code": 502, "message": "Bad Gateway"}}"
+  }
+}
+```
+</p>
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| errorpage | Body | Object | 에러페이지 정보 객체 |
+| errorpage.id | Body | UUID | 에러페이지 ID |
+| errorpage.code | Body | Integer | 에러 코드 |
+| errorpage.content_type | Body | Enum | 콘텐츠 타입 |
+| errorpage.body | Body | String | 에러페이지 본문 |
+| errorpage.tenant_id | Body | String | 테넌트 ID |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
+    "code": 502,
+    "content_type": "application/json",
+    "body": "{"error": {"code": 502, "message": "Bad Gateway"}}",
+    "tenant_id": "419a823563124dc5b5627f5e79db8174"
+  }
+}
+```
+</p>
+</details>
+
+---
+
+### 에러페이지 삭제하기
+
+```
+DELETE /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| listenerId | URL | UUID | O | 리스너 ID |
+| errorpageId | URL | UUID | O | 에러페이지 ID |
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+---
+
+### 에러페이지 보기
+
+```
+GET /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| listenerId | URL | UUID | O | 리스너 ID |
+| errorpageId | URL | UUID | O | 에러페이지 ID |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| errorpage | Body | Object | 에러페이지 정보 객체 |
+| errorpage.id | Body | UUID | 에러페이지 ID |
+| errorpage.code | Body | Integer | 에러 코드 |
+| errorpage.content_type | Body | Enum | 콘텐츠 타입 |
+| errorpage.body | Body | String | 에러페이지 본문 |
+| errorpage.tenant_id | Body | String | 테넌트 ID |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
+    "code": 502,
+    "content_type": "text/html",
+    "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>",
+    "tenant_id": "419a823563124dc5b5627f5e79db8174"
+  }
+}
+```
+</p>
+</details>
+
+---
+
+### 에러페이지 목록 보기
+
+```
+GET /v2.0/lbaas/listeners/{listenerId}/errorpages
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| listenerId | URL | UUID | O | 리스너 ID |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| errorpages | Body | Array | 에러페이지 정보 객체 목록 |
+| errorpages.id | Body | UUID | 에러페이지 ID |
+| errorpages.code | Body | Integer | 에러 코드 |
+| errorpages.content_type | Body | Enum | 콘텐츠 타입 |
+| errorpages.body | Body | String | 에러페이지 본문 |
+| errorpages.tenant_id | Body | String | 테넌트 ID |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "errorpages": [
+    {
+      "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
+      "code": 502,
+      "content_type": "text/html",
+      "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>",
+      "tenant_id": "419a823563124dc5b5627f5e79db8174"
+    },
+    {
+      "id": "d7dfd308-051a-46aa-a1af-753f2c110133",
+      "code": 503,
+      "content_type": "text/html",
+      "body": "<html><body><h1>503 Service Unavailable</h1><p>The service is temporarily unavailable. Please try again later.</p></body></html>",
+      "tenant_id": "419a823563124dc5b5627f5e79db8174"
+    }
+  ]
+}
+```
+</p>
+</details>
+
+---
 
 
 

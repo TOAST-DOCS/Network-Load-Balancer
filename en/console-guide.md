@@ -234,6 +234,83 @@ To delete a listener, click Delete: cannot delete, though, if the load balancer 
 
 > [Caution] Add/Modify/Delete listeners causes reboot of a load balancer. During the reboot, existing connected sessions are maintained, but new sessions cannot be processed (less than 1 second). Therefore, it is recommended to proceed at a time that does not affect the service.
 
+#### Certificate Management
+For listeners using the TERMINATED_HTTPS protocol, you can manage multiple certificates in the **Certificate** tab of the listener detail screen.
+
+##### View Certificates
+1. Click the **Listener** tab on the load balancer detail screen.
+2. Select the TERMINATED_HTTPS listener for which you want to manage certificates.
+3. Click the **Certificate** tab on the listener detail screen.
+4. You can view the following information from the list of registered certificates.
+   - **Name**: Certificate name
+   - **Expiration Date**: Certificate expiration date and days remaining until expiration
+
+##### Add Certificate
+1. Click the **+ Add Certificate** button on the **Certificate** tab of the listener detail screen.
+2. Select whether to use Certificate Manager.
+   - **Use**: You can select and add from the list of certificates registered in Certificate Manager.
+   - **Don't Use**: You can directly upload and register certificate files and private key files.
+3. Check the warning message, select the checkbox, and click **Confirm**.
+
+> [Caution] Adding a certificate will restart the load balancer. During the restart, existing connected sessions are maintained, but new sessions cannot be processed (less than 1 second). Therefore, it is recommended to proceed at a time that does not affect the service.
+
+##### Change Default Certificate
+1. Click the **Change Default Certificate** button on the **Certificate** tab of the listener detail screen.
+2. Select the certificate to use as the default certificate.
+3. Check the warning message, select the checkbox, and click **Confirm**.
+
+> [Caution] Changing the default certificate will restart the load balancer. During the restart, existing connected sessions are maintained, but new sessions cannot be processed (less than 1 second). Therefore, it is recommended to proceed at a time that does not affect the service.
+
+##### Delete Certificate
+1. Select the certificate to delete on the **Certificate** tab of the listener detail screen.
+2. Click the **Delete Certificate** button.
+3. Check the warning message, select the checkbox, and click **Confirm**.
+
+> [Caution] The default certificate cannot be deleted. To delete the default certificate, you must first change another certificate to the default certificate and then delete it.
+
+> [Caution] Deleting a certificate will restart the load balancer. During the restart, existing connected sessions are maintained, but new sessions cannot be processed (less than 1 second). Therefore, it is recommended to proceed at a time that does not affect the service.
+
+### Custom Response Guide
+
+You can set custom responses for listeners in the load balancer. By using custom responses, you can directly deliver custom messages or HTML content to users when specific HTTP error codes occur.
+
+#### View and Set Custom Responses
+
+1. Click the **Listener** tab on the load balancer detail screen.
+2. Select the listener for which you want to set custom responses.
+3. Click **View/Change Custom Response Settings** on the listener detail screen.
+4. You can enter and view the following items.
+   - **Response Code**: Select the HTTP status code to apply the custom response. (Supported codes: 400, 403, 408, 500, 502, 503, 504)
+   - **Content Type**: Select the Content-Type of the response to deliver to users. (Select from `text/html`, `text/plain`, `application/json`, `application/javascript`, `text/css`)
+   - **Response Body**: Enter the body of the response to show to users. (Maximum 1024 characters, content can be freely written as HTML, text, etc. depending on the content type)
+5. After entering each item, click **Confirm** to create the response. Created responses can be viewed in the list.
+
+#### Delete Custom Response
+
+- You can delete created custom responses by selecting the desired item from the list and clicking the **Delete** button.
+- When an error code corresponding to a deleted response occurs, the default system response will be displayed.
+
+> [Note] Each error code can only be registered as a custom response once within the same listener.
+
+> [Caution] When adding, modifying, or deleting custom responses, the listener may restart briefly (less than 1 second), so it is recommended to perform changes at a time that has minimal service impact.
+
+### X-Forwarded Header Settings Guide
+
+You can view and change X-Forwarded header settings for listeners in the load balancer. X-Forwarded headers are used to deliver the client's original information (protocol, port, IP address) to backend servers.
+
+#### View and Set X-Forwarded Headers
+
+1. Click the **Listener** tab on the load balancer detail screen.
+2. Select the listener for which you want to set X-Forwarded headers.
+3. Click the **View/Change Settings** button in the **X-Forwarded Headers** item on the **Basic Info** tab of the listener detail screen.
+4. You can set the following items.
+   - **X-Forwarded-Proto**: Set whether to deliver the protocol (http or https) used by the client to the backend server. Select either **Use** or **Don't Use**.
+   - **X-Forwarded-Port**: Set whether to deliver the port number to which the client connected to the backend server. Select either **Use** or **Don't Use**.
+   - **X-Forwarded-For**: Set whether to deliver the client's original IP address to the backend server. Select either **Use** or **Don't Use**.
+5. After setting each item, select the checkbox in the warning message and click **Confirm** to apply the settings.
+
+> [Caution] Changing X-Forwarded header settings will restart the load balancer. During the restart, existing connected sessions are maintained, but new sessions cannot be processed (less than 1 second). Therefore, it is recommended to proceed at a time that does not affect the service.
+
 ### Member Group Changes and Details
 On the Load Balancers screen, select the desired load balancer's **View Details** to see the listeners and member groups connected to the load balancer. From there, you can select the **Member Groups** tab to create, change, or delete member groups.
 

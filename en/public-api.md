@@ -726,6 +726,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | - | Administrator control status |
 | listener.connection_limit | Body |  Integer | - | Connection limit of listener |
 | listener.keepalive_timeout | Body | Integer | - | Keepalive timeout of listener |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | HAProxy `option forwardfor` and X-Forwarded-For header on/off<br>Default: `true` |
 | listener.default_tls_container_ref | Body | String | - | Path of TLS certificate registered at key-manager |
 | listener.sni_container_refs | Body | Array | - | List of SNI certificate paths registered at key-manager |
 
@@ -742,6 +745,9 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "enable_x_forwarded_proto": true,
+    "enable_x_forwarded_port": true,
+    "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": []
@@ -766,6 +772,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | Administrator control status |
 | listener.connection_limit | Body | Integer | Connection limit of listener |
 | listener.keepalive_timeout | Body | Integer | Keepalive timeout of listener |
+| listener.enable_x_forwarded_proto | Body | Boolean | X-Forwarded-Proto/X-Forwarded-Prot header on/off |
+| listener.enable_x_forwarded_port | Body | Boolean | X-Forwarded-Port header on/off |
+| listener.enable_x_forwarded_for | Body | Boolean | HAProxy `option forwardfor` and X-Forwarded-For header on/off |
 | listener.default_tls_container_ref | Body | String | Path of TLS certificate registered at key-manager |
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered at key-manager |
 | listener.protocol_port | Body | Integer | Listener port |
@@ -792,6 +801,9 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "enable_x_forwarded_proto": true,
+    "enable_x_forwarded_port": true,
+    "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
@@ -825,6 +837,261 @@ This API does not require a request body.
 #### Response
 
 This API does not return a response body.
+---
+### Create Custom Response
+
+```
+POST /v2.0/lbaas/listeners/{listenerId}/errorpages
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| listenerId | URL | UUID | O | Listener ID |
+| errorpage | Body | Object | O | Custom response information object |
+| errorpage.code | Body | Integer | O | Error code<br>One of `200`, `400`, `403`, `405`, `408`, `425`, `429`, `500`, `502`, `503`, `504` |
+| errorpage.content_type | Body | Enum | O | Content type<br>One of `application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` |
+| errorpage.body | Body | String | O | Custom response body (within 1024 characters) |
+
+**Note**: Duplicate codes cannot be created for the same listener. (e.g., creating multiple 504 codes)
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "code": 502,
+    "content_type": "text/html",
+    "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>"
+  }
+}
+```
+</p>
+</details>
+
+#### Response
+
+| Name | Type | Format | Description |
+|---|---|---|---|
+| errorpage | Body | Object | Custom response information object |
+| errorpage.id | Body | UUID | Custom response ID |
+| errorpage.code | Body | Integer | Error code |
+| errorpage.content_type | Body | Enum | Content type |
+| errorpage.body | Body | String | Custom response body |
+| errorpage.tenant_id | Body | String | Tenant ID |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
+    "code": 502,
+    "content_type": "text/html",
+    "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>",
+    "tenant_id": "419a823563124dc5b5627f5e79db8174"
+  }
+}
+```
+</p>
+</details>
+
+---
+
+### Modify Custom Response
+
+```
+PUT /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| listenerId | URL | UUID | O | Listener ID |
+| errorpageId | URL | UUID | O | Custom response ID |
+| errorpage | Body | Object | O | Custom response information object |
+| errorpage.content_type | Body | Enum | O | Content type<br>One of `application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` |
+| errorpage.body | Body | String | O | Custom response body (within 1024 characters) |
+
+**Note**: `code` cannot be modified.
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "content_type": "application/json",
+    "body": "{\"error\": {\"code\": 502, \"message\": \"Bad Gateway\"}}"
+  }
+}
+```
+</p>
+</details>
+
+#### Response
+
+| Name | Type | Format | Description |
+|---|---|---|---|
+| errorpage | Body | Object | Custom response information object |
+| errorpage.id | Body | UUID | Custom response ID |
+| errorpage.code | Body | Integer | Error code |
+| errorpage.content_type | Body | Enum | Content type |
+| errorpage.body | Body | String | Custom response body |
+| errorpage.tenant_id | Body | String | Tenant ID |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
+    "code": 502,
+    "content_type": "application/json",
+    "body": "{\"error\": {\"code\": 502, \"message\": \"Bad Gateway\"}}",
+    "tenant_id": "419a823563124dc5b5627f5e79db8174"
+  }
+}
+```
+</p>
+</details>
+
+---
+
+### Delete Custom Response
+
+```
+DELETE /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| listenerId | URL | UUID | O | Listener ID |
+| errorpageId | URL | UUID | O | Custom response ID |
+
+#### Response
+
+This API does not return a response body.
+
+---
+
+### View Custom Response
+
+```
+GET /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| listenerId | URL | UUID | O | Listener ID |
+| errorpageId | URL | UUID | O | Custom response ID |
+
+#### Response
+
+| Name | Type | Format | Description |
+|---|---|---|---|
+| errorpage | Body | Object | Custom response information object |
+| errorpage.id | Body | UUID | Custom response ID |
+| errorpage.code | Body | Integer | Error code |
+| errorpage.content_type | Body | Enum | Content type |
+| errorpage.body | Body | String | Custom response body |
+| errorpage.tenant_id | Body | String | Tenant ID |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
+    "code": 502,
+    "content_type": "text/html",
+    "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>",
+    "tenant_id": "419a823563124dc5b5627f5e79db8174"
+  }
+}
+```
+</p>
+</details>
+
+---
+
+### List Custom Responses
+
+```
+GET /v2.0/lbaas/listeners/{listenerId}/errorpages
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+This API does not require a request body.
+
+| Name | Type | Format | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| listenerId | URL | UUID | O | Listener ID |
+
+#### Response
+
+| Name | Type | Format | Description |
+|---|---|---|---|
+| errorpages | Body | Array | List of custom response information objects |
+| errorpages.id | Body | UUID | Custom response ID |
+| errorpages.code | Body | Integer | Error code |
+| errorpages.content_type | Body | Enum | Content type |
+| errorpages.body | Body | String | Custom response body |
+| errorpages.tenant_id | Body | String | Tenant ID |
+
+<details><summary>Example</summary>
+<p>
+
+```json
+{
+  "errorpages": [
+    {
+      "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
+      "code": 502,
+      "content_type": "text/html",
+      "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>",
+      "tenant_id": "419a823563124dc5b5627f5e79db8174"
+    },
+    {
+      "id": "d7dfd308-051a-46aa-a1af-753f2c110133",
+      "code": 503,
+      "content_type": "text/html",
+      "body": "<html><body><h1>503 Service Unavailable</h1><p>The service is temporarily unavailable. Please try again later.</p></body></html>",
+      "tenant_id": "419a823563124dc5b5627f5e79db8174"
+    }
+  ]
+}
+```
+</p>
+</details>
+
+---
+
 
 
 
@@ -2952,6 +3219,8 @@ This API does not require a request body.
 | containers.secret_refs.secret_ref | Body | String | Secret address |
 | containers.secret_refs.name | Body | String | Secret name as specified by container<br>When the container type is `certificate`: specify `certificate`, `private_key`, `private_key_passphrase`, or`intermediates`<br>When the container type is `rsa`: specify  `private_key`, `private_key_passphrase`, or`public_key` |
 | containers.type | Body | Enum | Container type<br>One of `generic`, `rsa`, and `certificate` |
+| containers.common_name | Body | String | Common Name of the certificate registered in the container<br>Only exposed when container type is `certificate` |
+| containers.expiration | Body | Datetime | Expiration date of the certificate registered in the container<br>Only exposed when container type is `certificate`, example: `YYYY-MM-DDThh:mm:ss` |
 | total | Body | Integer | Total number of secret containers of a requested query |
 | next | Body | String | URL of the next list to the current queried list |
 | previous | Body | String | URL of the previous list of the current queried list |
@@ -2969,7 +3238,7 @@ This API does not require a request body.
   "containers": [
     {
       "status": "ACTIVE",
-      "updated": "2019-12-17T08:50:39",
+      "updated": "2024-10-18T05:07:11",
       "name": "The Certificate",
       "consumers": [],
       "created": "2019-12-17T08:50:39",
@@ -2985,7 +3254,9 @@ This API does not require a request body.
           "name": "private_key"
         }
       ],
-      "type": "certificate"
+      "type": "certificate",
+      "common_name": "nhn.com.",
+      "expiration": "2025-10-18T05:07:11"
     }
   ]
 }
@@ -3027,6 +3298,8 @@ This API does not require a request body.
 | secret_refs.secret_ref | Body | String | Secret address |
 | secret_refs.name | Body | String| Secret name as specified by container<br>When the container type is `certificate`: specify  `certificate`, `private_key`, `private_key_passphrase`, or `intermediates`<br> When the container type is `rsa`: Specify`private_key`, `private_key_passphrase`, or `public_key` |
 | type | Body | Enum | Container type<br>One of `generic`, `rsa`, and `certificate` |
+| common_name | Body | String | Common Name of the certificate registered in the container<br>Only exposed when container type is `certificate` |
+| expiration | Body | Datetime | Expiration date of the certificate registered in the container<br>Only exposed when container type is `certificate`, example: `YYYY-MM-DDThh:mm:ss` |
 
 
 <details><summary>Example</summary>
@@ -3034,7 +3307,7 @@ This API does not require a request body.
 ```json
 {
     "status": "ACTIVE",
-    "updated": "2019-12-17T08:50:39",
+    "updated": "2024-10-18T05:07:11",
     "name": "The Certificate",
     "consumers": [],
     "created": "2019-12-17T08:50:39",
@@ -3050,7 +3323,9 @@ This API does not require a request body.
             "name": "certificate"
         }
     ],
-    "type": "certificate"
+    "type": "certificate",
+    "common_name": "nhn.com.",
+    "expiration": "2025-10-18T05:07:11"
 }
 ```
 </details>

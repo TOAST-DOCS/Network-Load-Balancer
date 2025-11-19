@@ -100,7 +100,7 @@ Load Balancer operates in a `proxy mode`. The client connects to a load balancer
 > This is a non-standard HTTP header, which is used by the server to check the client's IP.
 HTTP requests coming in through the load balancer include the **X-Forwarded-For** key. Its value is the IP address of the client.
 >
-> The X-Forwarded-For header is enabled only when the load balancer protocol is set to HTTP or TERMINATED_HTTPS.
+> The X-Forwarded-For header is enabled only when the load balancer protocol is set to HTTP or TERMINATED_HTTPS. You can control the addition/removal of X-Forwarded headers per listener.
 
 <br>
 
@@ -156,6 +156,34 @@ You can take advantage of the load balancer's session persistence feature when t
 ## Invalid Request Blocking
 
 This feature blocks HTTP request headers if they contain invalid characters. HTTP request headers with invalid characters may be sent by a hacker trying to exploit the server's vulnerability or via a browser affected by bugs. When this feature is enabled, the load balancer blocks HTTP requests with invalid characters to prevent them from being transferred to an instance and sends 400 response code (bad request) to the client.
+
+
+## Custom Response
+
+You can define custom responses to be delivered to users when specific HTTP error codes occur in the load balancer's listener. By setting custom responses, you can deliver custom messages or HTML content to clients instead of default system responses.
+
+Supported HTTP status codes are 400, 403, 408, 500, 502, 503, and 504. The response body can be up to 1024 characters, and the content type can be selected from `text/html`, `text/plain`, `application/json`, `application/javascript`, or `text/css`. Each error code can only be registered as a custom response once within the same listener.
+
+
+## X-Forwarded Headers
+
+The load balancer can control the addition/removal of X-Forwarded headers per listener. X-Forwarded headers are used to deliver the client's original information (protocol, port, IP address) to backend servers.
+
+### Types of X-Forwarded Headers
+
+* **X-Forwarded-Proto**: Delivers the protocol (http or https) used by the client to the backend server. For HTTP listeners, `http` is set, and for TERMINATED_HTTPS listeners, `https` is set.
+* **X-Forwarded-Port**: Delivers the port number to which the client connected to the backend server.
+* **X-Forwarded-For**: Delivers the client's original IP address to the backend server. This is set using HAProxy's `option forwardfor` feature.
+
+### X-Forwarded Header Control
+
+You can control the addition/removal of each header through the following 3 flags when creating or modifying a listener. The default value for all flags is `true`.
+
+* `enable_x_forwarded_proto`: X-Forwarded-Proto/X-Forwarded-Prot header on/off
+* `enable_x_forwarded_port`: X-Forwarded-Port header on/off
+* `enable_x_forwarded_for`: HAProxy `option forwardfor` and X-Forwarded-For header on/off
+
+> [Note] X-Forwarded headers can only be used with listeners that use HTTP/TERMINATED_HTTPS protocols.
 
 
 ## Instance Health Check

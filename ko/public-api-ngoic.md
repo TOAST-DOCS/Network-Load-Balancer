@@ -3137,6 +3137,8 @@ X-Auth-Token: {tokenId}
 | containers.secret_refs.secret_ref | Body | String | 시크릿 주소 |
 | containers.secret_refs.name | Body | String | 컨테이너가 지정한 시크릿 이름<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정 |
 | containers.type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나|
+| containers.common_name | Body | String | 컨테이너에 등록된 인증서의 Common Name<br>컨테이너 타입이 `certificate`인 경우만 노출 |
+| containers.expiration | Body | Datetime | 컨테이너에 등록된 인증서의 만료일<br>컨테이너 타입이 `certificate`인 경우만 노출, 예시: `YYYY-MM-DDThh:mm:ss` |
 | total | Body | Integer | 요청 쿼리의 시크릿 컨테이너의 총 개수 |
 | next | Body | String | 현재 조회된 목록의 다음 목록 URL |
 | previous | Body | String | 현재 조회된 목록의 이전 목록 URL |
@@ -3154,7 +3156,7 @@ X-Auth-Token: {tokenId}
   "containers": [
     {
       "status": "ACTIVE",
-      "updated": "2019-12-17T08:50:39",
+      "updated": "2024-10-18T05:07:11",
       "name": "The Certificate",
       "consumers": [],
       "created": "2019-12-17T08:50:39",
@@ -3170,7 +3172,9 @@ X-Auth-Token: {tokenId}
           "name": "private_key"
         }
       ],
-      "type": "certificate"
+      "type": "certificate",
+      "common_name": "nhn.com.",
+      "expiration": "2025-10-18T05:07:11"
     }
   ]
 }
@@ -3212,6 +3216,8 @@ X-Auth-Token: {tokenId}
 | secret_refs.secret_ref | Body | String | 시크릿 주소 |
 | secret_refs.name | Body | String| 컨테이너가 지정한 시크릿 이름<br>컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정 |
 | type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나 |
+| common_name | Body | String | 컨테이너에 등록된 인증서의 Common Name<br>컨테이너 타입이 `certificate`인 경우만 노출 |
+| expiration | Body | Datetime | 컨테이너에 등록된 인증서의 만료일<br>컨테이너 타입이 `certificate`인 경우만 노출, 예시: `YYYY-MM-DDThh:mm:ss` |
 
 
 <details><summary>예시</summary>
@@ -3219,7 +3225,7 @@ X-Auth-Token: {tokenId}
 ```json
 {
     "status": "ACTIVE",
-    "updated": "2019-12-17T08:50:39",
+    "updated": "2024-10-18T05:07:11",
     "name": "The Certificate",
     "consumers": [],
     "created": "2019-12-17T08:50:39",
@@ -3235,7 +3241,9 @@ X-Auth-Token: {tokenId}
             "name": "certificate"
         }
     ],
-    "type": "certificate"
+    "type": "certificate",
+    "common_name": "nhn.com.",
+    "expiration": "2025-10-18T05:07:11"
 }
 ```
 </details>

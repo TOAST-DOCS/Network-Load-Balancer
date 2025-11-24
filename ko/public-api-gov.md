@@ -885,7 +885,8 @@ X-Auth-Token: {tokenId}
 | errorpageId | URL | UUID | O | 사용자 정의 응답 ID |
 | errorpage | Body | Object | O | 사용자 정의 응답 정보 객체 |
 | errorpage.content_type | Body | Enum | O | 콘텐츠 타입<br>`application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` 중 하나 |
-| errorpage.body | Body | String | O | 사용자 정의 응답 본문 (1024자 이내) |
+| errorpage.body | Body | String | O | 사용자 정의 응답 본문(1024자 이내) |
+
 
 **참고**: `code`는 수정할 수 없습니다.
 

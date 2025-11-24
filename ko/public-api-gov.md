@@ -819,7 +819,8 @@ X-Auth-Token: {tokenId}
 | errorpage | Body | Object | O | 사용자 정의 응답 정보 객체 |
 | errorpage.code | Body | Integer | O | 에러 코드<br>`400`, `403`, `408`, `500`, `502`, `503`, `504` 중 하나 |
 | errorpage.content_type | Body | Enum | O | 콘텐츠 타입<br>`application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` 중 하나 |
-| errorpage.body | Body | String | O | 사용자 정의 응답 본문 (1024자 이내) |
+| errorpage.body | Body | String | O | 사용자 정의 응답 본문(1024자 이내) |
+
 
 **참고**: 동일 리스너에 중복된 코드는 생성할 수 없습니다. (예: 504를 여러 개 생성하는 경우)
 

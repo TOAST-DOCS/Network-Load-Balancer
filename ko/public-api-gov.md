@@ -3172,7 +3172,8 @@ X-Auth-Token: {tokenId}
 | containers.secret_refs.name | Body | String | 컨테이너가 지정한 시크릿 이름<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정 |
 | containers.type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나|
 | containers.common_name | Body | String | 컨테이너에 등록된 인증서의 Common Name<br>컨테이너 타입이 `certificate`인 경우만 노출 |
-| containers.expiration | Body | Datetime | 컨테이너에 등록된 인증서의 만료일<br>컨테이너 타입이 `certificate`인 경우만 노출, 예시: `YYYY-MM-DDThh:mm:ss` |
+| containers.expiration | Body | Datetime | 컨테이너에 등록된 인증서의 만료일<br>컨테이너 타입이 `certificate`인 경우만 노출. 예시: `YYYY-MM-DDThh:mm:ss` |
+
 | total | Body | Integer | 요청 쿼리의 시크릿 컨테이너의 총 개수 |
 | next | Body | String | 현재 조회된 목록의 다음 목록 URL |
 | previous | Body | String | 현재 조회된 목록의 이전 목록 URL |

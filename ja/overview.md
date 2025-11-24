@@ -108,7 +108,7 @@ SSL/TLSのバージョンの中から1つを選択してロードバランサー
 >HTTP非標準ヘッダで、サーバーがクライアントのIPを確認するために使用します。
 ロードバランサーを通して入ってくるHTTPリクエストは**X-Forwarded-For** キーを含みます。その値はクライアントのIPです。
 >
-> X-Forwarded-ForヘッダはロードバランサーのプロトコルをHTTP/TERMINATED_HTTPS に設定した時のみ活性化されます。リスナー単位でX-Forwardedヘッダーの追加/削除を制御できます。
+> X-Forwarded-ForヘッダはロードバランサーのプロトコルをHTTP/TERMINATED_HTTPS に設定した時のみ活性化されます。
 
 <br>
 
@@ -162,34 +162,6 @@ SSL/TLSのバージョンの中から1つを選択してロードバランサー
 ## 有効ではないリクエスト遮断
 
 HTTPリクエストヘッダに有効ではない文字が含まれている場合、これを遮断する機能です。サーバーの脆弱性を狙うハッカーの攻撃や、バグがあるブラウザを通して有効ではない文字が含まれるHTTPリクエストヘッダが流入することがあります。ロードバランサーは機能が有効になっている場合、有効ではない文字が含まれるHTTPリクエストを遮断してインスタンスに伝達されることを防ぎ、 400レスポンスコード(Bad Request)をクライアントに返します。
-
-
-## カスタムレスポンス
-
-ロードバランサーのリスナーで特定のHTTPエラーコードが発生した時にユーザーに伝達するレスポンスをユーザーが直接定義できます。カスタムレスポンスを設定すると、基本システムレスポンスの代わりに希望するカスタムメッセージやHTMLなどの内容をクライアントに伝達できます。
-
-サポートするHTTPステータスコードは400、403、408、500、502、503、504です。レスポンス本文は最大1024文字まで入力でき、コンテンツタイプは`text/html`、`text/plain`、`application/json`、`application/javascript`、`text/css`の中から選択できます。同じリスナー内で各エラーコードは一度だけカスタムレスポンスとして登録できます。
-
-
-## X-Forwardedヘッダー
-
-ロードバランサーはリスナー単位でX-Forwardedヘッダーの追加/削除を制御できます。X-Forwardedヘッダーはクライアントの元の情報（プロトコル、ポート、IPアドレス）をバックエンドサーバーに伝達するために使用されます。
-
-### X-Forwardedヘッダーの種類
-
-* **X-Forwarded-Proto**: クライアントが使用したプロトコル（httpまたはhttps）をバックエンドサーバーに伝達します。HTTPリスナーの場合`http`、TERMINATED_HTTPSリスナーの場合`https`値が設定されます。
-* **X-Forwarded-Port**: クライアントが接続したポート番号をバックエンドサーバーに伝達します。
-* **X-Forwarded-For**: クライアントの元のIPアドレスをバックエンドサーバーに伝達します。HAProxyの`option forwardfor`機能を使用して設定されます。
-
-### X-Forwardedヘッダー制御
-
-リスナー作成時またはリスナー修正時に次の3つのフラグを通じて各ヘッダーの追加/削除を制御できます。すべてのフラグのデフォルト値は`true`です。
-
-* `enable_x_forwarded_proto`: X-Forwarded-Proto/X-Forwarded-Protヘッダーon/off
-* `enable_x_forwarded_port`: X-Forwarded-Portヘッダーon/off
-* `enable_x_forwarded_for`: HAProxy `option forwardfor`およびX-Forwarded-Forヘッダーon/off
-
-> [参考] X-ForwardedヘッダーはHTTP/TERMINATED_HTTPSプロトコルを使用するリスナーでのみ使用できます。
 
 
 ## インスタンス状態確認

@@ -723,9 +723,6 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | - | 管理者制御状態 |
 | listener.connection_limit | Body |  Integer | - | リスナーのconnection limit |
 | listener.keepalive_timeout | Body | Integer | - | リスナーのkeepalive timeout |
-| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Protヘッダーのon/off<br>デフォルト: `true` |
-| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Portヘッダーのon/off<br>デフォルト: `true` |
-| listener.enable_x_forwarded_for | Body | Boolean | - | HAProxy `option forwardfor`およびX-Forwarded-Forヘッダーのon/off<br>デフォルト: `true` |
 | listener.default_tls_container_ref | Body | String | - | key-managerに登録されたtls証明書のパス |
 | listener.sni_container_refs | Body | Array | - | key-managerに登録されたsni証明書のパスリスト |
 
@@ -742,9 +739,6 @@ X-Auth-Token: {tokenId}
     "default_pool_id": null,    
     "connection_limit": 2000,
     "keepalive_timeout": 300,
-    "enable_x_forwarded_proto": true,
-    "enable_x_forwarded_port": true,
-    "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": []
@@ -769,9 +763,6 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | 管理者制御状態 |
 | listener.connection_limit | Body | Integer | リスナーのconnection limit |
 | listener.keepalive_timeout | Body | Integer | リスナーのkeepalive timeout |
-| listener.enable_x_forwarded_proto | Body | Boolean | X-Forwarded-Proto/X-Forwarded-Protヘッダーのon/off |
-| listener.enable_x_forwarded_port | Body | Boolean | X-Forwarded-Portヘッダーのon/off |
-| listener.enable_x_forwarded_for | Body | Boolean | HAProxy `option forwardfor`およびX-Forwarded-Forヘッダーのon/off |
 | listener.default_tls_container_ref | Body | String | key-managerに登録されたtls証明書のパス |
 | listener.sni_container_refs | Body | Array | key-managerに登録されたsni証明書のパスリスト |
 | listener.protocol_port | Body | Integer | リスナーポート |
@@ -798,9 +789,6 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
-    "enable_x_forwarded_proto": true,
-    "enable_x_forwarded_port": true,
-    "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
@@ -835,261 +823,6 @@ X-Auth-Token: {tokenId}
 #### レスポンス
 
 このAPIはレスポンス本文を返しません。
----
-### カスタムレスポンスを作成する
-
-```
-POST /v2.0/lbaas/listeners/{listenerId}/errorpages
-X-Auth-Token: {tokenId}
-```
-
-#### リクエスト
-
-| 名前 | 種類 | 形式 | 必須 | 説明 |
-|---|---|---|---|---|
-| tokenId | Header | String | O | トークンID |
-| listenerId | URL | UUID | O | リスナーID |
-| errorpage | Body | Object | O | カスタムレスポンス情報オブジェクト |
-| errorpage.code | Body | Integer | O | エラーコード<br>`200`、`400`、`403`、`405`、`408`、`425`、`429`、`500`、`502`、`503`、`504`のいずれか |
-| errorpage.content_type | Body | Enum | O | コンテンツタイプ<br>`application/javascript`、`application/json`、`text/css`、`text/html`、`text/plain`のいずれか |
-| errorpage.body | Body | String | O | カスタムレスポンス本文（1024文字以内） |
-
-**参考**: 同じリスナーに重複したコードは作成できません。（例：504を複数作成する場合）
-
-<details><summary>例</summary>
-<p>
-
-```json
-{
-  "errorpage": {
-    "code": 502,
-    "content_type": "text/html",
-    "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>"
-  }
-}
-```
-</p>
-</details>
-
-#### レスポンス
-
-| 名前 | 種類 | 形式 | 説明 |
-|---|---|---|---|
-| errorpage | Body | Object | カスタムレスポンス情報オブジェクト |
-| errorpage.id | Body | UUID | カスタムレスポンスID |
-| errorpage.code | Body | Integer | エラーコード |
-| errorpage.content_type | Body | Enum | コンテンツタイプ |
-| errorpage.body | Body | String | カスタムレスポンス本文 |
-| errorpage.tenant_id | Body | String | テナントID |
-
-<details><summary>例</summary>
-<p>
-
-```json
-{
-  "errorpage": {
-    "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
-    "code": 502,
-    "content_type": "text/html",
-    "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>",
-    "tenant_id": "419a823563124dc5b5627f5e79db8174"
-  }
-}
-```
-</p>
-</details>
-
----
-
-### カスタムレスポンスを修正する
-
-```
-PUT /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
-X-Auth-Token: {tokenId}
-```
-
-#### リクエスト
-
-| 名前 | 種類 | 形式 | 必須 | 説明 |
-|---|---|---|---|---|
-| tokenId | Header | String | O | トークンID |
-| listenerId | URL | UUID | O | リスナーID |
-| errorpageId | URL | UUID | O | カスタムレスポンスID |
-| errorpage | Body | Object | O | カスタムレスポンス情報オブジェクト |
-| errorpage.content_type | Body | Enum | O | コンテンツタイプ<br>`application/javascript`、`application/json`、`text/css`、`text/html`、`text/plain`のいずれか |
-| errorpage.body | Body | String | O | カスタムレスポンス本文（1024文字以内） |
-
-**参考**: `code`は修正できません。
-
-<details><summary>例</summary>
-<p>
-
-```json
-{
-  "errorpage": {
-    "content_type": "application/json",
-    "body": "{\"error\": {\"code\": 502, \"message\": \"Bad Gateway\"}}"
-  }
-}
-```
-</p>
-</details>
-
-#### レスポンス
-
-| 名前 | 種類 | 形式 | 説明 |
-|---|---|---|---|
-| errorpage | Body | Object | カスタムレスポンス情報オブジェクト |
-| errorpage.id | Body | UUID | カスタムレスポンスID |
-| errorpage.code | Body | Integer | エラーコード |
-| errorpage.content_type | Body | Enum | コンテンツタイプ |
-| errorpage.body | Body | String | カスタムレスポンス本文 |
-| errorpage.tenant_id | Body | String | テナントID |
-
-<details><summary>例</summary>
-<p>
-
-```json
-{
-  "errorpage": {
-    "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
-    "code": 502,
-    "content_type": "application/json",
-    "body": "{\"error\": {\"code\": 502, \"message\": \"Bad Gateway\"}}",
-    "tenant_id": "419a823563124dc5b5627f5e79db8174"
-  }
-}
-```
-</p>
-</details>
-
----
-
-### カスタムレスポンスを削除する
-
-```
-DELETE /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
-X-Auth-Token: {tokenId}
-```
-
-#### リクエスト
-
-このAPIはリクエスト本文を要求しません。
-
-| 名前 | 種類 | 形式 | 必須 | 説明 |
-|---|---|---|---|---|
-| tokenId | Header | String | O | トークンID |
-| listenerId | URL | UUID | O | リスナーID |
-| errorpageId | URL | UUID | O | カスタムレスポンスID |
-
-#### レスポンス
-
-このAPIは応答本文を返しません。
-
----
-
-### カスタムレスポンスを確認する
-
-```
-GET /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
-X-Auth-Token: {tokenId}
-```
-
-#### リクエスト
-
-このAPIはリクエスト本文を要求しません。
-
-| 名前 | 種類 | 形式 | 必須 | 説明 |
-|---|---|---|---|---|
-| tokenId | Header | String | O | トークンID |
-| listenerId | URL | UUID | O | リスナーID |
-| errorpageId | URL | UUID | O | カスタムレスポンスID |
-
-#### レスポンス
-
-| 名前 | 種類 | 形式 | 説明 |
-|---|---|---|---|
-| errorpage | Body | Object | カスタムレスポンス情報オブジェクト |
-| errorpage.id | Body | UUID | カスタムレスポンスID |
-| errorpage.code | Body | Integer | エラーコード |
-| errorpage.content_type | Body | Enum | コンテンツタイプ |
-| errorpage.body | Body | String | カスタムレスポンス本文 |
-| errorpage.tenant_id | Body | String | テナントID |
-
-<details><summary>例</summary>
-<p>
-
-```json
-{
-  "errorpage": {
-    "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
-    "code": 502,
-    "content_type": "text/html",
-    "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>",
-    "tenant_id": "419a823563124dc5b5627f5e79db8174"
-  }
-}
-```
-</p>
-</details>
-
----
-
-### カスタムレスポンスリストを確認する
-
-```
-GET /v2.0/lbaas/listeners/{listenerId}/errorpages
-X-Auth-Token: {tokenId}
-```
-
-#### リクエスト
-
-このAPIはリクエスト本文を要求しません。
-
-| 名前 | 種類 | 形式 | 必須 | 説明 |
-|---|---|---|---|---|
-| tokenId | Header | String | O | トークンID |
-| listenerId | URL | UUID | O | リスナーID |
-
-#### レスポンス
-
-| 名前 | 種類 | 形式 | 説明 |
-|---|---|---|---|
-| errorpages | Body | Array | カスタムレスポンス情報オブジェクトリスト |
-| errorpages.id | Body | UUID | カスタムレスポンスID |
-| errorpages.code | Body | Integer | エラーコード |
-| errorpages.content_type | Body | Enum | コンテンツタイプ |
-| errorpages.body | Body | String | カスタムレスポンス本文 |
-| errorpages.tenant_id | Body | String | テナントID |
-
-<details><summary>例</summary>
-<p>
-
-```json
-{
-  "errorpages": [
-    {
-      "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
-      "code": 502,
-      "content_type": "text/html",
-      "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>",
-      "tenant_id": "419a823563124dc5b5627f5e79db8174"
-    },
-    {
-      "id": "d7dfd308-051a-46aa-a1af-753f2c110133",
-      "code": 503,
-      "content_type": "text/html",
-      "body": "<html><body><h1>503 Service Unavailable</h1><p>The service is temporarily unavailable. Please try again later.</p></body></html>",
-      "tenant_id": "419a823563124dc5b5627f5e79db8174"
-    }
-  ]
-}
-```
-</p>
-</details>
-
----
-
 
 
 
@@ -3205,8 +2938,6 @@ X-Auth-Token: {tokenId}
 | containers.secret_refs.secret_ref | Body | String | シークレットアドレス |
 | containers.secret_refs.name | Body | String | コンテナが指定したシークレット名<br> コンテナタイプが`certificate`の場合：`certificate`、`private_key`、`private_key_passphrase`、`intermediates`に指定<br> コンテナタイプが`rsa`の場合: `private_key`、`private_key_passphrase`、`public_key`に指定 |
 | containers.type | Body | Enum | コンテナタイプ<br> `generic`、`rsa`、`certificate`のうちいずれか1つ|
-| containers.common_name | Body | String | コンテナに登録された証明書のCommon Name<br>コンテナタイプが`certificate`の場合のみ表示 |
-| containers.expiration | Body | Datetime | コンテナに登録された証明書の有効期限<br>コンテナタイプが`certificate`の場合のみ表示、例: `YYYY-MM-DDThh:mm:ss` |
 | total | Body | Integer | リクエストクエリーのシークレットコンテナの総数 |
 | next | Body | String | 現在照会されたリストの次のリストURL |
 | previous | Body | String | 現在照会されたリストの前のリストURL |
@@ -3224,7 +2955,7 @@ X-Auth-Token: {tokenId}
   "containers": [
     {
       "status": "ACTIVE",
-      "updated": "2024-10-18T05:07:11",
+      "updated": "2019-12-17T08:50:39",
       "name": "The Certificate",
       "consumers": [],
       "created": "2019-12-17T08:50:39",
@@ -3240,9 +2971,7 @@ X-Auth-Token: {tokenId}
           "name": "private_key"
         }
       ],
-      "type": "certificate",
-      "common_name": "nhn.com.",
-      "expiration": "2025-10-18T05:07:11"
+      "type": "certificate"
     }
   ]
 }
@@ -3284,8 +3013,6 @@ X-Auth-Token: {tokenId}
 | secret_refs.secret_ref | Body | String | シークレットアドレス |
 | secret_refs.name | Body | String| コンテナが指定したシークレット名<br> コンテナタイプが`certificate`の場合：`certificate`、`private_key`、`private_key_passphrase`、`intermediates`に指定<br> コンテナタイプが`rsa`の場合：`private_key`、`private_key_passphrase`、`public_key`に指定 |
 | type | Body | Enum | コンテナタイプ<br> `generic`、`rsa`、`certificate`のうちいずれか1つ |
-| common_name | Body | String | コンテナに登録された証明書のCommon Name<br>コンテナタイプが`certificate`の場合のみ表示 |
-| expiration | Body | Datetime | コンテナに登録された証明書の有効期限<br>コンテナタイプが`certificate`の場合のみ表示、例: `YYYY-MM-DDThh:mm:ss` |
 
 
 <details><summary>例</summary>
@@ -3293,7 +3020,7 @@ X-Auth-Token: {tokenId}
 ```json
 {
     "status": "ACTIVE",
-    "updated": "2024-10-18T05:07:11",
+    "updated": "2019-12-17T08:50:39",
     "name": "The Certificate",
     "consumers": [],
     "created": "2019-12-17T08:50:39",
@@ -3309,9 +3036,7 @@ X-Auth-Token: {tokenId}
             "name": "certificate"
         }
     ],
-    "type": "certificate",
-    "common_name": "nhn.com.",
-    "expiration": "2025-10-18T05:07:11"
+    "type": "certificate"
 }
 ```
 </details>

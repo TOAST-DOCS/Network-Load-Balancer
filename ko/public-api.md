@@ -855,7 +855,7 @@ X-Auth-Token: {tokenId}
 | errorpage | Body | Object | O | 사용자 정의 응답 정보 객체 |
 | errorpage.code | Body | Integer | O | 에러 코드<br>`200`, `400`, `403`, `405`, `408`, `425`, `429`, `500`, `502`, `503`, `504` 중 하나 |
 | errorpage.content_type | Body | Enum | O | 콘텐츠 타입<br>`application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` 중 하나 |
-| errorpage.body | Body | String | O | 사용자 정의 응답 본문 (1024자 이내) |
+| errorpage.body | Body | String | O | 사용자 정의 응답 본문(1024자 이내) |
 
 **참고**: 동일 리스너에 중복된 코드는 생성할 수 없습니다. (예: 504를 여러 개 생성하는 경우)
 
@@ -920,7 +920,7 @@ X-Auth-Token: {tokenId}
 | errorpageId | URL | UUID | O | 사용자 정의 응답 ID |
 | errorpage | Body | Object | O | 사용자 정의 응답 정보 객체 |
 | errorpage.content_type | Body | Enum | O | 콘텐츠 타입<br>`application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` 중 하나 |
-| errorpage.body | Body | String | O | 사용자 정의 응답 본문 (1024자 이내) |
+| errorpage.body | Body | String | O | 사용자 정의 응답 본문(1024자 이내) |
 
 **참고**: `code`는 수정할 수 없습니다.
 
@@ -3220,7 +3220,7 @@ X-Auth-Token: {tokenId}
 | containers.secret_refs.name | Body | String | 컨테이너가 지정한 시크릿 이름<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정 |
 | containers.type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나|
 | containers.common_name | Body | String | 컨테이너에 등록된 인증서의 Common Name<br>컨테이너 타입이 `certificate`인 경우만 노출 |
-| containers.expiration | Body | Datetime | 컨테이너에 등록된 인증서의 만료일<br>컨테이너 타입이 `certificate`인 경우만 노출, 예시: `YYYY-MM-DDThh:mm:ss` |
+| containers.expiration | Body | Datetime | 컨테이너에 등록된 인증서의 만료일<br>컨테이너 타입이 `certificate`인 경우만 노출. 예시: `YYYY-MM-DDThh:mm:ss` |
 | total | Body | Integer | 요청 쿼리의 시크릿 컨테이너의 총 개수 |
 | next | Body | String | 현재 조회된 목록의 다음 목록 URL |
 | previous | Body | String | 현재 조회된 목록의 이전 목록 URL |
@@ -3299,7 +3299,7 @@ X-Auth-Token: {tokenId}
 | secret_refs.name | Body | String| 컨테이너가 지정한 시크릿 이름<br>컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정 |
 | type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나 |
 | common_name | Body | String | 컨테이너에 등록된 인증서의 Common Name<br>컨테이너 타입이 `certificate`인 경우만 노출 |
-| expiration | Body | Datetime | 컨테이너에 등록된 인증서의 만료일<br>컨테이너 타입이 `certificate`인 경우만 노출, 예시: `YYYY-MM-DDThh:mm:ss` |
+| expiration | Body | Datetime | 컨테이너에 등록된 인증서의 만료일<br>컨테이너 타입이 `certificate`인 경우만 노출. 예시: `YYYY-MM-DDThh:mm:ss` |
 
 
 <details><summary>예시</summary>

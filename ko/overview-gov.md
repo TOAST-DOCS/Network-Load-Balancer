@@ -174,7 +174,7 @@ HTTP 요청 헤더에 유효하지 않은 문자가 포함된 경우 이를 차�
 
 * **X-Forwarded-Proto**: 클라이언트가 사용한 프로토콜(http 또는 https)을 백엔드 서버에 전달합니다. HTTP 리스너의 경우 `http`, TERMINATED_HTTPS 리스너의 경우 `https` 값이 설정됩니다.
 * **X-Forwarded-Port**: 클라이언트가 연결한 포트 번호를 백엔드 서버에 전달합니다.
-* **X-Forwarded-For**: 클라이언트의 원본 IP 주소를 백엔드 서버에 전달합니다. HAProxy의 `option forwardfor` 기능을 사용하여 설정됩니다.
+* **X-Forwarded-For**: 클라이언트의 원본 IP 주소를 백엔드 서버에 전달합니다.
 
 ### X-Forwarded 헤더 제어
 
@@ -182,7 +182,7 @@ HTTP 요청 헤더에 유효하지 않은 문자가 포함된 경우 이를 차�
 
 * `enable_x_forwarded_proto`: X-Forwarded-Proto/X-Forwarded-Prot 헤더 on/off
 * `enable_x_forwarded_port`: X-Forwarded-Port 헤더 on/off
-* `enable_x_forwarded_for`: HAProxy `option forwardfor` 및 X-Forwarded-For 헤더 on/off
+* `enable_x_forwarded_for`: X-Forwarded-For 헤더 on/off
 
 > [참고] X-Forwarded 헤더는 HTTP/TERMINATED_HTTPS 프로토콜을 사용하는 리스너에서만 사용할 수 있습니다.
 

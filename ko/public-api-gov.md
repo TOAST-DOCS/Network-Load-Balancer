@@ -520,6 +520,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | listener.connection_limit | Body | Integer | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot 헤더 on/off<br>기본값: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port 헤더 on/off<br>기본값: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For 헤더 on/off<br>기본값: `true` |
 | listener.default_tls_container_ref | Body | String| key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
@@ -546,6 +549,9 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "enable_x_forwarded_proto": true,
+    "enable_x_forwarded_port": true,
+    "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
@@ -585,6 +591,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | - | 리스너의 keepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot 헤더 on/off<br>기본값: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port 헤더 on/off<br>기본값: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For 헤더 on/off<br>기본값: `true` |
 | listener.default_tls_container_ref | Body | String | - | key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | - | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | O | 리스너 포트 |
@@ -605,6 +614,9 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "enable_x_forwarded_proto": false,
+    "enable_x_forwarded_port": false,
+    "enable_x_forwarded_for": false,
     "tls_version": "TLSv1.0",
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -630,6 +642,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | listener.connection_limit | Body | Integer | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot 헤더 on/off<br>기본값: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port 헤더 on/off<br>기본값: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For 헤더 on/off<br>기본값: `true` |
 | listener.default_tls_container_ref | Body | String | key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
@@ -656,6 +671,9 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "enable_x_forwarded_proto": false,
+    "enable_x_forwarded_port": false,
+    "enable_x_forwarded_for": false,
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -690,6 +708,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | - | 리스너의 keepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot 헤더 on/off<br>기본값: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port 헤더 on/off<br>기본값: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For 헤더 on/off<br>기본값: `true` |
 | listener.default_tls_container_ref | Body | String | - | key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | - | key-manager에 등록된 SNI 인증서 경로 목록 |
 
@@ -706,6 +727,9 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "enable_x_forwarded_proto": true,
+    "enable_x_forwarded_port": true,
+    "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": []
@@ -730,6 +754,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | listener.connection_limit | Body | Integer | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | X-Forwarded-Proto/X-Forwarded-Prot 헤더 on/off |
+| listener.enable_x_forwarded_port | Body | Boolean | X-Forwarded-Port 헤더 on/off |
+| listener.enable_x_forwarded_for | Body | Boolean | X-Forwarded-For 헤더 on/off |
 | listener.default_tls_container_ref | Body | String | key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
@@ -756,6 +783,9 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "enable_x_forwarded_proto": true,
+    "enable_x_forwarded_port": true,
+    "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
@@ -789,7 +819,263 @@ X-Auth-Token: {tokenId}
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
+---
 
+### 사용자 정의 응답 생성하기
+
+```
+POST /v2.0/lbaas/listeners/{listenerId}/errorpages
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| listenerId | URL | UUID | O | 리스너 ID |
+| errorpage | Body | Object | O | 사용자 정의 응답 정보 객체 |
+| errorpage.code | Body | Integer | O | 에러 코드<br>`400`, `403`, `408`, `500`, `502`, `503`, `504` 중 하나 |
+| errorpage.content_type | Body | Enum | O | 콘텐츠 타입<br>`application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` 중 하나 |
+| errorpage.body | Body | String | O | 사용자 정의 응답 본문(1024자 이내) |
+
+
+**참고**: 동일 리스너에 중복된 코드는 생성할 수 없습니다. (예: 504를 여러 개 생성하는 경우)
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "code": 502,
+    "content_type": "text/html",
+    "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>"
+  }
+}
+```
+</p>
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| errorpage | Body | Object | 사용자 정의 응답 정보 객체 |
+| errorpage.id | Body | UUID | 사용자 정의 응답 ID |
+| errorpage.code | Body | Integer | 에러 코드 |
+| errorpage.content_type | Body | Enum | 콘텐츠 타입 |
+| errorpage.body | Body | String | 사용자 정의 응답 본문 |
+| errorpage.tenant_id | Body | String | 테넌트 ID |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
+    "code": 502,
+    "content_type": "text/html",
+    "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>",
+    "tenant_id": "419a823563124dc5b5627f5e79db8174"
+  }
+}
+```
+</p>
+</details>
+
+---
+
+### 사용자 정의 응답 수정하기
+
+```
+PUT /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| listenerId | URL | UUID | O | 리스너 ID |
+| errorpageId | URL | UUID | O | 사용자 정의 응답 ID |
+| errorpage | Body | Object | O | 사용자 정의 응답 정보 객체 |
+| errorpage.content_type | Body | Enum | O | 콘텐츠 타입<br>`application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` 중 하나 |
+| errorpage.body | Body | String | O | 사용자 정의 응답 본문(1024자 이내) |
+
+
+**참고**: `code`는 수정할 수 없습니다.
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "content_type": "application/json",
+    "body": "{"error": {"code": 502, "message": "Bad Gateway"}}"
+  }
+}
+```
+</p>
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| errorpage | Body | Object | 사용자 정의 응답 정보 객체 |
+| errorpage.id | Body | UUID | 사용자 정의 응답 ID |
+| errorpage.code | Body | Integer | 에러 코드 |
+| errorpage.content_type | Body | Enum | 콘텐츠 타입 |
+| errorpage.body | Body | String | 사용자 정의 응답 본문 |
+| errorpage.tenant_id | Body | String | 테넌트 ID |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
+    "code": 502,
+    "content_type": "application/json",
+    "body": "{"error": {"code": 502, "message": "Bad Gateway"}}",
+    "tenant_id": "419a823563124dc5b5627f5e79db8174"
+  }
+}
+```
+</p>
+</details>
+
+---
+
+### 사용자 정의 응답 삭제하기
+
+```
+DELETE /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| listenerId | URL | UUID | O | 리스너 ID |
+| errorpageId | URL | UUID | O | 사용자 정의 응답 ID |
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+---
+
+### 사용자 정의 응답 보기
+
+```
+GET /v2.0/lbaas/listeners/{listenerId}/errorpages/{errorpageId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| listenerId | URL | UUID | O | 리스너 ID |
+| errorpageId | URL | UUID | O | 사용자 정의 응답 ID |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| errorpage | Body | Object | 사용자 정의 응답 정보 객체 |
+| errorpage.id | Body | UUID | 사용자 정의 응답 ID |
+| errorpage.code | Body | Integer | 에러 코드 |
+| errorpage.content_type | Body | Enum | 콘텐츠 타입 |
+| errorpage.body | Body | String | 사용자 정의 응답 본문 |
+| errorpage.tenant_id | Body | String | 테넌트 ID |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "errorpage": {
+    "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
+    "code": 502,
+    "content_type": "text/html",
+    "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>",
+    "tenant_id": "419a823563124dc5b5627f5e79db8174"
+  }
+}
+```
+</p>
+</details>
+
+---
+
+### 사용자 정의 응답 목록 보기
+
+```
+GET /v2.0/lbaas/listeners/{listenerId}/errorpages
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| listenerId | URL | UUID | O | 리스너 ID |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| errorpages | Body | Array | 사용자 정의 응답 정보 객체 목록 |
+| errorpages.id | Body | UUID | 사용자 정의 응답 ID |
+| errorpages.code | Body | Integer | 에러 코드 |
+| errorpages.content_type | Body | Enum | 콘텐츠 타입 |
+| errorpages.body | Body | String | 사용자 정의 응답 본문 |
+| errorpages.tenant_id | Body | String | 테넌트 ID |
+
+<details><summary>예시</summary>
+<p>
+
+```json
+{
+  "errorpages": [
+    {
+      "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
+      "code": 502,
+      "content_type": "text/html",
+      "body": "<html><body><h1>502 Bad Gateway</h1><p>The server encountered a temporary error and could not complete your request.</p></body></html>",
+      "tenant_id": "419a823563124dc5b5627f5e79db8174"
+    },
+    {
+      "id": "d7dfd308-051a-46aa-a1af-753f2c110133",
+      "code": 503,
+      "content_type": "text/html",
+      "body": "<html><body><h1>503 Service Unavailable</h1><p>The service is temporarily unavailable. Please try again later.</p></body></html>",
+      "tenant_id": "419a823563124dc5b5627f5e79db8174"
+    }
+  ]
+}
+```
+</p>
+</details>
+
+---
 
 
 
@@ -2903,6 +3189,9 @@ X-Auth-Token: {tokenId}
 | containers.secret_refs.secret_ref | Body | String | 시크릿 주소 |
 | containers.secret_refs.name | Body | String | 컨테이너가 지정한 시크릿 이름<br> 컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정 |
 | containers.type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나|
+| containers.common_name | Body | String | 컨테이너에 등록된 인증서의 Common Name<br>컨테이너 타입이 `certificate`인 경우만 노출 |
+| containers.expiration | Body | Datetime | 컨테이너에 등록된 인증서의 만료일<br>컨테이너 타입이 `certificate`인 경우만 노출. 예시: `YYYY-MM-DDThh:mm:ss` |
+
 | total | Body | Integer | 요청 쿼리의 시크릿 컨테이너의 총 개수 |
 | next | Body | String | 현재 조회된 목록의 다음 목록 URL |
 | previous | Body | String | 현재 조회된 목록의 이전 목록 URL |
@@ -2920,7 +3209,7 @@ X-Auth-Token: {tokenId}
   "containers": [
     {
       "status": "ACTIVE",
-      "updated": "2019-12-17T08:50:39",
+      "updated": "2024-10-18T05:07:11",
       "name": "The Certificate",
       "consumers": [],
       "created": "2019-12-17T08:50:39",
@@ -2936,7 +3225,9 @@ X-Auth-Token: {tokenId}
           "name": "private_key"
         }
       ],
-      "type": "certificate"
+      "type": "certificate",
+      "common_name": "nhn.com.",
+      "expiration": "2025-10-18T05:07:11"
     }
   ]
 }
@@ -2978,6 +3269,9 @@ X-Auth-Token: {tokenId}
 | secret_refs.secret_ref | Body | String | 시크릿 주소 |
 | secret_refs.name | Body | String| 컨테이너가 지정한 시크릿 이름<br>컨테이너 타입이 `certificate`인 경우: `certificate`, `private_key`, `private_key_passphrase`, `intermediates`로 지정<br> 컨테이너 타입이 `rsa`인 경우: `private_key`, `private_key_passphrase`, `public_key`로 지정 |
 | type | Body | Enum | 컨테이너 타입<br> `generic`, `rsa`, `certificate` 중 하나 |
+| common_name | Body | String | 컨테이너에 등록된 인증서의 Common Name<br>컨테이너 타입이 `certificate`인 경우만 노출 |
+| expiration | Body | Datetime | 컨테이너에 등록된 인증서의 만료일<br>컨테이너 타입이 `certificate`인 경우만 노출. 예시: `YYYY-MM-DDThh:mm:ss` |
+
 
 
 <details><summary>예시</summary>
@@ -2985,7 +3279,7 @@ X-Auth-Token: {tokenId}
 ```json
 {
     "status": "ACTIVE",
-    "updated": "2019-12-17T08:50:39",
+    "updated": "2024-10-18T05:07:11",
     "name": "The Certificate",
     "consumers": [],
     "created": "2019-12-17T08:50:39",
@@ -3001,7 +3295,9 @@ X-Auth-Token: {tokenId}
             "name": "certificate"
         }
     ],
-    "type": "certificate"
+    "type": "certificate",
+    "common_name": "nhn.com.",
+    "expiration": "2025-10-18T05:07:11"
 }
 ```
 </details>

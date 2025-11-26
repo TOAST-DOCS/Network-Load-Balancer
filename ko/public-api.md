@@ -871,7 +871,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | listenerId | URL | UUID | O | 리스너 ID |
 | errorpage | Body | Object | O | 사용자 정의 응답 정보 객체 |
-| errorpage.code | Body | Integer | O | 에러 코드<br>`200`, `400`, `403`, `405`, `408`, `425`, `429`, `500`, `502`, `503`, `504` 중 하나 |
+| errorpage.code | Body | Integer | O | 에러 코드<br>`400`, `403`, `408`, `500`, `502`, `503`, `504` 중 하나 |
 | errorpage.content_type | Body | Enum | O | 콘텐츠 타입<br>`application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` 중 하나 |
 | errorpage.body | Body | String | O | 사용자 정의 응답 본문(1024자 이내) |
 

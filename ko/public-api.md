@@ -397,7 +397,7 @@ X-Auth-Token: {tokenId}
     "vip_subnet_id": "dcb31578-1e16-407f-a117-a716795fabc4",
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
-    "admin_state_up": true
+    "admin_state_up": true,
     "ipacl_groups": []
   }
 }
@@ -712,7 +712,7 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_port": false,
     "enable_x_forwarded_for": false,
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.cloud.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -767,7 +767,7 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.cloud.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": []
   }
 }
@@ -824,7 +824,7 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.cloud.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -949,7 +949,7 @@ X-Auth-Token: {tokenId}
 {
   "errorpage": {
     "content_type": "application/json",
-    "body": "{"error": {"code": 502, "message": "Bad Gateway"}}"
+    "body": "{\"error\": {\"code\": 502, \"message\": \"Bad Gateway\"}}"
   }
 }
 ```
@@ -976,7 +976,7 @@ X-Auth-Token: {tokenId}
     "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
     "code": 502,
     "content_type": "application/json",
-    "body": "{"error": {"code": 502, "message": "Bad Gateway"}}",
+    "body": "{\"error\": {\"code\": 502, \"message\": \"Bad Gateway\"}}",
     "tenant_id": "419a823563124dc5b5627f5e79db8174"
   }
 }

@@ -35,7 +35,7 @@ X-Auth-Token: {tokenId}
 | vip_port_id | Query | UUID | - | 照会するロードバランサーのポートID |
 | vip_subnet_id | Query | UUID | - | 照会するロードバランサーのサブネットID |
 | operating_status | Query | Enum | - | 照会するロードバランサーの運用状態 |
-| loadbalancer_type | Query | String | - | 照会するロードバランサーのタイプ<br>`shared`/`dedicated`/`physical_basic`/`physical_dedicated`のいずれか |
+| loadbalancer_type | Query | String | - | 照会するロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
 
 
 #### レスポンス

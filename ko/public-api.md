@@ -397,7 +397,7 @@ X-Auth-Token: {tokenId}
     "vip_subnet_id": "dcb31578-1e16-407f-a117-a716795fabc4",
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
-    "admin_state_up": true
+    "admin_state_up": true,
     "ipacl_groups": []
   }
 }
@@ -712,7 +712,7 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_port": false,
     "enable_x_forwarded_for": false,
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.cloud.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -767,7 +767,7 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.cloud.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": []
   }
 }
@@ -824,7 +824,7 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.cloud.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -871,7 +871,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | listenerId | URL | UUID | O | 리스너 ID |
 | errorpage | Body | Object | O | 사용자 정의 응답 정보 객체 |
-| errorpage.code | Body | Integer | O | 에러 코드<br>`200`, `400`, `403`, `405`, `408`, `425`, `429`, `500`, `502`, `503`, `504` 중 하나 |
+| errorpage.code | Body | Integer | O | 에러 코드<br>`400`, `403`, `408`, `500`, `502`, `503`, `504` 중 하나 |
 | errorpage.content_type | Body | Enum | O | 콘텐츠 타입<br>`application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` 중 하나 |
 | errorpage.body | Body | String | O | 사용자 정의 응답 본문(1024자 이내) |
 
@@ -949,7 +949,7 @@ X-Auth-Token: {tokenId}
 {
   "errorpage": {
     "content_type": "application/json",
-    "body": "{"error": {"code": 502, "message": "Bad Gateway"}}"
+    "body": "{\"error\": {\"code\": 502, \"message\": \"Bad Gateway\"}}"
   }
 }
 ```
@@ -976,7 +976,7 @@ X-Auth-Token: {tokenId}
     "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
     "code": 502,
     "content_type": "application/json",
-    "body": "{"error": {"code": 502, "message": "Bad Gateway"}}",
+    "body": "{\"error\": {\"code\": 502, \"message\": \"Bad Gateway\"}}",
     "tenant_id": "419a823563124dc5b5627f5e79db8174"
   }
 }
@@ -1670,7 +1670,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
 | healthmonitor.id | Body | UUID | 헬스 모니터 ID |
-| healthmonitors.host_header | Body | String | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
+| healthmonitor.host_header | Body | String | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
 
 
@@ -1728,7 +1728,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.timeout | Body | Integer | O | 상태 확인 응답 대기 시간(초) |
 | healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL. 생략하면 `/`가 설정됨. <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum  | O | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
-| healthmonitors.host_header | Body | String | - | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
+| healthmonitor.host_header | Body | String | - | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
 
 

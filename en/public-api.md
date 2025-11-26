@@ -62,7 +62,7 @@ This API does not require a request body.
 | loadbalancers.ipacl_group_action | Body | String | Action of the IP ACL groups applied to the load balancer<br>One of `null`/`DENY`/`ALLOW` |
 | loadbalancers.loadbalancer_type | Body | String | Load balancer type<br>One of `shared`/`dedicated` |
 
-<details><summary>예시</summary>
+<details><summary>Example</summary>
 
 ```json
 {
@@ -396,7 +396,7 @@ X-Auth-Token: {tokenId}
     "vip_subnet_id": "dcb31578-1e16-407f-a117-a716795fabc4",
     "id": "7b4cef78-72b0-4c3c-9971-98763ef6284c",
     "operating_status": "ONLINE",
-    "admin_state_up": true
+    "admin_state_up": true,
     "ipacl_groups": []
   }
 }
@@ -690,7 +690,7 @@ X-Auth-Token: {tokenId}
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.cloud.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -745,7 +745,7 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.cloud.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": []
   }
 }
@@ -802,7 +802,7 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
-    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.cloud.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
+    "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443,
     "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -849,7 +849,8 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | Yes | Token ID |
 | listenerId | URL | UUID | O | Listener ID |
 | errorpage | Body | Object | O | Custom response information object |
-| errorpage.code | Body | Integer | O | Error code<br>One of `200`, `400`, `403`, `405`, `408`, `425`, `429`, `500`, `502`, `503`, `504` |
+| errorpage.code | Body | Integer | O | One of the error code
+400, 403, 408, 500, 502, 503, and 504 |
 | errorpage.content_type | Body | Enum | O | Content type<br>One of `application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` |
 | errorpage.body | Body | String | O | Custom response body (up to 1024 characters) |
 
@@ -927,7 +928,7 @@ X-Auth-Token: {tokenId}
 {
   "errorpage": {
     "content_type": "application/json",
-    "body": "{"error": {"code": 502, "message": "Bad Gateway"}}"
+    "body": "{\"error\": {\"code\": 502, \"message\": \"Bad Gateway\"}}"
   }
 }
 ```
@@ -954,7 +955,7 @@ X-Auth-Token: {tokenId}
     "id": "9413aeba-b796-46eb-9ae5-862cc20897e2",
     "code": 502,
     "content_type": "application/json",
-    "body": "{"error": {"code": 502, "message": "Bad Gateway"}}",
+    "body": "{\"error\": {\"code\": 502, \"message\": \"Bad Gateway\"}}",
     "tenant_id": "419a823563124dc5b5627f5e79db8174"
   }
 }
@@ -1579,7 +1580,7 @@ This API does not require a request body.
 | healthmonitors.url_path | Body | String | Health check request URL <br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 | healthmonitors.type | Body | Enum | Protocol to use for health checks. One of `TCP`, `HTTP`, or `HTTPS` |
 | healthmonitors.id | Body | UUID | Health monitor ID |
-| healthmonitors.host_header | Body | String | Field value of the host header to be used for status check<br> If the status check type is set to `TCP`, the value set in this field is ignored.|
+| healthmonitor.host_header | Body | String | Field value of the host header to be used for status check<br> If the status check type is set to `TCP`, the value set in this field is ignored.|
 
 
 
@@ -1646,7 +1647,7 @@ This API does not require a request body.
 | healthmonitor.url_path | Body | String | Health check request URL<br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 | healthmonitor.type | Body | Enum | Protocol to use for health check. One of `TCP`, `HTTP`, or `HTTPS` |
 | healthmonitor.id | Body | UUID | Health Monitor ID |
-| healthmonitors.host_header | Body | String | Field value of the host header to use for health check<br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
+| healthmonitor.host_header | Body | String | Field value of the host header to use for health check<br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 
 
 
@@ -1704,7 +1705,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.timeout | Body | Integer | O | Time to wait for a health check response (in seconds). |
 | healthmonitor.url_path | Body | String | - | The health check request URL. If omitted, `/` will be used. <br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 | healthmonitor.type | Body | Enum | O | Protocol to use for health check. One of `TCP`, `HTTP`, or `HTTPS` |
-| healthmonitors.host_header | Body | String | - | Field value of the host header to use for health check<br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
+| healthmonitor.host_header | Body | String | - | Field value of the host header to use for health check<br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 
 
 

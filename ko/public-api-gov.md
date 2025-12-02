@@ -586,7 +586,6 @@ X-Auth-Token: {tokenId}
 | listener.description | Body | String | - | 리스너 설명 |
 | listener.name | Body | String | - | 리스너 이름 |
 | listener.default_pool_id | Body | UUID | - | 리스너에 등록된 기본 멤버 그룹(풀) ID<br>지정하지 않으면 `사용 안 함`으로 생성 |
-
 | listener.loadbalancer_id | Body | UUID | O | 로드 밸런서 ID |
 | listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
@@ -702,9 +701,8 @@ X-Auth-Token: {tokenId}
 | listenerId | URL | UUID | O | 리스너 ID |
 | listener | Body | Object | O | 리스너 정보 객체 |
 | listener.description | Body | String | - | 리스너 설명 |
-| listener.name | Body | String| - | 리스너 이름 |
+| listener.name | Body | String | - | 리스너 이름 |
 | listener.default_pool_id | Body | UUID | - | 리스너에 등록된 기본 멤버 그룹(풀) ID<br>해당 값을 null로 지정하면 `사용 안 함`으로 변경 |
-
 | listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
 | listener.keepalive_timeout | Body | Integer | - | 리스너의 keepalive timeout |

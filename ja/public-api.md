@@ -35,7 +35,7 @@ X-Auth-Token: {tokenId}
 | vip_port_id | Query | UUID | - | 照会するロードバランサーのポートID |
 | vip_subnet_id | Query | UUID | - | 照会するロードバランサーのサブネットID |
 | operating_status | Query | Enum | - | 照会するロードバランサーの運用状態 |
-| loadbalancer_type | Query | String | - | 照会するロードバランサーのタイプ<br>`shared`/`dedicated`/`physical_basic`/`physical_dedicated`のいずれか |
+| loadbalancer_type | Query | String | - | 照会するロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
 
 
 #### レスポンス
@@ -555,6 +555,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | 管理者制御状態 |
 | listener.connection_limit | Body | Integer | リスナーのconnection limit |
 | listener.keepalive_timeout | Body | Integer | リスナーのkeepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Protヘッダon/off<br>デフォルト値: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Portヘッダon/off<br>デフォルト値: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-Forヘッダon/off<br>デフォルト値: `true` |
 | listener.default_tls_container_ref | Body | String| key-managerに登録されたtls証明書のパス |
 | listener.sni_container_refs | Body | Array | key-managerに登録されたsni証明書のパスリスト |
 | listener.protocol_port | Body | Integer | リスナーポート |
@@ -581,6 +584,9 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "enable_x_forwarded_proto": true,
+    "enable_x_forwarded_port": true,
+    "enable_x_forwarded_for": true,    
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
@@ -619,6 +625,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | - | 管理者制御状態 |
 | listener.connection_limit | Body |  Integer | - | リスナーのconnection limit |
 | listener.keepalive_timeout | Body | Integer | - | リスナーのkeepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Protヘッダon/off<br>デフォルト値: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Portヘッダon/off<br>デフォルト値: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-Forヘッダon/off<br>デフォルト値: `true` |
 | listener.default_tls_container_ref | Body | String | - | key-managerに登録されたtls証明書のパス |
 | listener.sni_container_refs | Body | Array | - | key-managerに登録されたsni証明書のパスリスト |
 | listener.protocol_port | Body | Integer | O | リスナーポート |
@@ -639,6 +648,9 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "enable_x_forwarded_proto": false,
+    "enable_x_forwarded_port": false,
+    "enable_x_forwarded_for": false,    
     "tls_version": "TLSv1.0",
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -664,6 +676,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | 管理者制御状態 |
 | listener.connection_limit | Body | Integer | リスナーのconnection limit |
 | listener.keepalive_timeout | Body | Integer | リスナーのkeepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Protヘッダon/off<br>デフォルト値: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Portヘッダon/off<br>デフォルト値: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-Forヘッダon/off<br>デフォルト値: `true` |
 | listener.default_tls_container_ref | Body | String | key-managerに登録されたtls証明書のパス |
 | listener.sni_container_refs | Body | Array | key-managerに登録されたsni証明書のパスリスト |
 | listener.protocol_port | Body | Integer | リスナーポート |
@@ -690,6 +705,9 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "enable_x_forwarded_proto": false,
+    "enable_x_forwarded_port": false,
+    "enable_x_forwarded_for": false,    
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -723,6 +741,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | - | 管理者制御状態 |
 | listener.connection_limit | Body |  Integer | - | リスナーのconnection limit |
 | listener.keepalive_timeout | Body | Integer | - | リスナーのkeepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Protヘッダon/off<br>デフォルト値: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Portヘッダon/off<br>デフォルト値: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-Forヘッダon/off<br>デフォルト値: `true` |
 | listener.default_tls_container_ref | Body | String | - | key-managerに登録されたtls証明書のパス |
 | listener.sni_container_refs | Body | Array | - | key-managerに登録されたsni証明書のパスリスト |
 
@@ -763,6 +784,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | 管理者制御状態 |
 | listener.connection_limit | Body | Integer | リスナーのconnection limit |
 | listener.keepalive_timeout | Body | Integer | リスナーのkeepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | X-Forwarded-Proto/X-Forwarded-Protヘッダon/off |
+| listener.enable_x_forwarded_port | Body | Boolean | X-Forwarded-Portヘッダon/off |
+| listener.enable_x_forwarded_for | Body | Boolean | X-Forwarded-Forヘッダon/off |
 | listener.default_tls_container_ref | Body | String | key-managerに登録されたtls証明書のパス |
 | listener.sni_container_refs | Body | Array | key-managerに登録されたsni証明書のパスリスト |
 | listener.protocol_port | Body | Integer | リスナーポート |

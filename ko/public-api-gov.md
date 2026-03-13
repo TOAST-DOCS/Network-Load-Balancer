@@ -449,6 +449,10 @@ X-Auth-Token: {tokenId}
 | listeners.default_tls_container_ref | Body | String| key-manager에 등록된 TLS 인증서 경로 |
 | listeners.sni_container_refs | Body | Array | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listeners.protocol_port | Body | Integer | 리스너 포트 |
+| listeners.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
+| listeners.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
+| listeners.tls_version | Body | String | 리스너의 TLS 버전 |
+| listeners.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
 | listeners.id | Body | String| 리스너 ID |
 
 
@@ -460,6 +464,7 @@ X-Auth-Token: {tokenId}
   "listeners": [
     {
       "proxy_protocol": false,
+      "block_invalid_http_request": true,
       "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
       "protocol": "TERMINATED_HTTPS",
       "description": "",
@@ -473,6 +478,7 @@ X-Auth-Token: {tokenId}
       "admin_state_up": true,
       "connection_limit": 2000,
       "keepalive_timeout": 300,
+      "keepalive_enable": true,
       "tls_version": "TLSv1.0",
       "sni_container_ids": [],
       "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
@@ -526,6 +532,10 @@ X-Auth-Token: {tokenId}
 | listener.default_tls_container_ref | Body | String| key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
+| listener.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
+| listener.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
+| listener.tls_version | Body | String | 리스너의 TLS 버전 |
+| listener.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
 | listener.id | Body | UUID | 리스너 ID |
 
 
@@ -536,6 +546,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
     "description": "",
@@ -549,6 +560,7 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "keepalive_enable": true,
     "enable_x_forwarded_proto": true,
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,
@@ -595,6 +607,10 @@ X-Auth-Token: {tokenId}
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For 헤더 on/off<br>기본값: `true` |
 | listener.default_tls_container_ref | Body | String | - | key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | - | key-manager에 등록된 SNI 인증서 경로 목록 |
+| listener.proxy_protocol | Body | Boolean | - | 프록시 프로토콜 on/off<br>기본값: `false` |
+| listener.block_invalid_http_request | Body | Boolean | - | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
+| listener.tls_version | Body | String | - | 리스너의 TLS 버전 |
+| listener.keepalive_enable | Body | Boolean | - | keepalive 활성화 on/off<br>기본값: `true` |
 | listener.protocol_port | Body | Integer | O | 리스너 포트 |
 
 
@@ -606,6 +622,7 @@ X-Auth-Token: {tokenId}
   "listener": {
     "protocol": "TERMINATED_HTTPS",
     "proxy_protocol": false,
+    "block_invalid_http_request": true,
     "description": "",
     "name": "",
     "loadbalancer_id":"7b4cef78-72b0-4c3c-9971-98763ef6284c",
@@ -613,6 +630,7 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "keepalive_enable": true,
     "enable_x_forwarded_proto": false,
     "enable_x_forwarded_port": false,
     "enable_x_forwarded_for": false,
@@ -647,6 +665,10 @@ X-Auth-Token: {tokenId}
 | listener.default_tls_container_ref | Body | String | key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
+| listener.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
+| listener.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
+| listener.tls_version | Body | String | 리스너의 TLS 버전 |
+| listener.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
 | listener.id | Body | UUID | 리스너 ID |
 
 
@@ -657,6 +679,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
     "description": "",
@@ -670,9 +693,11 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "keepalive_enable": true,
     "enable_x_forwarded_proto": false,
     "enable_x_forwarded_port": false,
     "enable_x_forwarded_for": false,
+    "tls_version": "TLSv1.0",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -711,6 +736,10 @@ X-Auth-Token: {tokenId}
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For 헤더 on/off<br>기본값: `true` |
 | listener.default_tls_container_ref | Body | String | - | key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | - | key-manager에 등록된 SNI 인증서 경로 목록 |
+| listener.proxy_protocol | Body | Boolean | - | 프록시 프로토콜 on/off<br>기본값: `false` |
+| listener.block_invalid_http_request | Body | Boolean | - | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
+| listener.tls_version | Body | String | - | 리스너의 TLS 버전 |
+| listener.keepalive_enable | Body | Boolean | - | keepalive 활성화 on/off<br>기본값: `true` |
 
 <details><summary>예시</summary>
 <p>
@@ -719,12 +748,14 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "block_invalid_http_request": true,
     "description": "",
     "name": "",
     "default_pool_id": null,
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "keepalive_enable": true,
     "enable_x_forwarded_proto": true,
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,
@@ -758,6 +789,10 @@ X-Auth-Token: {tokenId}
 | listener.default_tls_container_ref | Body | String | key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
+| listener.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
+| listener.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
+| listener.tls_version | Body | String | 리스너의 TLS 버전 |
+| listener.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
 | listener.id | Body | UUID | 리스너 ID |
 
 
@@ -768,6 +803,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "block_invalid_http_request": true,
     "default_pool_id": null,
     "protocol": "TERMINATED_HTTPS",
     "description": "",
@@ -781,6 +817,7 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "keepalive_enable": true,
     "enable_x_forwarded_proto": true,
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,

@@ -1,6 +1,9 @@
 ## Network > Load Balancer > Console Guide
 
+<a id='manage-loadbalancers'></a>
 ## Manage Load Balancers
+
+<a id='create-loadbalancers'></a>
 ### Create Load Balancers
 You can easily create a load balancer by entering the setting values in the NHN Cloud Load Balancer console. Depending on your purpose, you can select either L4 routing or L7 routing mode to create it. <br>
 The mode refers to the template, not the actual type of load balancer. You can create a load balancer with L4 routing mode and add L7 rules.
@@ -189,6 +192,7 @@ Enabling delete protection protects a load balancer from accidental deletion. Yo
 #### IP Access Control Groups
 Specify the IP access control group to apply when the load balancer is created. You can select multiple groups with the same access control type among the IP access control groups. You can change the IP access control group to be applied even after the load balancer is created.
 
+<a id='view-loadbalancers'></a>
 ### View Load Balancers
 After a load balancer is created, you will be returned to the load balancer list page. In the load balancer list page, you can check the basic information of the created load balancers. The items displayed on the list page are as follows:
 
@@ -210,6 +214,7 @@ After a load balancer is created, you will be returned to the load balancer list
 > | ERROR | Failed to create a load balancer<br> Contact the administrator. |
 > | ERROR_MIGRATE | Failed to migrate a load balancer<br> Contact the administrator. |
 
+<a id='modify-loadbalancers'></a>
 ### Modify Load Balancers and Details
 Select a load balancer from the list, and a page of details shows up at the bottom, which is composed of the following tabs:
 
@@ -218,6 +223,7 @@ Select a load balancer from the list, and a page of details shows up at the bott
 * Instance: View the list of instances registered as members to a selected load balancer. Register new instances as members or exclude existing ones.
 * Statistics: Statistical information of a selected load balancer is available.
 
+<a id='change-listener'></a>
 ### Listener Changes and Details
 On the main screen of the load balancer, select the desired load balancer detail view to see the listeners and member groups connected to the load balancer. From there, you can select the **Listeners** tab to create, change, or delete listeners.
 
@@ -263,6 +269,7 @@ For listeners using the TERMINATED_HTTPS protocol, you can manage multiple certi
 
 > [Caution] Deleting a certificate will restart the load balancer. During the restart process, existing sessions will be maintained, but new sessions cannot be processed (about 1 second). Therefore, we recommend performing the process during a time that will not impact the service.
 
+<a id='custom-response-guide'></a>
 ### Custom Response Guide
 
 You can configure custom responses in the load balancer listener. Using custom responses, you can directly deliver custom messages or HTML content to users when a specific HTTP error code occurs.
@@ -287,6 +294,7 @@ You can configure custom responses in the load balancer listener. Using custom r
 
 > [Caution] When adding, modifying, or deleting a custom response, the listener may briefly restart (less than 1 second). Therefore, we recommend changing during a time when service impact is minimal.
 
+<a id='x-forwarded-header-guide'></a>
 ### Guide to X-Forwarded Header Configuration
 
 You can view and change the X-Forwarded header settings on a load balancer listener. The X-Forwarded header is used to forward the client's source information (protocol, port, IP address) to the backend server.
@@ -309,6 +317,7 @@ To delete a listener, click Delete: cannot delete, though, if the load balancer 
 
 > [Caution] Add/Modify/Delete listeners causes reboot of a load balancer. During the reboot, existing connected sessions are maintained, but new sessions cannot be processed (less than 1 second). Therefore, it is recommended to proceed at a time that does not affect the service.
 
+<a id='change-member-group'></a>
 ### Member Group Changes and Details
 On the Load Balancers screen, select the desired load balancer's **View Details** to see the listeners and member groups connected to the load balancer. From there, you can select the **Member Groups** tab to create, change, or delete member groups.
 
@@ -327,6 +336,7 @@ Select the member group you want to delete and click **Delete Member Group** to 
 
 > [Note] When a member group is deleted, any L7 rules that had that member group as an action target will have their action type changed to Block.
 
+<a id='change-member'></a>
 ### Member changes and details
 On the Load Balancer **View Details** screen, select the **Member Group** tab, and then select the desired member group to view the details of the member group and the status of the members in the member group.
 
@@ -353,13 +363,16 @@ Instances that are no longer used may be deleted. Click Detach Instance of the i
 
 > [Caution] Add/Disable/Delete Members causes reboot of a load balancer. During the reboot, existing connected sessions are maintained, but new sessions cannot be processed (less than 1 second). Therefore, it is recommended to proceed at a time that does not affect the service.
 
+<a id='delete-loadbalancers'></a>
 ### Delete Load Balancers
 Select the load balancer you want to delete from the load balancer list screen and click the Delete button to delete the load balancer.
 
 
+<a id='ip-acl-groups'></a>
 ## IP Access Control Groups
 For more details on the features of IP access control, see [IP Access Control](/Network/Load%20Balancer/en/overview/#load-balancer-ip-access-control).
 
+<a id='create-ip-acl-groups'></a>
 #### Create IP Access Control Groups
 To create an IP access control group, click [Create Access Control Group] and enter the following values:
 
@@ -376,25 +389,30 @@ Click [Confirm] and the groups and targets of access control are created.
 > Up to 10 access control groups can be created for each project.
 > Up to 1,000 access control targets can be created for each project.
 
-
+<a id='change-ip-acl-groups'></a>
 #### Change IP Access Control Groups
 You can change the properties of an IP access control group. The properties you can change are name and description. The "IP Access Control Type" property cannot be changed.
 
+<a id='delete-ip-acl-groups'></a>
 #### Delete IP Access Control Groups
 You can delete the selected IP access control groups. When you delete a group, all access control targets belonging to the group are also deleted.
 When you delete an IP access control group, load balancers using the group will no longer use that policy.
 
+<a id='add-ip-acl-targets'></a>
 #### Add IP Access Control Targets
 If you select an access control group, the access control target menu appears at the bottom.
 When a target is added to an access control group, the policy of the added IP or CIDR is reflected in all load balancers using this access control group.
 
+<a id='change-ip-acl-targets'></a>
 #### Change IP Access Control Targets
 You can change the properties of the access control target. You can only change the description.
 
+<a id='delete-ip-acl-targets'></a>
 #### Delete IP Access Control Targets
 If you select an access control group, the access control target menu appears at the bottom.
 If you delete a target belonging to an access control group, the policy of the corresponding IP or CIDR is deleted from all load balancers using this access control group.
 
+<a id='apply-ip-acl-groups'></a>
 #### Apply IP Access Control Groups
 Select the load balancer to apply the IP access control group to. Select the group you want to configure for that load balancer and click Confirm.
 Multiple groups with the same "access control type" can be applied to the load balancer.

@@ -1,6 +1,6 @@
 ## Network > Load Balancer > API v2 Guide
 
-To use the API, you need an API endpoint and token. Please refer to [Prepare to Use the API](/Compute/Compute/ko/identity-api/) to prepare the information required to use the API.
+Load Balancer uses IaaS tokens for authentication and authorization when making API calls. The IaaS token is an authentication token used for NHN Cloud's OpenStack-based infrastructure services (IaaS). For more information on issuing and using IaaS tokens, please refer to the [IaaS Token](/nhncloud/en/public-api/iaas-token).
 
 The load balancer, listener, pool, health monitor, and member APIs use `network` type endpoints. The secret and secret container APIs are called using `key-manager` type endpoints. For the exact endpoint, refer to `serviceCatalog` in the token issuance response.
 

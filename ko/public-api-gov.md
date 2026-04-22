@@ -452,6 +452,7 @@ X-Auth-Token: {tokenId}
 | listeners.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listeners.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listeners.tls_version | Body | String | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
+| listeners.ssl_policy_id | Body | UUID | 리스너에 연결된 SSL 정책 ID<br>연결된 SSL 정책이 없으면 `null`<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
 | listeners.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
 | listeners.id | Body | String| 리스너 ID |
 
@@ -480,6 +481,7 @@ X-Auth-Token: {tokenId}
       "keepalive_timeout": 300,
       "keepalive_enable": true,
       "tls_version": "TLSv1.0",
+      "ssl_policy_id": null,
       "sni_container_ids": [],
       "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
       "sni_container_refs": [],
@@ -535,6 +537,7 @@ X-Auth-Token: {tokenId}
 | listener.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listener.tls_version | Body | String | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
+| listener.ssl_policy_id | Body | UUID | 리스너에 연결된 SSL 정책 ID<br>연결된 SSL 정책이 없으면 `null`<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
 | listener.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
 | listener.id | Body | UUID | 리스너 ID |
 
@@ -564,7 +567,8 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_proto": true,
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,
-    "tls_version": "TLSv1.0",
+    "tls_version": "TLSv1.2",
+    "ssl_policy_id": "b5b3f6f2-6c29-4f3a-9a2e-3b2e6b2b5c0a",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -594,7 +598,7 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | 토큰 ID |
 | listener | Body | Object | O | 리스너 정보 객체 |
-| listener.protocol | Body | Enum | O | 리스너 프로토콜<br>`TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listener.protocol | Body | Enum | O | 리스너 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
 | listener.description | Body | String | - | 리스너 설명 |
 | listener.name | Body | String | - | 리스너 이름 |
 | listener.default_pool_id | Body | UUID | - | 리스너에 등록된 기본 멤버 그룹(풀) ID<br>지정하지 않으면 `사용 안 함`으로 생성 |
@@ -607,11 +611,12 @@ X-Auth-Token: {tokenId}
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For 헤더 on/off<br>기본값: `true` |
 | listener.default_tls_container_ref | Body | String | - | key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | - | key-manager에 등록된 SNI 인증서 경로 목록 |
+| listener.protocol_port | Body | Integer | O | 리스너 포트 |
 | listener.proxy_protocol | Body | Boolean | - | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
-| listener.tls_version | Body | String | - | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
+| listener.tls_version | Body | String | - | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>`ssl_policy_id`와 함께 지정 시 SSL 정책의 `min_tls_version`과 일치해야 함 |
+| listener.ssl_policy_id | Body | UUID | - | 리스너에 연결할 SSL 정책 ID<br>기본값: `null`<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>자세한 내용은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview-gov/#ssl) 참고 |
 | listener.keepalive_enable | Body | Boolean | - | keepalive 활성화 on/off<br>기본값: `true` |
-| listener.protocol_port | Body | Integer | O | 리스너 포트 |
 
 
 <details><summary>예시</summary>
@@ -634,7 +639,8 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_proto": false,
     "enable_x_forwarded_port": false,
     "enable_x_forwarded_for": false,
-    "tls_version": "TLSv1.0",
+    "tls_version": "TLSv1.2",
+    "ssl_policy_id": "b5b3f6f2-6c29-4f3a-9a2e-3b2e6b2b5c0a",
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443
@@ -668,6 +674,7 @@ X-Auth-Token: {tokenId}
 | listener.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listener.tls_version | Body | String | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
+| listener.ssl_policy_id | Body | UUID | 리스너에 연결된 SSL 정책 ID<br>연결된 SSL 정책이 없으면 `null`<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
 | listener.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
 | listener.id | Body | UUID | 리스너 ID |
 
@@ -697,7 +704,8 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_proto": false,
     "enable_x_forwarded_port": false,
     "enable_x_forwarded_for": false,
-    "tls_version": "TLSv1.0",
+    "tls_version": "TLSv1.2",
+    "ssl_policy_id": "b5b3f6f2-6c29-4f3a-9a2e-3b2e6b2b5c0a",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -738,7 +746,8 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | - | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.proxy_protocol | Body | Boolean | - | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
-| listener.tls_version | Body | String | - | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
+| listener.tls_version | Body | String | - | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>`ssl_policy_id`와 함께 지정 시 SSL 정책의 `min_tls_version`과 일치해야 함 |
+| listener.ssl_policy_id | Body | UUID | - | 리스너에 연결할 SSL 정책 ID<br>연결을 해제하려면 `null` 전달<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>자세한 내용은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview-gov/#ssl) 참고 |
 | listener.keepalive_enable | Body | Boolean | - | keepalive 활성화 on/off<br>기본값: `true` |
 
 <details><summary>예시</summary>
@@ -759,7 +768,8 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_proto": true,
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,
-    "tls_version": "TLSv1.0",
+    "tls_version": "TLSv1.2",
+    "ssl_policy_id": "b5b3f6f2-6c29-4f3a-9a2e-3b2e6b2b5c0a",
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": []
   }
@@ -792,6 +802,7 @@ X-Auth-Token: {tokenId}
 | listener.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listener.tls_version | Body | String | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
+| listener.ssl_policy_id | Body | UUID | 리스너에 연결된 SSL 정책 ID<br>연결된 SSL 정책이 없으면 `null`<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
 | listener.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
 | listener.id | Body | UUID | 리스너 ID |
 
@@ -821,7 +832,8 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_proto": true,
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,
-    "tls_version": "TLSv1.0",
+    "tls_version": "TLSv1.2",
+    "ssl_policy_id": "b5b3f6f2-6c29-4f3a-9a2e-3b2e6b2b5c0a",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.gov-nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -4113,6 +4125,260 @@ X-Auth-Token: {tokenId}
 | --- | --- | --- | --- | --- |
 | tokenId | Header | String | O | 토큰 ID |
 | ipaclTargetId | URL | UUID | O | IP ACL 타깃 ID |
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+- - -
+
+## SSL 정책
+
+사용자 정의 SSL 정책을 생성하여 리스너에 적용할 수 있습니다. SSL 정책에는 최소 TLS 버전과 해당 버전에서 사용할 암호화 스위트(cipher suite)를 지정합니다. SSL 정책의 개념과 선택 가능한 암호화 스위트 목록은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview-gov/#ssl)을 참고하세요.
+
+> [참고] SSL 정책은 테넌트당 최대 10개까지 생성할 수 있습니다.
+
+> [참고] SSL 정책은 프로토콜이 `TERMINATED_HTTPS`인 리스너에만 적용됩니다.
+
+### SSL 정책 목록 보기
+
+```
+GET /v2.0/lbaas/ssl_policies
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| id | Query | UUID | - | 조회할 SSL 정책 ID |
+| name | Query | String | - | 조회할 SSL 정책 이름 |
+| description | Query | String | - | 조회할 SSL 정책 설명 |
+| min_tls_version | Query | Enum | - | 조회할 SSL 정책의 최소 TLS 버전 |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| ssl_policies | Body | Array | SSL 정책 객체 목록 |
+| ssl_policies.id | Body | UUID | SSL 정책 ID |
+| ssl_policies.tenant_id | Body | String | 테넌트 ID |
+| ssl_policies.name | Body | String | SSL 정책 이름 |
+| ssl_policies.description | Body | String | SSL 정책 설명 |
+| ssl_policies.min_tls_version | Body | Enum | SSL 정책의 최소 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나 |
+| ssl_policies.ciphers | Body | String | 사용할 암호화 스위트 목록<br>TLS 1.2 이하 암호화 스위트와 TLS 1.3 암호화 스위트를 `:`으로 연결한 하나의 문자열<br>응답은 TLS 1.2 이하 암호화 스위트가 먼저, TLS 1.3 암호화 스위트가 뒤에 오는 순서로 정규화되어 반환됨 |
+| ssl_policies.listeners | Body | Array | SSL 정책이 적용된 리스너 목록 |
+| ssl_policies.listeners.id | Body | UUID | 리스너 ID |
+| ssl_policies.listeners.loadbalancer_id | Body | UUID | 리스너가 속한 로드 밸런서 ID |
+| ssl_policies.created_at | Body | String | 생성 시각 |
+| ssl_policies.updated_at | Body | String | 최종 수정 시각 |
+
+<details><summary>예시</summary>
+
+```json
+{
+  "ssl_policies": [
+    {
+      "id": "b5b3f6f2-6c29-4f3a-9a2e-3b2e6b2b5c0a",
+      "tenant_id": "8258ab391d854e8b878642b737017a3b",
+      "name": "secure-tls12",
+      "description": "TLS 1.2 이상만 허용",
+      "min_tls_version": "TLSv1.2",
+      "ciphers": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384",
+      "listeners": [
+        {
+          "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
+          "loadbalancer_id": "7b4cef78-72b0-4c3c-9971-98763ef6284c"
+        }
+      ],
+      "created_at": "2026-04-01T10:00:00",
+      "updated_at": "2026-04-01T10:00:00"
+    }
+  ]
+}
+```
+
+</details>
+
+- - -
+
+### SSL 정책 보기
+
+```
+GET /v2.0/lbaas/ssl_policies/{sslPolicyId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| sslPolicyId | URL | UUID | O | SSL 정책 ID |
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| ssl_policy | Body | Object | SSL 정책 객체 |
+| ssl_policy.id | Body | UUID | SSL 정책 ID |
+| ssl_policy.tenant_id | Body | String | 테넌트 ID |
+| ssl_policy.name | Body | String | SSL 정책 이름 |
+| ssl_policy.description | Body | String | SSL 정책 설명 |
+| ssl_policy.min_tls_version | Body | Enum | SSL 정책의 최소 TLS 버전 |
+| ssl_policy.ciphers | Body | String | 사용할 암호화 스위트 목록<br>TLS 1.2 이하 암호화 스위트와 TLS 1.3 암호화 스위트를 `:`으로 연결한 하나의 문자열<br>응답은 TLS 1.2 이하 암호화 스위트가 먼저, TLS 1.3 암호화 스위트가 뒤에 오는 순서로 정규화되어 반환됨 |
+| ssl_policy.listeners | Body | Array | SSL 정책이 적용된 리스너 목록 |
+| ssl_policy.listeners.id | Body | UUID | 리스너 ID |
+| ssl_policy.listeners.loadbalancer_id | Body | UUID | 리스너가 속한 로드 밸런서 ID |
+| ssl_policy.created_at | Body | String | 생성 시각 |
+| ssl_policy.updated_at | Body | String | 최종 수정 시각 |
+
+<details><summary>예시</summary>
+
+```json
+{
+  "ssl_policy": {
+    "id": "b5b3f6f2-6c29-4f3a-9a2e-3b2e6b2b5c0a",
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "name": "secure-tls12",
+    "description": "TLS 1.2 이상만 허용",
+    "min_tls_version": "TLSv1.2",
+    "ciphers": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384",
+    "listeners": [
+      {
+        "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
+        "loadbalancer_id": "7b4cef78-72b0-4c3c-9971-98763ef6284c"
+      }
+    ],
+    "created_at": "2026-04-01T10:00:00",
+    "updated_at": "2026-04-01T10:00:00"
+  }
+}
+```
+
+</details>
+
+- - -
+
+### SSL 정책 생성하기
+
+```
+POST /v2.0/lbaas/ssl_policies
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| ssl_policy | Body | Object | O | SSL 정책 객체 |
+| ssl_policy.name | Body | String | - | SSL 정책 이름 |
+| ssl_policy.description | Body | String | - | SSL 정책 설명 |
+| ssl_policy.min_tls_version | Body | Enum | O | SSL 정책의 최소 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>생성 후 변경할 수 없음 |
+| ssl_policy.ciphers | Body | String | O | 사용할 암호화 스위트 목록<br>TLS 1.2 이하 암호화 스위트와 TLS 1.3 암호화 스위트를 `:`으로 연결한 하나의 문자열<br>서버가 이름 접두사(`TLS_`로 시작하면 TLS 1.3)로 자동 분류함<br>최소 1개 이상 지정 필요 |
+
+> [주의] `min_tls_version`이 `TLSv1.3`인 경우 `ciphers`에 TLS 1.2 이하 암호화 스위트를 포함할 수 없습니다. 포함 시 오류가 반환됩니다.
+
+> [주의] 선택 가능한 암호화 스위트는 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview-gov/#ssl)에 정의된 값만 사용할 수 있습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+  "ssl_policy": {
+    "name": "secure-tls12",
+    "description": "TLS 1.2 이상만 허용",
+    "min_tls_version": "TLSv1.2",
+    "ciphers": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384"
+  }
+}
+```
+
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| ssl_policy | Body | Object | 생성된 SSL 정책 객체 |
+| ssl_policy.id | Body | UUID | SSL 정책 ID |
+| ssl_policy.tenant_id | Body | String | 테넌트 ID |
+| ssl_policy.name | Body | String | SSL 정책 이름 |
+| ssl_policy.description | Body | String | SSL 정책 설명 |
+| ssl_policy.min_tls_version | Body | Enum | SSL 정책의 최소 TLS 버전 |
+| ssl_policy.ciphers | Body | String | 사용할 암호화 스위트 목록<br>TLS 1.2 이하 암호화 스위트가 먼저, TLS 1.3 암호화 스위트가 뒤에 오는 순서로 정규화되어 반환됨 |
+| ssl_policy.listeners | Body | Array | SSL 정책이 적용된 리스너 목록<br>생성 직후에는 빈 배열 |
+| ssl_policy.created_at | Body | String | 생성 시각 |
+| ssl_policy.updated_at | Body | String | 최종 수정 시각 |
+
+- - -
+
+### SSL 정책 수정하기
+
+```
+PUT /v2.0/lbaas/ssl_policies/{sslPolicyId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| sslPolicyId | URL | UUID | O | SSL 정책 ID |
+| ssl_policy | Body | Object | O | SSL 정책 객체 |
+| ssl_policy.name | Body | String | - | SSL 정책 이름 |
+| ssl_policy.description | Body | String | - | SSL 정책 설명 |
+| ssl_policy.ciphers | Body | String | - | 사용할 암호화 스위트 목록<br>TLS 1.2 이하 암호화 스위트와 TLS 1.3 암호화 스위트를 `:`으로 연결한 하나의 문자열<br>요청에 포함하면 새 값이 기존 저장값을 완전 대체함 (TLS 1.2 이하 / TLS 1.3 중 한쪽만 수정하려면 양쪽을 모두 포함해야 함) |
+
+> [주의] `min_tls_version`은 생성 후 변경할 수 없습니다. 요청에 포함하면 오류가 발생합니다.
+
+> [참고] SSL 정책을 수정하면 해당 정책이 적용된 모든 리스너의 설정이 자동으로 갱신됩니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+  "ssl_policy": {
+    "description": "암호화 스위트 강화",
+    "ciphers": "ECDHE-RSA-AES256-GCM-SHA384:TLS_AES_256_GCM_SHA384"
+  }
+}
+```
+
+</details>
+
+#### 응답
+
+| 이름 | 종류 | 형식 | 설명 |
+|---|---|---|---|
+| ssl_policy | Body | Object | 수정된 SSL 정책 객체 |
+
+응답 구조는 `SSL 정책 보기`와 동일합니다.
+
+- - -
+
+### SSL 정책 삭제하기
+
+```
+DELETE /v2.0/lbaas/ssl_policies/{sslPolicyId}
+X-Auth-Token: {tokenId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름 | 종류 | 형식 | 필수 | 설명 |
+|---|---|---|---|---|
+| tokenId | Header | String | O | 토큰 ID |
+| sslPolicyId | URL | UUID | O | SSL 정책 ID |
+
+> [주의] SSL 정책이 하나 이상의 리스너에 적용되어 있으면 삭제할 수 없습니다. 먼저 해당 리스너의 `ssl_policy_id`를 `null`로 수정하여 연결을 해제한 후 삭제하세요.
 
 #### 응답
 

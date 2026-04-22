@@ -4168,8 +4168,7 @@ X-Auth-Token: {tokenId}
 | ssl_policies.name | Body | String | SSL 정책 이름 |
 | ssl_policies.description | Body | String | SSL 정책 설명 |
 | ssl_policies.min_tls_version | Body | Enum | SSL 정책의 최소 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나 |
-| ssl_policies.ciphers | Body | String | TLS 1.2 이하에서 사용할 암호화 스위트 목록<br>`:`으로 구분된 문자열 |
-| ssl_policies.tls13_ciphers | Body | String | TLS 1.3에서 사용할 암호화 스위트 목록<br>`:`으로 구분된 문자열 |
+| ssl_policies.ciphers | Body | String | 사용할 암호화 스위트 목록<br>TLS 1.2 이하 암호화 스위트와 TLS 1.3 암호화 스위트를 `:`으로 연결한 하나의 문자열<br>응답은 TLS 1.2 이하 암호화 스위트가 먼저, TLS 1.3 암호화 스위트가 뒤에 오는 순서로 정규화되어 반환됨 |
 | ssl_policies.listeners | Body | Array | SSL 정책이 적용된 리스너 목록 |
 | ssl_policies.listeners.id | Body | UUID | 리스너 ID |
 | ssl_policies.listeners.loadbalancer_id | Body | UUID | 리스너가 속한 로드 밸런서 ID |
@@ -4187,8 +4186,7 @@ X-Auth-Token: {tokenId}
       "name": "secure-tls12",
       "description": "TLS 1.2 이상만 허용",
       "min_tls_version": "TLSv1.2",
-      "ciphers": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384",
-      "tls13_ciphers": "TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384",
+      "ciphers": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384",
       "listeners": [
         {
           "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -4231,8 +4229,7 @@ X-Auth-Token: {tokenId}
 | ssl_policy.name | Body | String | SSL 정책 이름 |
 | ssl_policy.description | Body | String | SSL 정책 설명 |
 | ssl_policy.min_tls_version | Body | Enum | SSL 정책의 최소 TLS 버전 |
-| ssl_policy.ciphers | Body | String | TLS 1.2 이하에서 사용할 암호화 스위트 목록 |
-| ssl_policy.tls13_ciphers | Body | String | TLS 1.3에서 사용할 암호화 스위트 목록 |
+| ssl_policy.ciphers | Body | String | 사용할 암호화 스위트 목록<br>TLS 1.2 이하 암호화 스위트와 TLS 1.3 암호화 스위트를 `:`으로 연결한 하나의 문자열<br>응답은 TLS 1.2 이하 암호화 스위트가 먼저, TLS 1.3 암호화 스위트가 뒤에 오는 순서로 정규화되어 반환됨 |
 | ssl_policy.listeners | Body | Array | SSL 정책이 적용된 리스너 목록 |
 | ssl_policy.listeners.id | Body | UUID | 리스너 ID |
 | ssl_policy.listeners.loadbalancer_id | Body | UUID | 리스너가 속한 로드 밸런서 ID |
@@ -4249,8 +4246,7 @@ X-Auth-Token: {tokenId}
     "name": "secure-tls12",
     "description": "TLS 1.2 이상만 허용",
     "min_tls_version": "TLSv1.2",
-    "ciphers": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384",
-    "tls13_ciphers": "TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384",
+    "ciphers": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384",
     "listeners": [
       {
         "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
@@ -4283,10 +4279,9 @@ X-Auth-Token: {tokenId}
 | ssl_policy.name | Body | String | - | SSL 정책 이름 |
 | ssl_policy.description | Body | String | - | SSL 정책 설명 |
 | ssl_policy.min_tls_version | Body | Enum | O | SSL 정책의 최소 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>생성 후 변경할 수 없음 |
-| ssl_policy.ciphers | Body | String | - | TLS 1.2 이하에서 사용할 암호화 스위트 목록<br>`:`으로 구분된 문자열<br>`min_tls_version`이 `TLSv1.3`인 경우 지정할 수 없음 |
-| ssl_policy.tls13_ciphers | Body | String | - | TLS 1.3에서 사용할 암호화 스위트 목록<br>`:`으로 구분된 문자열 |
+| ssl_policy.ciphers | Body | String | O | 사용할 암호화 스위트 목록<br>TLS 1.2 이하 암호화 스위트와 TLS 1.3 암호화 스위트를 `:`으로 연결한 하나의 문자열<br>서버가 이름 접두사(`TLS_`로 시작하면 TLS 1.3)로 자동 분류함<br>최소 1개 이상 지정 필요 |
 
-> [주의] `min_tls_version`이 `TLSv1.2` 이하인 경우 `ciphers` 또는 `tls13_ciphers` 중 최소 하나는 반드시 지정해야 합니다.
+> [주의] `min_tls_version`이 `TLSv1.3`인 경우 `ciphers`에 TLS 1.2 이하 암호화 스위트를 포함할 수 없습니다. 포함 시 오류가 반환됩니다.
 
 > [주의] 선택 가능한 암호화 스위트는 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview-gov/#ssl)에 정의된 값만 사용할 수 있습니다.
 
@@ -4298,8 +4293,7 @@ X-Auth-Token: {tokenId}
     "name": "secure-tls12",
     "description": "TLS 1.2 이상만 허용",
     "min_tls_version": "TLSv1.2",
-    "ciphers": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384",
-    "tls13_ciphers": "TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384"
+    "ciphers": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384"
   }
 }
 ```
@@ -4316,8 +4310,7 @@ X-Auth-Token: {tokenId}
 | ssl_policy.name | Body | String | SSL 정책 이름 |
 | ssl_policy.description | Body | String | SSL 정책 설명 |
 | ssl_policy.min_tls_version | Body | Enum | SSL 정책의 최소 TLS 버전 |
-| ssl_policy.ciphers | Body | String | TLS 1.2 이하에서 사용할 암호화 스위트 목록 |
-| ssl_policy.tls13_ciphers | Body | String | TLS 1.3에서 사용할 암호화 스위트 목록 |
+| ssl_policy.ciphers | Body | String | 사용할 암호화 스위트 목록<br>TLS 1.2 이하 암호화 스위트가 먼저, TLS 1.3 암호화 스위트가 뒤에 오는 순서로 정규화되어 반환됨 |
 | ssl_policy.listeners | Body | Array | SSL 정책이 적용된 리스너 목록<br>생성 직후에는 빈 배열 |
 | ssl_policy.created_at | Body | String | 생성 시각 |
 | ssl_policy.updated_at | Body | String | 최종 수정 시각 |
@@ -4340,8 +4333,7 @@ X-Auth-Token: {tokenId}
 | ssl_policy | Body | Object | O | SSL 정책 객체 |
 | ssl_policy.name | Body | String | - | SSL 정책 이름 |
 | ssl_policy.description | Body | String | - | SSL 정책 설명 |
-| ssl_policy.ciphers | Body | String | - | TLS 1.2 이하에서 사용할 암호화 스위트 목록 |
-| ssl_policy.tls13_ciphers | Body | String | - | TLS 1.3에서 사용할 암호화 스위트 목록 |
+| ssl_policy.ciphers | Body | String | - | 사용할 암호화 스위트 목록<br>TLS 1.2 이하 암호화 스위트와 TLS 1.3 암호화 스위트를 `:`으로 연결한 하나의 문자열<br>요청에 포함하면 새 값이 기존 저장값을 완전 대체함 (TLS 1.2 이하 / TLS 1.3 중 한쪽만 수정하려면 양쪽을 모두 포함해야 함) |
 
 > [주의] `min_tls_version`은 생성 후 변경할 수 없습니다. 요청에 포함하면 오류가 발생합니다.
 
@@ -4353,8 +4345,7 @@ X-Auth-Token: {tokenId}
 {
   "ssl_policy": {
     "description": "암호화 스위트 강화",
-    "ciphers": "ECDHE-RSA-AES256-GCM-SHA384",
-    "tls13_ciphers": "TLS_AES_256_GCM_SHA384"
+    "ciphers": "ECDHE-RSA-AES256-GCM-SHA384:TLS_AES_256_GCM_SHA384"
   }
 }
 ```

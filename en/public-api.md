@@ -1,6 +1,6 @@
 ## Network > Load Balancer > API v2 Guide
 
-To use the API, you need an API endpoint and token. Please refer to [Prepare to Use the API](/Compute/Compute/ko/identity-api/) to prepare the information required to use the API.
+Load Balancer uses IaaS tokens for authentication and authorization when making API calls. The IaaS token is an authentication token used for NHN Cloud's OpenStack-based infrastructure services (IaaS). For more information on issuing and using IaaS tokens, please refer to the [IaaS Token](/nhncloud/en/public-api/iaas-token).
 
 The load balancer, listener, pool, health monitor, and member APIs use `network` type endpoints. The secret and secret container APIs are called using `key-manager` type endpoints. For the exact endpoint, refer to `serviceCatalog` in the token issuance response.
 
@@ -484,6 +484,10 @@ This API does not require a request body.
 | listeners.default_tls_container_ref | Body | String | TLS certificate path registered in key-manager |
 | listeners.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listeners.protocol_port | Body | Integer | Listener port |
+| listeners.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
+| listeners.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
+| listeners.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listeners.keepalive_enable | Body | Boolean | Keepalive on/off<br>Default: `true` |
 | listeners.id | Body | String | Listener ID |
 
 
@@ -495,6 +499,7 @@ This API does not require a request body.
   "listeners": [
     {
       "proxy_protocol": false,
+      "block_invalid_http_request": true,
       "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
       "protocol": "TERMINATED_HTTPS",
       "description": "",
@@ -508,6 +513,7 @@ This API does not require a request body.
       "admin_state_up": true,
       "connection_limit": 2000,
       "keepalive_timeout": 300,
+      "keepalive_enable": true,
       "tls_version": "TLSv1.0",
       "sni_container_ids": [],
       "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
@@ -557,6 +563,10 @@ This API does not require a request body.
 | listener.default_tls_container_ref | Body | String | TLS certificate path registered in key-manager |
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | Listener port |
+| listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
+| listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
+| listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.keepalive_enable | Body | Boolean | Keepalive on/off<br>Default: `true` |
 | listener.id | Body | UUID | Listener ID |
 
 
@@ -566,7 +576,7 @@ This API does not require a request body.
 ```json
 {
   "listener": {
-    "proxy_protocol": false,
+    "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
     "description": "",
@@ -580,6 +590,10 @@ This API does not require a request body.
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "keepalive_enable": true,
+    "enable_x_forwarded_proto": true,
+    "enable_x_forwarded_port": true,
+    "enable_x_forwarded_for": true,  
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
@@ -621,6 +635,10 @@ X-Auth-Token: {tokenId}
 | listener.default_tls_container_ref | Body | String | - | TLS certificate path registered in key-manager |
 | listener.sni_container_refs | Body | Array | - | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | O | Listener port |
+| listener.proxy_protocol | Body | Boolean | - | Proxy protocol on/off<br>Default: `false` |
+| listener.block_invalid_http_request | Body | Boolean | - | Block invalid HTTP requests on/off<br>Default: `true` |
+| listener.tls_version | Body | String | - | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.keepalive_enable | Body | Boolean | - | Keepalive on/off<br>Default: `true` |
 
 
 <details><summary>Example</summary>
@@ -631,6 +649,7 @@ X-Auth-Token: {tokenId}
   "listener": {
     "protocol": "TERMINATED_HTTPS",
     "proxy_protocol": false,
+    "block_invalid_http_request": true,
     "description": "",
     "name": "",
     "loadbalancer_id":"7b4cef78-72b0-4c3c-9971-98763ef6284c",
@@ -666,6 +685,10 @@ X-Auth-Token: {tokenId}
 | listener.default_tls_container_ref | Body | String | TLS certificate path registered in key-manager |
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | Listener port |
+| listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
+| listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
+| listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.keepalive_enable | Body | Boolean | Keepalive on/off<br>Default: `true` |
 | listener.id | Body | UUID | Listener ID |
 
 
@@ -676,6 +699,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
     "description": "",
@@ -689,6 +713,11 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "keepalive_enable": true,
+    "enable_x_forwarded_proto": false,
+    "enable_x_forwarded_port": false,
+    "enable_x_forwarded_for": false,
+    "tls_version": "TLSv1.0",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -727,6 +756,10 @@ X-Auth-Token: {tokenId}
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For header on/off<br>Default: `true` |
 | listener.default_tls_container_ref | Body | String | - | TLS certificate path registered in key-manager |
 | listener.sni_container_refs | Body | Array | - | List of SNI certificate paths registered in key-manager |
+| listener.proxy_protocol | Body | Boolean | - | Proxy protocol on/off<br>Default: `false` |
+| listener.block_invalid_http_request | Body | Boolean | - | Block invalid HTTP requests on/off<br>Default: `true` |
+| listener.tls_version | Body | String | - | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.keepalive_enable | Body | Boolean | - | Keepalive on/off<br>Default: `true` |
 
 <details><summary>Example</summary>
 <p>
@@ -735,12 +768,14 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "block_invalid_http_request": true,
     "description": "",
     "name": "",
     "default_pool_id": null,
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "keepalive_enable": true,
     "enable_x_forwarded_proto": true,
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,
@@ -774,6 +809,10 @@ X-Auth-Token: {tokenId}
 | listener.default_tls_container_ref | Body | String | TLS certificate path registered in key-manager |
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | Listener Port |
+| listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
+| listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
+| listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.keepalive_enable | Body | Boolean | Keepalive on/off<br>Default: `true` |
 | listener.id | Body | UUID | Listener ID |
 
 
@@ -785,6 +824,7 @@ X-Auth-Token: {tokenId}
   "listener": {
     "proxy_protocol": false,
     "default_pool_id": null,
+    "block_invalid_http_request": true,
     "protocol": "TERMINATED_HTTPS",
     "description": "",
     "name": "",
@@ -797,6 +837,7 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "keepalive_enable": true,
     "enable_x_forwarded_proto": true,
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,

@@ -1,6 +1,6 @@
 ## Network > Load Balancer > API v2ガイド
 
-APIを使用するにはAPIエンドポイントとトークンなどが必要です。[API使用準備](/Compute/Compute/ja/identity-api/)を参照してAPIの使用に必要な情報を準備します。
+Load Balancerは、API呼び出し時の認証/認可のためにIaaSトークンを使用します。IaaSトークンは、NHN CloudのOpenStackベースのインフラサービス(IaaS)で使用する認証トークンです。IaaSトークンの発行及び使用に関する詳細は、[IaaSトークン](/nhncloud/ja/public-api/iaas-token)を参照してください。
 
 ロードバランサー、リスナー、プール、ヘルスモニター、メンバーAPIは`network`タイプエンドポイントを利用します。シークレット、シークレットコンテナAPIは`key-manager`タイプエンドポイントを利用して呼び出します。正確なエンドポイントはトークン発行レスポンスの`serviceCatalog`を参照します。
 
@@ -682,6 +682,10 @@ X-Auth-Token: {tokenId}
 | listener.default_tls_container_ref | Body | String | key-managerに登録されたtls証明書のパス |
 | listener.sni_container_refs | Body | Array | key-managerに登録されたsni証明書のパスリスト |
 | listener.protocol_port | Body | Integer | リスナーポート |
+| listener.proxy_protocol | Body | Boolean | プロキシプロトコルのon/off<br>デフォルト値: `false` |
+| listener.block_invalid_http_request | Body | Boolean | 無効なHTTPリクエストのブロックのon/off<br>デフォルト値: `true` |
+| listener.tls_version | Body | String | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
+| listener.keepalive_enable | Body | Boolean | keepalive有効化のon/off<br>デフォルト値: `true` |
 | listener.id | Body | UUID | リスナーID |
 
 
@@ -692,6 +696,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "block_invalid_http_request": true,    
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
     "description": "",
@@ -705,9 +710,11 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "keepalive_enable": true,
     "enable_x_forwarded_proto": false,
     "enable_x_forwarded_port": false,
-    "enable_x_forwarded_for": false,    
+    "enable_x_forwarded_for": false, 
+   "tls_version": "TLSv1.0",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -746,6 +753,10 @@ X-Auth-Token: {tokenId}
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-Forヘッダon/off<br>デフォルト値: `true` |
 | listener.default_tls_container_ref | Body | String | - | key-managerに登録されたtls証明書のパス |
 | listener.sni_container_refs | Body | Array | - | key-managerに登録されたsni証明書のパスリスト |
+| listener.proxy_protocol | Body | Boolean | - | プロキシプロトコルのon/off<br>デフォルト値: `false` |
+| listener.block_invalid_http_request | Body | Boolean | - | 無効なHTTPリクエストのブロックのon/off<br>デフォルト値: `true` |
+| listener.tls_version | Body | String | - | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
+| listener.keepalive_enable | Body | Boolean | - | keepalive有効化のon/off<br>デフォルト値: `true` |
 
 <details><summary>例</summary>
 <p>
@@ -754,12 +765,14 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "block_invalid_http_request": true,
     "description": "",
     "name": "",
     "admin_state_up": true,
     "default_pool_id": null,    
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "keepalive_enable": true,
     "tls_version": "TLSv1.0",
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": []
@@ -790,6 +803,10 @@ X-Auth-Token: {tokenId}
 | listener.default_tls_container_ref | Body | String | key-managerに登録されたtls証明書のパス |
 | listener.sni_container_refs | Body | Array | key-managerに登録されたsni証明書のパスリスト |
 | listener.protocol_port | Body | Integer | リスナーポート |
+| listener.proxy_protocol | Body | Boolean | プロキシプロトコルのon/off<br>デフォルト値: `false` |
+| listener.block_invalid_http_request | Body | Boolean | 無効なHTTPリクエストのブロックのon/off<br>デフォルト値: `true` |
+| listener.tls_version | Body | String | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
+| listener.keepalive_enable | Body | Boolean | keepalive有効化のon/off<br>デフォルト値: `true` |
 | listener.id | Body | UUID | リスナーID |
 
 
@@ -800,6 +817,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "block_invalid_http_request": true,
     "default_pool_id": null,
     "protocol": "TERMINATED_HTTPS",
     "description": "",
@@ -813,6 +831,7 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "keepalive_enable": true,
     "tls_version": "TLSv1.0",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
@@ -3780,5 +3799,3 @@ X-auth-Token: {tokenId}
 </details>
 
 - - -
-
-

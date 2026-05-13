@@ -4131,7 +4131,7 @@ X-Auth-Token: {tokenId}
 | ssl_policy | Body | Object | O | SSL 정책 객체 |
 | ssl_policy.name | Body | String | - | SSL 정책 이름 |
 | ssl_policy.description | Body | String | - | SSL 정책 설명 |
-| ssl_policy.ciphers | Body | String | - | 사용할 암호화 스위트 목록<br>TLS 1.2 이하 암호화 스위트와 TLS 1.3 암호화 스위트를 `:`으로 연결한 하나의 문자열<br>요청에 포함하면 새 값이 기존 저장값을 완전 대체함 (TLS 1.2 이하 / TLS 1.3 중 한쪽만 수정하려면 양쪽을 모두 포함해야 함) |
+| ssl_policy.ciphers | Body | String | - | 사용할 암호화 스위트 목록<br>TLS 1.2 이하 암호화 스위트와 TLS 1.3 암호화 스위트를 `:`으로 연결한 하나의 문자열<br>요청에 포함하면 새 값이 기존 저장값을 완전 대체함(TLS 1.2 이하/TLS 1.3 중 한쪽만 수정하려면 양쪽을 모두 포함해야 함) |
 
 !!! danger "주의"
     `min_tls_version`은 생성 후 변경할 수 없습니다. 요청에 포함하면 오류가 발생합니다.

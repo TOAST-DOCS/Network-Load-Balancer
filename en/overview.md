@@ -28,7 +28,7 @@ Load Balancer supports the following protocols:
 
 Among the above protocols, the TERMINATED_HTTPS protocol receives HTTPS traffic and forwards it to member instances as HTTP traffic. When the TERMINATED_HTTPS protocol is used, you can ensure high security by communicating over HTTPS between the end user and the load balancer, and reduce the CPU load for decryption by passing HTTP traffic to the server.
 
-!!! tip "알아두기"
+!!! tip "Note"
     To use the TERMINATED_HTTPS protocol, a certificate and private key must be registered with the load balancer. The private key that is registered works correctly only when the password is removed.
 
 ## SSL/TLS Version for Load Balancer

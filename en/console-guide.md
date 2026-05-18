@@ -44,8 +44,8 @@ Defines the properties of the traffic that the load balancer will process. A loa
   * If no SSL policy is available, you must first create one in the **SSL policy management** menu.
 
 !!! danger "Caution"
-  - Load balancer port, instance port, and protocol cannot be changed after a listener is created.
-  - You can set the listener's default member group to **Disabled**. If there are no L7 rules, or if existing L7 rules do not match the conditions and load balancing defaults to **Disabled**, the request will return a 503.
+    - Load balancer port, instance port, and protocol cannot be changed after a listener is created.
+    - You can set the listener's default member group to **Disabled**. If there are no L7 rules, or if existing L7 rules do not match the conditions and load balancing defaults to **Disabled**, the request will return a 503.
 
 
 !!! tip "Note"
@@ -102,8 +102,8 @@ When the listener uses TERMINATED_HTTPS, you can register a certificate in one o
 * By registering a certificate in Certificate Manager and connecting it with the listener, you can receive an email alarm on certificate expiration date.
 * No expiration alarms will be sent if the certificate has been directly registered in the listener. Still, you can find the expiration date on the listener page of the console.
 !!! danger "Caution"
-  When a certificate is updated in the Certificate Manager, certificates of any other affected listener must be updated as well.
-  To apply the certificate which is registered in the Certificate Manager to the listener, the password of the 'Private Key' must be removed, and the format must be PKCS#1 or PKCS#8 PEM.
+    When a certificate is updated in the Certificate Manager, certificates of any other affected listener must be updated as well.
+    To apply the certificate which is registered in the Certificate Manager to the listener, the password of the 'Private Key' must be removed, and the format must be PKCS#1 or PKCS#8 PEM.
 
 ##### Set up L7 Rules
 The load balancer can perform load balancing based on L7 data. When you select an L7 routing template to create a load balancer, you can create a load balancer that includes L7 policies. L7 policies work well only when the protocol of the listener is HTTP/TERMINATED_HTTPS. Even if you create a load balancer with an L4 template, you can add L7 rules later.
@@ -146,7 +146,7 @@ The load balancer can perform load balancing based on L7 data. When you select a
     - If traffic does not match any configured L7 rule, it is forwarded to the listener's default member group.
     - Health checks are performed only when a member group is assigned as a listener's default member group or designated as the action target of an L7 rule. Otherwise, health checks are not performed for that member group.
     - If a member group is deleted, L7 rules that had that member group as their action target will have their action type changed to Block.
-    - When **Redirect to URL** is configured in an L7 rule, you can retain or manually specify individual components of the redirect URL. To retain the value of a specific field, enter it in the corresponding URI component field in the format `#{protocol}`, `#{port}`, `#{host}`, `#{path}`, or `#{query}`. For example, to change only the protocol and port to HTTPS and port 443 for incoming HTTP requests, enter `HTTPS` for the protocol, `443` for the port, `#{host}` for the host, `#{path}` for the path, and `#{query}` for the query.
+    - When **Forward to URL** is configured in an L7 rule, you can retain or manually specify individual components of the redirect URL. To retain the value of a specific field, enter it in the corresponding URI component field in the format `#{protocol}`, `#{port}`, `#{host}`, `#{path}`, or `#{query}`. For example, to change only the protocol and port to HTTPS and port 443 for incoming HTTP requests, enter `HTTPS` for the protocol, `443` for the port, `#{host}` for the host, `#{path}` for the path, and `#{query}` for the query.
 
 
 #### Set up Member Groups
@@ -161,10 +161,10 @@ Set the target member groups to forward load balancing traffic to. You can creat
 
 
 !!! danger "Caution"
-  Member ports and protocols cannot be changed after a member group is created.
+    Member ports and protocols cannot be changed after a member group is created.
 
 !!! tip "Note"
-  Member ports have values between 1 and 65535.
+    Member ports have values between 1 and 65535.
 
 
 ##### Health Check
@@ -183,7 +183,7 @@ The settings for health check are also determined when creating the listener. NH
 * Host Header: Enter the field value to use in the host header for health checks. This setting is enabled only when HTTP or HTTPS is selected.
 
 !!! danger "Caution"
-  If you have multiple members in a member group with different port numbers, be careful about setting the health check port. For example, if you have two members, such as port 80 on 192.168.0.10 and port 8080 on 192.168.0.10, selecting Health check port as member port will perform health checks on port 80 and port 8080 respectively. If you select Custom as the health check port and type 80, it will check port 80 even if the member port is port 8080. If the 80 port on 192.168.0.10 is active, then the member on the 8080 port for 192.168.0.10 is also considered ACTIVE because it is checking the status of the 80 port for 192.168.0.10.
+    If you have multiple members in a member group with different port numbers, be careful about setting the health check port. For example, if you have two members, such as port 80 on 192.168.0.10 and port 8080 on 192.168.0.10, selecting Health check port as member port will perform health checks on port 80 and port 8080 respectively. If you select Custom as the health check port and type 80, it will check port 80 even if the member port is port 8080. If the 80 port on 192.168.0.10 is active, then the member on the 8080 port for 192.168.0.10 is also considered ACTIVE because it is checking the status of the 80 port for 192.168.0.10.
 
 !!! tip "Note"
     Health checks are performed only when a member group is assigned as a listener's default member group or designated as the action target of an L7 rule. Otherwise, health checks are not performed for that member group.
@@ -213,16 +213,16 @@ After a load balancer is created, you will be returned to the load balancer list
 * Load balancer details: View details of the listeners and member groups connected to the load balancer.
 
 !!! tip "Note"
-  Provisioning status of a load balancer is determined as one of the following:
+    Provisioning status of a load balancer is determined as one of the following:
 
-  | Status | Description |
-  |--|--|
-  | ACTIVE | A load balancer has been created and is operating normally |
-  | PENDING_CREATE | Creating a load balancer <br> If the status does not change to ACTIVE within an hour after creation, contact the administrator. |
-  | PENDING_UPDATE | Modifying load balancer configuration <br> If the status does not change to ACTIVE within an hour after modifying the configuration, contact the administrator. |
-  | PENDING_DELETE | Deleting a load balancer<br> If the load balancer does not disappear from the list within an hour after deletion, contact the administrator. |
-  | ERROR | Failed to create a load balancer<br> Contact the administrator. |
-  | ERROR_MIGRATE | Failed to migrate a load balancer<br> Contact the administrator. |
+    | Status | Description |
+    |--|--|
+    | ACTIVE | A load balancer has been created and is operating normally |
+    | PENDING_CREATE | Creating a load balancer <br> If the status does not change to ACTIVE within an hour after creation, contact the administrator. |
+    | PENDING_UPDATE | Modifying load balancer configuration <br> If the status does not change to ACTIVE within an hour after modifying the configuration, contact the administrator. |
+    | PENDING_DELETE | Deleting a load balancer<br> If the load balancer does not disappear from the list within an hour after deletion, contact the administrator. |
+    | ERROR | Failed to create a load balancer<br> Contact the administrator. |
+    | ERROR_MIGRATE | Failed to migrate a load balancer<br> Contact the administrator. |
 
 <a id='modify-loadbalancers'></a>
 ### Modify Load Balancers and Details
@@ -246,7 +246,7 @@ Listeners can be added by clicking the Add Listener button on the Listener tab i
 To modify the setting of a listener, click Modify.
 
 !!! danger "Caution"
-  You cannot change the listener protocol, load balancer port, and instance port.
+    You cannot change the listener protocol, load balancer port, and instance port.
 
 #### Manage Certificate
 For listeners using the TERMINATED_HTTPS protocol, you can manage multiple certificates in the **Certificates** tab of the listener details screen.
@@ -266,7 +266,7 @@ For listeners using the TERMINATED_HTTPS protocol, you can manage multiple certi
 - **Disable**: register by directly uploading the certificate and private key files. 3. After reviewing the warning message, select the checkbox and click **OK**.
 
 !!! danger "Caution"
-  Adding a certificate will restart the load balancer. Existing sessions will be maintained during the restart process, but new sessions will not be processed (about less than 1 second). Therefore, we recommend changing during a time that will not impact the service.
+    Adding a certificate will restart the load balancer. Existing sessions will be maintained during the restart process, but new sessions will not be processed (about less than 1 second). Therefore, we recommend changing during a time that will not impact the service.
 
 ##### Change the Default Certificate
 1. In the **Certificate** tab of the listener details screen, click the **Change Default Certificate** button.
@@ -274,7 +274,7 @@ For listeners using the TERMINATED_HTTPS protocol, you can manage multiple certi
 3. After reviewing the warning message, select the checkbox and click **OK**.
 
 !!! danger "Caution"
-  Changing the default certificate will restart the load balancer. During the restart process, existing sessions will be maintained, but new sessions will not be processed (about less than 1 second). Therefore, we recommend changing during a time that will not impact the service.
+    Changing the default certificate will restart the load balancer. During the restart process, existing sessions will be maintained, but new sessions will not be processed (about less than 1 second). Therefore, we recommend changing during a time that will not impact the service.
 
 ##### Delete a Certificate
 1. In the **Certificate** tab of the listener details screen, select the certificate to be deleted.
@@ -375,12 +375,12 @@ The excluded members' permissions will change to **X** and their member status w
 !!! tip "Note"
     The status of a member is determined by one of the following
 
-  | Status | Meaning |
-  |--|--|
-  | ACTIVE | Member connection complete, working fine |
-  | INACTIVE | A member's health check is not being performed |
-  | ONLINE | Member is disabled|
-  | OFFLINE | Member connection failure <br> Contact your administrator.|
+    | Status | Meaning |
+    |--|--|
+    | ACTIVE | Member connection complete, working fine |
+    | INACTIVE | A member's health check is not being performed |
+    | ONLINE | Member is disabled|
+    | OFFLINE | Member connection failure <br> Contact your administrator.|
 
 #### Delete Members
 Instances that are no longer used may be deleted. Click Detach Instance of the instance to exclude, and it is deleted from the member of load balancer. Deletion from load balancer member does not mean its instance is also deleted.
@@ -409,7 +409,7 @@ To create an IP access control group, click [Create Access Control Group] and en
 
 Click **Confirm** and the groups and targets of access control are created.
 
-!!! danger "Note"
+!!! tip "Note"
     Number of groups and targets of IP access control
 
     Up to 10 access control groups can be created for each project.

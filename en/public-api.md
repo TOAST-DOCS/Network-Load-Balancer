@@ -221,9 +221,6 @@ X-Auth-Token: {tokenId}
 | loadbalancer.admin_state_up | Body | Boolean | - | Load Balancer admin control state. If omitted, it is set to `true` |
 | loadbalancer.loadbalancer_type | Body | String | - | Load balancer type, `shared`/`dedicated` available<br> If omitted, `shared` is set |
 
-
-
-
 <details><summary>Example</summary>
 
 ```json
@@ -422,26 +419,6 @@ This API does not require a request body.
 #### Response
 This API does not return a response body.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Listener
 ### View Listener List
 
@@ -487,6 +464,7 @@ This API does not require a request body.
 | listeners.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
 | listeners.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
 | listeners.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listeners.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listeners.keepalive_enable | Body | Boolean | Keepalive on/off<br>Default: `true` |
 | listeners.id | Body | String | Listener ID |
 
@@ -515,6 +493,7 @@ This API does not require a request body.
       "keepalive_timeout": 300,
       "keepalive_enable": true,
       "tls_version": "TLSv1.0",
+      "ssl_policy_id": null,      
       "sni_container_ids": [],
       "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
       "sni_container_refs": [],
@@ -566,6 +545,7 @@ This API does not require a request body.
 | listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
 | listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listener.keepalive_enable | Body | Boolean | Keepalive on/off<br>Default: `true` |
 | listener.id | Body | UUID | Listener ID |
 
@@ -595,6 +575,7 @@ This API does not require a request body.
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,  
     "tls_version": "TLSv1.0",
+    "ssl_policy_id": null,
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -637,7 +618,8 @@ X-Auth-Token: {tokenId}
 | listener.protocol_port | Body | Integer | O | Listener port |
 | listener.proxy_protocol | Body | Boolean | - | Proxy protocol on/off<br>Default: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | Block invalid HTTP requests on/off<br>Default: `true` |
-| listener.tls_version | Body | String | - | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.tls_version | Body | String | - | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>When specified together with `ssl_policy_id`, must match the `min_tls_version` of the SSL policy |
+| listener.ssl_policy_id | Body | UUID | - | ID of the SSL policy to connect to the listener<br>Default: `null`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>For more information, see [Custom SSL policy](/Network/Load%20Balancer/en/overview/#ssl) |
 | listener.keepalive_enable | Body | Boolean | - | Keepalive on/off<br>Default: `true` |
 
 
@@ -657,7 +639,8 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
-    "tls_version": "TLSv1.0",
+    "tls_version": "TLSv1.2",
+    "ssl_policy_id": "b5b3f6f2-6c29-4f3a-9a2e-3b2e6b2b5c0a",
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443
@@ -688,6 +671,7 @@ X-Auth-Token: {tokenId}
 | listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
 | listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listener.keepalive_enable | Body | Boolean | Keepalive on/off<br>Default: `true` |
 | listener.id | Body | UUID | Listener ID |
 
@@ -717,7 +701,8 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_proto": false,
     "enable_x_forwarded_port": false,
     "enable_x_forwarded_for": false,
-    "tls_version": "TLSv1.0",
+    "tls_version": "TLSv1.2",
+    "ssl_policy_id": "b5b3f6f2-6c29-4f3a-9a2e-3b2e6b2b5c0a",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -758,7 +743,8 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | - | List of SNI certificate paths registered in key-manager |
 | listener.proxy_protocol | Body | Boolean | - | Proxy protocol on/off<br>Default: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | Block invalid HTTP requests on/off<br>Default: `true` |
-| listener.tls_version | Body | String | - | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.tls_version | Body | String | - | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>When specified together with `ssl_policy_id`, must match the `min_tls_version` of the SSL policy |
+| listener.ssl_policy_id | Body | UUID | - | ID of the SSL policy to connect to the listener<br>To disconnect, pass `null`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>For more information, see [Custom SSL policy](/Network/Load%20Balancer/en/overview/#ssl) |
 | listener.keepalive_enable | Body | Boolean | - | Keepalive on/off<br>Default: `true` |
 
 <details><summary>Example</summary>
@@ -779,7 +765,8 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_proto": true,
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,
-    "tls_version": "TLSv1.0",
+    "tls_version": "TLSv1.2",
+    "ssl_policy_id": "b5b3f6f2-6c29-4f3a-9a2e-3b2e6b2b5c0a",
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": []
   }
@@ -813,6 +800,7 @@ X-Auth-Token: {tokenId}
 | listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listener.keepalive_enable | Body | Boolean | Keepalive on/off<br>Default: `true` |
+| listener.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listener.id | Body | UUID | Listener ID |
 
 
@@ -841,7 +829,8 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_proto": true,
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,
-    "tls_version": "TLSv1.0",
+    "tls_version": "TLSv1.2",
+    "ssl_policy_id": "b5b3f6f2-6c29-4f3a-9a2e-3b2e6b2b5c0a",
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -896,7 +885,8 @@ X-Auth-Token: {tokenId}
 | errorpage.content_type | Body | Enum | O | Content type<br>One of `application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` |
 | errorpage.body | Body | String | O | Custom response body (up to 1024 characters) |
 
-**Note**: Duplicate codes cannot be created for the same listener. (For example, creating multiple 504s.)
+!!! tip "Note"
+    Duplicate codes cannot be created for the same listener. (e.g., creating multiple 504 codes)
 
 <details><summary>Example</summary>
 <p>
@@ -961,7 +951,8 @@ X-Auth-Token: {tokenId}
 | errorpage.content_type | Body | Enum | O | Content type <br>`application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` |
 | errorpage.body | Body | String | O | Custom response body (maximum 1,024 characters) |
 
-**Note**: `code` cannot be modified.
+!!! tip "Note"
+    `code` cannot be modified.
 
 <details><summary>Example</summary>
 <p>
@@ -1131,19 +1122,6 @@ This API does not require a request body.
 </details>
 
 ---
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Pool
 ### View Pool List
@@ -1553,33 +1531,6 @@ This API does not require a request body.
 
 This API does not return a response body.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Health Monitor
 ### View Health Monitor List
 
@@ -1748,10 +1699,6 @@ X-Auth-Token: {tokenId}
 | healthmonitor.url_path | Body | String | - | The health check request URL. If omitted, `/` will be used. <br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 | healthmonitor.type | Body | Enum | O | Protocol to use for health check. One of `TCP`, `HTTP`, or `HTTPS` |
 | healthmonitor.host_header | Body | String | - | Field value of the host header to use for health check<br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
-
-
-
-
 
 <details><summary>Example</summary>
 <p>
@@ -1936,35 +1883,6 @@ This API does not require a request body.
 #### Response
 
 This API does not return a response body.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Member
 ### View Member List
@@ -2241,23 +2159,6 @@ This API does not require a request body.
 #### Response
 
 This API does not return a response body.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## L7 Polilcy
 
@@ -2569,21 +2470,6 @@ This API does not require a request body.
 #### Response
 This API does not return a response body.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## L7 Rule
 
 ### View L7 Rule List
@@ -2848,26 +2734,6 @@ This API does not require a request body.
 
 #### Response
 This API does not return a response body.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Secret
 
@@ -3159,43 +3025,6 @@ This API does not require a request body.
 
 This API does not return a response body.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Secret Container
 
 The Secret Container API is called using the `key-manager` type endpoint. The exact endpoint can be found in the `serviceCatalog` field in the token issuance response.
@@ -3425,40 +3254,6 @@ This API does not require a request body.
 #### Response
 
 This API does not return a response body.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## IP ACL Group
 
@@ -3845,44 +3640,6 @@ X-auth-Token: {tokenId}
 </p>
 </details>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## IP ACL Target
 
 ### View IP ACL Target List
@@ -4140,4 +3897,259 @@ This API does not return a response body.
 
 - - -
 
+## SSL policy
 
+You can create a custom SSL policy and apply it to a listener. An SSL policy specifies the minimum TLS version and the cipher suites to use for that version. For the concept of SSL policies and the list of available cipher suites, see [Custom SSL policy](/Network/Load%20Balancer/en/overview/#ssl).
+
+!!! tip "Note"
+    - Up to 10 SSL policies can be created per tenant.
+    - SSL policies are applied only to listeners whose protocol is `TERMINATED_HTTPS`.
+
+### List SSL policies
+
+```
+GET /v2.0/lbaas/ssl_policies
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+This API does not require a request body.
+
+| Name | In | Type | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| id | Query | UUID | - | SSL policy ID to query |
+| name | Query | String | - | SSL policy name to query |
+| description | Query | String | - | SSL policy description to query |
+| min_tls_version | Query | Enum | - | Minimum TLS version of the SSL policy to query |
+
+#### Response
+
+| Name | In | Type | Description |
+|---|---|---|---|
+| ssl_policies | Body | Array | List of SSL policy objects |
+| ssl_policies.id | Body | UUID | SSL policy ID |
+| ssl_policies.tenant_id | Body | String | Tenant ID |
+| ssl_policies.name | Body | String | SSL policy name |
+| ssl_policies.description | Body | String | SSL policy description |
+| ssl_policies.min_tls_version | Body | Enum | Minimum TLS version of the SSL policy<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3` |
+| ssl_policies.ciphers | Body | String | List of cipher suites to use<br>A single string connecting TLS 1.2 and below cipher suites and TLS 1.3 cipher suites with `:`<br>The response is returned normalized with TLS 1.2 and below cipher suites first, followed by TLS 1.3 cipher suites |
+| ssl_policies.listeners | Body | Array | List of listeners to which the SSL policy is applied |
+| ssl_policies.listeners.id | Body | UUID | Listener ID |
+| ssl_policies.listeners.loadbalancer_id | Body | UUID | ID of the load balancer to which the listener belongs |
+| ssl_policies.created_at | Body | String | Creation time |
+| ssl_policies.updated_at | Body | String | Last modified time |
+
+<details><summary>Example</summary>
+
+```json
+{
+  "ssl_policies": [
+    {
+      "id": "b5b3f6f2-6c29-4f3a-9a2e-3b2e6b2b5c0a",
+      "tenant_id": "8258ab391d854e8b878642b737017a3b",
+      "name": "secure-tls12",
+      "description": "TLS 1.2 and above only",
+      "min_tls_version": "TLSv1.2",
+      "ciphers": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384",
+      "listeners": [
+        {
+          "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
+          "loadbalancer_id": "7b4cef78-72b0-4c3c-9971-98763ef6284c"
+        }
+      ],
+      "created_at": "2026-04-01T10:00:00",
+      "updated_at": "2026-04-01T10:00:00"
+    }
+  ]
+}
+```
+
+</details>
+
+- - -
+
+### Get SSL policy
+
+```
+GET /v2.0/lbaas/ssl_policies/{sslPolicyId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+This API does not require a request body.
+
+| Name | In | Type | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| sslPolicyId | URL | UUID | O | SSL policy ID |
+
+#### Response
+
+| Name | In | Type | Description |
+|---|---|---|---|
+| ssl_policy | Body | Object | SSL policy object |
+| ssl_policy.id | Body | UUID | SSL policy ID |
+| ssl_policy.tenant_id | Body | String | Tenant ID |
+| ssl_policy.name | Body | String | SSL policy name |
+| ssl_policy.description | Body | String | SSL policy description |
+| ssl_policy.min_tls_version | Body | Enum | Minimum TLS version of the SSL policy |
+| ssl_policy.ciphers | Body | String | List of cipher suites to use<br>A single string connecting TLS 1.2 and below cipher suites and TLS 1.3 cipher suites with `:`<br>The response is returned normalized with TLS 1.2 and below cipher suites first, followed by TLS 1.3 cipher suites |
+| ssl_policy.listeners | Body | Array | List of listeners to which the SSL policy is applied |
+| ssl_policy.listeners.id | Body | UUID | Listener ID |
+| ssl_policy.listeners.loadbalancer_id | Body | UUID | ID of the load balancer to which the listener belongs |
+| ssl_policy.created_at | Body | String | Creation time |
+| ssl_policy.updated_at | Body | String | Last modified time |
+
+<details><summary>Example</summary>
+
+```json
+{
+  "ssl_policy": {
+    "id": "b5b3f6f2-6c29-4f3a-9a2e-3b2e6b2b5c0a",
+    "tenant_id": "8258ab391d854e8b878642b737017a3b",
+    "name": "secure-tls12",
+    "description": "TLS 1.2 and above only",
+    "min_tls_version": "TLSv1.2",
+    "ciphers": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384",
+    "listeners": [
+      {
+        "id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
+        "loadbalancer_id": "7b4cef78-72b0-4c3c-9971-98763ef6284c"
+      }
+    ],
+    "created_at": "2026-04-01T10:00:00",
+    "updated_at": "2026-04-01T10:00:00"
+  }
+}
+```
+
+</details>
+
+- - -
+
+### Create SSL policy
+
+```
+POST /v2.0/lbaas/ssl_policies
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+| Name | In | Type | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| ssl_policy | Body | Object | O | SSL policy object |
+| ssl_policy.name | Body | String | - | SSL policy name |
+| ssl_policy.description | Body | String | - | SSL policy description |
+| ssl_policy.min_tls_version | Body | Enum | O | Minimum TLS version of the SSL policy<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Cannot be changed after creation |
+| ssl_policy.ciphers | Body | String | O | List of cipher suites to use<br>A single string connecting TLS 1.2 and below cipher suites and TLS 1.3 cipher suites with `:`<br>The server automatically classifies them by name prefix (strings starting with `TLS_` are TLS 1.3)<br>At least one cipher suite must be specified |
+
+!!! danger "Caution"
+    - If `min_tls_version` is `TLSv1.3`, TLS 1.2 and below cipher suites cannot be included in `ciphers`. An error is returned if they are included.
+    - Only the cipher suites defined in [Custom SSL policy](/Network/Load%20Balancer/en/overview/#ssl) can be used.
+
+<details><summary>Example</summary>
+
+```json
+{
+  "ssl_policy": {
+    "name": "secure-tls12",
+    "description": "TLS 1.2 and above only",
+    "min_tls_version": "TLSv1.2",
+    "ciphers": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384"
+  }
+}
+```
+
+</details>
+
+#### Response
+
+| Name | In | Type | Description |
+|---|---|---|---|
+| ssl_policy | Body | Object | Created SSL policy object |
+| ssl_policy.id | Body | UUID | SSL policy ID |
+| ssl_policy.tenant_id | Body | String | Tenant ID |
+| ssl_policy.name | Body | String | SSL policy name |
+| ssl_policy.description | Body | String | SSL policy description |
+| ssl_policy.min_tls_version | Body | Enum | Minimum TLS version of the SSL policy |
+| ssl_policy.ciphers | Body | String | List of cipher suites to use<br>Returned normalized with TLS 1.2 and below cipher suites first, followed by TLS 1.3 cipher suites |
+| ssl_policy.listeners | Body | Array | List of listeners to which the SSL policy is applied<br>An empty array immediately after creation |
+| ssl_policy.created_at | Body | String | Creation time |
+| ssl_policy.updated_at | Body | String | Last modified time |
+
+- - -
+
+### Modify SSL policy
+
+```
+PUT /v2.0/lbaas/ssl_policies/{sslPolicyId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+| Name | In | Type | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| sslPolicyId | URL | UUID | O | SSL policy ID |
+| ssl_policy | Body | Object | O | SSL policy object |
+| ssl_policy.name | Body | String | - | SSL policy name |
+| ssl_policy.description | Body | String | - | SSL policy description |
+| ssl_policy.ciphers | Body | String | - | List of cipher suites to use<br>A single string connecting TLS 1.2 and below cipher suites and TLS 1.3 cipher suites with `:`<br>If included in the request, the new value completely replaces the existing stored value (to modify only TLS 1.2 and below or only TLS 1.3, both must be included) |
+
+!!! danger "Caution"
+    `min_tls_version` cannot be changed after creation. An error occurs if it is included in the request.
+
+!!! tip "Note"
+    When an SSL policy is modified, the settings of all listeners to which that policy is applied are automatically updated.
+
+<details><summary>Example</summary>
+
+```json
+{
+  "ssl_policy": {
+    "description": "Enhanced cipher suites",
+    "ciphers": "ECDHE-RSA-AES256-GCM-SHA384:TLS_AES_256_GCM_SHA384"
+  }
+}
+```
+
+</details>
+
+#### Response
+
+| Name | In | Type | Description |
+|---|---|---|---|
+| ssl_policy | Body | Object | Modified SSL policy object |
+
+The response structure is the same as [Get SSL policy](#get-ssl-policy).
+
+- - -
+
+### Delete SSL policy
+
+```
+DELETE /v2.0/lbaas/ssl_policies/{sslPolicyId}
+X-Auth-Token: {tokenId}
+```
+
+#### Request
+
+This API does not require a request body.
+
+| Name | In | Type | Required | Description |
+|---|---|---|---|---|
+| tokenId | Header | String | O | Token ID |
+| sslPolicyId | URL | UUID | O | SSL policy ID |
+
+!!! danger "Caution"
+    If the SSL policy is applied to one or more listeners, it cannot be deleted. First, set the `ssl_policy_id` of the affected listeners to `null` to disconnect them, then delete the policy.
+
+#### Response
+
+This API does not return a response body.
+
+- - -

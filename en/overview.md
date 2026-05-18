@@ -28,7 +28,8 @@ Load Balancer supports the following protocols:
 
 Among the above protocols, the TERMINATED_HTTPS protocol receives HTTPS traffic and forwards it to member instances as HTTP traffic. When the TERMINATED_HTTPS protocol is used, you can ensure high security by communicating over HTTPS between the end user and the load balancer, and reduce the CPU load for decryption by passing HTTP traffic to the server.
 
-> [Note] To use the TERMINATED_HTTPS protocol, a certificate and private key must be registered with the load balancer. The private key that is registered works correctly only when the password is removed.
+!!! tip "Note"
+    To use the TERMINATED_HTTPS protocol, a certificate and private key must be registered with the load balancer. The private key that is registered works correctly only when the password is removed.
 
 ## SSL/TLS Version for Load Balancer
 * When you create a load balancer that uses the TERMINATED_HTTPS protocol, you can select the version of Secure Socket Layer/Transport Layer Security (SSL/TLS) used for communication between clients and the load balancer.
@@ -61,6 +62,24 @@ Select one of the SSL/TLS versions to create a load balancer. The created load b
 | TLSv1.2 | TLS-AES-128-GCM-SHA256<br>TLS-AES-256-GCM-SHA384<br>TLS-CHACHA20-POLY1305-SHA256<br>ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256 | ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-SHA<br>AES256-SHA<br>AES128-SHA is excluded |
 | TLSv1.3 | TLS-AES-128-GCM-SHA256<br>TLS-AES-256-GCM-SHA384<br>TLS-CHACHA20-POLY1305-SHA256 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256 is excluded |
 
+### Custom SSL policy
+In addition to the default cipher suite combinations provided for each SSL/TLS version, you can create a **custom SSL policy** and connect it to a listener to selectively apply only the cipher suites you need.
+
+An SSL policy consists of the following elements:
+
+* **Minimum TLS version (min_tls_version)**: The lowest TLS version allowed by the policy. Only connections using this version or higher are permitted. Cannot be changed after creation.
+* **Cipher suites (ciphers)**: The list of cipher suites to use. Specified as a single string connecting TLS 1.2 and below cipher suites and TLS 1.3 cipher suites with a colon (`:`), regardless of version. The server automatically classifies and applies them by name prefix (strings starting with `TLS_` are TLS 1.3). At least one cipher suite must be specified.
+
+!!! danger "Caution"
+    - If the minimum TLS version is `TLSv1.3`, TLS 1.2 and below cipher suites cannot be included in `ciphers`. This is because no TLS 1.2 handshake occurs under a TLS 1.3 policy, so TLS 1.2 cipher suites are not applied. For all other minimum TLS versions, TLS 1.2 and below cipher suites and TLS 1.3 cipher suites can be freely mixed, or only one type can be specified.
+    - When connecting an SSL policy to a listener, the listener's TLS version must match the minimum TLS version of that policy.
+    - Up to 10 custom SSL policies can be created per tenant.
+    - An SSL policy cannot be deleted if it is connected to one or more listeners. To delete it, first remove the policy from all connected listeners.
+
+!!! tip "Note"
+    - The `ciphers` field in query responses is always returned normalized with TLS 1.2 and below cipher suites first, followed by TLS 1.3 cipher suites. The original order sent in the request is not preserved.
+    - Listeners connected to an SSL policy have the cipher suite settings of that policy applied. Unlike the default cipher suite table provided for each SSL/TLS version, only the cipher suites specified by the user are selectively applied.
+
 ## Create Load Balancers
 
 Load balancers can be created with an IP automatically assigned within the [VPC's](/Network/VPC/en/overview/#_2) [subnet](/Network/VPC/en/overview/#_2), or you can specify an IP.
@@ -75,68 +94,67 @@ The load balancer registers instances as members to distribute incoming traffic.
 
 The traffic that flows into the load balancer is defined by listeners. By defining the ports and protocols on which to receive traffic per listener, you can set up a single load balancer to handle a wide variety of traffic. Generally, you would set up a port 80 listener on your web server to listen for HTTP traffic and a port 443 listener to listen for HTTPS traffic. You can register multiple listeners on one load balancer.
 
-> [Caution] You cannot create duplicate listeners with the same listening port on a load balancer.
+!!! danger "Caution"
+    You cannot create duplicate listeners with the same listening port on a load balancer.
 
 ## L7 rules
 
 The load balancer can perform load balancing based on L7 data. When you select an L7 routing template to create a load balancer, you can create a load balancer with L7 policies.
-The available actions are as follows.
+The available actions are as follows:
 
 * Forward to target group: Sends to a set target group when matched to an L7 rule. You can route packets to specific target groups based on L7 data.
 * Forward to URL: Redirects to a set URL when matched to an L7 rule. Redirection is performed by using Location of the HTTP header.
 * Block: Blocks when matched to an L7 rule. Returns a response as Forbidden (403).
 
+
+
 ## Load Balancer Proxy Mode
 
 Load Balancer operates in a `proxy mode`. The client connects to a load balancer to send a request, while the load balancer connects to an instance server. From the member instance server’s perspective, session’s source IP is viewed as the load balancer IP. To check client IP from the server, refer to `X-Forwarded-For` header information (HTTP or TERMINATED_HTTPS protocol) or use `Proxy Protocol` (TCP or HTTPS protocol).
 
-> [Note] Proxy Mode <br>
-> When the load balancer operates in proxy mode, the load balancer may serve differently for the port requested by the client and the port served by the server side. In addition, a function to reduce the server load such as TERMINATED_HTTPS can be provided, and the amount of traffic sent to the client can be provided in the form of statistics. (Statistics function to be added)
->
+!!! tip "Note"
+    When the load balancer operates in proxy mode, the load balancer may serve differently for the port requested by the client and the port served by the server side. In addition, a function to reduce the server load such as TERMINATED_HTTPS can be provided, and the amount of traffic sent to the client can be provided in the form of statistics. (Statistics function to be added)
 
-<br>
+!!! tip "Note"
+    This is a non-standard HTTP header, which is used by the server to check the client's IP.
+    HTTP requests coming in through the load balancer include the **X-Forwarded-For** key. Its value is the IP address of the client.
 
-> [Note] X-Forwarded-For Header <br>
-> This is a non-standard HTTP header, which is used by the server to check the client's IP.
-HTTP requests coming in through the load balancer include the **X-Forwarded-For** key. Its value is the IP address of the client.
->
-> The X-Forwarded-For header is enabled only when the load balancer protocol is set to HTTP or TERMINATED_HTTPS. You can control the addition/removal of the X-Forwarded header on a per-listener basis.
+    The X-Forwarded-For header is enabled only when the load balancer protocol is set to HTTP or TERMINATED_HTTPS. You can control the addition/removal of the X-Forwarded header on a per-listener basis.
 
-<br>
+!!! tip "Note"
+    This is a protocol for transmitting IP information of the client side when the load balancer uses TCP. It is expressed as a single line of text in US-ASCII format for human readability. When a TCP connection is established, it is transmitted once for the first time, and other data transmission is delayed until the receiving end receives all data.
 
-> [Note] Proxy Protocol <br>
-> This is a protocol for transmitting IP information of the client side when the load balancer uses TCP. It is expressed as a single line of text in US-ASCII format for human readability. When a TCP connection is established, it is transmitted once for the first time, and other data transmission is delayed until the receiving end receives all data.
->
-> The proxy protocol is divided into 6 entries. Each entry is separated by a space character.
-> The last character must end with Carriage Return (\r) + Line Feed (\n).
->  ```
->  PROXY INET_PROTCOL CLIENT_IP PROXY_IP CLIENT_PORT PROXY_PORT\r\n
->  ```
->
-> | Acronym | ASCII | HEX | Description |
-> |--|--|--|--|
-> | PROXY | "PROXY" | 0x50 0x52 0x4F 0x58 0x59 | Indicator for a proxy protocol |
-> | INET_PROTOCL | "TCP4" or "TCP6" | 0x54 0x43 0x50 0x34 or 0x54 0x43 0x50 0x36 | INET protocol type currently in use |
-> | CLIENT_IP | Example: "192.168.100.101" <br>or, "fe80::a159:b1f3:c346:5975" | 0xC0 0xA8 0x64 0x65 | Source IP address |
-> | PROXY_IP | Example: "192.168.100.102" <br> or, "fe80::a159:b1f3:c346:5976" | 0xC0 0xA8 0x64 0x66 | Destination IP address |
-> | CLIENT_PORT | Example: "43179" | 0xA8 0xAB | Source port |
-> | PROXY_PORT | Example: "80" | 0x80 | Destination port |
->
-> Examples of the proxy protocol are as follows:
->
-> - "PROXY TCP4 255.255.255.255 255.255.255.255 65535 65535\r\n": TCP/IPv4
-> - "PROXY TCP6 ffff:f...f:ffff ffff:f...f:ffff 65535 65535\r\n": TCP/IPv6
-> - "PROXY UNKNOWN\r\n": Unknown connection
->
-> If you are using the TCP or HTTPS protocol, you can set up a proxy protocol on the load balancer to check the client IP address. In this case, the server must also have the capability to recognize the proxy protocol like the ones shown above.
->
+    The proxy protocol is divided into 6 entries. Each entry is separated by a space character.
+    The last character must end with Carriage Return (\r) + Line Feed (\n).
+
+        ```
+        PROXY INET_PROTCOL CLIENT_IP PROXY_IP CLIENT_PORT PROXY_PORT\r\n
+        ```
+
+    | Acronym | ASCII | HEX | Description |
+    |--|--|--|--|
+    | PROXY | "PROXY" | 0x50 0x52 0x4F 0x58 0x59 | Indicator for a proxy protocol |
+    | INET_PROTOCL | "TCP4" or "TCP6" | 0x54 0x43 0x50 0x34 or 0x54 0x43 0x50 0x36 | INET protocol type currently in use |
+    | CLIENT_IP | Example: "192.168.100.101" <br>or, "fe80::a159:b1f3:c346:5975" | 0xC0 0xA8 0x64 0x65 | Source IP address |
+    | PROXY_IP | Example: "192.168.100.102" <br> or, "fe80::a159:b1f3:c346:5976" | 0xC0 0xA8 0x64 0x66 | Destination IP address |
+    | CLIENT_PORT | Example: "43179" | 0xA8 0xAB | Source port |
+    | PROXY_PORT | Example: "80" | 0x80 | Destination port |
+
+    Examples of the proxy protocol are as follows:
+
+    - "PROXY TCP4 255.255.255.255 255.255.255.255 65535 65535\r\n": TCP/IPv4
+    - "PROXY TCP6 ffff:f...f:ffff ffff:f...f:ffff 65535 65535\r\n": TCP/IPv6
+    - "PROXY UNKNOWN\r\n": Unknown connection
+
+    If you are using the TCP or HTTPS protocol, you can set up a proxy protocol on the load balancer to check the client IP address. In this case, the server must also have the capability to recognize the proxy protocol like the ones shown above.
 
 
 ## Session Connection Limits
 
 To ensure QoS, the load balancer limits the number of concurrent connections per listener. If the number of incoming requests exceeds the specified connection limit value, the requests are queued in a queue inside the load balancer and processed after previous requests are completed. In addition, requests can be terminated forcibly if the queue is full or a server/client times out. In this case, the client side may experience unexpected response delays.
 
-> [Note] The maximum number of session connection limits are as follows: 60,000 for a general load balancer and 480,000 for a dedicated load balancer.
+!!! tip "Note"
+    The maximum number of session connection limits are as follows: 60,000 for a general load balancer and 480,000 for a dedicated load balancer.
 
 ## Session Persistence
 
@@ -150,7 +168,8 @@ You can take advantage of the load balancer's session persistence feature when t
 
 * HTTP Cookie (session management by load balancer): This is similar to the APP Cookie method, but maintains the session through a cookie that is automatically set by the load balancer. The load balancer adds a cookie called **SRV** to the server's response and sends it. Here, the value of the **SRV** cookie is a unique ID for each server. When a client sends an **SRV** in a cookie, the request is forwarded to the server that responded at first.
 
-[Note] You can set the TCP session keep-alive time on the load balancer. By setting the keepalive timeout value, you can adjust the session maintenance time between the client and the load balancer and between the load balancer and the server.
+!!! tip "Note"
+    You can set the TCP session keep-alive time on the load balancer. By setting the keepalive timeout value, you can adjust the session maintenance time between the client and the load balancer and between the load balancer and the server.
 
 
 ## Invalid Request Blocking
@@ -179,11 +198,12 @@ The load balancer can control the addition/removal of the X-Forwarded header on 
 
 When creating or modifying a listener, you can control the addition/removal of each header using the following three flags. The default value for all flags is `true`.
 
-* `enable_x_forwarded_proto`: X-Forwarded-Proto/X-Forwarded-Prot header on/off
+* `enable_x_forwarded_proto`: X-Forwarded-Proto header on/off
 * `enable_x_forwarded_port`: X-Forwarded-Port header on/off
 * `enable_x_forwarded_for`: X-Forwarded-For header on/off
 
-> [Note] X-Forwarded header is available only in the listener using HTTP/TERMINATED_HTTPS protocol.
+!!! tip "Note"
+    X-Forwarded header is available only in the listener using HTTP/TERMINATED_HTTPS protocol.
 
 
 ## Instance Health Check
@@ -213,12 +233,11 @@ The following charts are provided:
 | Traffic Out | Instance | bps<br>(bits per second) | Volume of traffic sent from instances to Load Balancer |
 | Load Balancing Exclusion Count | Instance | ea | Number of exclusion from load balancing targets due to a health check failure |
 
-> [Note] Restraints and Notes
->
-> * Statistics charts are provided only for the currently used load balancers, listeners, or members. When the load balancer resource is removed, its past statistics data is not provided.
-> * In the charts with the ea unit, the meaning of the figure may vary depending on the set period. You can find out the meaning of the figures by hovering the mouse over the question marks at the top of the individual charts.
-> * In indicators related to network usage such as Traffic In and Traffic Out, the figures expressed in the chart are data obtained by dividing the payload transmission size excluding the sizes of L2, L3, and L4 headers by the unit time. Therefore, the figures displayed in the chart are irrelevant to the billing data.
-> * Statistics data are provided for up to 1 year.
+!!! tip "Note"
+    * Statistics charts are provided only for the currently used load balancers, listeners, or members. When the load balancer resource is removed, its past statistics data is not provided.
+    * In the charts with the ea unit, the meaning of the figure may vary depending on the set period. You can find out the meaning of the figures by hovering the mouse over the question marks at the top of the individual charts.
+    * In indicators related to network usage such as Traffic In and Traffic Out, the figures expressed in the chart are data obtained by dividing the payload transmission size excluding the sizes of L2, L3, and L4 headers by the unit time. Therefore, the figures displayed in the chart are irrelevant to the billing data.
+    * Statistics data are provided for up to 1 year.
 
 
 ## Load Balancer IP Access Control
@@ -226,14 +245,13 @@ The following charts are provided:
 To control packets flowing into the load balancer, you can use the IP access control feature.
 This feature is different from [Security Group](/Network/VPC/en/console-guide/#_6), and the differences are as follows:
 
-> [Note] Comparison between Security Group and Load Balancer IP Access Control
->
-> | Category | Security Group | Load Balancer IP Access Control | Note |
-> |--|--|--|--|
-> | Control Target | Instance | Load Balancer | |
-> | Configuration Target | Configure IP and port | Configure IP Only | 	Traffic from ports other than the ports set on the load balancer is blocked by default |
-> | Control Traffic | Incoming/outgoing traffic<br>selectable | Only incoming traffic can be controlled |
-> | Access Control Type | Set Allow policy only | Allow or Deny policy selectable |
+!!! tip "Note"
+    | Category | Security Group | Load Balancer IP Access Control | Note |
+    |--|--|--|--|
+    | Control Target | Instance | Load Balancer | |
+    | Configuration Target | Configure IP and port | Configure IP Only | 	Traffic from ports other than the ports set on the load balancer is blocked by default |
+    | Control Traffic | Incoming/outgoing traffic<br>selectable | Only incoming traffic can be controlled |
+    | Access Control Type | Set Allow policy only | Allow or Deny policy selectable |
 
 Security group settings and load balancer IP access control settings do not affect each other. Therefore, you need to use security groups to control incoming/outgoing traffic to/from your instances, and use IP access control to control incoming traffic to your load balancer.
 
@@ -249,8 +267,9 @@ To use the IP access control, you must set the following.
 ### IP Access Control Type
 * 'Allow': <b>Allow</b> access from IPs belonging to the group, and <b>deny</b> access from all other IPs.
 * 'Deny': <b>Deny</b> access from IPs belonging to the group, and <b>allow</b> access from all other IPs.
-> [Caution]
-> To apply 'Allow' type access control group to a load balancer, member instance IP of the load balancer must be added as access control target.
+
+!!! danger "Caution"
+    To apply 'Allow' type access control group to a load balancer, member instance IP of the load balancer must be added as access control target.
 
 
 ### IP Access Control Targets
@@ -258,23 +277,21 @@ To use the IP access control, you must set the following.
 * An access control target has attributes, such as memo and IP address.
 * One access control target can have an IP address or an IP address range in the CIDR format. If you enter an IP address range in the CIDR format, all range in the network is included in the access control target.
 
-> [Note]
-> You can use the [NHN Cloud Security Monitoring](/Security/Security%20Monitoring/en/Overview/) to find out the thread remote IP addresses.
->
-> You can enhance the system security by creating an IP access control group with the 'Deny' IP access control type, and adding detected threat remote IP addresses to access control targets.
->
+!!! tip "Note"
+    You can use the [NHN Cloud Security Monitoring](/Security/Security%20Monitoring/en/Overview/) to find out the thread remote IP addresses.
+
+    You can enhance the system security by creating an IP access control group with the 'Deny' IP access control type, and adding detected threat remote IP addresses to access control targets.
 
 ### Applying IP Access Control Groups
 * One access control group can be applied to multiple load balancers.
 * Multiple access control groups can be applied to a load balancer. However, the groups bound together must have the same access control type.
 * A load balancer to which no IP access control group is applied allows access from all IPs.
 
-> [Note]
->
-> * Behavior when changing a load balancer or IP access control
->     * If you delete a load balancer, access control binding is deleted, but access control groups are not deleted.
->     * If you delete an access control group, the change is reflected in all load balancers bound to the group.
->     * If you add or delete an access control target within an access control group, the change is reflected in all load balancers bound to the group.
+!!! tip "Note"
+    * Behavior when changing a load balancer or IP access control
+        * If you delete a load balancer, access control binding is deleted, but access control groups are not deleted.
+        * If you delete an access control group, the change is reflected in all load balancers bound to the group.
+        * If you add or delete an access control target within an access control group, the change is reflected in all load balancers bound to the group.
 
 
 ## Pricing

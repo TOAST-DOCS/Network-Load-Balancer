@@ -1,3 +1,5 @@
+<!-- pre-align:aligned sig=f8c4fd6345c9 -->
+
 <a id="network-load-balancer-overview"></a>
 ## Network > Load Balancer > 概要 { #network-load-balancer-overview }
 

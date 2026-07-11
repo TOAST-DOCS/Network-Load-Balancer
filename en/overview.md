@@ -1,3 +1,5 @@
+<!-- pre-align:aligned sig=f8c4fd6345c9 -->
+
 <a id="network-load-balancer-overview"></a>
 ## Network > Load Balancer > Overview { #network-load-balancer-overview }
 
@@ -318,10 +320,3 @@ To use the IP access control, you must set the following.
         * If you add or delete an access control target within an access control group, the change is reflected in all load balancers bound to the group.
 
 
-<!-- pre-align: ko에 대응 섹션 없음 — 검토 필요 (No corresponding ko heading exists for a 'Pricing' section) -->
-## Pricing
-
-Load Balancer has two pricing policies:
-
-* Load Balancer Usage Price: You will be charged by the usage period of a load balancer in the **ACTIVE** state. For details on the usage fee, refer to [Prices by load balancer type](https://www.toast.com/service/network/load-balancer).
-* Load Balancer Traffic Price: The volume of outgoing traffic from the load balancer is added to the overall project traffic and they are billed together.

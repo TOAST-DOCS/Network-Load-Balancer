@@ -58,6 +58,7 @@ X-Auth-Token: {tokenId}
 | loadbalancers.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancers.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancers.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
+| loadbalancers.engine_version | Body | String | 로드 밸런서 엔진 버전<br>`v1`/`v2` 중 하나 |
 
 <details><summary>예시</summary>
 ```json
@@ -135,6 +136,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
+| loadbalancer.engine_version | Body | String | 로드 밸런서 엔진 버전<br>`v1`/`v2` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -232,6 +234,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
+| loadbalancer.engine_version | Body | String | 로드 밸런서 엔진 버전<br>`v1`/`v2` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -291,6 +294,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | - | 로드 밸런서 이름 |
 | loadbalancer.description | Body | String | - | 로드 밸런서 설명 |
 | loadbalancer.admin_state_up | Body | Boolean | - | 로드 밸런서의 관리자 제어 상태 |
+| loadbalancer.engine_version | Body | String | - | 로드 밸런서 엔진 버전(`v1`/`v2`)<br>변경 시 트래픽 처리 동작이 달라질 수 있음 |
 
 <details><summary>예시</summary>
 
@@ -325,6 +329,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
+| loadbalancer.engine_version | Body | String | 로드 밸런서 엔진 버전<br>`v1`/`v2` 중 하나 |
 
 
 <details><summary>예시</summary>

@@ -1,4 +1,7 @@
-## Network > Load Balancer > Overview
+<!-- pre-align:aligned sig=f8c4fd6345c9 -->
+
+<a id="network-load-balancer-overview"></a>
+## Network > Load Balancer > Overview { #network-load-balancer-overview }
 
 NHN Cloud provides a load balancer, which enables you to achieve the following:
 
@@ -6,7 +9,8 @@ NHN Cloud provides a load balancer, which enables you to achieve the following:
 - Increase availability by automatically excluding the instances that have failed or are under maintenance from service.
 
 
-## Load Balancing Methods
+<a id="load-balancing-methods"></a>
+## Load Balancing Methods { #load-balancing-methods }
 
 Load Balancer supports a total of three load balancing methods:
 
@@ -17,7 +21,8 @@ Load Balancer supports a total of three load balancing methods:
 * Source IP (select by the source IP): This method selects the instance to process requests by hashing the source IP of the requester. When this method is used, requests coming from the same IP are always forwarded to the same instance. This is useful when you want the same instance to handle requests from a specific user every time.
 
 
-## Supported Protocols
+<a id="supported-protocols"></a>
+## Supported Protocols { #supported-protocols }
 
 Load Balancer supports the following protocols:
 
@@ -31,11 +36,13 @@ Among the above protocols, the TERMINATED_HTTPS protocol receives HTTPS traffic 
 !!! tip "Note"
     To use the TERMINATED_HTTPS protocol, a certificate and private key must be registered with the load balancer. The private key that is registered works correctly only when the password is removed.
 
-## SSL/TLS Version for Load Balancer
+<a id="ssltls-version-for-load-balancer"></a>
+## SSL/TLS Version for Load Balancer { #ssltls-version-for-load-balancer }
 * When you create a load balancer that uses the TERMINATED_HTTPS protocol, you can select the version of Secure Socket Layer/Transport Layer Security (SSL/TLS) used for communication between clients and the load balancer.
 * Because a lower SSL/TLS protocol version may have security flaws and the cryptographic algorithms that make up the cipher suite are also less secure, it is recommended to select the highest SSL/TLS version supported by the client.
 
-### SSL/TLS Version
+<a id="ssltls-version"></a>
+### SSL/TLS Version { #ssltls-version }
 Select one of the SSL/TLS versions to create a load balancer. The created load balancer communicates with clients using only the selected version and versions higher than the selected version, as shown below.
 
 | SSL/TLS Version Setting | SSL/TLS Version Used by Load Balancer |
@@ -48,7 +55,8 @@ Select one of the SSL/TLS versions to create a load balancer. The created load b
 | TLSv1.3 | TLSv1.3 |
 
 
-### Cipher Suites by SSL/TLS Version
+<a id="cipher-suites-by-ssltls-version"></a>
+### Cipher Suites by SSL/TLS Version { #cipher-suites-by-ssltls-version }
 * A cipher suite refers to a set of cryptographic algorithms used for HTTPS communications, including key exchange between clients and the load balancer, certificate validation, message encryption, and message integrity checking.
 * The cipher suites used depending on the SSL/TLS version are shown below.
 * If you choose a higher TLS version, cipher suites that use less secure algorithms are not used.
@@ -62,7 +70,8 @@ Select one of the SSL/TLS versions to create a load balancer. The created load b
 | TLSv1.2 | TLS-AES-128-GCM-SHA256<br>TLS-AES-256-GCM-SHA384<br>TLS-CHACHA20-POLY1305-SHA256<br>ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256 | ECDHE-RSA-AES128-SHA<br>ECDHE-RSA-AES256-SHA<br>AES256-SHA<br>AES128-SHA is excluded |
 | TLSv1.3 | TLS-AES-128-GCM-SHA256<br>TLS-AES-256-GCM-SHA384<br>TLS-CHACHA20-POLY1305-SHA256 | ECDHE-RSA-AES128-GCM-SHA256<br>ECDHE-RSA-AES128-SHA256<br>ECDHE-RSA-AES256-GCM-SHA384<br>ECDHE-RSA-AES256-SHA384<br>AES128-GCM-SHA256<br>AES256-GCM-SHA384<br>AES128-SHA256 is excluded |
 
-### Custom SSL policy
+<a id="custom-ssl-policy"></a>
+### Custom SSL policy { #custom-ssl-policy }
 In addition to the default cipher suite combinations provided for each SSL/TLS version, you can create a **custom SSL policy** and connect it to a listener to selectively apply only the cipher suites you need.
 
 An SSL policy consists of the following elements:
@@ -80,7 +89,8 @@ An SSL policy consists of the following elements:
     - The `ciphers` field in query responses is always returned normalized with TLS 1.2 and below cipher suites first, followed by TLS 1.3 cipher suites. The original order sent in the request is not preserved.
     - Listeners connected to an SSL policy have the cipher suite settings of that policy applied. Unlike the default cipher suite table provided for each SSL/TLS version, only the cipher suites specified by the user are selectively applied.
 
-## Create Load Balancers
+<a id="create-load-balancers"></a>
+## Create Load Balancers { #create-load-balancers }
 
 Load balancers can be created with an IP automatically assigned within the [VPC's](/Network/VPC/en/overview/#_2) [subnet](/Network/VPC/en/overview/#_2), or you can specify an IP.
 
@@ -97,7 +107,8 @@ The traffic that flows into the load balancer is defined by listeners. By defini
 !!! danger "Caution"
     You cannot create duplicate listeners with the same listening port on a load balancer.
 
-## L7 rules
+<a id="l7-rules"></a>
+## L7 rules { #l7-rules }
 
 The load balancer can perform load balancing based on L7 data. When you select an L7 routing template to create a load balancer, you can create a load balancer with L7 policies.
 The available actions are as follows:
@@ -108,7 +119,8 @@ The available actions are as follows:
 
 
 
-## Load Balancer Proxy Mode
+<a id="load-balancer-proxy-mode"></a>
+## Load Balancer Proxy Mode { #load-balancer-proxy-mode }
 
 Load Balancer operates in a `proxy mode`. The client connects to a load balancer to send a request, while the load balancer connects to an instance server. From the member instance server’s perspective, session’s source IP is viewed as the load balancer IP. To check client IP from the server, refer to `X-Forwarded-For` header information (HTTP or TERMINATED_HTTPS protocol) or use `Proxy Protocol` (TCP or HTTPS protocol).
 
@@ -149,14 +161,16 @@ Load Balancer operates in a `proxy mode`. The client connects to a load balancer
     If you are using the TCP or HTTPS protocol, you can set up a proxy protocol on the load balancer to check the client IP address. In this case, the server must also have the capability to recognize the proxy protocol like the ones shown above.
 
 
-## Session Connection Limits
+<a id="session-connection-limits"></a>
+## Session Connection Limits { #session-connection-limits }
 
 To ensure QoS, the load balancer limits the number of concurrent connections per listener. If the number of incoming requests exceeds the specified connection limit value, the requests are queued in a queue inside the load balancer and processed after previous requests are completed. In addition, requests can be terminated forcibly if the queue is full or a server/client times out. In this case, the client side may experience unexpected response delays.
 
 !!! tip "Note"
     The maximum number of session connection limits are as follows: 60,000 for a general load balancer and 480,000 for a dedicated load balancer.
 
-## Session Persistence
+<a id="session-persistence"></a>
+## Session Persistence { #session-persistence }
 
 You can take advantage of the load balancer's session persistence feature when there is a need to maintain user information or a client’s request must be forwarded to a specific server only. This feature enables a server that processed a client’s request to continue processing the client’s further requests. If you select Source IP as the load balancing method, session persistence is provided because it determines the server based on the IP of the client. If you use Round Robin or Least Connection as the load balancing method, you can use the following session persistence features.
 
@@ -172,29 +186,34 @@ You can take advantage of the load balancer's session persistence feature when t
     You can set the TCP session keep-alive time on the load balancer. By setting the keepalive timeout value, you can adjust the session maintenance time between the client and the load balancer and between the load balancer and the server.
 
 
-## Invalid Request Blocking
+<a id="invalid-request-blocking"></a>
+## Invalid Request Blocking { #invalid-request-blocking }
 
 This feature blocks HTTP request headers if they contain invalid characters. HTTP request headers with invalid characters may be sent by a hacker trying to exploit the server's vulnerability or via a browser affected by bugs. When this feature is enabled, the load balancer blocks HTTP requests with invalid characters to prevent them from being transferred to an instance and sends 400 response code (bad request) to the client.
 
 
-## Custom Response
+<a id="custom-response"></a>
+## Custom Response { #custom-response }
 
 You can customize the response to be sent to users when a specific HTTP error code is encountered in a load balancer listener. Setting a custom response allows you to send a custom message or HTML content to clients instead of the default system response.
 
 Supported HTTP status codes are 400, 403, 408, 500, 502, 503, and 504. The response body can be up to 1,024 characters long, and the content type can be `text/html`, `text/plain`, `application/json`, `application/javascript`, or `text/css`. Each error code can only be registered as a custom response once within the same listener.
 
 
-## X-Forwarded Header
+<a id="x-forwarded-header"></a>
+## X-Forwarded Header { #x-forwarded-header }
 
 The load balancer can control the addition/removal of the X-Forwarded header on a per-listener basis. The X-Forwarded header is used to pass the client's origin information (protocol, port, and IP address) to the backend server.
 
-### X-Forwarded Header Type
+<a id="x-forwarded-header-type"></a>
+### X-Forwarded Header Type { #x-forwarded-header-type }
 
 * **X-Forwarded-Proto**: forward the protocol (http or https) used by the client to the backend server. For HTTP listeners, the value is `http`, and for TERMINATED_HTTPS listeners, the value is `https`.
 * **X-Forwarded-Port**: forward the port number the client connected to to the backend server.
 * **X-Forwarded-For**: forward the client's original IP address to the backend server.
 
-### Control X-Forwarded Header
+<a id="control-x-forwarded-header"></a>
+### Control X-Forwarded Header { #control-x-forwarded-header }
 
 When creating or modifying a listener, you can control the addition/removal of each header using the following three flags. The default value for all flags is `true`.
 
@@ -206,14 +225,16 @@ When creating or modifying a listener, you can control the addition/removal of e
     X-Forwarded header is available only in the listener using HTTP/TERMINATED_HTTPS protocol.
 
 
-## Instance Health Check
+<a id="instance-health-check"></a>
+## Instance Health Check { #instance-health-check }
 
 NHN Cloud Load Balancer periodically tries checking the status of the instances registered as members to ensure that they operate normally. The health check is done by checking whether a expected response comes according to the specified protocol. If a normal response does not come within the specified number of times or duration, the instance is regarded as abnormal and excluded from the target of load balancing. This function enables uninterrupted service to be provided even in case of unexpected failure or maintenance.
 
 The load balancer supports TCP, HTTP, and HTTPS as health check protocols. For precise health check, various health check methods can be set when using each protocol.
 
 
-## Statistics Function of Load Balancer
+<a id="statistics-function-of-load-balancer"></a>
+## Statistics Function of Load Balancer { #statistics-function-of-load-balancer }
 
 You can find many statistical indicators relevant to network flows processed by load balancer on charts. Features of statistics of NHN Cloud Load Balancer are as follows:
 
@@ -240,7 +261,8 @@ The following charts are provided:
     * Statistics data are provided for up to 1 year.
 
 
-## Load Balancer IP Access Control
+<a id="load-balancer-ip-access-control"></a>
+## Load Balancer IP Access Control { #load-balancer-ip-access-control }
 
 To control packets flowing into the load balancer, you can use the IP access control feature.
 This feature is different from [Security Group](/Network/VPC/en/console-guide/#_6), and the differences are as follows:
@@ -257,14 +279,16 @@ Security group settings and load balancer IP access control settings do not affe
 
 To use the IP access control, you must set the following.
 
-### IP Access Control Groups
+<a id="ip-access-control-groups"></a>
+### IP Access Control Groups { #ip-access-control-groups }
 * Up to 10 groups can be created for a project.
 * A group has attributes, such as name, memo, and access control type.
 * Access control type can have either Allow or Deny.
 * More IP access control targets can be added for an access control group.
 * When an IP access control group is deleted, all of its IP access control targets are deleted. Access control for the IP addresses is not performed in all load balancers to which the group has been applied.
 
-### IP Access Control Type
+<a id="ip-access-control-type"></a>
+### IP Access Control Type { #ip-access-control-type }
 * 'Allow': <b>Allow</b> access from IPs belonging to the group, and <b>deny</b> access from all other IPs.
 * 'Deny': <b>Deny</b> access from IPs belonging to the group, and <b>allow</b> access from all other IPs.
 
@@ -272,7 +296,8 @@ To use the IP access control, you must set the following.
     To apply 'Allow' type access control group to a load balancer, member instance IP of the load balancer must be added as access control target.
 
 
-### IP Access Control Targets
+<a id="ip-access-control-targets"></a>
+### IP Access Control Targets { #ip-access-control-targets }
 * Up to 1,000 access control targets can be created for a project.
 * An access control target has attributes, such as memo and IP address.
 * One access control target can have an IP address or an IP address range in the CIDR format. If you enter an IP address range in the CIDR format, all range in the network is included in the access control target.
@@ -282,7 +307,8 @@ To use the IP access control, you must set the following.
 
     You can enhance the system security by creating an IP access control group with the 'Deny' IP access control type, and adding detected threat remote IP addresses to access control targets.
 
-### Applying IP Access Control Groups
+<a id="applying-ip-access-control-groups"></a>
+### Applying IP Access Control Groups { #applying-ip-access-control-groups }
 * One access control group can be applied to multiple load balancers.
 * Multiple access control groups can be applied to a load balancer. However, the groups bound together must have the same access control type.
 * A load balancer to which no IP access control group is applied allows access from all IPs.
@@ -294,9 +320,3 @@ To use the IP access control, you must set the following.
         * If you add or delete an access control target within an access control group, the change is reflected in all load balancers bound to the group.
 
 
-## Pricing
-
-Load Balancer has two pricing policies:
-
-* Load Balancer Usage Price: You will be charged by the usage period of a load balancer in the **ACTIVE** state. For details on the usage fee, refer to [Prices by load balancer type](https://www.toast.com/service/network/load-balancer).
-* Load Balancer Traffic Price: The volume of outgoing traffic from the load balancer is added to the overall project traffic and they are billed together.

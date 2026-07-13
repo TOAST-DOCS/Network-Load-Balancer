@@ -62,6 +62,7 @@ X-Auth-Token: {tokenId}
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
 | loadbalancers.ipacl_group_action | Body | String | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 | loadbalancers.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
+| loadbalancers.engine_version | Body | String | 로드 밸런서 엔진 버전<br>`v1`/`v2` 중 하나 |
 
 <details><summary>예시</summary>
 
@@ -152,6 +153,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
 | loadbalancer.ipacl_group_action | Body | String | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 | loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
+| loadbalancer.engine_version | Body | String | 로드 밸런서 엔진 버전<br>`v1`/`v2` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -261,6 +263,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
 | loadbalancer.ipacl_group_action | Body | String | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 | loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
+| loadbalancer.engine_version | Body | String | 로드 밸런서 엔진 버전<br>`v1`/`v2` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -321,6 +324,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | - | 로드 밸런서 이름 |
 | loadbalancer.description | Body | String | - | 로드 밸런서 설명 |
 | loadbalancer.admin_state_up | Body | Boolean | - | 로드 밸런서의 관리자 제어 상태 |
+| loadbalancer.engine_version | Body | String | - | 로드 밸런서 엔진 버전(`v1`/`v2`)<br>변경 시 트래픽 처리 동작이 달라질 수 있음 |
 
 <details><summary>예시</summary>
 
@@ -359,6 +363,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL 그룹 ID |
 | loadbalancer.ipacl_group_action | Body | String | 로드 밸런서에 적용된 IP ACL 그룹들의 action<br>`null`/`DENY`/`ALLOW` 중 하나 |
 | loadbalancer.loadbalancer_type | Body | String | 로드 밸런서 타입<br>`shared`/`dedicated` 중 하나 |
+| loadbalancer.engine_version | Body | String | 로드 밸런서 엔진 버전<br>`v1`/`v2` 중 하나 |
 
 
 <details><summary>예시</summary>

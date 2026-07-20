@@ -58,6 +58,7 @@ X-Auth-Token: {tokenId}
 | loadbalancers.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancers.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancers.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
+| loadbalancers.engine_version | Body | String | 로드 밸런서 엔진 버전<br>`v1`/`v2` 중 하나 |
 
 <details><summary>예시</summary>
 ```json
@@ -135,6 +136,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
+| loadbalancer.engine_version | Body | String | 로드 밸런서 엔진 버전<br>`v1`/`v2` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -232,6 +234,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
+| loadbalancer.engine_version | Body | String | 로드 밸런서 엔진 버전<br>`v1`/`v2` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -291,6 +294,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | - | 로드 밸런서 이름 |
 | loadbalancer.description | Body | String | - | 로드 밸런서 설명 |
 | loadbalancer.admin_state_up | Body | Boolean | - | 로드 밸런서의 관리자 제어 상태 |
+| loadbalancer.engine_version | Body | String | - | 로드 밸런서 엔진 버전(`v1`/`v2`)<br>변경 시 트래픽 처리 동작이 달라질 수 있음 |
 
 <details><summary>예시</summary>
 
@@ -325,6 +329,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.id | Body | UUID | 로드 밸런서 ID |
 | loadbalancer.operating_status | Body | Enum | 로드 밸런서 운영 상태 |
 | loadbalancer.admin_state_up | Body | Boolean | 로드 밸런서 관리자 제어 상태 |
+| loadbalancer.engine_version | Body | String | 로드 밸런서 엔진 버전<br>`v1`/`v2` 중 하나 |
 
 
 <details><summary>예시</summary>
@@ -422,6 +427,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | default_pool_id | Query | UUID | - | 리스너에 등록된 기본 멤버 그룹(풀) ID |
 | protocol | Query | Enum | - | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| protocol_version | Query | Enum | - | HTTP 프로토콜 버전<br>`HTTP/1`, `HTTP/2` 중 하나 |
 | description | Query | String | - | 리스너 설명 |
 | name | Query | String | - | 리스너 이름 |
 | admin_state_up | Query | Boolean | - | 관리자 제어 상태 |
@@ -438,6 +444,7 @@ X-Auth-Token: {tokenId}
 | listeners | Body | Array | 리스너 정보 객체 목록 |
 | listeners.default_pool_id | Body | UUID | 리스너에 등록된 기본 멤버 그룹(풀) ID |
 | listeners.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listeners.protocol_version | Body | Enum | HTTP 프로토콜 버전<br>`HTTP/1`, `HTTP/2` 중 하나 |
 | listeners.description | Body | String | 리스너 설명 |
 | listeners.name | Body | String | 리스너 이름 |
 | listeners.loadbalancers | Body | Array | 리스너가 등록된 로드 밸런서 객 목록 |
@@ -468,6 +475,7 @@ X-Auth-Token: {tokenId}
       "block_invalid_http_request": true,
       "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
       "protocol": "TERMINATED_HTTPS",
+      "protocol_version": "HTTP/2",
       "description": "",
       "name": "",
       "loadbalancers": [
@@ -520,6 +528,7 @@ X-Auth-Token: {tokenId}
 | listener | Body | Object | 리스너 정보 객체 |
 | listener.default_pool_id | Body | UUID | 리스너에 등록된 기본 멤버 그룹(풀) ID |
 | listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listener.protocol_version | Body | Enum | HTTP 프로토콜 버전<br>`HTTP/1`, `HTTP/2` 중 하나 |
 | listener.description | Body | String | 리스너 설명 |
 | listener.name | Body | String | 리스너 이름 |
 | listener.loadbalancers | Body | Array | 리스너가 등록된 로드 밸런서 객체 목록 |
@@ -552,6 +561,7 @@ X-Auth-Token: {tokenId}
     "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/1",
     "description": "",
     "name": "",
     "loadbalancers": [
@@ -599,6 +609,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | listener | Body | Object | O | 리스너 정보 객체 |
 | listener.protocol | Body | Enum | O | 리스너 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listener.protocol_version | Body | Enum | - | HTTP 프로토콜 버전<br>`HTTP/1`, `HTTP/2` 중 하나 |
 | listener.description | Body | String | - | 리스너 설명 |
 | listener.name | Body | String | - | 리스너 이름 |
 | listener.default_pool_id | Body | UUID | - | 리스너에 등록된 기본 멤버 그룹(풀) ID<br>지정하지 않으면 `사용 안 함`으로 생성 |
@@ -626,6 +637,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/2",
     "proxy_protocol": false,
     "block_invalid_http_request": true,
     "description": "",
@@ -657,6 +669,7 @@ X-Auth-Token: {tokenId}
 | listener | Body | Object | 리스너 정보 객체 |
 | listener.default_pool_id | Body | UUID | 리스너에 등록된 기본 멤버 그룹(풀) ID |
 | listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listener.protocol_version | Body | Enum | HTTP 프로토콜 버전<br>`HTTP/1`, `HTTP/2` 중 하나 |
 | listener.description | Body | String | 리스너 설명 |
 | listener.name | Body | String | 리스너 이름 |
 | listener.loadbalancers | Body | Array | 리스너가 등록된 로드 밸런서 객체 목록 |
@@ -689,6 +702,7 @@ X-Auth-Token: {tokenId}
     "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/2",
     "description": "",
     "name": "",
     "loadbalancers": [
@@ -785,6 +799,7 @@ X-Auth-Token: {tokenId}
 | listener | Body | Object | 리스너 정보 객체 |
 | listener.default_pool_id | Body | UUID | 리스너에 등록된 기본 멤버 그룹(풀) ID |
 | listener.protocol | Body | Enum | 리스너의 프로토콜<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` 중 하나 |
+| listener.protocol_version | Body | Enum | HTTP 프로토콜 버전<br>`HTTP/1`, `HTTP/2` 중 하나 |
 | listener.description | Body | String | 리스너 설명 |
 | listener.name | Body | String | 리스너 이름 |
 | listener.loadbalancers | Body | Array | 리스너가 등록된 로드 밸런서 객체 목록 |
@@ -817,6 +832,7 @@ X-Auth-Token: {tokenId}
     "block_invalid_http_request": true,
     "default_pool_id": null,
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/2",
     "description": "",
     "name": "",
     "loadbalancers": [
@@ -1156,6 +1172,7 @@ X-Auth-Token: {tokenId}
 | name | Query | String | - | 풀 이름 |
 | lb_algorithm | Query | Enum | - | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | protocol | Query | Enum | - | 멤버의 프로토콜 |
+| protocol_version | Query | Enum | - | 멤버의 HTTP 프로토콜 버전 |
 | admin_state_up | Query | Boolean | - | 관리자 제어 상태 |
 | healthmonitor_id | Query | UUID | - | 풀의 헬스 모니터 ID |
 
@@ -1166,6 +1183,7 @@ X-Auth-Token: {tokenId}
 | pools | Body | Array | 풀 정보 객체 목록 |
 | pools.lb_algorithm | Body | Enum | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pools.protocol | Body | Enum | 멤버의 프로토콜 |
+| pools.protocol_version | Body | Enum | 멤버의 HTTP 프로토콜 버전 |
 | pools.description | Body | String | 풀 설명 |
 | pools.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pools.tenant_id | Body | String | 테넌트 ID |
@@ -1191,6 +1209,7 @@ X-Auth-Token: {tokenId}
     {
       "lb_algorithm": "ROUND_ROBIN",
       "protocol": "HTTP",
+      "protocol_version": "HTTP/2",
       "description": "",
       "admin_state_up": true,
       "tenant_id": "8258ab391d854e8b878642b737017a3b",
@@ -1247,6 +1266,7 @@ X-Auth-Token: {tokenId}
 | pool | Body | Object | 풀 정보 객체 |
 | pool.lb_algorithm | Body | Enum | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pool.protocol | Body | Enum | 멤버의 프로토콜 |
+| pool.protocol_version | Body | Enum | 멤버의 HTTP 프로토콜 버전 |
 | pool.description | Body | String | 풀 설명 |
 | pool.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pool.tenant_id | Body | String | 테넌트 ID |
@@ -1272,6 +1292,7 @@ X-Auth-Token: {tokenId}
   "pool": {
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
@@ -1325,6 +1346,7 @@ X-Auth-Token: {tokenId}
 | pool.listener_id | Body | UUID | - | 풀이 등록될 리스너 ID, 로드밸런서 ID나 리스너 ID 중 하나는 필수로 입력되어야 합니다. |
 | pool.lb_algorithm | Body | Enum | O | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pool.protocol | Body | Enum | O | 멤버의 프로토콜 |
+| pool.protocol_version | Body | Enum | - | 멤버의 HTTP 프로토콜 버전 |
 | pool.description | Body | String | - | 풀 설명 |
 | pool.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | pool.member_port | Body | Integer | - | 멤버의 수신 포트<br>트래픽을 이 포트로 전달합니다.<br>기본 값은 -1입니다. |
@@ -1344,6 +1366,7 @@ X-Auth-Token: {tokenId}
     "listener_id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "member_port": 80,
@@ -1362,6 +1385,7 @@ X-Auth-Token: {tokenId}
 | pool | Body | Object | 풀 정보 객체 |
 | pool.lb_algorithm | Body | Enum | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pool.protocol | Body | Enum | 멤버의 프로토콜 |
+| pool.protocol_version | Body | Enum | 멤버의 HTTP 프로토콜 버전 |
 | pool.description | Body | String | 풀 설명 |
 | pool.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pool.tenant_id | Body | String | 테넌트 ID |
@@ -1385,6 +1409,7 @@ X-Auth-Token: {tokenId}
   "pool": {
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
@@ -1469,6 +1494,7 @@ X-Auth-Token: {tokenId}
 | pool | Body | Object | 풀 정보 객체 |
 | pool.lb_algorithm | Body | Enum | 풀의 로드 밸런싱 방식 <br> `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` 중 하나 |
 | pool.protocol | Body | Enum | 멤버의 프로토콜 |
+| pool.protocol_version | Body | Enum | 멤버의 HTTP 프로토콜 버전 |
 | pool.description | Body | String | 풀 설명 |
 | pool.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | pool.tenant_id | Body | String | 테넌트 ID |
@@ -1493,6 +1519,7 @@ X-Auth-Token: {tokenId}
   "pool": {
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "tenant_id": "8258ab391d854e8b878642b737017a3b",

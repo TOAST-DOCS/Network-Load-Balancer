@@ -44,6 +44,7 @@ This API does not require a request body.
 | loadbalancer_type | Query | String | - | The type of the load balancer to query, either `shared` or `dedicated` |
 
 <a id="list-load-balancers-response"></a>
+
 #### Response
 
 | Name | Type | Format | Description |
@@ -68,6 +69,7 @@ This API does not require a request body.
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL group ID |
 | loadbalancers.ipacl_group_action | Body | String | Action of the IP ACL groups applied to the load balancer<br>One of `null`/`DENY`/`ALLOW` |
 | loadbalancers.loadbalancer_type | Body | String | Load balancer type<br>One of `shared`/`dedicated` |
+| loadbalancers.engine_version | Body | String | Load balancer engine version<br>One of `v1`/`v2` |
 
 <details><summary>Example</summary>
 
@@ -137,32 +139,32 @@ This API does not require a request body.
 | loadbalancerId | URL | UUID | Yes | Load Balancer ID |
 
 <a id="view-load-balancer-response"></a>
+
 #### Response
 
 | Name | Type | Format | Description |
 |---|---|---|---|
-| loadbalancer | Body | Object | Load Balancer Information Object |
-| loadbalancer.description | Body | String | Load Balancer Description |
-| loadbalancer.provisioning_status | Body | Enum | Load Balancer Provisioning Status |
+| loadbalancer | Body | Object | Load Balancer Information object |
+| loadbalancer.description | Body | String | Description of load balancer |
+| loadbalancer.provisioning_status | Body | Enum | Load balancer provisioning status |
 | loadbalancer.tenant_id | Body | String | Tenant ID |
-| loadbalancer.provider | Body | String | Load Balancer Provider |
-| loadbalancer.name | Body | String | Load Balancer Name |
-| loadbalancer.listeners | Body | Object | List of Load Balancer Listener Objects |
+| loadbalancer.provider | Body | String | Load balancer provider |
+| loadbalancer.name | Body | String | Load Balancer name |
+| loadbalancer.listeners | Body | Object | List of load balancer listener objects |
 | loadbalancer.listeners.id | Body | UUID | Listener ID |
 | loadbalancers.pools | Body | Object | List of Load Balancer Pool Objects |
 | loadbalancers.pools.id | Body | UUID | Pool ID |
 | loadbalancer.vip_address | Body | String | Load Balancer IP |
-| loadbalancer.vip_port_id | Body | UUID | Load Balancer Port ID |
-| loadbalancer.vip_subnet_id | Body | UUID | Load Balancer Subnet ID |
+| loadbalancer.vip_port_id | Body | UUID | Load balancer port ID |
+| loadbalancer.vip_subnet_id | Body | UUID | Load balancer subnet ID |
 | loadbalancer.id | Body | UUID | Load Balancer ID |
 | loadbalancer.operating_status | Body | Enum | Load balancer operating status |
-| loadbalancer.admin_state_up | Body | Boolean | Load balancer admin control status |
+| loadbalancer.admin_state_up | Body | Boolean | Administrator control status of load balancer |
 | loadbalancer.ipacl_groups | Body | Object | IP ACL group object applied to the load balancer |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL group ID |
-| loadbalancer.ipacl_group_action | Body | String | Action of IP ACL groups applied to the load balancer <br>One of `null`/`DENY`/`ALLOW` |
-| loadbalancer.loadbalancer_type | Body | String | Load balancer type <br>One of `shared`/`dedicated` |
-
-
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL Group ID |
+| loadbalancer.ipacl_group_action | Body | String | Action of the IP ACL groups applied to the load balancer<br>One of `null`/`DENY`/`ALLOW` |
+| loadbalancer.loadbalancer_type | Body | String | Load Balancer Type<br>One of `shared`/`dedicated` |
+| loadbalancer.engine_version | Body | String | Load balancer engine version<br>One of `v1`/`v2` |
 <details><summary>Example</summary>
 
 ```json
@@ -208,7 +210,6 @@ This API does not require a request body.
   }
 }
 ```
-</details>
 
 ---
 <a id="create-load-balancer"></a>
@@ -249,32 +250,32 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="create-load-balancer-response"></a>
+
 #### Response
 
 | Name | Type | Format | Description |
 |---|---|---|---|
-| loadbalancer | Body | Object | Load balancer information object |
-| loadbalancer.description | Body | String | Load balancer description |
+| loadbalancer | Body | Object | Load Balancer Information object |
+| loadbalancer.description | Body | String | Description of load balancer |
 | loadbalancer.provisioning_status | Body | Enum | Load balancer provisioning status |
 | loadbalancer.tenant_id | Body | String | Tenant ID |
 | loadbalancer.provider | Body | String | Load balancer provider name |
-| loadbalancer.name | Body | String | Load balancer name |
+| loadbalancer.name | Body | String | Load Balancer name |
 | loadbalancer.listeners | Body | Object | List of load balancer listener objects |
 | loadbalancer.listeners.id | Body | UUID | Listener ID |
 | loadbalancers.pools | Body | Object | List of load balancer pool objects |
 | loadbalancers.pools.id | Body | UUID | Pool ID |
-| loadbalancer.vip_address | Body | String | Load balancer IP |
+| loadbalancer.vip_address | Body | String | Load Balancer IP |
 | loadbalancer.vip_port_id | Body | UUID | Load balancer port ID |
 | loadbalancer.vip_subnet_id | Body | UUID | Load balancer subnet ID |
-| loadbalancer.id | Body | UUID | Load balancer ID |
+| loadbalancer.id | Body | UUID | Load Balancer ID |
 | loadbalancer.operating_status | Body | Enum | Load balancer operating status |
-| loadbalancer.admin_state_up | Body | Boolean | Load balancer admin control status |
+| loadbalancer.admin_state_up | Body | Boolean | Administrator control status of load balancer |
 | loadbalancer.ipacl_groups | Body | Object | IP ACL group object applied to the load balancer |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL group ID |
-| loadbalancer.ipacl_group_action | Body | String | Action of IP ACL groups applied to the load balancer<br>One of `null`/`DENY`/`ALLOW` |
-| loadbalancer.loadbalancer_type | Body | String | Load balancer type<br>One of `shared`/`dedicated` |
-
-
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL Group ID |
+| loadbalancer.ipacl_group_action | Body | String | Action of the IP ACL groups applied to the load balancer<br>One of `null`/`DENY`/`ALLOW` |
+| loadbalancer.loadbalancer_type | Body | String | Load Balancer Type<br>One of `shared`/`dedicated` |
+| loadbalancer.engine_version | Body | String | Load balancer engine version<br>One of `v1`/`v2` |
 <details><summary>Example</summary>
 
 ```json
@@ -313,7 +314,6 @@ X-Auth-Token: {tokenId}
   }
 }
 ```
-</details>
 
 ---
 <a id="modify-load-balancer"></a>
@@ -325,17 +325,18 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="modify-load-balancer-request"></a>
+
 #### Request
 
 | Name | Type | Format | Required | Description |
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
 | loadbalancerId | URL | UUID | O | Load Balancer ID |
-| loadbalancer | Body | Object | O | Load Balancer Information Object |
-| loadbalancer.name | Body | String | - | Load Balancer Name |
-| loadbalancer.description | Body | String | - | Load Balancer Description |
-| loadbalancer.admin_state_up | Body | Boolean | - | Admin Control State of the Load Balancer |
-
+| loadbalancer | Body | Object | O | Load Balancer Information object |
+| loadbalancer.name | Body | String | - | Load Balancer name |
+| loadbalancer.description | Body | String | - | Description of load balancer |
+| loadbalancer.admin_state_up | Body | Boolean | - | Administrator control status of the load balancer |
+| loadbalancer.engine_version | Body | String | - | Load balancer engine version (`v1`/`v2`)<br>Changing this value may alter traffic handling behavior |
 <details><summary>Example</summary>
 
 ```json
@@ -347,35 +348,34 @@ X-Auth-Token: {tokenId}
     }
 }
 ```
-</details>
 
 <a id="modify-load-balancer-response"></a>
+
 #### Response
 
 | Name | Type | Format | Description |
 |---|---|---|---|
-| loadbalancer | Body | Object | Load balancer information object |
-| loadbalancer.description | Body | String | Load balancer description |
+| loadbalancer | Body | Object | Load Balancer Information object |
+| loadbalancer.description | Body | String | Description of load balancer |
 | loadbalancer.provisioning_status | Body | Enum | Load balancer provisioning status |
 | loadbalancer.tenant_id | Body | String | Tenant ID |
 | loadbalancer.provider | Body | String | Load balancer provider name |
-| loadbalancer.name | Body | String | Load balancer name |
+| loadbalancer.name | Body | String | Load Balancer name |
 | loadbalancer.listeners | Body | Object | List of load balancer listener objects |
 | loadbalancer.listeners.id | Body | UUID | Listener ID |
 | loadbalancers.pools | Body | Object | List of load balancer pool objects |
 | loadbalancers.pools.id | Body | UUID | Pool ID |
-| loadbalancer.vip_address | Body | String | Load balancer IP |
+| loadbalancer.vip_address | Body | String | Load Balancer IP |
 | loadbalancer.vip_port_id | Body | UUID | Load balancer port ID |
 | loadbalancer.vip_subnet_id | Body | UUID | Load balancer subnet ID |
-| loadbalancer.id | Body | UUID | Load balancer ID |
+| loadbalancer.id | Body | UUID | Load Balancer ID |
 | loadbalancer.operating_status | Body | Enum | Load balancer operating status |
-| loadbalancer.admin_state_up | Body | Boolean | Load balancer admin control status |
+| loadbalancer.admin_state_up | Body | Boolean | Administrator control status of load balancer |
 | loadbalancer.ipacl_groups | Body | Object | IP ACL group object applied to the load balancer |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL group ID |
-| loadbalancer.ipacl_group_action | Body | String | Action of IP ACL groups applied to the load balancer<br>One of `null`/`DENY`/`ALLOW` |
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL Group ID |
+| loadbalancer.ipacl_group_action | Body | String | Action of the IP ACL groups applied to the load balancer<br>One of `null`/`DENY`/`ALLOW` |
 | loadbalancer.loadbalancer_type | Body | String | Load balancer type<br>One of `shared`/`dedicated` |
-
-
+| loadbalancer.engine_version | Body | String | Load balancer engine version<br>One of `v1`/`v2` |
 <details><summary>Example</summary>
 
 ```json
@@ -414,7 +414,6 @@ X-Auth-Token: {tokenId}
   }
 }
 ```
-</details>
 
 ---
 <a id="delete-load-balancer"></a>
@@ -449,49 +448,50 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="view-listener-list-request"></a>
+
 #### Request
 This API does not require a request body.
 
 | Name | Type | Format | Required | Description |
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
-| default_pool_id | Query | UUID | - | Default member group (pool) ID registered with the listener |
-| protocol | Query | Enum | - | Listener protocol <br>`TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
-| description | Query | String | - | Listener description |
+| default_pool_id | Query | UUID | - | ID of the default member group (pool) registered to the listener |
+| protocol | Query | Enum | - | Protocol of the listener<br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
+| protocol_version | Query | Enum | - | HTTP protocol version<br>One of `HTTP/1` or `HTTP/2` |
+| description | Query | String | - | Description of listener |
 | name | Query | String | - | Listener name |
-| admin_state_up | Query | Boolean | - | Admin control state |
-| connection_limit | Query | Integer | - | Listener connection limit |
-| keepalive_timeout | Query | Integer | - | Listener keepalive timeout |
+| admin_state_up | Query | Boolean | - | Administrator control status |
+| connection_limit | Query | Integer | - | The listener's connection limit |
+| keepalive_timeout | Query | Integer | - | The listener's keepalive timeout |
 | protocol_port | Query | Integer | - | Listener port number |
 | id | Query | UUID | - | Listener ID |
-
 <a id="view-listener-list-response"></a>
+
 #### Response
 
 | Name | Type | Format | Description |
 |---|---|---|---|
 | listeners | Body | Array | List of listener information objects |
-| listeners.default_pool_id | Body | UUID | Default member group (pool) ID registered with the listener |
-| listeners.protocol | Body | Enum | Listener protocol <br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
-| listeners.description | Body | String | Listener description |
+| listeners.default_pool_id | Body | UUID | ID of the default member group (pool) registered to the listener |
+| listeners.protocol | Body | Enum | Protocol of the listener<br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
+| listeners.protocol_version | Body | Enum | HTTP protocol version<br>One of `HTTP/1` or `HTTP/2` |
+| listeners.description | Body | String | Description of listener |
 | listeners.name | Body | String | Listener name |
-| listeners.loadbalancers | Body | Array | List of load balancer clients with registered listeners |
-| listeners.loadbalancers.id | Body | UUID | Load balancer ID |
+| listeners.loadbalancers | Body | Array | List of load balancer objects to which the listener is registered |
+| listeners.loadbalancers.id | Body | UUID | Load Balancer ID |
 | listeners.tenant_id | Body | String | Tenant ID |
-| listeners.admin_state_up | Body | Boolean | Admin control state |
-| listeners.connection_limit | Body | Integer | Listener connection limit |
-| listeners.keepalive_timeout | Body | Integer | Listener keepalive timeout |
-| listeners.default_tls_container_ref | Body | String | TLS certificate path registered in key-manager |
+| listeners.admin_state_up | Body | Boolean | Administrator control status |
+| listeners.connection_limit | Body | Integer | Connection limit of the listener |
+| listeners.keepalive_timeout | Body | Integer | The listener's keepalive timeout |
+| listeners.default_tls_container_ref | Body | String| Path of the TLS certificate registered in key-manager |
 | listeners.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listeners.protocol_port | Body | Integer | Listener port |
 | listeners.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
-| listeners.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
-| listeners.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listeners.block_invalid_http_request | Body | Boolean | Enable/disable blocking of invalid HTTP requests<br>Default: `true` |
+| listeners.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listeners.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
-| listeners.keepalive_enable | Body | Boolean | Keepalive on/off<br>Default: `true` |
-| listeners.id | Body | String | Listener ID |
-
-
+| listeners.keepalive_enable | Body | Boolean | Enable/disable keepalive<br>Default: `true` |
+| listeners.id | Body | String| Listener ID |
 <details><summary>Example</summary>
 <p>
 
@@ -503,6 +503,7 @@ This API does not require a request body.
       "block_invalid_http_request": true,
       "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
       "protocol": "TERMINATED_HTTPS",
+      "protocol_version": "HTTP/2",
       "description": "",
       "name": "",
       "loadbalancers": [
@@ -516,7 +517,7 @@ This API does not require a request body.
       "keepalive_timeout": 300,
       "keepalive_enable": true,
       "tls_version": "TLSv1.0",
-      "ssl_policy_id": null,      
+      "ssl_policy_id": null,
       "sni_container_ids": [],
       "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
       "sni_container_refs": [],
@@ -530,7 +531,6 @@ This API does not require a request body.
 
 </p>
 </details>
-
 
 <a id="view-listener"></a>
 ### View Listener { #view-listener }
@@ -550,41 +550,46 @@ This API does not require a request body.
 | listenerId | URL | UUID | Yes | Listener ID |
 
 <a id="view-listener-response"></a>
+
 #### Response
 
 | Name | Type | Format | Description |
 |---|---|---|---|
 | listener | Body | Object | Listener information object |
-| listener.default_pool_id | Body | UUID | Default member group (pool) ID registered with the listener |
-| listener.protocol | Body | Enum | Listener protocol <br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
-| listener.description | Body | String | Listener description |
+| listener.default_pool_id | Body | UUID | ID of the default member group (pool) registered to the listener |
+| listener.protocol | Body | Enum | Protocol of the listener<br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
+| listener.protocol_version | Body | Enum | HTTP protocol version<br>Either `HTTP/1` or `HTTP/2` |
+| listener.description | Body | String | Description of listener |
 | listener.name | Body | String | Listener name |
 | listener.loadbalancers | Body | Array | List of load balancer objects to which the listener is registered |
-| listener.loadbalancers.id | Body | UUID | Load balancer ID |
+| listener.loadbalancers.id | Body | UUID | Load Balancer ID |
 | listener.tenant_id | Body | String | Tenant ID |
-| listener.admin_state_up | Body | Boolean | Admin control state |
-| listener.connection_limit | Body | Integer | Listener's connection limit |
-| listener.keepalive_timeout | Body | Integer | Listener's keepalive timeout |
-| listener.default_tls_container_ref | Body | String | TLS certificate path registered in key-manager |
+| listener.admin_state_up | Body | Boolean | Administrator control status |
+| listener.connection_limit | Body | Integer | Connection limit of the listener |
+| listener.keepalive_timeout | Body | Integer | The listener's keepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For header on/off<br>Default: `true` |
+| listener.default_tls_container_ref | Body | String| Path of the TLS certificate registered in key-manager |
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | Listener port |
 | listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
-| listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
-| listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.block_invalid_http_request | Body | Boolean | Enable/disable blocking of invalid HTTP requests<br>Default: `true` |
+| listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listener.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
-| listener.keepalive_enable | Body | Boolean | Keepalive on/off<br>Default: `true` |
+| listener.keepalive_enable | Body | Boolean | Enable or disable keepalive<br>Default: `true` |
 | listener.id | Body | UUID | Listener ID |
-
-
 <details><summary>Example</summary>
 <p>
 
 ```json
 {
   "listener": {
+    "proxy_protocol": false,
     "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/1",
     "description": "",
     "name": "",
     "loadbalancers": [
@@ -599,7 +604,7 @@ This API does not require a request body.
     "keepalive_enable": true,
     "enable_x_forwarded_proto": true,
     "enable_x_forwarded_port": true,
-    "enable_x_forwarded_for": true,  
+    "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
     "ssl_policy_id": null,
     "sni_container_ids": [],
@@ -615,8 +620,6 @@ This API does not require a request body.
 </p>
 </details>
 
-
-
 ---
 <a id="create-listener"></a>
 ### Create Listener { #create-listener }
@@ -627,30 +630,33 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="create-listener-request"></a>
+
 #### Request
 
 | Name | Type | Format | Required | Description |
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
 | listener | Body | Object | O | Listener information object |
-| listener.protocol | Body | Enum | O | Listener protocol<br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
-| listener.description | Body | String | - | Listener description |
+| listener.protocol | Body | Enum | O | Listener Protocol<br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
+| listener.protocol_version | Body | Enum | - | HTTP protocol version<br>One of `HTTP/1` or `HTTP/2` |
+| listener.description | Body | String | - | Description of listener |
 | listener.name | Body | String | - | Listener name |
-| listener.default_pool_id | Body | UUID | - | Default member group (pool) ID registered with the listener<br>If not specified, `Not used` is generated |
-| listener.loadbalancer_id | Body | UUID | O | Load balancer ID |
-| listener.admin_state_up | Body | Boolean | - | Admin control state |
-| listener.connection_limit | Body | Integer | - | Listener connection limit |
-| listener.keepalive_timeout | Body | Integer | - | Listener keepalive timeout |
-| listener.default_tls_container_ref | Body | String | - | TLS certificate path registered in key-manager |
+| listener.default_pool_id | Body | UUID | - | ID of the default member group (pool) registered with the listener<br>If not specified, created as `Disable` |
+| listener.loadbalancer_id | Body | UUID | O | Load Balancer ID |
+| listener.admin_state_up | Body | Boolean | - | Administrator control status |
+| listener.connection_limit | Body |  Integer | - | Connection limit of the listener |
+| listener.keepalive_timeout | Body | Integer | - | The listener's keepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For header on/off<br>Default: `true` |
+| listener.default_tls_container_ref | Body | String | - | Path of the TLS certificate registered in key-manager |
 | listener.sni_container_refs | Body | Array | - | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | O | Listener port |
 | listener.proxy_protocol | Body | Boolean | - | Proxy protocol on/off<br>Default: `false` |
-| listener.block_invalid_http_request | Body | Boolean | - | Block invalid HTTP requests on/off<br>Default: `true` |
+| listener.block_invalid_http_request | Body | Boolean | - | Enable/disable blocking of invalid HTTP requests<br>Default: `true` |
 | listener.tls_version | Body | String | - | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>When specified together with `ssl_policy_id`, must match the `min_tls_version` of the SSL policy |
 | listener.ssl_policy_id | Body | UUID | - | ID of the SSL policy to connect to the listener<br>Default: `null`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>For more information, see [Custom SSL policy](/Network/Load%20Balancer/en/overview/#ssl) |
-| listener.keepalive_enable | Body | Boolean | - | Keepalive on/off<br>Default: `true` |
-
-
+| listener.keepalive_enable | Body | Boolean | - | Enable or disable keepalive<br>Default: `true` |
 <details><summary>Example</summary>
 <p>
 
@@ -658,6 +664,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/2",
     "proxy_protocol": false,
     "block_invalid_http_request": true,
     "description": "",
@@ -667,6 +674,9 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "connection_limit": 2000,
     "keepalive_timeout": 300,
+    "enable_x_forwarded_proto": false,
+    "enable_x_forwarded_port": false,
+    "enable_x_forwarded_for": false,
     "tls_version": "TLSv1.2",
     "ssl_policy_id": "b5b3f6f2-6c29-4f3a-9a2e-3b2e6b2b5c0a",
     "default_tls_container_ref": "https://kr1-api-key-manager-infrastructure.nhncloudservice.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
@@ -679,32 +689,35 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="create-listener-response"></a>
+
 #### Response
 
 | Name | Type | Format | Description |
 |---|---|---|---|
 | listener | Body | Object | Listener information object |
-| listener.default_pool_id | Body | UUID | Default member group (pool) ID registered with the listener |
-| listener.protocol | Body | Enum | Listener protocol <br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
-| listener.description | Body | String | Listener description |
+| listener.default_pool_id | Body | UUID | ID of the default member group (pool) registered with the listener |
+| listener.protocol | Body | Enum | Protocol of the listener<br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
+| listener.protocol_version | Body | Enum | HTTP protocol version<br>One of `HTTP/1` or `HTTP/2` |
+| listener.description | Body | String | Description of listener |
 | listener.name | Body | String | Listener name |
 | listener.loadbalancers | Body | Array | List of load balancer objects to which the listener is registered |
-| listener.loadbalancers.id | Body | UUID | Load balancer ID |
+| listener.loadbalancers.id | Body | UUID | Load Balancer ID |
 | listener.tenant_id | Body | String | Tenant ID |
-| listener.admin_state_up | Body | Boolean | Admin control status |
-| listener.connection_limit | Body | Integer | Listener's connection limit |
-| listener.keepalive_timeout | Body | Integer | Listener's keepalive timeout |
-| listener.default_tls_container_ref | Body | String | TLS certificate path registered in key-manager |
+| listener.admin_state_up | Body | Boolean | Administrator control status |
+| listener.connection_limit | Body | Integer | Connection limit of the listener |
+| listener.keepalive_timeout | Body | Integer | The listener's keepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For header on/off<br>Default: `true` |
+| listener.default_tls_container_ref | Body | String | Path of the TLS certificate registered in key-manager |
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | Listener port |
 | listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
-| listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
-| listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.block_invalid_http_request | Body | Boolean | Enable/disable blocking of invalid HTTP requests<br>Default: `true` |
+| listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listener.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
-| listener.keepalive_enable | Body | Boolean | Keepalive on/off<br>Default: `true` |
+| listener.keepalive_enable | Body | Boolean | Enable/disable keepalive<br>Default: `true` |
 | listener.id | Body | UUID | Listener ID |
-
-
 <details><summary>Example</summary>
 <p>
 
@@ -715,6 +728,7 @@ X-Auth-Token: {tokenId}
     "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/2",
     "description": "",
     "name": "",
     "loadbalancers": [
@@ -807,35 +821,34 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="modify-listener-response"></a>
+
 #### Response
 
-| Name | Type | Format | Description |
-|---|---|---|---|
-| listener | Body | Object | Listener information object |
-| listener.default_pool_id | Body | UUID | Default member group (pool) ID registered with the listener |
 | listener.protocol | Body | Enum | Listener protocol <br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
-| listener.description | Body | String | Listener description |
+| listener | Body | Object | Listener information object |
+| listener.default_pool_id | Body | UUID | ID of the default member group (pool) registered with the listener |
+| listener.protocol | Body | Enum | Protocol of the listener<br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
+| listener.protocol_version | Body | Enum | HTTP protocol version<br>Either `HTTP/1` or `HTTP/2` |
+| listener.description | Body | String | Description of listener |
 | listener.name | Body | String | Listener name |
 | listener.loadbalancers | Body | Array | List of load balancer objects to which the listener is registered |
-| listener.loadbalancers.id | Body | UUID | Load balancer ID |
+| listener.loadbalancers.id | Body | UUID | Load Balancer ID |
 | listener.tenant_id | Body | String | Tenant ID |
-| listener.admin_state_up | Body | Boolean | Admin control status |
-| listener.connection_limit | Body | Integer | Listener's connection limit |
-| listener.keepalive_timeout | Body | Integer | Listener's keepalive timeout |
+| listener.admin_state_up | Body | Boolean | Administrator control status |
+| listener.connection_limit | Body | Integer | Connection limit of the listener |
+| listener.keepalive_timeout | Body | Integer | The listener's keepalive timeout |
 | listener.enable_x_forwarded_proto | Body | Boolean | X-Forwarded-Proto/X-Forwarded-Prot header on/off |
 | listener.enable_x_forwarded_port | Body | Boolean | X-Forwarded-Port header on/off |
 | listener.enable_x_forwarded_for | Body | Boolean | X-Forwarded-For header on/off |
-| listener.default_tls_container_ref | Body | String | TLS certificate path registered in key-manager |
+| listener.default_tls_container_ref | Body | String | Path of the TLS certificate registered in key-manager |
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
-| listener.protocol_port | Body | Integer | Listener Port |
+| listener.protocol_port | Body | Integer | Listener port |
 | listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
-| listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
-| listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
-| listener.keepalive_enable | Body | Boolean | Keepalive on/off<br>Default: `true` |
+| listener.block_invalid_http_request | Body | Boolean | Enable/disable blocking of invalid HTTP requests<br>Default: `true` |
+| listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listener.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.keepalive_enable | Body | Boolean | Enable or disable keepalive<br>Default: `true` |
 | listener.id | Body | UUID | Listener ID |
-
-
 <details><summary>Example</summary>
 <p>
 
@@ -843,9 +856,10 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
-    "default_pool_id": null,
     "block_invalid_http_request": true,
+    "default_pool_id": null,
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/2",
     "description": "",
     "name": "",
     "loadbalancers": [
@@ -1184,6 +1198,7 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="view-pool-list-request"></a>
+
 #### Request
 This API does not require a request body.
 
@@ -1192,35 +1207,36 @@ This API does not require a request body.
 | tokenId | Header | String | O | Token ID |
 | id | Query | UUID | - | Pool ID |
 | name | Query | String | - | Pool name |
-| lb_algorithm | Query | Enum | - | Load balancing method for the pool <br> One of `ROUND_ROBIN`, `LEAST_CONNECTIONS`, or `SOURCE_IP` |
-| protocol | Query | Enum | - | Protocol of the member |
-| admin_state_up | Query | Boolean | - | Admin control state |
-| healthmonitor_id | Query | UUID | - | Health monitor ID for the pool |
-
+| lb_algorithm | Query | Enum | - | Load balancing method of the pool <br> One of `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` |
+| protocol | Query | Enum | - | Member protocol |
+| protocol_version | Query | Enum | - | HTTP protocol version of the member |
+| admin_state_up | Query | Boolean | - | Administrator control status |
+| healthmonitor_id | Query | UUID | - | Health monitor ID of the pool |
 <a id="view-pool-list-response"></a>
+
 #### Response
 
 | Name | Type | Format | Description |
 |---|---|---|---|
 | pools | Body | Array | List of pool information objects |
-| pools.lb_algorithm | Body | Enum | The load balancing method for the pool <br> One of `ROUND_ROBIN`, `LEAST_CONNECTIONS`, or `SOURCE_IP` |
-| pools.protocol | Body | Enum | The protocol of the member |
-| pools.description | Body | String | The description of the pool |
-| pools.admin_state_up | Body | Boolean | The admin control state |
+| pools.lb_algorithm | Body | Enum | Load balancing method of the pool <br> One of `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` |
+| pools.protocol | Body | Enum | Protocol of the member |
+| pools.protocol_version | Body | Enum | HTTP protocol version of the member |
+| pools.description | Body | String | Pool description |
+| pools.admin_state_up | Body | Boolean | Administrator control status |
 | pools.tenant_id | Body | String | Tenant ID |
-| pools.session_persistence | Body | Object | The session persistence object for the pool |
-| pools.session_persistence.type | Body | Enum | Session Persistence<br> Set to one of `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set it to `HTTP_COOKIE` or `APP_COOKIE`, it is recommended that you check whether the protocol of the connected listener is set to `HTTP` or `TERMINATED_HTTPS`.<br> If the protocol of the listener is set to `TCP` or `HTTPS`, the load balancer will not perform any session persistence-related actions even if you set session persistence to `HTTP_COOKIE` or `APP_COOKIE`. |
-| pools.session_persistence.cookie_name | Body | String | Cookie name <br> The setting value is applied only when the session persistence type is `APP_COOKIE`. |
-| pools.healthmonitor_id | Body | String | Health Monitor ID |
-| pools.loadbalancers | Body | Array | List of load balancer objects registered with the pool |
-| pools.loadbalancers.id | Body | UUID | Load Balancer ID |
+| pools.session_persistence | Body | Object | Session persistence object of the pool |
+| pools.session_persistence.type | Body | Enum | Session affinity<br> Set to one of `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set this to `HTTP_COOKIE` or `APP_COOKIE`, we recommend that you verify that the protocol of the associated listener is set to `HTTP` or `TERMINATED_HTTPS`.<br> If the listener protocol is set to `TCP` or `HTTPS`, the load balancer does not perform session affinity-related operations even if session affinity is set to `HTTP_COOKIE` or `APP_COOKIE`. |
+| pools.session_persistence.cookie_name | Body | String | Name of cookie <br>The setting is applied only when the session persistence type is `APP_COOKIE`. |
+| pools.healthmonitor_id | Body | String | Health monitor ID |
+| pools.loadbalancers | Body | Array | List of load balancer objects to which the pool is registered |
+| pools.loadbalancers.id | Body | UUID | Load balancer ID |
 | pools.listeners | Body | Array | List of listener objects registered to the pool |
 | pools.listeners.id | Body | String | Listener ID |
-| pools.members | Body | Array | List of member objects registered to the pool |
+| pools.members | Body | Array | List of member objects registered in the pool |
 | pools.members.id | Body | String | Member ID |
 | pools.id | Body | UUID | Pool ID |
 | pools.name | Body | String | Pool name |
-
 <details><summary>Example</summary>
 <p>
 
@@ -1230,6 +1246,7 @@ This API does not require a request body.
     {
       "lb_algorithm": "ROUND_ROBIN",
       "protocol": "HTTP",
+      "protocol_version": "HTTP/2",
       "description": "",
       "admin_state_up": true,
       "tenant_id": "8258ab391d854e8b878642b737017a3b",
@@ -1264,7 +1281,6 @@ This API does not require a request body.
 </p>
 </details>
 
-
 <a id="view-pool"></a>
 ### View Pool { #view-pool }
 
@@ -1282,30 +1298,31 @@ This API does not require a request body.
 | tokenId | Header | String | O | Token ID |
 
 <a id="view-pool-response"></a>
+
 #### Response
 
 | Name | Type | Format | Description |
 |---|---|---|---|
 | pool | Body | Object | Pool information object |
-| pool.lb_algorithm | Body | Enum | The load balancing method for the pool <br> One of `ROUND_ROBIN`, `LEAST_CONNECTIONS`, or `SOURCE_IP` |
-| pool.protocol | Body | Enum | The member's protocol |
+| pool.lb_algorithm | Body | Enum | Load balancing method of the pool <br> One of `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` |
+| pool.protocol | Body | Enum | Protocol of the member |
+| pool.protocol_version | Body | Enum | HTTP protocol version of the member |
 | pool.description | Body | String | Pool description |
-| pool.admin_state_up | Body | Boolean | Admin control state |
+| pool.admin_state_up | Body | Boolean | Administrator control status |
 | pool.tenant_id | Body | String | Tenant ID |
-| pool.member_port | Body | Integer | Member port<br> The member port value specified when creating a member in the web console |
-| pool.session_persistence | Body | Object | The pool's session persistence object |
-| pool.session_persistence.type | Body | Enum | Session persistence<br> Set to one of `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set it to `HTTP_COOKIE` or `APP_COOKIE`, it is recommended that you check whether the protocol of the connected listener is set to `HTTP` or `TERMINATED_HTTPS`.<br> If the protocol of the listener is set to `TCP` or `HTTPS`, the load balancer will not perform any session persistence-related actions even if you set session persistence to `HTTP_COOKIE` or `APP_COOKIE`. |
-| pool.session_persistence.cookie_name | Body | String | Cookie name <br>The setting applies only when the session persistence type is `APP_COOKIE`. |
-| pool.healthmonitor_id | Body | UUID | Health Monitor ID |
-| pool.loadbalancers | Body | Array | List of load balancer objects registered to the pool |
-| pool.loadbalancers.id | Body | UUID | Load Balancer ID |
-| pool.listeners | Body | Array | List of listener objects registered to the pool |
+| pool.member_port | Body | Integer | The member's port<br> Port value of the member specified when creating a member in the web console |
+| pool.session_persistence | Body | Object | Session persistence object of the pool |
+| pool.session_persistence.type | Body | Enum | Session affinity<br> Set to one of `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set this to `HTTP_COOKIE` or `APP_COOKIE`, we recommend that you verify that the protocol of the associated listener is set to `HTTP` or `TERMINATED_HTTPS`.<br> If the listener protocol is set to `TCP` or `HTTPS`, the load balancer does not perform session affinity-related behavior even if session affinity is set to `HTTP_COOKIE` or `APP_COOKIE`. |
+| pool.session_persistence.cookie_name | Body | String | Name of cookie <br>The value is applied only when the session persistence type is `APP_COOKIE`. |
+| pool.healthmonitor_id | Body | UUID | Health monitor ID |
+| pool.loadbalancers | Body | Array | List of load balancer objects to which the pool is registered |
+| pool.loadbalancers.id | Body | UUID | Load balancer ID |
+| pool.listeners | Body | Array | List of listener objects registered with the pool |
 | pool.listeners.id | Body | UUID | Listener ID |
-| pool.members | Body | Array | List of member objects registered to the pool |
+| pool.members | Body | Array | List of member objects registered in the pool |
 | pool.members.id | Body | UUID | Member ID |
 | pool.id | Body | UUID | Pool ID |
 | pool.name | Body | String | Pool name |
-
 <details><summary>Example</summary>
 <p>
 
@@ -1314,6 +1331,7 @@ This API does not require a request body.
   "pool": {
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
@@ -1347,8 +1365,6 @@ This API does not require a request body.
 </p>
 </details>
 
-
-
 ---
 <a id="create-pool"></a>
 ### Create Pool { #create-pool }
@@ -1359,26 +1375,25 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="create-pool-request"></a>
+
 #### Request
 
 | Name | Type | Format | Required | Description |
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
 | pool | Body | Object | O | Pool information object |
-| pool.loadbalancer_id | Body | UUID | - | The load balancer ID to which the pool will be registered. Either the load balancer ID or the listener ID must be entered. |
-| pool.listener_id | Body | UUID | - | The listener ID to which the pool will be registered. Either the load balancer ID or the listener ID must be entered. |
-| pool.lb_algorithm | Body | Enum | O | The load balancing method of the pool <br> One of `ROUND_ROBIN`, `LEAST_CONNECTIONS`, or `SOURCE_IP` |
-| pool.protocol | Body | Enum | O | The member's protocol |
+| pool.loadbalancer_id | Body | UUID | - | ID of the load balancer to which a pool is to be registered. At least one of the load balancer ID or listener ID is required. |
+| pool.listener_id | Body | UUID | - | ID of the listener to which a pool is to be registered. At least one of the load balancer ID or listener ID is required. |
+| pool.lb_algorithm | Body | Enum | O | Load balancing method of the pool <br> One of `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` |
+| pool.protocol | Body | Enum | O | Member protocol |
+| pool.protocol_version | Body | Enum | - | HTTP protocol version of the member |
 | pool.description | Body | String | - | Pool description |
-| pool.admin_state_up | Body | Boolean | - | Admin control state |
-| pool.member_port | Body | Integer | - | Member listening port<br>Forward traffic to this port.<br>Default is -1. |
-| pool.session_persistence | Body | Object | - | Pool's session persistence object |
-| pool.session_persistence.type | Body | Enum | - | Session Persistence<br> Set to `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set it to `HTTP_COOKIE` or `APP_COOKIE`, it is recommended that you also set the protocol of the connected listener to `HTTP` or `TERMINATED_HTTPS`.<br> If the listener's protocol is set to `TCP` or `HTTPS`, the load balancer will not perform any session persistence-related actions even if you set session persistence to `HTTP_COOKIE` or `APP_COOKIE`. |
-| pools.session_persistence.cookie_name | Body | String | - | Cookie Name <br>The setting applies only when the session persistence type is `APP_COOKIE`. |
-| pool.name | Body | String | - | Pool Name |
-
-
-
+| pool.admin_state_up | Body | Boolean | - | Administrator control status |
+| pool.member_port | Body | Integer | - | The member's listening port<br>Forward traffic to this port.<br>The default value is -1. |
+| pool.session_persistence | Body | Object | - | Session persistence object of the pool |
+| pool.session_persistence.type | Body | Enum | - | Session affinity<br> Set to one of `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set this to `HTTP_COOKIE` or `APP_COOKIE`, we recommend that you verify that the protocol of the associated listener is set to `HTTP` or `TERMINATED_HTTPS`.<br> If the listener protocol is set to `TCP` or `HTTPS`, the load balancer does not perform session affinity-related behavior even if the session affinity is set to `HTTP_COOKIE` or `APP_COOKIE`. |
+| pools.session_persistence.cookie_name | Body | String | - | Name of cookie <br>The value is applied only when the session persistence type is `APP_COOKIE`. |
+| pool.name | Body | String | - | Pool name |
 <details><summary>Example</summary>
 <p>
 
@@ -1388,6 +1403,7 @@ X-Auth-Token: {tokenId}
     "listener_id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "member_port": 80,
@@ -1400,28 +1416,29 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="create-pool-response"></a>
+
 #### Response
 
 | Name | Type | Format | Description |
 |---|---|---|---|
 | pool | Body | Object | Pool information object |
-| pool.lb_algorithm | Body | Enum | Pool load balancing method <br> One of `ROUND_ROBIN`, `LEAST_CONNECTIONS`, or `SOURCE_IP` |
-| pool.protocol | Body | Enum | Member protocol |
+| pool.lb_algorithm | Body | Enum | Load balancing method of the pool <br> One of `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` |
+| pool.protocol | Body | Enum | Protocol of the member |
+| pool.protocol_version | Body | Enum | HTTP protocol version of the member |
 | pool.description | Body | String | Pool description |
-| pool.admin_state_up | Body | Boolean | Admin control state |
+| pool.admin_state_up | Body | Boolean | Administrator control status |
 | pool.tenant_id | Body | String | Tenant ID |
-| pool.session_persistence | Body | Object | - | Pool session persistence object |
-| pool.session_persistence.type | Body | Enum | Session Persistence<br> Set to one of `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set it to `HTTP_COOKIE` or `APP_COOKIE`, it is recommended that you also set the protocol of the connected listener to `HTTP` or `TERMINATED_HTTPS`.<br> If the protocol of the listener is set to `TCP` or `HTTPS`, the load balancer will not perform any session persistence-related actions even if you set session persistence to `HTTP_COOKIE` or `APP_COOKIE`. |
-| pool.healthmonitor_id | Body | String | Health Monitor ID |
-| pool.loadbalancers | Body | Array | List of load balancer objects registered to the pool |
-| pool.loadbalancers.id | Body | UUID | Load Balancer ID |
-| pool.listeners | Body | Array | List of listener objects registered to the pool |
+| pool.session_persistence | Body | Object | - | Session persistence object of the pool |
+| pool.session_persistence.type | Body | Enum | Session affinity<br> Set to one of `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set it to `HTTP_COOKIE` or `APP_COOKIE`, we recommend that you verify that the protocol of the associated listener is set to `HTTP` or `TERMINATED_HTTPS`.<br> If the listener protocol is set to `TCP` or `HTTPS`, the load balancer does not perform session affinity-related operations even if session affinity is set to `HTTP_COOKIE` or `APP_COOKIE`. |
+| pool.healthmonitor_id | Body | String | Health monitor ID |
+| pool.loadbalancers | Body | Array | List of load balancer objects to which the pool is registered |
+| pool.loadbalancers.id | Body | UUID | Load balancer ID |
+| pool.listeners | Body | Array | List of listener objects associated with the pool |
 | pool.listeners.id | Body | UUID | Listener ID |
 | pool.members | Body | Array | List of member objects registered in the pool |
 | pool.members.id | Body | UUID | Member ID |
 | pool.id | Body | UUID | Pool ID |
 | pool.name | Body | String | Pool name |
-
 <details><summary>Example</summary>
 <p>
 
@@ -1430,6 +1447,7 @@ X-Auth-Token: {tokenId}
   "pool": {
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
@@ -1510,29 +1528,30 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="modify-pool-response"></a>
+
 #### Response
 
 | Name | Type | Format | Description |
 |---|---|---|---|
 | pool | Body | Object | Pool information object |
-| pool.lb_algorithm | Body | Enum | Pool load balancing method <br> One of `ROUND_ROBIN`, `LEAST_CONNECTIONS`, or `SOURCE_IP` |
+| pool.lb_algorithm | Body | Enum | Load balancing method of the pool <br> One of `ROUND_ROBIN`, `LEAST_CONNECTIONS`, `SOURCE_IP` |
 | pool.protocol | Body | Enum | Member protocol |
+| pool.protocol_version | Body | Enum | HTTP protocol version of the member |
 | pool.description | Body | String | Pool description |
-| pool.admin_state_up | Body | Boolean | Admin control state |
+| pool.admin_state_up | Body | Boolean | Administrator control status |
 | pool.tenant_id | Body | String | Tenant ID |
-| pools.session_persistence | Body | Object | Pool session persistence object |
-| pool.session_persistence.type | Body | Enum | Session Persistence<br> Set to one of `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set it to `HTTP_COOKIE` or `APP_COOKIE`, it is recommended that you check whether the protocol of the connected listener is set to `HTTP` or `TERMINATED_HTTPS`.<br> If the protocol of the listener is set to `TCP` or `HTTPS`, the load balancer will not perform any session persistence-related actions even if you set session persistence to `HTTP_COOKIE` or `APP_COOKIE`. |
-| pools.session_persistence.cookie_name | Body | String | Cookie name <br> The setting value is applied only when the session persistence type is `APP_COOKIE`. |
-| pool.healthmonitor_id | Body | UUID | Health Monitor ID |
-| pool.loadbalancers | Body | Array | List of load balancer objects registered with the pool |
-| pool.loadbalancers.id | Body | UUID | Load Balancer ID |
+| pools.session_persistence | Body | Object | Session persistence object of the pool |
+| pool.session_persistence.type | Body | Enum | Session affinity<br> Set to one of `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE`<br> If set to `HTTP_COOKIE` or `APP_COOKIE`, we recommend that you verify that the protocol of the associated listener is set to `HTTP` or `TERMINATED_HTTPS`.<br> If the listener protocol is set to `TCP` or `HTTPS`, the load balancer does not perform session affinity-related operations even if the session affinity is set to `HTTP_COOKIE` or `APP_COOKIE`. |
+| pools.session_persistence.cookie_name | Body | String | Name of cookie <br>The setting is applied only when the session persistence type is `APP_COOKIE`. |
+| pool.healthmonitor_id | Body | UUID | Health monitor ID |
+| pool.loadbalancers | Body | Array | List of load balancer objects to which the pool is registered |
+| pool.loadbalancers.id | Body | UUID | Load balancer ID |
 | pool.listeners | Body | Array | List of listener objects registered to the pool |
 | pool.listeners.id | Body | UUID | Listener ID |
-| pool.members | Body | Array | List of member objects registered to the pool |
+| pool.members | Body | Array | List of member objects registered in the pool |
 | pool.members.id | Body | UUID | Member ID |
 | pool.id | Body | UUID | Pool ID |
 | pool.name | Body | String | Pool name |
-
 <details><summary>Example</summary>
 <p>
 
@@ -1541,6 +1560,7 @@ X-Auth-Token: {tokenId}
   "pool": {
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "tenant_id": "8258ab391d854e8b878642b737017a3b",

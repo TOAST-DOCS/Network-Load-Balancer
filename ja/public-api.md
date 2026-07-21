@@ -45,6 +45,7 @@ X-Auth-Token: {tokenId}
 
 
 <a id="list-load-balancers-response"></a>
+
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -69,6 +70,7 @@ X-Auth-Token: {tokenId}
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
 | loadbalancers.ipacl_group_action | Body | String | ロードバランサーに適用されたIP ACLグループのアクション<br>`null`/`DENY`/`ALLOW`のいずれか |
 | loadbalancers.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
+| loadbalancers.engine_version | Body | String | ロードバランサーエンジンバージョン<br>`v1`/`v2` のいずれか |
 
 <details><summary>例</summary>
 
@@ -138,32 +140,32 @@ X-Auth-Token: {tokenId}
 | loadbalancerId | URL | UUID | O | ロードバランサーID |
 
 <a id="view-load-balancer-response"></a>
+
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
 | loadbalancer | Body | Object | ロードバランサー情報オブジェクト |
 | loadbalancer.description | Body | String | ロードバランサーの説明 |
-| loadbalancer.provisioning_status | Body | Enum | ロードバランサーのプロビジョニングステータス |
-| loadbalancer.tenant_id | Body | String | テナントID |
-| loadbalancer.provider | Body | String | ロードバランサーのプロバイダー(ベンダー) |
-| loadbalancer.name | Body | String | ロードバランサーの名前 |
-| loadbalancer.listeners | Body | Object | ロードバランサーのリスナーオブジェクトの一覧 |
+| loadbalancer.provisioning_status | Body | Enum | ロードバランサーのプロビジョニング状態 |
+| loadbalancer.tenant_id | Body | String | テナント ID |
+| loadbalancer.provider | Body | String | ロードバランサープロバイダー（供給者） |
+| loadbalancer.name | Body | String | ロードバランサー名 |
+| loadbalancer.listeners | Body | Object | ロードバランサーリスナーオブジェクトのリスト |
 | loadbalancer.listeners.id | Body | UUID | リスナーID |
 | loadbalancers.pools | Body | Object | ロードバランサーのプールオブジェクトの一覧 |
 | loadbalancers.pools.id | Body | UUID | プールID |
-| loadbalancer.vip_address | Body | String | ロードバランサーのIP |
-| loadbalancer.vip_port_id | Body | UUID | ロードバランサーのポートID |
-| loadbalancer.vip_subnet_id | Body | UUID | ロードバランサーのサブネットID |
-| loadbalancer.id | Body | UUID | ロードバランサーID |
+| loadbalancer.vip_address | Body | String | ロードバランサー IP |
+| loadbalancer.vip_port_id | Body | UUID | ロードバランサーポート ID |
+| loadbalancer.vip_subnet_id | Body | UUID | ロードバランサーサブネット ID |
+| loadbalancer.id | Body | UUID | ロードバランサー ID |
 | loadbalancer.operating_status | Body | Enum | ロードバランサーの運用ステータス |
-| loadbalancer.admin_state_up | Body | Boolean | ロードバランサーの管理者制御ステータス |
-| loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
-| loadbalancer.ipacl_group_action | Body | String | ロードバランサーに適用されたIP ACLグループのアクション<br>`null`/`DENY`/`ALLOW`のいずれか |
-| loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
-
-
+| loadbalancer.admin_state_up | Body | Boolean | ロードバランサー管理者制御状態 |
+| loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用された IP ACL グループオブジェクト |
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL グループ ID |
+| loadbalancer.ipacl_group_action | Body | String | ロードバランサーに適用された IP ACL グループのアクション<br>`null`/`DENY`/`ALLOW` のいずれか |
+| loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated` のいずれか |
+| loadbalancer.engine_version | Body | String | ロードバランサーエンジンバージョン<br>`v1`/`v2` のいずれか |
 <details><summary>例</summary>
 
 ```json
@@ -250,6 +252,7 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="create-load-balancer-response"></a>
+
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -257,25 +260,24 @@ X-Auth-Token: {tokenId}
 | loadbalancer | Body | Object | ロードバランサー情報オブジェクト |
 | loadbalancer.description | Body | String | ロードバランサーの説明 |
 | loadbalancer.provisioning_status | Body | Enum | ロードバランサーのプロビジョニングステータス |
-| loadbalancer.tenant_id | Body | String | テナントID |
-| loadbalancer.provider | Body | String | ロードバランサーのプロバイダー(ベンダー)名 |
-| loadbalancer.name | Body | String | ロードバランサーの名前 |
-| loadbalancer.listeners | Body | Object | ロードバランサーのリスナーオブジェクトの一覧 |
+| loadbalancer.tenant_id | Body | String | テナント ID |
+| loadbalancer.provider | Body | String | ロードバランサープロバイダー名 |
+| loadbalancer.name | Body | String | ロードバランサー名 |
+| loadbalancer.listeners | Body | Object | ロードバランサーリスナーオブジェクトのリスト |
 | loadbalancer.listeners.id | Body | UUID | リスナーID |
 | loadbalancers.pools | Body | Object | ロードバランサーのプールオブジェクトの一覧 |
 | loadbalancers.pools.id | Body | UUID | プールID |
-| loadbalancer.vip_address | Body | String | ロードバランサーのIP |
-| loadbalancer.vip_port_id | Body | UUID | ロードバランサーのポートID |
-| loadbalancer.vip_subnet_id | Body | UUID | ロードバランサーのサブネットID |
-| loadbalancer.id | Body | UUID | ロードバランサーID |
+| loadbalancer.vip_address | Body | String | ロードバランサー IP |
+| loadbalancer.vip_port_id | Body | UUID | ロードバランサーポート ID |
+| loadbalancer.vip_subnet_id | Body | UUID | ロードバランサーのサブネット ID |
+| loadbalancer.id | Body | UUID | ロードバランサー ID |
 | loadbalancer.operating_status | Body | Enum | ロードバランサーの運用ステータス |
-| loadbalancer.admin_state_up | Body | Boolean | ロードバランサーの管理者制御ステータス |
-| loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
-| loadbalancer.ipacl_group_action | Body | String | ロードバランサーに適用されたIP ACLグループのアクション<br>`null`/`DENY`/`ALLOW`のいずれか |
-| loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
-
-
+| loadbalancer.admin_state_up | Body | Boolean | ロードバランサーの管理者制御状態 |
+| loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用された IP ACL グループオブジェクト |
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL グループ ID |
+| loadbalancer.ipacl_group_action | Body | String | ロードバランサーに適用された IP ACL グループの action<br>`null`/`DENY`/`ALLOW` のいずれか |
+| loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated` のいずれか |
+| loadbalancer.engine_version | Body | String | ロードバランサーエンジンバージョン<br>`v1`/`v2` のいずれか |
 <details><summary>例</summary>
 
 ```json
@@ -326,6 +328,7 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="modify-load-balancer-request"></a>
+
 #### リクエスト
 
 | 名前 | 種類 | 形式 | 必須 | 説明 |
@@ -333,10 +336,10 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | トークンID |
 | loadbalancerId | URL | UUID | O | ロードバランサーID |
 | loadbalancer | Body | Object | O | ロードバランサー情報オブジェクト |
-| loadbalancer.name | Body | String | - | ロードバランサーの名前 |
+| loadbalancer.name | Body | String | - | ロードバランサー名 |
 | loadbalancer.description | Body | String | - | ロードバランサーの説明 |
-| loadbalancer.admin_state_up | Body | Boolean | - | ロードバランサーの管理者制御ステータス |
-
+| loadbalancer.admin_state_up | Body | Boolean | - | ロードバランサーの管理者制御状態 |
+| loadbalancer.engine_version | Body | String | - | ロードバランサーエンジンバージョン（`v1`/`v2`）<br>変更するとトラフィック処理の動作が変わる場合があります |
 <details><summary>例</summary>
 
 ```json
@@ -351,6 +354,7 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="modify-load-balancer-response"></a>
+
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -358,25 +362,24 @@ X-Auth-Token: {tokenId}
 | loadbalancer | Body | Object | ロードバランサー情報オブジェクト |
 | loadbalancer.description | Body | String | ロードバランサーの説明 |
 | loadbalancer.provisioning_status | Body | Enum | ロードバランサーのプロビジョニングステータス |
-| loadbalancer.tenant_id | Body | String | テナントID |
-| loadbalancer.provider | Body | String | ロードバランサーのプロバイダー(ベンダー)名 |
-| loadbalancer.name | Body | String | ロードバランサーの名前 |
-| loadbalancer.listeners | Body | Object | ロードバランサーのリスナーオブジェクトの一覧 |
+| loadbalancer.tenant_id | Body | String | テナント ID |
+| loadbalancer.provider | Body | String | ロードバランサーのプロバイダー名 |
+| loadbalancer.name | Body | String | ロードバランサー名 |
+| loadbalancer.listeners | Body | Object | ロードバランサーリスナーオブジェクトのリスト |
 | loadbalancer.listeners.id | Body | UUID | リスナーID |
 | loadbalancers.pools | Body | Object | ロードバランサーのプールオブジェクトの一覧 |
 | loadbalancers.pools.id | Body | UUID | プールID |
-| loadbalancer.vip_address | Body | String | ロードバランサーのIP |
-| loadbalancer.vip_port_id | Body | UUID | ロードバランサーのポートID |
-| loadbalancer.vip_subnet_id | Body | UUID | ロードバランサーのサブネットID |
-| loadbalancer.id | Body | UUID | ロードバランサーID |
+| loadbalancer.vip_address | Body | String | ロードバランサー IP |
+| loadbalancer.vip_port_id | Body | UUID | ロードバランサーポート ID |
+| loadbalancer.vip_subnet_id | Body | UUID | ロードバランサーのサブネット ID |
+| loadbalancer.id | Body | UUID | ロードバランサー ID |
 | loadbalancer.operating_status | Body | Enum | ロードバランサーの運用ステータス |
-| loadbalancer.admin_state_up | Body | Boolean | ロードバランサーの管理者制御ステータス |
-| loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用されたIP ACLグループオブジェクト |
-| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
-| loadbalancer.ipacl_group_action | Body | String | ロードバランサーに適用されたIP ACLグループのアクション<br>`null`/`DENY`/`ALLOW`のいずれか |
-| loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
-
-
+| loadbalancer.admin_state_up | Body | Boolean | ロードバランサーの管理者制御状態 |
+| loadbalancer.ipacl_groups | Body | Object | ロードバランサーに適用された IP ACL グループオブジェクト |
+| loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACL グループ ID |
+| loadbalancer.ipacl_group_action | Body | String | ロードバランサーに適用された IP ACL グループの action<br>`null`/`DENY`/`ALLOW` のいずれか |
+| loadbalancer.loadbalancer_type | Body | String | ロードバランサータイプ<br>`shared`/`dedicated` のいずれか |
+| loadbalancer.engine_version | Body | String | ロードバランサーエンジンバージョン<br>`v1`/`v2` のいずれか |
 <details><summary>例</summary>
 
 ```json
@@ -451,50 +454,50 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="view-listener-list-request"></a>
+
 #### リクエスト
 このAPIはリクエスト本文(Body)を要求しません。
 
 | 名前 | 種類 | 形式 | 必須 | 説明 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | トークンID |
-| default_pool_id | Query | UUID | - | リスナーに登録されたデフォルトメンバーグループ(プール)のID |
-| protocol | Query | Enum | - | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のいずれか |
+| default_pool_id | Query | UUID | - | リスナーに登録された基本メンバーグループ（プール）ID |
+| protocol | Query | Enum | - | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS` のいずれか |
+| protocol_version | Query | Enum | - | HTTP プロトコルバージョン<br>`HTTP/1`、`HTTP/2` のいずれか |
 | description | Query | String | - | リスナーの説明 |
-| name | Query | String | - | リスナーの名前 |
-| admin_state_up | Query | Boolean | - | 管理者制御ステータス |
+| name | Query | String | - | リスナー名 |
+| admin_state_up | Query | Boolean | - | 管理者制御の状態 |
 | connection_limit | Query | Integer | - | リスナーのconnection limit |
 | keepalive_timeout | Query | Integer | - | リスナーのkeepalive timeout |
-| protocol_port | Query | Integer | - | リスナーのポート番号 |
+| protocol_port | Query | Integer | - | リスナーポート番号 |
 | id | Query | UUID | - | リスナーID |
-
-
 <a id="view-listener-list-response"></a>
+
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
-| listeners | Body | Array | リスナー情報オブジェクトの一覧 |
-| listeners.default_pool_id | Body | UUID | リスナーに登録されたデフォルトメンバーグループ(プール)のID |
-| listeners.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のいずれか |
+| listeners | Body | Array | リスナー情報オブジェクトのリスト |
+| listeners.default_pool_id | Body | UUID | リスナーに登録されている基本メンバーグループ（プール）ID |
+| listeners.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS` のいずれか |
+| listeners.protocol_version | Body | Enum | HTTP プロトコルバージョン<br>`HTTP/1`、`HTTP/2` のいずれか |
 | listeners.description | Body | String | リスナーの説明 |
-| listeners.name | Body | String | リスナーの名前 |
-| listeners.loadbalancers | Body | Array | リスナーが登録されたロードバランサーオブジェクトの一覧 |
-| listeners.loadbalancers.id | Body | UUID | ロードバランサーID |
-| listeners.tenant_id | Body | String | テナントID |
-| listeners.admin_state_up | Body | Boolean | 管理者制御ステータス |
+| listeners.name | Body | String | リスナー名 |
+| listeners.loadbalancers | Body | Array | リスナーが登録されているロードバランサーオブジェクトのリスト |
+| listeners.loadbalancers.id | Body | UUID | ロードバランサー ID |
+| listeners.tenant_id | Body | String | テナント ID |
+| listeners.admin_state_up | Body | Boolean | 管理者制御状態 |
 | listeners.connection_limit | Body | Integer | リスナーのconnection limit |
-| listeners.keepalive_timeout | Body | Integer | リスナーのkeepalive timeout |
+| listeners.keepalive_timeout | Body | Integer | リスナーの keepalive タイムアウト |
 | listeners.default_tls_container_ref | Body | String| key-managerに登録されたTLS証明書のパス |
-| listeners.sni_container_refs | Body | Array | key-managerに登録されたSNI証明書のパス一覧 |
+| listeners.sni_container_refs | Body | Array | key-managerに登録されたSNI証明書パスのリスト |
 | listeners.protocol_port | Body | Integer | リスナーポート |
-| listeners.proxy_protocol | Body | Boolean | プロキシプロトコルのon/off<br>デフォルト値：`false` |
-| listeners.block_invalid_http_request | Body | Boolean | 無効なHTTPリクエストブロックのon/off<br>デフォルト値：`true` |
-| listeners.tls_version | Body | String | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
-| listeners.ssl_policy_id | Body | UUID | リスナーに接続されたSSLポリシーID<br>接続されたSSLポリシーがない場合は`null`<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
-| listeners.keepalive_enable | Body | Boolean | keepalive有効化のon/off<br>デフォルト値：`true` |
+| listeners.proxy_protocol | Body | Boolean | プロキシプロトコル on/off<br>デフォルト値: `false` |
+| listeners.block_invalid_http_request | Body | Boolean | 無効な HTTP リクエストのブロック on/off<br>デフォルト値: `true` |
+| listeners.tls_version | Body | String | リスナーの TLS バージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3` のいずれか<br>プロトコルが `TERMINATED_HTTPS` の場合にのみ適用 |
+| listeners.ssl_policy_id | Body | UUID | リスナーに関連付けられた SSL ポリシー ID<br>関連付けられた SSL ポリシーがない場合は `null`<br>プロトコルが `TERMINATED_HTTPS` の場合にのみ適用 |
+| listeners.keepalive_enable | Body | Boolean | keepalive の有効化 on/off<br>デフォルト値: `true` |
 | listeners.id | Body | String| リスナーID |
-
-
 <details><summary>例</summary>
 <p>
 
@@ -506,6 +509,7 @@ X-Auth-Token: {tokenId}
       "block_invalid_http_request": true,
       "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
       "protocol": "TERMINATED_HTTPS",
+      "protocol_version": "HTTP/2",
       "description": "",
       "name": "",
       "loadbalancers": [
@@ -534,7 +538,6 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-
 <a id="view-listener"></a>
 ### リスナーの表示 { #view-listener }
 
@@ -554,35 +557,34 @@ X-Auth-Token: {tokenId}
 
 
 <a id="view-listener-response"></a>
+
 #### レスポンス
 
-| 名前 | 種類 | 形式 | 説明 |
-|---|---|---|---|
-| listener | Body | Object | リスナー情報オブジェクト |
-| listener.default_pool_id | Body | UUID | リスナーに登録されたデフォルトメンバーグループ(プール)のID |
 | listener.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のいずれか |
+| listener | Body | Object | リスナー情報オブジェクト |
+| listener.default_pool_id | Body | UUID | リスナーに登録された基本メンバーグループ（プール） ID |
+| listener.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`, `HTTP`,`HTTPS`, `TERMINATED_HTTPS` のいずれか |
+| listener.protocol_version | Body | Enum | HTTP プロトコルバージョン<br>`HTTP/1`、`HTTP/2` のいずれか |
 | listener.description | Body | String | リスナーの説明 |
-| listener.name | Body | String | リスナーの名前 |
-| listener.loadbalancers | Body | Array | リスナーが登録されたロードバランサーオブジェクトの一覧 |
-| listener.loadbalancers.id | Body | UUID | ロードバランサーID |
-| listener.tenant_id | Body | String | テナントID |
-| listener.admin_state_up | Body | Boolean | 管理者制御ステータス |
+| listener.name | Body | String | リスナー名 |
+| listener.loadbalancers | Body | Array | リスナーが登録されているロードバランサーオブジェクトの一覧 |
+| listener.loadbalancers.id | Body | UUID | ロードバランサー ID |
+| listener.tenant_id | Body | String | テナント ID |
+| listener.admin_state_up | Body | Boolean | 管理者制御状態 |
 | listener.connection_limit | Body | Integer | リスナーのconnection limit |
 | listener.keepalive_timeout | Body | Integer | リスナーのkeepalive timeout |
-| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Portヘッダのon/off<br>デフォルト値：`true` |
-| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Portヘッダのon/off<br>デフォルト値：`true` |
-| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-Forヘッダのon/off<br>デフォルト値：`true` |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot ヘッダーの on/off<br>デフォルト値: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port ヘッダーの on/off<br>デフォルト値: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For ヘッダーのオン/オフ<br>デフォルト値: `true` |
 | listener.default_tls_container_ref | Body | String| key-managerに登録されたTLS証明書のパス |
-| listener.sni_container_refs | Body | Array | key-managerに登録されたSNI証明書のパス一覧 |
+| listener.sni_container_refs | Body | Array | key-managerに登録されたSNI証明書パスのリスト |
 | listener.protocol_port | Body | Integer | リスナーポート |
-| listener.proxy_protocol | Body | Boolean | プロキシプロトコルのon/off<br>デフォルト値：`false` |
-| listener.block_invalid_http_request | Body | Boolean | 無効なHTTPリクエストブロックのon/off<br>デフォルト値：`true` |
-| listener.tls_version | Body | String | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
-| listener.ssl_policy_id | Body | UUID | リスナーに接続されたSSLポリシーID<br>接続されたSSLポリシーがない場合は`null`<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
-| listener.keepalive_enable | Body | Boolean | keepalive有効化のon/off<br>デフォルト値：`true` |
+| listener.proxy_protocol | Body | Boolean | プロキシプロトコル on/off<br>デフォルト値: `false` |
+| listener.block_invalid_http_request | Body | Boolean | 無効なHTTPリクエストのブロック on/off<br>デフォルト値: `true` |
+| listener.tls_version | Body | String | リスナーの TLS バージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3` のいずれか<br>プロトコルが `TERMINATED_HTTPS` の場合にのみ適用 |
+| listener.ssl_policy_id | Body | UUID | リスナーに関連付けられた SSL ポリシー ID<br>関連付けられた SSL ポリシーがない場合は `null`<br>プロトコルが `TERMINATED_HTTPS` の場合にのみ適用 |
+| listener.keepalive_enable | Body | Boolean | keepalive の有効化 on/off<br>デフォルト値: `true` |
 | listener.id | Body | UUID | リスナーID |
-
-
 <details><summary>例</summary>
 <p>
 
@@ -593,6 +595,7 @@ X-Auth-Token: {tokenId}
     "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/1",
     "description": "",
     "name": "",
     "loadbalancers": [
@@ -623,8 +626,6 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-
-
 ---
 <a id="create-listener"></a>
 ### リスナーの作成 { #create-listener }
@@ -635,33 +636,33 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="create-listener-request"></a>
+
 #### リクエスト
 
 | 名前 | 種類 | 形式 | 必須 | 説明 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | トークンID |
 | listener | Body | Object | O | リスナー情報オブジェクト |
-| listener.protocol | Body | Enum | O | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のいずれか |
+| listener.protocol | Body | Enum | O | リスナープロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS` のいずれか |
+| listener.protocol_version | Body | Enum | - | HTTP プロトコルバージョン<br>`HTTP/1`、`HTTP/2` のいずれか |
 | listener.description | Body | String | - | リスナーの説明 |
-| listener.name | Body | String | - | リスナーの名前 |
-| listener.default_pool_id | Body | UUID | - | リスナーに登録されたデフォルトメンバーグループ(プール)のID<br>指定しない場合は`使用しない`として作成 |
-| listener.loadbalancer_id | Body | UUID | O | ロードバランサーID |
-| listener.admin_state_up | Body | Boolean | - | 管理者制御ステータス |
+| listener.name | Body | String | - | リスナー名 |
+| listener.default_pool_id | Body | UUID | - | リスナーに登録された基本メンバーグループ（プール）ID<br>指定しない場合は `使用しない` で作成 |
+| listener.loadbalancer_id | Body | UUID | O | ロードバランサー ID |
+| listener.admin_state_up | Body | Boolean | - | 管理者制御状態 |
 | listener.connection_limit | Body |  Integer | - | リスナーのconnection limit |
 | listener.keepalive_timeout | Body | Integer | - | リスナーのkeepalive timeout |
-| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Portヘッダのon/off<br>デフォルト値：`true` |
-| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Portヘッダのon/off<br>デフォルト値：`true` |
-| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-Forヘッダのon/off<br>デフォルト値：`true` |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot ヘッダーの on/off<br>デフォルト値: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port ヘッダーの on/off<br>デフォルト値: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For ヘッダーのオン/オフ<br>デフォルト: `true` |
 | listener.default_tls_container_ref | Body | String | - | key-managerに登録されたTLS証明書のパス |
-| listener.sni_container_refs | Body | Array | - | key-managerに登録されたSNI証明書のパス一覧 |
+| listener.sni_container_refs | Body | Array | - | key-managerに登録されたSNI証明書パスのリスト |
 | listener.protocol_port | Body | Integer | O | リスナーポート |
-| listener.proxy_protocol | Body | Boolean | - | プロキシプロトコルのon/off<br>デフォルト値：`false` |
-| listener.block_invalid_http_request | Body | Boolean | - | 無効なHTTPリクエストブロックのon/off<br>デフォルト値：`true` |
-| listener.tls_version | Body | String | - | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用<br>`ssl_policy_id`と共に指定する場合は、SSLポリシーの`min_tls_version`と一致する必要があります |
-| listener.ssl_policy_id | Body | UUID | - | リスナーに接続するSSLポリシーID<br>デフォルト値：`null`<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用<br>詳細は[カスタムSSLポリシー](/Network/Load%20Balancer/ko/overview/#ssl)を参照してください |
-| listener.keepalive_enable | Body | Boolean | - | keepalive有効化のon/off<br>デフォルト値：`true` |
-
-
+| listener.proxy_protocol | Body | Boolean | - | プロキシプロトコル on/off<br>デフォルト値: `false` |
+| listener.block_invalid_http_request | Body | Boolean | - | 無効な HTTP リクエストのブロック on/off<br>デフォルト値: `true` |
+| listener.tls_version | Body | String | - | リスナーの TLS バージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3` のいずれか<br>プロトコルが `TERMINATED_HTTPS` の場合にのみ適用<br>`ssl_policy_id` とともに指定する場合は、SSL ポリシーの `min_tls_version` と一致している必要があります |
+| listener.ssl_policy_id | Body | UUID | - | リスナーに関連付ける SSL ポリシー ID<br>デフォルト値: `null`<br>プロトコルが `TERMINATED_HTTPS` の場合にのみ適用<br>詳細については、[ユーザー定義 SSL ポリシー](/Network/Load%20Balancer/ja/overview/#ssl) を参照してください |
+| listener.keepalive_enable | Body | Boolean | - | keepalive の有効化 on/off<br>デフォルト値: `true` |
 <details><summary>例</summary>
 <p>
 
@@ -669,6 +670,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/2",
     "proxy_protocol": false,
     "block_invalid_http_request": true,
     "description": "",
@@ -693,35 +695,34 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="create-listener-response"></a>
+
 #### レスポンス
 
-| 名前 | 種類 | 形式 | 説明 |
-|---|---|---|---|
-| listener | Body | Object | リスナー情報オブジェクト |
-| listener.default_pool_id | Body | UUID | リスナーに登録されたデフォルトメンバーグループ(プール)のID |
 | listener.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のいずれか |
+| listener | Body | Object | リスナー情報オブジェクト |
+| listener.default_pool_id | Body | UUID | リスナーに登録されている基本メンバーグループ（プール）ID |
+| listener.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS` のいずれか |
+| listener.protocol_version | Body | Enum | HTTP プロトコルバージョン<br>`HTTP/1`、`HTTP/2` のいずれか |
 | listener.description | Body | String | リスナーの説明 |
-| listener.name | Body | String | リスナーの名前 |
-| listener.loadbalancers | Body | Array | リスナーが登録されたロードバランサーオブジェクトの一覧 |
-| listener.loadbalancers.id | Body | UUID | ロードバランサーID |
-| listener.tenant_id | Body | String | テナントID |
-| listener.admin_state_up | Body | Boolean | 管理者制御ステータス |
+| listener.name | Body | String | リスナー名 |
+| listener.loadbalancers | Body | Array | リスナーが登録されているロードバランサーオブジェクトのリスト |
+| listener.loadbalancers.id | Body | UUID | ロードバランサー ID |
+| listener.tenant_id | Body | String | テナント ID |
+| listener.admin_state_up | Body | Boolean | 管理者制御状態 |
 | listener.connection_limit | Body | Integer | リスナーのconnection limit |
-| listener.keepalive_timeout | Body | Integer | リスナーのkeepalive timeout |
-| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Portヘッダのon/off<br>デフォルト値：`true` |
-| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Portヘッダのon/off<br>デフォルト値：`true` |
-| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-Forヘッダのon/off<br>デフォルト値：`true` |
+| listener.keepalive_timeout | Body | Integer | リスナーのkeepaliveタイムアウト |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot ヘッダーの on/off<br>デフォルト値: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port ヘッダーの on/off<br>デフォルト値: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For ヘッダー on/off<br>デフォルト値: `true` |
 | listener.default_tls_container_ref | Body | String | key-managerに登録されたTLS証明書のパス |
-| listener.sni_container_refs | Body | Array | key-managerに登録されたSNI証明書のパス一覧 |
+| listener.sni_container_refs | Body | Array | key-managerに登録されたSNI証明書パスのリスト |
 | listener.protocol_port | Body | Integer | リスナーポート |
-| listener.proxy_protocol | Body | Boolean | プロキシプロトコルのon/off<br>デフォルト値：`false` |
-| listener.block_invalid_http_request | Body | Boolean | 無効なHTTPリクエストブロックのon/off<br>デフォルト値：`true` |
-| listener.tls_version | Body | String | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
-| listener.ssl_policy_id | Body | UUID | リスナーに接続されたSSLポリシーID<br>接続されたSSLポリシーがない場合は`null`<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
-| listener.keepalive_enable | Body | Boolean | keepalive有効化のon/off<br>デフォルト値：`true` |
+| listener.proxy_protocol | Body | Boolean | プロキシプロトコル on/off<br>デフォルト値: `false` |
+| listener.block_invalid_http_request | Body | Boolean | 無効な HTTP リクエストのブロック on/off<br>デフォルト値: `true` |
+| listener.tls_version | Body | String | リスナーの TLS バージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3` のいずれか<br>プロトコルが `TERMINATED_HTTPS` の場合にのみ適用 |
+| listener.ssl_policy_id | Body | UUID | リスナーに関連付けられた SSL ポリシー ID<br>関連付けられた SSL ポリシーがない場合は `null`<br>プロトコルが `TERMINATED_HTTPS` の場合にのみ適用 |
+| listener.keepalive_enable | Body | Boolean | keepalive の有効化 on/off<br>デフォルト値: `true` |
 | listener.id | Body | UUID | リスナーID |
-
-
 <details><summary>例</summary>
 <p>
 
@@ -732,6 +733,7 @@ X-Auth-Token: {tokenId}
     "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/2",
     "description": "",
     "name": "",
     "loadbalancers": [
@@ -824,35 +826,34 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="modify-listener-response"></a>
+
 #### レスポンス
 
-| 名前 | 種類 | 形式 | 説明 |
-|---|---|---|---|
-| listener | Body | Object | リスナー情報オブジェクト |
-| listener.default_pool_id | Body | UUID | リスナーに登録されたデフォルトメンバーグループ(プール)のID |
 | listener.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のいずれか |
+| listener | Body | Object | リスナー情報オブジェクト |
+| listener.default_pool_id | Body | UUID | リスナーに登録された基本メンバーグループ（プール）ID |
+| listener.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS` のいずれか |
+| listener.protocol_version | Body | Enum | HTTP プロトコルバージョン<br>`HTTP/1`、`HTTP/2` のいずれか |
 | listener.description | Body | String | リスナーの説明 |
-| listener.name | Body | String | リスナーの名前 |
-| listener.loadbalancers | Body | Array | リスナーが登録されたロードバランサーオブジェクトの一覧 |
-| listener.loadbalancers.id | Body | UUID | ロードバランサーID |
-| listener.tenant_id | Body | String | テナントID |
-| listener.admin_state_up | Body | Boolean | 管理者制御ステータス |
-| listener.connection_limit | Body | Integer | リスナーのconnection limit |
+| listener.name | Body | String | リスナー名 |
+| listener.loadbalancers | Body | Array | リスナーが登録されているロードバランサーオブジェクトのリスト |
+| listener.loadbalancers.id | Body | UUID | ロードバランサー ID |
+| listener.tenant_id | Body | String | テナント ID |
+| listener.admin_state_up | Body | Boolean | 管理者制御状態 |
+| listener.connection_limit | Body | Integer | リスナーの connection limit |
 | listener.keepalive_timeout | Body | Integer | リスナーのkeepalive timeout |
-| listener.enable_x_forwarded_proto | Body | Boolean | X-Forwarded-Proto/X-Forwarded-Protヘッダのon/off |
-| listener.enable_x_forwarded_port | Body | Boolean | X-Forwarded-Portヘッダのon/off |
-| listener.enable_x_forwarded_for | Body | Boolean | X-Forwarded-Forヘッダのon/off |
+| listener.enable_x_forwarded_proto | Body | Boolean | X-Forwarded-Proto/X-Forwarded-Prot ヘッダーの on/off |
+| listener.enable_x_forwarded_port | Body | Boolean | X-Forwarded-Port ヘッダーの on/off |
+| listener.enable_x_forwarded_for | Body | Boolean | X-Forwarded-For ヘッダーの on/off |
 | listener.default_tls_container_ref | Body | String | key-managerに登録されたTLS証明書のパス |
-| listener.sni_container_refs | Body | Array | key-managerに登録されたSNI証明書のパス一覧 |
+| listener.sni_container_refs | Body | Array | key-managerに登録されたSNI証明書パスのリスト |
 | listener.protocol_port | Body | Integer | リスナーポート |
-| listener.proxy_protocol | Body | Boolean | プロキシプロトコルのon/off<br>デフォルト値：`false` |
-| listener.block_invalid_http_request | Body | Boolean | 無効なHTTPリクエストブロックのon/off<br>デフォルト値：`true` |
-| listener.tls_version | Body | String | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
-| listener.ssl_policy_id | Body | UUID | リスナーに接続されたSSLポリシーID<br>接続されたSSLポリシーがない場合は`null`<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
-| listener.keepalive_enable | Body | Boolean | keepalive有効化のon/off<br>デフォルト値：`true` |
+| listener.proxy_protocol | Body | Boolean | プロキシプロトコル on/off<br>デフォルト値: `false` |
+| listener.block_invalid_http_request | Body | Boolean | 無効な HTTP リクエストをブロックする on/off<br>デフォルト: `true` |
+| listener.tls_version | Body | String | リスナーの TLS バージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3` のいずれか<br>プロトコルが `TERMINATED_HTTPS` の場合にのみ適用 |
+| listener.ssl_policy_id | Body | UUID | リスナーに関連付けられた SSL ポリシー ID<br>関連付けられた SSL ポリシーがない場合は `null`<br>プロトコルが `TERMINATED_HTTPS` の場合にのみ適用 |
+| listener.keepalive_enable | Body | Boolean | keepalive の有効化 on/off<br>デフォルト値: `true` |
 | listener.id | Body | UUID | リスナーID |
-
-
 <details><summary>例</summary>
 <p>
 
@@ -863,6 +864,7 @@ X-Auth-Token: {tokenId}
     "block_invalid_http_request": true,
     "default_pool_id": null,
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/2",
     "description": "",
     "name": "",
     "loadbalancers": [
@@ -1200,6 +1202,7 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="view-pool-list-request"></a>
+
 #### リクエスト
 このAPIはリクエスト本文(Body)を要求しません。
 
@@ -1207,36 +1210,37 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | トークンID |
 | id | Query | UUID | - | プールID |
-| name | Query | String | - | プールの名前 |
-| lb_algorithm | Query | Enum | - | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のいずれか |
+| name | Query | String | - | プール名 |
+| lb_algorithm | Query | Enum | - | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP` のいずれか |
 | protocol | Query | Enum | - | メンバーのプロトコル |
-| admin_state_up | Query | Boolean | - | 管理者制御ステータス |
-| healthmonitor_id | Query | UUID | - | プールのヘルスモニターID |
-
+| protocol_version | Query | Enum | - | メンバーのHTTPプロトコルバージョン |
+| admin_state_up | Query | Boolean | - | 管理者制御状態 |
+| healthmonitor_id | Query | UUID | - | プールのヘルスモニター ID |
 <a id="view-pool-list-response"></a>
+
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
-| pools | Body | Array | プール情報オブジェクトの一覧 |
-| pools.lb_algorithm | Body | Enum | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のいずれか |
+| pools | Body | Array | プール情報オブジェクトリスト |
+| pools.lb_algorithm | Body | Enum | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP` のいずれか |
 | pools.protocol | Body | Enum | メンバーのプロトコル |
+| pools.protocol_version | Body | Enum | メンバーのHTTPプロトコルバージョン |
 | pools.description | Body | String | プールの説明 |
-| pools.admin_state_up | Body | Boolean | 管理者制御ステータス |
-| pools.tenant_id | Body | String | テナントID |
-| pools.session_persistence | Body | Object | プールのセッション維持オブジェクト |
-| pools.session_persistence.type | Body | Enum | セッション維持<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定する場合、接続されたリスナーのプロトコルを`HTTP`または`TERMINATED_HTTPS`に設定しているか確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション維持を`HTTP_COOKIE`、`APP_COOKIE`に設定しても、ロードバランサーはセッション維持に関連する動作を実行しません。 |
-| pools.session_persistence.cookie_name | Body | String | Cookie名 <br>セッション維持タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
+| pools.admin_state_up | Body | Boolean | 管理者制御状態 |
+| pools.tenant_id | Body | String | テナント ID |
+| pools.session_persistence | Body | Object | プールのセッション持続性オブジェクト |
+| pools.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE` のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE` に設定する場合、接続されているリスナーのプロトコルを `HTTP` または `TERMINATED_HTTPS` に設定しているかどうかを確認することをお勧めします。<br> リスナーのプロトコルを `TCP` または `HTTPS` に設定した場合、セッション持続性を `HTTP_COOKIE`、`APP_COOKIE` に設定しても、ロードバランサーはセッション持続性に関連する動作を行いません。 |
+| pools.session_persistence.cookie_name | Body | String | クッキー名 <br>セッション持続性タイプが `APP_COOKIE` の場合にのみ設定値が適用されます。 |
 | pools.healthmonitor_id | Body | String | ヘルスモニターID |
-| pools.loadbalancers | Body | Array | プールが登録されたロードバランサーオブジェクトの一覧 |
+| pools.loadbalancers | Body | Array | プールが登録されているロードバランサーオブジェクトのリスト |
 | pools.loadbalancers.id | Body | UUID | ロードバランサーID |
-| pools.listeners | Body | Array | プールが登録されたリスナーオブジェクトの一覧 |
+| pools.listeners | Body | Array | プールが登録されているリスナーオブジェクトのリスト |
 | pools.listeners.id | Body | String | リスナーID |
-| pools.members | Body | Array | プールに登録されたメンバーオブジェクトの一覧 |
+| pools.members | Body | Array | プールに登録されたメンバーオブジェクトのリスト |
 | pools.members.id | Body | String | メンバーID |
 | pools.id | Body | UUID | プールID |
-| pools.name | Body | String | プールの名前 |
-
+| pools.name | Body | String | プール名 |
 <details><summary>例</summary>
 <p>
 
@@ -1246,6 +1250,7 @@ X-Auth-Token: {tokenId}
     {
       "lb_algorithm": "ROUND_ROBIN",
       "protocol": "HTTP",
+      "protocol_version": "HTTP/2",
       "description": "",
       "admin_state_up": true,
       "tenant_id": "8258ab391d854e8b878642b737017a3b",
@@ -1280,7 +1285,6 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-
 <a id="view-pool"></a>
 ### プール表示 { #view-pool }
 
@@ -1298,30 +1302,31 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | トークンID |
 
 <a id="view-pool-response"></a>
+
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
-| pool | Body | Object | プール情報オブジェクト |
-| pool.lb_algorithm | Body | Enum | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のいずれか |
+| pool | Body | Object | プールの情報オブジェクト |
+| pool.lb_algorithm | Body | Enum | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP` のいずれか |
 | pool.protocol | Body | Enum | メンバーのプロトコル |
+| pool.protocol_version | Body | Enum | メンバーのHTTPプロトコルバージョン |
 | pool.description | Body | String | プールの説明 |
-| pool.admin_state_up | Body | Boolean | 管理者制御ステータス |
-| pool.tenant_id | Body | String | テナントID |
+| pool.admin_state_up | Body | Boolean | 管理者制御状態 |
+| pool.tenant_id | Body | String | テナント ID |
 | pool.member_port | Body | Integer | メンバーのポート<br> Webコンソールでメンバーを作成する場合に指定されるメンバーのポート値 |
-| pool.session_persistence | Body | Object | プールのセッション維持オブジェクト |
-| pool.session_persistence.type | Body | Enum | セッション維持<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定する場合、接続されたリスナーのプロトコルを`HTTP`または`TERMINATED_HTTPS`に設定しているか確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション維持を`HTTP_COOKIE`、`APP_COOKIE`に設定しても、ロードバランサーはセッション維持に関連する動作を実行しません。 |
-| pool.session_persistence.cookie_name | Body | String | Cookie名 <br>セッション維持タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
+| pool.session_persistence | Body | Object | プールのセッション持続性オブジェクト |
+| pool.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE` のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE` に設定する場合、接続されているリスナーのプロトコルを `HTTP` または `TERMINATED_HTTPS` に設定しているか確認することをお勧めします。<br> リスナーのプロトコルを `TCP` または `HTTPS` に設定した場合、セッション持続性を `HTTP_COOKIE`、`APP_COOKIE` に設定してもロードバランサーはセッション持続性に関する動作を行いません。 |
+| pool.session_persistence.cookie_name | Body | String | Cookie名 <br>セッション持続性タイプが `APP_COOKIE` の場合にのみ設定値が適用されます。 |
 | pool.healthmonitor_id | Body | UUID | ヘルスモニターID |
-| pool.loadbalancers | Body | Array | プールが登録されたロードバランサーオブジェクトの一覧 |
+| pool.loadbalancers | Body | Array | プールが登録されているロードバランサーオブジェクトのリスト |
 | pool.loadbalancers.id | Body | UUID | ロードバランサーID |
-| pool.listeners | Body | Array | プールが登録されたリスナーオブジェクトの一覧 |
+| pool.listeners | Body | Array | プールが登録されているリスナーオブジェクトのリスト |
 | pool.listeners.id | Body | UUID | リスナーID |
-| pool.members | Body | Array | プールに登録されたメンバーオブジェクトの一覧 |
+| pool.members | Body | Array | プールに登録されたメンバーオブジェクトのリスト |
 | pool.members.id | Body | UUID | メンバーID |
 | pool.id | Body | UUID | プールID |
-| pool.name | Body | String | プールの名前 |
-
+| pool.name | Body | String | プール名 |
 <details><summary>例</summary>
 <p>
 
@@ -1330,6 +1335,7 @@ X-Auth-Token: {tokenId}
   "pool": {
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
@@ -1363,8 +1369,6 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-
-
 ---
 <a id="create-pool"></a>
 ### プール作成 { #create-pool }
@@ -1375,26 +1379,25 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="create-pool-request"></a>
+
 #### リクエスト
 
 | 名前 | 種類 | 形式 | 必須 | 説明 |
 |---|---|---|---|---|
 | tokenId | Header | String | O | トークンID |
 | pool | Body | Object | O | プール情報オブジェクト |
-| pool.loadbalancer_id | Body | UUID | - | プールが登録されるロードバランサーID。ロードバランサーIDまたはリスナーIDのいずれかは必須で入力する必要があります。 |
-| pool.listener_id | Body | UUID | - | プールが登録されるリスナーID。ロードバランサーIDまたはリスナーIDのいずれかは必須で入力する必要があります。 |
-| pool.lb_algorithm | Body | Enum | O | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のいずれか |
+| pool.loadbalancer_id | Body | UUID | - | プールが登録されるロードバランサー ID。ロードバランサー ID またはリスナー ID のどちらか一方は必須で入力する必要があります。 |
+| pool.listener_id | Body | UUID | - | プールが登録されるリスナー ID。ロードバランサー ID またはリスナー ID のいずれか一方は必須で入力する必要があります。 |
+| pool.lb_algorithm | Body | Enum | O | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP` のいずれか |
 | pool.protocol | Body | Enum | O | メンバーのプロトコル |
+| pool.protocol_version | Body | Enum | - | メンバーのHTTPプロトコルバージョン |
 | pool.description | Body | String | - | プールの説明 |
-| pool.admin_state_up | Body | Boolean | - | 管理者制御ステータス |
-| pool.member_port | Body | Integer | - | メンバーの受信ポート<br>トラフィックをこのポートに転送します。<br>デフォルト値は-1です。 |
-| pool.session_persistence | Body | Object | - | プールのセッション維持オブジェクト |
-| pool.session_persistence.type | Body | Enum | - | セッション維持<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定する場合、接続されたリスナーのプロトコルを`HTTP`または`TERMINATED_HTTPS`に設定しているか確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション維持を`HTTP_COOKIE`、`APP_COOKIE`に設定しても、ロードバランサーはセッション維持に関連する動作を実行しません。 |
-| pools.session_persistence.cookie_name | Body | String | - | Cookie名 <br>セッション維持タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
-| pool.name | Body | String | - | プールの名前 |
-
-
-
+| pool.admin_state_up | Body | Boolean | - | 管理者制御状態 |
+| pool.member_port | Body | Integer | - | メンバーの受信ポート<br>トラフィックをこのポートに転送します。<br>デフォルト値は -1 です。 |
+| pool.session_persistence | Body | Object | - | プールのセッション持続性オブジェクト |
+| pool.session_persistence.type | Body | Enum | - | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE` のいずれかに設定します<br> `HTTP_COOKIE`、`APP_COOKIE` に設定する場合、接続されているリスナーのプロトコルを `HTTP` または `TERMINATED_HTTPS` に設定しているか確認することをお勧めします。<br> リスナーのプロトコルを `TCP` または `HTTPS` に設定した場合、セッション持続性を `HTTP_COOKIE`、`APP_COOKIE` に設定しても、ロードバランサーはセッション持続性に関連する動作を行いません。 |
+| pools.session_persistence.cookie_name | Body | String | - | クッキー名 <br>セッション持続性タイプが `APP_COOKIE` の場合にのみ設定値が適用されます。 |
+| pool.name | Body | String | - | プール名 |
 <details><summary>例</summary>
 <p>
 
@@ -1404,6 +1407,7 @@ X-Auth-Token: {tokenId}
     "listener_id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "member_port": 80,
@@ -1416,28 +1420,29 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="create-pool-response"></a>
+
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
 | pool | Body | Object | プール情報オブジェクト |
-| pool.lb_algorithm | Body | Enum | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のいずれか |
+| pool.lb_algorithm | Body | Enum | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP` のいずれか |
 | pool.protocol | Body | Enum | メンバーのプロトコル |
+| pool.protocol_version | Body | Enum | メンバーの HTTP プロトコルバージョン |
 | pool.description | Body | String | プールの説明 |
-| pool.admin_state_up | Body | Boolean | 管理者制御ステータス |
-| pool.tenant_id | Body | String | テナントID |
-| pool.session_persistence | Body | Object | - | プールのセッション維持オブジェクト |
-| pool.session_persistence.type | Body | Enum | セッション維持<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定する場合、接続されたリスナーのプロトコルを`HTTP`または`TERMINATED_HTTPS`に設定しているか確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション維持を`HTTP_COOKIE`、`APP_COOKIE`に設定しても、ロードバランサーはセッション維持に関連する動作を実行しません。 |
+| pool.admin_state_up | Body | Boolean | 管理者制御状態 |
+| pool.tenant_id | Body | String | テナント ID |
+| pool.session_persistence | Body | Object | - | プールのセッション持続性オブジェクト |
+| pool.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE` のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE` に設定する場合、接続されているリスナーのプロトコルを `HTTP` または `TERMINATED_HTTPS` に設定しているか確認することをお勧めします。<br> リスナーのプロトコルを `TCP` または `HTTPS` に設定している場合、セッション持続性を `HTTP_COOKIE`、`APP_COOKIE` に設定しても、ロードバランサーはセッション持続性に関する動作を行いません。 |
 | pool.healthmonitor_id | Body | String | ヘルスモニターID |
-| pool.loadbalancers | Body | Array | プールが登録されたロードバランサーオブジェクトの一覧 |
+| pool.loadbalancers | Body | Array | プールが登録されているロードバランサーオブジェクトのリスト |
 | pool.loadbalancers.id | Body | UUID | ロードバランサーID |
-| pool.listeners | Body | Array | プールが登録されたリスナーオブジェクトの一覧 |
+| pool.listeners | Body | Array | プールが登録されているリスナーオブジェクトの一覧 |
 | pool.listeners.id | Body | UUID | リスナーID |
 | pool.members | Body | Array | プールに登録されたメンバーオブジェクトの一覧 |
 | pool.members.id | Body | UUID | メンバーID |
 | pool.id | Body | UUID | プールID |
-| pool.name | Body | String | プールの名前 |
-
+| pool.name | Body | String | プール名 |
 <details><summary>例</summary>
 <p>
 
@@ -1446,6 +1451,7 @@ X-Auth-Token: {tokenId}
   "pool": {
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
@@ -1526,29 +1532,30 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="modify-pool-response"></a>
+
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
 |---|---|---|---|
 | pool | Body | Object | プール情報オブジェクト |
-| pool.lb_algorithm | Body | Enum | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のいずれか |
+| pool.lb_algorithm | Body | Enum | プールのロード バランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP` のいずれか |
 | pool.protocol | Body | Enum | メンバーのプロトコル |
+| pool.protocol_version | Body | Enum | メンバーのHTTPプロトコルバージョン |
 | pool.description | Body | String | プールの説明 |
-| pool.admin_state_up | Body | Boolean | 管理者制御ステータス |
+| pool.admin_state_up | Body | Boolean | 管理者制御状態 |
 | pool.tenant_id | Body | String | テナントID |
-| pools.session_persistence | Body | Object | プールのセッション維持オブジェクト |
-| pool.session_persistence.type | Body | Enum | セッション維持<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定する場合、接続されたリスナーのプロトコルを`HTTP`または`TERMINATED_HTTPS`に設定しているか確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション維持を`HTTP_COOKIE`、`APP_COOKIE`に設定しても、ロードバランサーはセッション維持に関連する動作を実行しません。 |
-| pools.session_persistence.cookie_name | Body | String | Cookie名 <br>セッション維持タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
+| pools.session_persistence | Body | Object | プールのセッション持続性オブジェクト |
+| pool.session_persistence.type | Body | Enum | セッション持続性<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE` のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE` に設定する場合、接続されているリスナーのプロトコルを `HTTP` または `TERMINATED_HTTPS` に設定しているか確認することをお勧めします。<br> リスナーのプロトコルを `TCP` または `HTTPS` に設定した場合、セッション持続性を `HTTP_COOKIE`、`APP_COOKIE` に設定しても、ロードバランサーはセッション持続性に関連する動作を行いません。 |
+| pools.session_persistence.cookie_name | Body | String | クッキー名 <br>セッション持続性タイプが `APP_COOKIE` の場合にのみ設定値が適用されます。 |
 | pool.healthmonitor_id | Body | UUID | ヘルスモニターID |
-| pool.loadbalancers | Body | Array | プールが登録されたロードバランサーオブジェクトの一覧 |
-| pool.loadbalancers.id | Body | UUID | ロードバランサーID |
-| pool.listeners | Body | Array | プールが登録されたリスナーオブジェクトの一覧 |
+| pool.loadbalancers | Body | Array | プールが登録されたロードバランサーオブジェクトのリスト |
+| pool.loadbalancers.id | Body | UUID | ロードバランサー ID |
+| pool.listeners | Body | Array | プールが登録されているリスナーオブジェクトのリスト |
 | pool.listeners.id | Body | UUID | リスナーID |
-| pool.members | Body | Array | プールに登録されたメンバーオブジェクトの一覧 |
+| pool.members | Body | Array | プールに登録されたメンバーオブジェクトのリスト |
 | pool.members.id | Body | UUID | メンバーID |
 | pool.id | Body | UUID | プールID |
-| pool.name | Body | String | プールの名前 |
-
+| pool.name | Body | String | プール名 |
 <details><summary>例</summary>
 <p>
 
@@ -1557,6 +1564,7 @@ X-Auth-Token: {tokenId}
   "pool": {
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
@@ -1591,6 +1599,7 @@ X-Auth-Token: {tokenId}
 </details>
 
 ---
+
 <a id="delete-pool"></a>
 ### プール削除 { #delete-pool }
 指定したプールを削除します。

@@ -44,7 +44,6 @@ This API does not require a request body.
 | loadbalancer_type | Query | String | - | The type of the load balancer to query, either `shared` or `dedicated` |
 
 <a id="list-load-balancers-response"></a>
-
 #### Response
 
 | Name | Type | Format | Description |
@@ -139,7 +138,6 @@ This API does not require a request body.
 | loadbalancerId | URL | UUID | Yes | Load Balancer ID |
 
 <a id="view-load-balancer-response"></a>
-
 #### Response
 
 | Name | Type | Format | Description |
@@ -250,7 +248,6 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="create-load-balancer-response"></a>
-
 #### Response
 
 | Name | Type | Format | Description |
@@ -325,7 +322,6 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="modify-load-balancer-request"></a>
-
 #### Request
 
 | Name | Type | Format | Required | Description |
@@ -350,7 +346,6 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="modify-load-balancer-response"></a>
-
 #### Response
 
 | Name | Type | Format | Description |
@@ -448,7 +443,6 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="view-listener-list-request"></a>
-
 #### Request
 This API does not require a request body.
 
@@ -466,7 +460,6 @@ This API does not require a request body.
 | protocol_port | Query | Integer | - | Listener port number |
 | id | Query | UUID | - | Listener ID |
 <a id="view-listener-list-response"></a>
-
 #### Response
 
 | Name | Type | Format | Description |
@@ -550,7 +543,6 @@ This API does not require a request body.
 | listenerId | URL | UUID | Yes | Listener ID |
 
 <a id="view-listener-response"></a>
-
 #### Response
 
 | Name | Type | Format | Description |
@@ -630,7 +622,6 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="create-listener-request"></a>
-
 #### Request
 
 | Name | Type | Format | Required | Description |
@@ -689,7 +680,6 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="create-listener-response"></a>
-
 #### Response
 
 | Name | Type | Format | Description |
@@ -821,7 +811,6 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="modify-listener-response"></a>
-
 #### Response
 
 | listener.protocol | Body | Enum | Listener protocol <br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
@@ -1198,7 +1187,6 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="view-pool-list-request"></a>
-
 #### Request
 This API does not require a request body.
 
@@ -1213,7 +1201,6 @@ This API does not require a request body.
 | admin_state_up | Query | Boolean | - | Administrator control status |
 | healthmonitor_id | Query | UUID | - | Health monitor ID of the pool |
 <a id="view-pool-list-response"></a>
-
 #### Response
 
 | Name | Type | Format | Description |
@@ -1298,7 +1285,6 @@ This API does not require a request body.
 | tokenId | Header | String | O | Token ID |
 
 <a id="view-pool-response"></a>
-
 #### Response
 
 | Name | Type | Format | Description |
@@ -1375,7 +1361,6 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="create-pool-request"></a>
-
 #### Request
 
 | Name | Type | Format | Required | Description |
@@ -1416,7 +1401,6 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="create-pool-response"></a>
-
 #### Response
 
 | Name | Type | Format | Description |
@@ -1528,7 +1512,6 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="modify-pool-response"></a>
-
 #### Response
 
 | Name | Type | Format | Description |

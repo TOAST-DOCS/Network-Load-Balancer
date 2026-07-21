@@ -45,7 +45,6 @@ X-Auth-Token: {tokenId}
 
 
 <a id="list-load-balancers-response"></a>
-
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -140,7 +139,6 @@ X-Auth-Token: {tokenId}
 | loadbalancerId | URL | UUID | O | ロードバランサーID |
 
 <a id="view-load-balancer-response"></a>
-
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -254,7 +252,6 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="create-load-balancer-response"></a>
-
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -332,7 +329,6 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="modify-load-balancer-request"></a>
-
 #### リクエスト
 
 | 名前 | 種類 | 形式 | 必須 | 説明 |
@@ -359,7 +355,6 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="modify-load-balancer-response"></a>
-
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -461,7 +456,6 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="view-listener-list-request"></a>
-
 #### リクエスト
 このAPIはリクエスト本文(Body)を要求しません。
 
@@ -481,7 +475,6 @@ X-Auth-Token: {tokenId}
 
 
 <a id="view-listener-list-response"></a>
-
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -569,7 +562,6 @@ X-Auth-Token: {tokenId}
 
 
 <a id="view-listener-response"></a>
-
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -653,7 +645,6 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="create-listener-request"></a>
-
 #### リクエスト
 
 | 名前 | 種類 | 形式 | 必須 | 説明 |
@@ -714,7 +705,6 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="create-listener-response"></a>
-
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -848,7 +838,6 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="modify-listener-response"></a>
-
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -1227,7 +1216,6 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="view-pool-list-request"></a>
-
 #### リクエスト
 このAPIはリクエスト本文(Body)を要求しません。
 
@@ -1243,7 +1231,6 @@ X-Auth-Token: {tokenId}
 | healthmonitor_id | Query | UUID | - | プールのヘルスモニターID |
 
 <a id="view-pool-list-response"></a>
-
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -1330,7 +1317,6 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | トークンID |
 
 <a id="view-pool-response"></a>
-
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -1410,7 +1396,6 @@ X-Auth-Token: {tokenId}
 ```
 
 <a id="create-pool-request"></a>
-
 #### リクエスト
 
 | 名前 | 種類 | 形式 | 必須 | 説明 |
@@ -1454,7 +1439,6 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="create-pool-response"></a>
-
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -1567,7 +1551,6 @@ X-Auth-Token: {tokenId}
 </details>
 
 <a id="modify-pool-response"></a>
-
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |

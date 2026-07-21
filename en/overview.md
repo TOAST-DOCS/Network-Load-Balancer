@@ -107,8 +107,7 @@ The traffic that flows into the load balancer is defined by listeners. By defini
 !!! danger "Caution"
     You cannot create duplicate listeners with the same listening port on a load balancer.
 
-<a id="l7-rules"></a>
-
+<a id="engine-version"></a>
 ## Load Balancer Engine Version { #engine-version }
 
 The load balancer provides two versions of its internal engine for processing traffic: `v1` and `v2`. Some behaviors, such as HTTP traffic handling, may differ depending on the engine version.
@@ -122,7 +121,8 @@ The load balancer provides two versions of its internal engine for processing tr
 * Existing load balancers: Load balancers created before this feature was introduced retain the previous version (`v1`).
 * Engine version change: You can change the engine version of a load balancer.
 
-### Features Supported by Engine Version
+<a id="features-supported-by-engine-version"></a>
+### Features Supported by Engine Version { #features-supported-by-engine-version }
 
 | Feature | Supported Since | Description |
 | -- | -- | -- |
@@ -138,7 +138,8 @@ The load balancer provides two versions of its internal engine for processing tr
 
     `v2` complies with the HTTP standard (RFC), but some behaviors may differ slightly from the previous version (`v1`) as a result. The items listed above are representative examples, and other behaviors not listed here may also change. After changing the engine version, make sure to perform sufficient validation before applying it to a production environment.
 
-## Load Balancer HTTP Protocol Version
+<a id="load-balancer-http-protocol-version"></a>
+## Load Balancer HTTP Protocol Version { #load-balancer-http-protocol-version }
 
 When using the following protocols, you can select HTTP/1 or HTTP/2 as the protocol version.
 
@@ -155,7 +156,6 @@ If you select HTTP or HTTPS as the health check protocol, it operates in the sam
 
 
 <a id="l7-rules"></a>
-
 ## L7 rules { #l7-rules }
 
 The load balancer can perform load balancing based on L7 data. When you select an L7 routing template to create a load balancer, you can create a load balancer with L7 policies.

@@ -108,6 +108,54 @@ The traffic that flows into the load balancer is defined by listeners. By defini
     You cannot create duplicate listeners with the same listening port on a load balancer.
 
 <a id="l7-rules"></a>
+
+## Load Balancer Engine Version { #engine-version }
+
+The load balancer provides two versions of the internal engine that processes traffic: `v1` and `v2`. Some behaviors, such as HTTP traffic handling, may vary depending on the engine version.
+
+| Engine Version | Description |
+| -- | -- |
+| v2 | The latest engine version. Applied by default to newly created load balancers. You can use features available only in the latest engine, such as HTTP/2. |
+| v1 | The previous engine version. Use this version when compatibility with existing behavior is required. |
+
+* New load balancers: Always created with the latest version (`v2`).
+* Existing load balancers: Load balancers created before this feature was introduced retain the previous version (`v1`).
+* Engine version change: You can change the engine version of a load balancer.
+
+### Features Supported by Engine Version
+
+| Feature | Supported From Version | Description |
+| -- | -- | -- |
+| HTTP/2 protocol support | v2 | You can select either HTTP/1 or HTTP/2. Only HTTP/1 is supported in v1. |
+
+
+!!! danger "Caution"
+    Changing the engine version may alter how HTTP traffic is processed as follows. Make sure to test before applying to a production environment.
+
+    * HTTP response chunk processing: `v2` can merge HTTP responses that are split into multiple chunks into a single response. Clients that assume responses arrive in individual chunks may behave differently.
+    * HTTP header name formatting: `v2` may convert HTTP/1.1 header names in requests and responses to lowercase before forwarding them (e.g., `Content-Type` → `content-type`). Although HTTP header names are case-insensitive by standard, backend servers or clients that treat header names as case-sensitive may be affected. In particular, clients that read response headers may be impacted.
+    * HTTP standard compliance: `v2` enforces HTTP standards more strictly. If you have been using requests or responses in a non-standard format, behavior may change.
+
+    `v2` complies with the HTTP standard (RFC), but in doing so, some behaviors may differ slightly from those of the previous version (`v1`). The items listed above are representative examples, and other behaviors not listed here may also change. After changing the engine version, make sure to perform thorough validation before applying the change to a production environment.
+
+## Load Balancer HTTP Protocol Version
+
+When using the following protocols, you can select HTTP/1 or HTTP/2 as the protocol version.
+
+* Listener: TERMINATED_HTTPS
+* Member group: HTTP, HTTP_REENCRYPT
+
+If you select HTTP/2, the load balancer communicates using H2C (plaintext) when HTTP is selected for the member group, or H2 (TLS encryption) when HTTP_REENCRYPT is selected.
+The load balancer operates strictly according to the selected protocol version, so if you select HTTP/2, it cannot communicate using HTTP/1.
+If you select HTTP or HTTPS as the health check protocol, the load balancer operates using the same protocol version that is selected for the member group.
+
+!!! danger "Caution"
+    - This feature is not available in load balancer engine version v1.
+    - If the member group protocol version is HTTP/2 and you select HTTP or HTTPS as the health check protocol without entering a Host, `NHNLB` is automatically set in the Host header.
+
+
+<a id="l7-rules"></a>
+
 ## L7 rules { #l7-rules }
 
 The load balancer can perform load balancing based on L7 data. When you select an L7 routing template to create a load balancer, you can create a load balancer with L7 policies.

@@ -499,7 +499,7 @@ You can delete an SSL policy. However, an SSL policy connected to one or more li
 
 <a id='apply-ssl-policies'></a>
 #### Apply SSL Policy
-An SSL policy is connected to a listener on the listener creation screen or the [Change listener and details](#9) screen.
+An SSL policy is connected to a listener on the listener creation screen or the [Change listener and details](#change-listener) screen.
 
 * An SSL policy can only be connected to a listener whose protocol is TERMINATED_HTTPS.
 * When connecting an SSL policy to a listener, the listener's TLS version must match the minimum TLS version of the selected policy.

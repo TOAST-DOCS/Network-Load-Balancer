@@ -69,6 +69,7 @@ X-Auth-Token: {tokenId}
 | loadbalancers.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
 | loadbalancers.ipacl_group_action | Body | String | ロードバランサーに適用されたIP ACLグループのアクション<br>`null`/`DENY`/`ALLOW`のいずれか |
 | loadbalancers.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
+| loadbalancers.engine_version | Body | String | ロードバランサーエンジンバージョン<br>`v1`/`v2` のいずれか |
 
 <details><summary>例</summary>
 
@@ -162,6 +163,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
 | loadbalancer.ipacl_group_action | Body | String | ロードバランサーに適用されたIP ACLグループのアクション<br>`null`/`DENY`/`ALLOW`のいずれか |
 | loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
+| loadbalancer.engine_version | Body | String | ロードバランサーエンジンバージョン<br>`v1`/`v2` のいずれか |
 
 
 <details><summary>例</summary>
@@ -274,6 +276,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
 | loadbalancer.ipacl_group_action | Body | String | ロードバランサーに適用されたIP ACLグループのアクション<br>`null`/`DENY`/`ALLOW`のいずれか |
 | loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
+| loadbalancer.engine_version | Body | String | ロードバランサーエンジンバージョン<br>`v1`/`v2` のいずれか |
 
 
 <details><summary>例</summary>
@@ -336,6 +339,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.name | Body | String | - | ロードバランサーの名前 |
 | loadbalancer.description | Body | String | - | ロードバランサーの説明 |
 | loadbalancer.admin_state_up | Body | Boolean | - | ロードバランサーの管理者制御ステータス |
+| loadbalancer.engine_version | Body | String | - | ロードバランサーエンジンのバージョン（`v1`/`v2`）<br>変更するとトラフィック処理の動作が変わる場合があります |
 
 <details><summary>例</summary>
 
@@ -375,6 +379,7 @@ X-Auth-Token: {tokenId}
 | loadbalancer.ipacl_groups.ipacl_group_id | Body | UUID | IP ACLグループID |
 | loadbalancer.ipacl_group_action | Body | String | ロードバランサーに適用されたIP ACLグループのアクション<br>`null`/`DENY`/`ALLOW`のいずれか |
 | loadbalancer.loadbalancer_type | Body | String | ロードバランサーのタイプ<br>`shared`/`dedicated`のいずれか |
+| loadbalancer.engine_version | Body | String | ロードバランサーエンジンバージョン<br>`v1`/`v2` のいずれか |
 
 
 <details><summary>例</summary>
@@ -459,6 +464,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | トークンID |
 | default_pool_id | Query | UUID | - | リスナーに登録されたデフォルトメンバーグループ(プール)のID |
 | protocol | Query | Enum | - | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のいずれか |
+| protocol_version | Query | Enum | - | HTTP プロトコルバージョン<br>`HTTP/1`、`HTTP/2` のいずれか |
 | description | Query | String | - | リスナーの説明 |
 | name | Query | String | - | リスナーの名前 |
 | admin_state_up | Query | Boolean | - | 管理者制御ステータス |
@@ -476,6 +482,7 @@ X-Auth-Token: {tokenId}
 | listeners | Body | Array | リスナー情報オブジェクトの一覧 |
 | listeners.default_pool_id | Body | UUID | リスナーに登録されたデフォルトメンバーグループ(プール)のID |
 | listeners.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のいずれか |
+| listeners.protocol_version | Body | Enum | HTTP プロトコルバージョン<br>`HTTP/1`、`HTTP/2` のいずれか |
 | listeners.description | Body | String | リスナーの説明 |
 | listeners.name | Body | String | リスナーの名前 |
 | listeners.loadbalancers | Body | Array | リスナーが登録されたロードバランサーオブジェクトの一覧 |
@@ -506,6 +513,7 @@ X-Auth-Token: {tokenId}
       "block_invalid_http_request": true,
       "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
       "protocol": "TERMINATED_HTTPS",
+      "protocol_version": "HTTP/2",
       "description": "",
       "name": "",
       "loadbalancers": [
@@ -561,6 +569,7 @@ X-Auth-Token: {tokenId}
 | listener | Body | Object | リスナー情報オブジェクト |
 | listener.default_pool_id | Body | UUID | リスナーに登録されたデフォルトメンバーグループ(プール)のID |
 | listener.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のいずれか |
+| listener.protocol_version | Body | Enum | HTTP プロトコルバージョン<br>`HTTP/1`、`HTTP/2` のいずれか |
 | listener.description | Body | String | リスナーの説明 |
 | listener.name | Body | String | リスナーの名前 |
 | listener.loadbalancers | Body | Array | リスナーが登録されたロードバランサーオブジェクトの一覧 |
@@ -593,6 +602,7 @@ X-Auth-Token: {tokenId}
     "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/1",
     "description": "",
     "name": "",
     "loadbalancers": [
@@ -642,6 +652,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | トークンID |
 | listener | Body | Object | O | リスナー情報オブジェクト |
 | listener.protocol | Body | Enum | O | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のいずれか |
+| listener.protocol_version | Body | Enum | - | HTTP プロトコルバージョン<br>`HTTP/1`、`HTTP/2` のいずれか |
 | listener.description | Body | String | - | リスナーの説明 |
 | listener.name | Body | String | - | リスナーの名前 |
 | listener.default_pool_id | Body | UUID | - | リスナーに登録されたデフォルトメンバーグループ(プール)のID<br>指定しない場合は`使用しない`として作成 |
@@ -669,6 +680,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/2",
     "proxy_protocol": false,
     "block_invalid_http_request": true,
     "description": "",
@@ -700,6 +712,7 @@ X-Auth-Token: {tokenId}
 | listener | Body | Object | リスナー情報オブジェクト |
 | listener.default_pool_id | Body | UUID | リスナーに登録されたデフォルトメンバーグループ(プール)のID |
 | listener.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のいずれか |
+| listener.protocol_version | Body | Enum | HTTP プロトコルバージョン<br>`HTTP/1`、`HTTP/2` のいずれか |
 | listener.description | Body | String | リスナーの説明 |
 | listener.name | Body | String | リスナーの名前 |
 | listener.loadbalancers | Body | Array | リスナーが登録されたロードバランサーオブジェクトの一覧 |
@@ -732,6 +745,7 @@ X-Auth-Token: {tokenId}
     "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/2",
     "description": "",
     "name": "",
     "loadbalancers": [
@@ -831,6 +845,7 @@ X-Auth-Token: {tokenId}
 | listener | Body | Object | リスナー情報オブジェクト |
 | listener.default_pool_id | Body | UUID | リスナーに登録されたデフォルトメンバーグループ(プール)のID |
 | listener.protocol | Body | Enum | リスナーのプロトコル<br>`TCP`、`HTTP`、`HTTPS`、`TERMINATED_HTTPS`のいずれか |
+| listener.protocol_version | Body | Enum | HTTP プロトコルバージョン<br>`HTTP/1`、`HTTP/2` のいずれか |
 | listener.description | Body | String | リスナーの説明 |
 | listener.name | Body | String | リスナーの名前 |
 | listener.loadbalancers | Body | Array | リスナーが登録されたロードバランサーオブジェクトの一覧 |
@@ -863,6 +878,7 @@ X-Auth-Token: {tokenId}
     "block_invalid_http_request": true,
     "default_pool_id": null,
     "protocol": "TERMINATED_HTTPS",
+    "protocol_version": "HTTP/2",
     "description": "",
     "name": "",
     "loadbalancers": [
@@ -1210,6 +1226,7 @@ X-Auth-Token: {tokenId}
 | name | Query | String | - | プールの名前 |
 | lb_algorithm | Query | Enum | - | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のいずれか |
 | protocol | Query | Enum | - | メンバーのプロトコル |
+| protocol_version | Query | Enum | - | メンバーのHTTPプロトコルバージョン |
 | admin_state_up | Query | Boolean | - | 管理者制御ステータス |
 | healthmonitor_id | Query | UUID | - | プールのヘルスモニターID |
 
@@ -1221,6 +1238,7 @@ X-Auth-Token: {tokenId}
 | pools | Body | Array | プール情報オブジェクトの一覧 |
 | pools.lb_algorithm | Body | Enum | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のいずれか |
 | pools.protocol | Body | Enum | メンバーのプロトコル |
+| pools.protocol_version | Body | Enum | メンバーの HTTP プロトコルバージョン |
 | pools.description | Body | String | プールの説明 |
 | pools.admin_state_up | Body | Boolean | 管理者制御ステータス |
 | pools.tenant_id | Body | String | テナントID |
@@ -1246,6 +1264,7 @@ X-Auth-Token: {tokenId}
     {
       "lb_algorithm": "ROUND_ROBIN",
       "protocol": "HTTP",
+      "protocol_version": "HTTP/2",
       "description": "",
       "admin_state_up": true,
       "tenant_id": "8258ab391d854e8b878642b737017a3b",
@@ -1305,6 +1324,7 @@ X-Auth-Token: {tokenId}
 | pool | Body | Object | プール情報オブジェクト |
 | pool.lb_algorithm | Body | Enum | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のいずれか |
 | pool.protocol | Body | Enum | メンバーのプロトコル |
+| pool.protocol_version | Body | Enum | メンバーのHTTPプロトコルバージョン |
 | pool.description | Body | String | プールの説明 |
 | pool.admin_state_up | Body | Boolean | 管理者制御ステータス |
 | pool.tenant_id | Body | String | テナントID |
@@ -1330,6 +1350,7 @@ X-Auth-Token: {tokenId}
   "pool": {
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
@@ -1385,6 +1406,7 @@ X-Auth-Token: {tokenId}
 | pool.listener_id | Body | UUID | - | プールが登録されるリスナーID。ロードバランサーIDまたはリスナーIDのいずれかは必須で入力する必要があります。 |
 | pool.lb_algorithm | Body | Enum | O | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のいずれか |
 | pool.protocol | Body | Enum | O | メンバーのプロトコル |
+| pool.protocol_version | Body | Enum | - | メンバーのHTTPプロトコルバージョン |
 | pool.description | Body | String | - | プールの説明 |
 | pool.admin_state_up | Body | Boolean | - | 管理者制御ステータス |
 | pool.member_port | Body | Integer | - | メンバーの受信ポート<br>トラフィックをこのポートに転送します。<br>デフォルト値は-1です。 |
@@ -1404,6 +1426,7 @@ X-Auth-Token: {tokenId}
     "listener_id": "1b5e4950-71ae-4d67-bf97-453f986c9a20",
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "member_port": 80,
@@ -1423,6 +1446,7 @@ X-Auth-Token: {tokenId}
 | pool | Body | Object | プール情報オブジェクト |
 | pool.lb_algorithm | Body | Enum | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のいずれか |
 | pool.protocol | Body | Enum | メンバーのプロトコル |
+| pool.protocol_version | Body | Enum | メンバーの HTTP プロトコルバージョン |
 | pool.description | Body | String | プールの説明 |
 | pool.admin_state_up | Body | Boolean | 管理者制御ステータス |
 | pool.tenant_id | Body | String | テナントID |
@@ -1446,6 +1470,7 @@ X-Auth-Token: {tokenId}
   "pool": {
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
@@ -1533,6 +1558,7 @@ X-Auth-Token: {tokenId}
 | pool | Body | Object | プール情報オブジェクト |
 | pool.lb_algorithm | Body | Enum | プールのロードバランシング方式 <br> `ROUND_ROBIN`、`LEAST_CONNECTIONS`、`SOURCE_IP`のいずれか |
 | pool.protocol | Body | Enum | メンバーのプロトコル |
+| pool.protocol_version | Body | Enum | メンバーのHTTPプロトコルバージョン |
 | pool.description | Body | String | プールの説明 |
 | pool.admin_state_up | Body | Boolean | 管理者制御ステータス |
 | pool.tenant_id | Body | String | テナントID |
@@ -1557,6 +1583,7 @@ X-Auth-Token: {tokenId}
   "pool": {
     "lb_algorithm": "ROUND_ROBIN",
     "protocol": "HTTP",
+    "protocol_version": "HTTP/1",
     "description": "",
     "admin_state_up": true,
     "tenant_id": "8258ab391d854e8b878642b737017a3b",

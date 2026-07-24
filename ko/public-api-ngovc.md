@@ -455,6 +455,7 @@ X-Auth-Token: {tokenId}
 | listeners.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listeners.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listeners.tls_version | Body | String | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
+| listeners.ssl_policy_id | Body | UUID | 리스너에 연결된 SSL 정책 ID<br>연결된 SSL 정책이 없으면 `null`<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
 | listeners.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
 | listeners.id | Body | String| 리스너 ID |
 
@@ -486,6 +487,7 @@ X-Auth-Token: {tokenId}
       "enable_x_forwarded_port": true,
       "enable_x_forwarded_for": true,
       "tls_version": "TLSv1.0",
+      "ssl_policy_id": null,
       "sni_container_ids": [],
       "default_tls_container_ref": "https://kr4-api-key-manager-infrastructure.ngovc.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
       "sni_container_refs": [],
@@ -541,6 +543,7 @@ X-Auth-Token: {tokenId}
 | listener.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listener.tls_version | Body | String | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
+| listener.ssl_policy_id | Body | UUID | 리스너에 연결된 SSL 정책 ID<br>연결된 SSL 정책이 없으면 `null`<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
 | listener.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
 | listener.id | Body | UUID | 리스너 ID |
 
@@ -568,6 +571,7 @@ X-Auth-Token: {tokenId}
     "keepalive_timeout": 300,
     "keepalive_enable": true,
     "tls_version": "TLSv1.0",
+    "ssl_policy_id": null,
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr4-api-key-manager-infrastructure.ngovc.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
@@ -612,7 +616,8 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | - | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.proxy_protocol | Body | Boolean | - | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
-| listener.tls_version | Body | String | - | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
+| listener.tls_version | Body | String | - | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>`ssl_policy_id`와 함께 지정 시 SSL 정책의 `min_tls_version`과 일치해야 함 |
+| listener.ssl_policy_id | Body | UUID | - | 리스너에 연결할 SSL 정책 ID<br>기본값: `null`<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>자세한 내용은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview/#ssl) 참고 |
 | listener.keepalive_enable | Body | Boolean | - | keepalive 활성화 on/off<br>기본값: `true` |
 | listener.protocol_port | Body | Integer | O | 리스너 포트 |
 
@@ -638,6 +643,7 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_port": false,
     "enable_x_forwarded_for": false,
     "tls_version": "TLSv1.0",
+    "ssl_policy_id": null,
     "default_tls_container_ref": "https://kr4-api-key-manager-infrastructure.ngovc.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],
     "protocol_port": 443
@@ -668,6 +674,7 @@ X-Auth-Token: {tokenId}
 | listener.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listener.tls_version | Body | String | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
+| listener.ssl_policy_id | Body | UUID | 리스너에 연결된 SSL 정책 ID<br>연결된 SSL 정책이 없으면 `null`<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
 | listener.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
 | listener.id | Body | UUID | 리스너 ID |
 
@@ -694,6 +701,8 @@ X-Auth-Token: {tokenId}
     "connection_limit": 2000,
     "keepalive_timeout": 300,
     "keepalive_enable": true,
+    "tls_version": "TLSv1.0",
+    "ssl_policy_id": null,
     "enable_x_forwarded_proto": false,
     "enable_x_forwarded_port": false,
     "enable_x_forwarded_for": false,
@@ -737,7 +746,8 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | - | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.proxy_protocol | Body | Boolean | - | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
-| listener.tls_version | Body | String | - | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
+| listener.tls_version | Body | String | - | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>`ssl_policy_id`와 함께 지정 시 SSL 정책의 `min_tls_version`과 일치해야 함 |
+| listener.ssl_policy_id | Body | UUID | - | 리스너에 연결할 SSL 정책 ID<br>연결을 해제하려면 `null` 전달<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>자세한 내용은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview/#ssl) 참고 |
 | listener.keepalive_enable | Body | Boolean | - | keepalive 활성화 on/off<br>기본값: `true` |
 
 <details><summary>예시</summary>
@@ -759,6 +769,7 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
+    "ssl_policy_id": null,
     "default_tls_container_ref": "https://kr4-api-key-manager-infrastructure.ngovc.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": []
   }
@@ -791,6 +802,7 @@ X-Auth-Token: {tokenId}
 | listener.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listener.tls_version | Body | String | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
+| listener.ssl_policy_id | Body | UUID | 리스너에 연결된 SSL 정책 ID<br>연결된 SSL 정책이 없으면 `null`<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
 | listener.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
 | listener.id | Body | UUID | 리스너 ID |
 
@@ -821,6 +833,7 @@ X-Auth-Token: {tokenId}
     "enable_x_forwarded_port": true,
     "enable_x_forwarded_for": true,
     "tls_version": "TLSv1.0",
+    "ssl_policy_id": null,
     "sni_container_ids": [],
     "default_tls_container_ref": "https://kr4-api-key-manager-infrastructure.ngovc.com/v1/containers/c8f4503c-1da5-4ec7-9456-51183bd4ad4e",
     "sni_container_refs": [],

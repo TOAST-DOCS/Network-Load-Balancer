@@ -217,9 +217,9 @@ When the proxy protocol is set on a listener, it is always sent for service traf
 | Listener Proxy Protocol | Health Check Port | Proxy Protocol on Health Check | Proxy Protocol on Service Traffic |
 |--|--|--|--|
 | ON | Member port | Sent | Sent |
-| ON | Specify | Not sent | Sent |
+| ON | Custom | Not sent | Sent |
 | OFF | Member port | Not sent | Not sent |
-| OFF | Specify | Not sent | Not sent |
+| OFF | Custom | Not sent | Not sent |
 
 Therefore, if the health check protocol is HTTP or HTTPS and the proxy protocol is being sent, the member instance must be able to recognize the proxy protocol in order to return a normal response and transition to the ACTIVE state. If the member instance does not support the proxy protocol, set the health check port to **Specify** so that the proxy protocol is not sent.
 

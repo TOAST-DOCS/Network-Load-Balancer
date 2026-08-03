@@ -209,8 +209,7 @@ Load Balancer operates in a `proxy mode`. The client connects to a load balancer
     If you are using the TCP or HTTPS protocol, you can set up a proxy protocol on the load balancer to check the client IP address. In this case, the server must also have the capability to recognize the proxy protocol like the ones shown above.
 
 
-<a id="session-connection-limits"></a>
-
+<a id="proxy-protocol-and-health-check"></a>
 ### Proxy Protocol and Health Check { #proxy-protocol-and-health-check }
 
 When the proxy protocol is set on a listener, it is always sent for service traffic. However, whether it is sent for health check traffic depends on the health check port configuration. If the health check port is set to **Member port**, the proxy protocol is also sent for health check connections. If a separate port is specified using **Specify**, the proxy protocol is not sent.
@@ -229,7 +228,6 @@ Therefore, if the health check protocol is HTTP or HTTPS and the proxy protocol 
 
 
 <a id="session-connection-limits"></a>
-
 ## Session Connection Limits { #session-connection-limits }
 
 To ensure QoS, the load balancer limits the number of concurrent connections per listener. If the number of incoming requests exceeds the specified connection limit value, the requests are queued in a queue inside the load balancer and processed after previous requests are completed. In addition, requests can be terminated forcibly if the queue is full or a server/client times out. In this case, the client side may experience unexpected response delays.
@@ -294,7 +292,6 @@ When creating or modifying a listener, you can control the addition/removal of e
 
 
 <a id="instance-health-check"></a>
-
 ## Instance Health Check { #instance-health-check }
 
 NHN Cloud Load Balancer periodically tries checking the status of the instances registered as members to ensure that they operate normally. The health check is done by checking whether a expected response comes according to the specified protocol. If a normal response does not come within the specified number of times or duration, the instance is regarded as abnormal and excluded from the target of load balancing. This function enables uninterrupted service to be provided even in case of unexpected failure or maintenance.

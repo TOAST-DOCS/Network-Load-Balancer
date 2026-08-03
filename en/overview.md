@@ -210,6 +210,26 @@ Load Balancer operates in a `proxy mode`. The client connects to a load balancer
 
 
 <a id="session-connection-limits"></a>
+
+### Proxy Protocol and Health Check { #proxy-protocol-and-health-check }
+
+When the proxy protocol is set on a listener, it is always sent for service traffic. However, whether it is sent for health check traffic depends on the health check port configuration. If the health check port is set to **Member port**, the proxy protocol is also sent for health check connections. If a separate port is specified using **Specify**, the proxy protocol is not sent.
+
+| Listener Proxy Protocol | Health Check Port | Proxy Protocol on Health Check | Proxy Protocol on Service Traffic |
+|--|--|--|--|
+| ON | Member port | Sent | Sent |
+| ON | Specify | Not sent | Sent |
+| OFF | Member port | Not sent | Not sent |
+| OFF | Specify | Not sent | Not sent |
+
+Therefore, if the health check protocol is HTTP or HTTPS and the proxy protocol is being sent, the member instance must be able to recognize the proxy protocol in order to return a normal response and transition to the ACTIVE state. If the member instance does not support the proxy protocol, set the health check port to **Specify** so that the proxy protocol is not sent.
+
+!!! tip "Note"
+    When the health check protocol is TCP, only the success of the TCP handshake with the member instance is verified. Therefore, regardless of whether the proxy protocol is sent or whether the member instance supports the proxy protocol, the instance is considered ACTIVE as long as the port is open.
+
+
+<a id="session-connection-limits"></a>
+
 ## Session Connection Limits { #session-connection-limits }
 
 To ensure QoS, the load balancer limits the number of concurrent connections per listener. If the number of incoming requests exceeds the specified connection limit value, the requests are queued in a queue inside the load balancer and processed after previous requests are completed. In addition, requests can be terminated forcibly if the queue is full or a server/client times out. In this case, the client side may experience unexpected response delays.
@@ -274,12 +294,15 @@ When creating or modifying a listener, you can control the addition/removal of e
 
 
 <a id="instance-health-check"></a>
+
 ## Instance Health Check { #instance-health-check }
 
 NHN Cloud Load Balancer periodically tries checking the status of the instances registered as members to ensure that they operate normally. The health check is done by checking whether a expected response comes according to the specified protocol. If a normal response does not come within the specified number of times or duration, the instance is regarded as abnormal and excluded from the target of load balancing. This function enables uninterrupted service to be provided even in case of unexpected failure or maintenance.
 
 The load balancer supports TCP, HTTP, and HTTPS as health check protocols. For precise health check, various health check methods can be set when using each protocol.
 
+
+When the proxy protocol is set on the listener, the health check behavior varies depending on the health check port configuration. For more information, see "Proxy Protocol and Health Check" in "Load Balancer Proxy Mode."
 
 <a id="statistics-function-of-load-balancer"></a>
 ## Statistics Function of Load Balancer { #statistics-function-of-load-balancer }

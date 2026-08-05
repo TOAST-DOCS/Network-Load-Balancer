@@ -1,16 +1,20 @@
-## Network > Load Balancer > Console Guide
+<!-- pre-align:aligned sig=7b3576dbe008 -->
+
+<a id='network-load-balancer-console-guide'></a>
+## Network > Load Balancer > Console Guide { #network-load-balancer-console-guide }
 
 <a id='manage-loadbalancers'></a>
-## Manage Load Balancers
+## Manage Load Balancers { #manage-loadbalancers }
 
 <a id='create-loadbalancers'></a>
-### Create Load Balancers
+### Create Load Balancers { #create-loadbalancers }
 You can easily create a load balancer by entering the setting values in the NHN Cloud Load Balancer console. Depending on your purpose, you can select either L4 routing or L7 routing mode to create it. <br>
 The mode refers to the template, not the actual type of load balancer. You can create a load balancer with L4 routing mode and add L7 rules.
 
 * L4 Routing: A load balancer that performs load balancing based on IP and port. You can change it to a Layer7 load balancer by adding L7 rules after creation.
 * L7 Routing: A load balancer that performs load balancing based on L7 data.
 
+<a id='create-loadbalancers-set-up-load-balancers'></a>
 #### Set up Load balancers
 Set up basic information about the load balancer. The following items are required
 
@@ -23,6 +27,7 @@ Set up basic information about the load balancer. The following items are requir
 
 > [Note] For more information about load balancer types, See [Load Balancer Types](https://www.toast.com/service/network/load-balancer).
 
+<a id='create-loadbalancers-set-up-listeners'></a>
 #### Set up Listeners
 
 Defines the properties of the traffic that the load balancer will process. A load balancer in NHN Cloud can have one or more listeners.
@@ -149,6 +154,7 @@ The load balancer can perform load balancing based on L7 data. When you select a
     - When **Forward to URL** is configured in an L7 rule, you can retain or manually specify individual components of the redirect URL. To retain the value of a specific field, enter it in the corresponding URI component field in the format `#{protocol}`, `#{port}`, `#{host}`, `#{path}`, or `#{query}`. For example, to change only the protocol and port to HTTPS and port 443 for incoming HTTP requests, enter `HTTPS` for the protocol, `443` for the port, `#{host}` for the host, `#{path}` for the path, and `#{query}` for the query.
 
 
+<a id='create-loadbalancers-set-up-member-groups'></a>
 #### Set up Member Groups
 Set the target member groups to forward load balancing traffic to. You can create additional member groups even after the load balancer creation is complete.
 
@@ -195,14 +201,16 @@ Specify instances or IPs to register as members when the load balancer is create
 * Instance: You can add instances that belong to the VPC to which the load balancer is attached and to VPCs that are peered with that VPC as members. However, if you want to add an instance with a different subnet than the load balancer as a member, you must register both subnets in the routing table.
 * IP address: You can register members by entering an IP directly. In this case, the communication path between the load balancer and that IP must be set up appropriately.
 
+<a id='create-loadbalancers-delete-proteection'></a>
 #### Delete Proteection
 Enabling delete protection protects a load balancer from accidental deletion. You cannot delete that load balancer until you disable delete protection. A load balancer with delete protection enabled cannot delete listeners, member groups, and L7 rules, and also cannot delete and change health monitors.
 
+<a id='create-loadbalancers-ip-access-control-groups'></a>
 #### IP Access Control Groups
 Specify the IP access control group to apply when the load balancer is created. You can select multiple groups with the same access control type among the IP access control groups. You can change the IP access control group to be applied even after the load balancer is created.
 
 <a id='view-loadbalancers'></a>
-### View Load Balancers
+### View Load Balancers { #view-loadbalancers }
 After a load balancer is created, you will be returned to the load balancer list page. In the load balancer list page, you can check the basic information of the created load balancers. The items displayed on the list page are as follows:
 
 * Name: Name of the load balancer specified when it is created.
@@ -225,7 +233,7 @@ After a load balancer is created, you will be returned to the load balancer list
     | ERROR_MIGRATE | Failed to migrate a load balancer<br> Contact the administrator. |
 
 <a id='modify-loadbalancers'></a>
-### Modify Load Balancers and Details
+### Modify Load Balancers and Details { #modify-loadbalancers }
 Select a load balancer from the list, and a page of details shows up at the bottom, which is composed of the following tabs:
 
 * Details of Load Balancer: Shows detailed information of a load balancer. Name and description of the selected load balancer, and whether to apply subnet static routing can be changed.
@@ -236,18 +244,21 @@ Select a load balancer from the list, and a page of details shows up at the bott
 !!! tip "Note"
     The VPC and IP address connected to the load balancer cannot be changed.
 <a id='change-listener'></a>
-### Listener Changes and Details
+### Listener Changes and Details { #change-listener }
 On the main screen of the load balancer, select the desired load balancer detail view to see the listeners and member groups connected to the load balancer. From there, you can select the **Listeners** tab to create, change, or delete listeners.
 
+<a id='change-listener-add-listeners'></a>
 #### Add Listeners
 Listeners can be added by clicking the Add Listener button on the Listener tab in the detail screen of the load balancer. Items required to add listeners are the same as those required by the default listener during creation of the load balancer. When a listener is added, the load balancer port used by previous listeners can no longer be used.
 
+<a id='change-listener-modify-listeners'></a>
 #### Modify Listeners
 To modify the setting of a listener, click Modify.
 
 !!! danger "Caution"
     You cannot change the listener protocol, load balancer port, and instance port.
 
+<a id='change-listener-manage-certificate'></a>
 #### Manage Certificate
 For listeners using the TERMINATED_HTTPS protocol, you can manage multiple certificates in the **Certificates** tab of the listener details screen.
 
@@ -285,10 +296,11 @@ For listeners using the TERMINATED_HTTPS protocol, you can manage multiple certi
     - Deleting a certificate will restart the load balancer. During the restart process, existing sessions will be maintained, but new sessions cannot be processed (about 1 second). Therefore, we recommend performing the process during a time that will not impact the service.
 
 <a id='custom-response-guide'></a>
-### Custom Response Guide
+### Custom Response Guide { #custom-response-guide }
 
 You can configure custom responses in the load balancer listener. Using custom responses, you can directly deliver custom messages or HTML content to users when a specific HTTP error code occurs.
 
+<a id='custom-response-guide-view-and-configure-custom-responses'></a>
 #### View and Configure Custom Responses
 
 1. Click the **Listeners** tab on the load balancer details screen.
@@ -300,6 +312,7 @@ You can configure custom responses in the load balancer listener. Using custom r
    - **Response Body**: enter the body of the response to be displayed to the user. (up to 1,024 characters. The content can be HTML, text, or any other format, depending on the content type.)
 5. After entering each item, click **Confirm** to generate the response. The generated response can be viewed in the list.
 
+<a id='custom-response-guide-delete-a-custom-response'></a>
 #### Delete a Custom Response
 
 - You can delete a created custom response by selecting it from the list and clicking **Delete** button.
@@ -312,10 +325,11 @@ You can configure custom responses in the load balancer listener. Using custom r
     When adding, modifying, or deleting a custom response, the listener may briefly restart (less than 1 second). Therefore, we recommend changing during a time when service impact is minimal.
 
 <a id='x-forwarded-header-guide'></a>
-### Guide to X-Forwarded Header Configuration
+### Guide to X-Forwarded Header Configuration { #x-forwarded-header-guide }
 
 You can view and change the X-Forwarded header settings on a load balancer listener. The X-Forwarded header is used to forward the client's source information (protocol, port, IP address) to the backend server.
 
+<a id='x-forwarded-header-guide-view-and-configure-the-x-forwarded-header'></a>
 #### View and Configure the X-Forwarded Header
 
 1. Click the **Listener** tab on the load balancer details screen.
@@ -330,6 +344,7 @@ You can view and change the X-Forwarded header settings on a load balancer liste
 !!! danger "Caution"
     Changing the X-Forwarded header settings will cause the load balancer to restart. Existing sessions will be maintained during the restart process, but new sessions cannot be processed (about less than 1 second). Therefore, we recommend changing during a time when the service will not be affected.
 
+<a id='x-forwarded-header-guide-delete-listeners'></a>
 #### Delete Listeners
 To delete a listener, click Delete: cannot delete, though, if the load balancer has only one listener.
 
@@ -337,18 +352,21 @@ To delete a listener, click Delete: cannot delete, though, if the load balancer 
     Add/Modify/Delete listeners causes reboot of a load balancer. During the reboot, existing connected sessions are maintained, but new sessions cannot be processed (less than 1 second). Therefore, it is recommended to proceed at a time that does not affect the service.
 
 <a id='change-member-group'></a>
-### Member Group Changes and Details
+### Member Group Changes and Details { #change-member-group }
 On the Load Balancers screen, select the desired load balancer's **View Details** to see the listeners and member groups connected to the load balancer. From there, you can select the **Member Groups** tab to create, change, or delete member groups.
 
+<a id='change-member-group-create-member-groups'></a>
 #### Create Member Groups
 Click **Create Member Group** to create additional member groups. The items required to create a member group are the same as those required for a member group when creating a load balancer.
 
+<a id='change-member-group-change-member-groups'></a>
 #### Change Member Groups
 Click **Change Member Group** to change settings related to the member group.
 
 !!! danger "Caution"
     Member ports and protocols cannot be changed after a member group is created.
 
+<a id='change-member-group-delete-member-groups'></a>
 #### Delete Member Groups
 Select the member group you want to delete and click **Delete Member Group** to delete that member group.
 
@@ -359,15 +377,17 @@ Select the member group you want to delete and click **Delete Member Group** to 
     When a member group is deleted, any L7 rules that had that member group as an action target will have their action type changed to Block.
 
 <a id='change-member'></a>
-### Member changes and details
+### Member changes and details { #change-member }
 On the Load Balancer **View Details** screen, select the **Member Group** tab, and then select the desired member group to view the details of the member group and the status of the members in the member group.
 
+<a id='change-member-add-a-member'></a>
 #### Add a member
 After you select a member group, you'll see the **Basic Info**, **Members**, and **Check Status** tabs at the bottom of the screen. Select the **Members** tab to enroll the desired instances or IP addresses as members. You can only add instances that belong to the VPC to which the load balancer is attached and to VPCs that are peered to that VPC. You can specify your own destination port number for each member, and load balancing will be done with that destination port number.
 
 !!! danger "Caution"
     If you have multiple members in a member group with different port numbers, be careful about setting the health check port. For example, if you have two members, such as port 80 on 192.168.0.10 and port 8080 on 192.168.0.10, selecting Health check port as member port will perform health checks on port 80 and port 8080 respectively. If you select Custom as the health check port and type 80, it will check port 80 even if the member port is port 8080. If the 80 port on 192.168.0.10 is active, then the member on the 8080 port for 192.168.0.10 is also considered ACTIVE because it is checking the status of the 80 port for 192.168.0.10.
 
+<a id='change-member-deactivate-a-member'></a>
 #### Deactivate a member
 You can temporarily exclude specific members from the service. Select the members you want to exclude, click the **Deactivate members** button, and then click **OK**.
 The excluded members' permissions will change to **X** and their member status will change to **ONLINE**.
@@ -382,6 +402,7 @@ The excluded members' permissions will change to **X** and their member status w
     | ONLINE | Member is disabled|
     | OFFLINE | Member connection failure <br> Contact your administrator.|
 
+<a id='change-member-delete-members'></a>
 #### Delete Members
 Instances that are no longer used may be deleted. Click Detach Instance of the instance to exclude, and it is deleted from the member of load balancer. Deletion from load balancer member does not mean its instance is also deleted.
 
@@ -389,12 +410,12 @@ Instances that are no longer used may be deleted. Click Detach Instance of the i
     Add/Disable/Delete Members causes reboot of a load balancer. During the reboot, existing connected sessions are maintained, but new sessions cannot be processed (less than 1 second). Therefore, it is recommended to proceed at a time that does not affect the service.
 
 <a id='delete-loadbalancers'></a>
-### Delete Load Balancers
+### Delete Load Balancers { #delete-loadbalancers }
 Select the load balancer you want to delete from the load balancer list screen and click **Delete** button to delete the load balancer.
 
 
 <a id='ip-acl-groups'></a>
-## IP Access Control Groups
+## IP Access Control Groups { #ip-acl-groups }
 For more details on the features of IP access control, see [IP Access Control](/Network/Load%20Balancer/en/overview/#load-balancer-ip-access-control).
 
 <a id='create-ip-acl-groups'></a>
@@ -444,7 +465,7 @@ Select the load balancer to apply the IP access control group to. Select the gro
 Multiple groups with the same "access control type" can be applied to the load balancer.
 
 <a id='ssl-policies'></a>
-## SSL Policy Management
+## SSL Policy Management { #ssl-policies }
 An SSL policy is a custom security policy that defines the minimum TLS version and cipher suite combination to use for a listener. For the concept of SSL policies and the list of available cipher suites, see [Custom SSL policy](/Network/Load%20Balancer/en/overview/#ssl).
 
 <a id='create-ssl-policies'></a>
@@ -478,14 +499,14 @@ You can delete an SSL policy. However, an SSL policy connected to one or more li
 
 <a id='apply-ssl-policies'></a>
 #### Apply SSL Policy
-An SSL policy is connected to a listener on the listener creation screen or the [Change listener and details](#9) screen.
+An SSL policy is connected to a listener on the listener creation screen or the [Change listener and details](#change-listener) screen.
 
 * An SSL policy can only be connected to a listener whose protocol is TERMINATED_HTTPS.
 * When connecting an SSL policy to a listener, the listener's TLS version must match the minimum TLS version of the selected policy.
 * To disconnect, select **Disabled** for the SSL policy on the listener modification screen.
 
 <a id='restarting-guide-for-maintenance'></a>
-## Guide to Restarting Load Balancers for Maintenance
+## Guide to Restarting Load Balancers for Maintenance { #restarting-guide-for-maintenance }
 
 NHN Cloud updates software of the load balancer equipment on a regular basis to enhance security and stability of the basic infrastructure services. For maintenance of the load balancer, the load balancer running in the maintenance target equipment must be restarted to be migrated to the load balancer equipment where maintenance has been completed.
 

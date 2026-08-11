@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=5d760a615f63 -->
 
 <a id="network-load-balancer-overview"></a>
@@ -139,6 +141,7 @@ The load balancer provides two versions of the internal engine that handles traf
     While `v2` complies with the HTTP standard (RFC), some behaviors may differ slightly from those in the previous version (`v1`). The items listed above are representative examples, and other behaviors not explicitly mentioned may also change. After changing the engine version, make sure to perform thorough testing before applying the changes to a production environment.
 
 <a id="load-balancer-http-protocol-version"></a>
+
 ## Load Balancer HTTP Protocol Version { #load-balancer-http-protocol-version }
 
 When using the following protocols, you can select HTTP/1 or HTTP/2 as the protocol version.
@@ -153,7 +156,7 @@ If you select HTTP or HTTPS as the health check protocol, the load balancer oper
 !!! danger "Caution"
     - This feature is not available in load balancer engine version v1.
     - If the member group protocol version is HTTP/2 and you select HTTP or HTTPS as the health check protocol without entering a Host, `NHNLB` is automatically set in the Host header.
-
+    - If the listener's protocol version is HTTP/2, setting the Keep-Alive timeout to **Not use** does not immediately terminate the session with the client. Because HTTP/2 multiplexes multiple requests over a single connection, the HTTP/1 behavior of closing the connection after each response does not apply.
 
 <a id="l7-rules"></a>
 ## L7 rules { #l7-rules }

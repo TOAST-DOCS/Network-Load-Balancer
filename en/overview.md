@@ -141,7 +141,6 @@ The load balancer provides two versions of the internal engine that handles traf
     While `v2` complies with the HTTP standard (RFC), some behaviors may differ slightly from those in the previous version (`v1`). The items listed above are representative examples, and other behaviors not explicitly mentioned may also change. After changing the engine version, make sure to perform thorough testing before applying the changes to a production environment.
 
 <a id="load-balancer-http-protocol-version"></a>
-
 ## Load Balancer HTTP Protocol Version { #load-balancer-http-protocol-version }
 
 When using the following protocols, you can select HTTP/1 or HTTP/2 as the protocol version.

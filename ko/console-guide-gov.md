@@ -419,7 +419,7 @@ TERMINATED_HTTPS 프로토콜을 사용하는 리스너의 경우, 리스너 상
 
 <a id='ip-acl-groups'></a>
 ## IP 접근제어 그룹 { #ip-acl-groups }
-IP 접근제어 기능에 대한 자세한 사항은 [IP 접근제어](/Network/Load%20Balancer/ko/overview-gov/#ip) 문서를 참고합니다.
+IP 접근제어 기능에 대한 자세한 사항은 [IP 접근제어](/Network/Load%20Balancer/ko/overview-gov/#load-balancer-ip-access-control) 문서를 참고합니다.
 
 <a id='create-ip-acl-groups'></a>
 #### IP 접근제어 그룹 생성
@@ -469,7 +469,7 @@ IP 접근제어 그룹을 적용할 로드 밸런서를 선택합니다. 해당 
 
 <a id='ssl-policies'></a>
 ## SSL 정책 관리 { #ssl-policies }
-SSL 정책은 리스너에서 사용할 최소 TLS 버전과 암호화 스위트의 조합을 정의한 사용자 정의 보안 정책입니다. SSL 정책의 개념과 선택 가능한 암호화 스위트 목록은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview-gov/#ssl) 문서를 참고합니다.
+SSL 정책은 리스너에서 사용할 최소 TLS 버전과 암호화 스위트의 조합을 정의한 사용자 정의 보안 정책입니다. SSL 정책의 개념과 선택 가능한 암호화 스위트 목록은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview-gov/#custom-ssl-policy) 문서를 참고합니다.
 
 <a id='create-ssl-policies'></a>
 #### SSL 정책 생성

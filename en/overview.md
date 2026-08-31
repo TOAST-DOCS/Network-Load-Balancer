@@ -94,7 +94,7 @@ An SSL policy consists of the following elements:
 <a id="create-load-balancers"></a>
 ## Create Load Balancers { #create-load-balancers }
 
-Load balancers can be created with an IP automatically assigned within the [VPC's](/Network/VPC/en/overview/#_2) [subnet](/Network/VPC/en/overview/#_2), or you can specify an IP.
+Load balancers can be created with an IP automatically assigned within the [VPC's](/Network/VPC/en/overview/#glossary) [subnet](/Network/VPC/en/overview/#glossary), or you can specify an IP.
 
 * Automatically assigned IP: Uses one of the available IPs on the subnet as the IP for the load balancer.
 * Specify an IP: Uses the specified IP as the IP for the load balancer. The IP must be within the CIDR range of the subnet.

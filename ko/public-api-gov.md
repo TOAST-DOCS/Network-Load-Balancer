@@ -652,7 +652,7 @@ X-Auth-Token: {tokenId}
 | listener.proxy_protocol | Body | Boolean | - | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listener.tls_version | Body | String | - | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>`ssl_policy_id`와 함께 지정 시 SSL 정책의 `min_tls_version`과 일치해야 함 |
-| listener.ssl_policy_id | Body | UUID | - | 리스너에 연결할 SSL 정책 ID<br>기본값: `null`<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>자세한 내용은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview-gov/#ssl) 참고 |
+| listener.ssl_policy_id | Body | UUID | - | 리스너에 연결할 SSL 정책 ID<br>기본값: `null`<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>자세한 내용은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview-gov/#custom-ssl-policy) 참고 |
 | listener.keepalive_enable | Body | Boolean | - | keepalive 활성화 on/off<br>기본값: `true` |
 
 

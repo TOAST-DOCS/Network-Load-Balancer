@@ -982,6 +982,7 @@ X-Auth-Token: {tokenId}
 | errorpage.code | Body | Integer | エラーコード |
 | errorpage.content_type | Body | Enum | コンテンツタイプ |
 | errorpage.body | Body | String | カスタムレスポンスボディ |
+| errorpage.tenant_id | Body | String | テナントID |
 
 
 <details><summary>例</summary>
@@ -1050,6 +1051,7 @@ X-Auth-Token: {tokenId}
 | errorpage.code | Body | Integer | エラーコード |
 | errorpage.content_type | Body | Enum | コンテンツタイプ |
 | errorpage.body | Body | String | カスタムレスポンスボディ |
+| errorpage.tenant_id | Body | String | テナントID |
 
 
 <details><summary>例</summary>
@@ -1126,6 +1128,7 @@ X-Auth-Token: {tokenId}
 | errorpage.code | Body | Integer | エラーコード |
 | errorpage.content_type | Body | Enum | コンテンツタイプ |
 | errorpage.body | Body | String | カスタムレスポンスボディ |
+| errorpage.tenant_id | Body | String | テナントID |
 
 
 <details><summary>例</summary>

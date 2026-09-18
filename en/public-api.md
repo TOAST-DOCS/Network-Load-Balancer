@@ -564,7 +564,28 @@ This API does not require a request body.
 |---|---|---|---|
 | listener | Body | Object | Listener information object |
 | listener.default_pool_id | Body | UUID | ID of the default member group (pool) registered with the listener |
-| Name | Type | Format | Description |
+| listener.protocol | Body | Enum | Protocol of the listener<br>One of `TCP`, `HTTP`, `HTTPS`, or `TERMINATED_HTTPS` |
+| listener.protocol_version | Body | Enum | HTTP protocol version<br>One of `HTTP/1` or `HTTP/2` |
+| listener.description | Body | String | Listener description |
+| listener.name | Body | String | Listener name |
+| listener.loadbalancers | Body | Array | List of load balancer objects to which the listener is registered |
+| listener.loadbalancers.id | Body | UUID | Load balancer ID |
+| listener.tenant_id | Body | String | Tenant ID |
+| listener.admin_state_up | Body | Boolean | Administrator control state |
+| listener.connection_limit | Body | Integer | Connection limit of the listener |
+| listener.keepalive_timeout | Body | Integer | Keepalive timeout of the listener |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For header on/off<br>Default: `true` |
+| listener.default_tls_container_ref | Body | String| Path of the TLS certificate registered in key-manager |
+| listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
+| listener.protocol_port | Body | Integer | Listener port |
+| listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
+| listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
+| listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.keepalive_enable | Body | Boolean | Keepalive enable on/off<br>Default: `true` |
+| listener.id | Body | UUID | Listener ID |
 |---|---|---|---|
 | listener.protocol_version | Body | Enum | HTTP protocol version<br>Either `HTTP/1` or `HTTP/2` |
 | listener | Body | Object | Listener information object |
@@ -648,7 +669,26 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
 | listener | Body | Object | O | Listener information object |
-| Name | Type | Format | Required | Description |
+| listener.protocol | Body | Enum | O | Listener protocol<br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
+| listener.protocol_version | Body | Enum | - | HTTP protocol version<br>One of `HTTP/1`, `HTTP/2` |
+| listener.description | Body | String | - | Listener description |
+| listener.name | Body | String | - | Listener name |
+| listener.default_pool_id | Body | UUID | - | Default member group (pool) ID registered to the listener<br>If not specified, created as `Not use` |
+| listener.loadbalancer_id | Body | UUID | O | Load balancer ID |
+| listener.admin_state_up | Body | Boolean | - | Administrator control state |
+| listener.connection_limit | Body |  Integer | - | Connection limit of the listener |
+| listener.keepalive_timeout | Body | Integer | - | Keepalive timeout of the listener |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For header on/off<br>Default: `true` |
+| listener.default_tls_container_ref | Body | String | - | Path of TLS certificate registered in key-manager |
+| listener.sni_container_refs | Body | Array | - | List of SNI certificate paths registered in key-manager |
+| listener.protocol_port | Body | Integer | O | Listener port |
+| listener.proxy_protocol | Body | Boolean | - | Proxy protocol on/off<br>Default: `false` |
+| listener.block_invalid_http_request | Body | Boolean | - | Block invalid HTTP requests on/off<br>Default: `true` |
+| listener.tls_version | Body | String | - | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>When specified together with `ssl_policy_id`, must match the `min_tls_version` of the SSL policy |
+| listener.ssl_policy_id | Body | UUID | - | SSL policy ID to connect to the listener<br>Default: `null`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>For more information, see [Custom SSL policy](/Network/Load%20Balancer/en/overview/#custom-ssl-policy) |
+| listener.keepalive_enable | Body | Boolean | - | Keepalive enable on/off<br>Default: `true` |
 |---|---|---|---|---|
 | listener.protocol_version | Body | Enum | - | HTTP protocol version<br>Either `HTTP/1` or `HTTP/2` |
 | tokenId | Header | String | O | Token ID |
@@ -709,7 +749,28 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|
 | listener | Body | Object | Listener information object |
 | listener.default_pool_id | Body | UUID | ID of the default member group (pool) registered with the listener |
-| Name | Type | Format | Description |
+| listener.protocol | Body | Enum | Protocol of the listener<br>One of `TCP`, `HTTP`, `HTTPS`, or `TERMINATED_HTTPS` |
+| listener.protocol_version | Body | Enum | HTTP protocol version<br>One of `HTTP/1` or `HTTP/2` |
+| listener.description | Body | String | Listener description |
+| listener.name | Body | String | Listener name |
+| listener.loadbalancers | Body | Array | List of load balancer objects to which the listener is registered |
+| listener.loadbalancers.id | Body | UUID | Load balancer ID |
+| listener.tenant_id | Body | String | Tenant ID |
+| listener.admin_state_up | Body | Boolean | Administrator control state |
+| listener.connection_limit | Body | Integer | Connection limit of the listener |
+| listener.keepalive_timeout | Body | Integer | Keepalive timeout of the listener |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For header on/off<br>Default: `true` |
+| listener.default_tls_container_ref | Body | String | Path of the TLS certificate registered in key-manager |
+| listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
+| listener.protocol_port | Body | Integer | Listener port |
+| listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
+| listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP request on/off<br>Default: `true` |
+| listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
+| listener.keepalive_enable | Body | Boolean | Keepalive enabled on/off<br>Default: `true` |
+| listener.id | Body | UUID | Listener ID |
 |---|---|---|---|
 | listener.protocol_version | Body | Enum | HTTP protocol version<br>Either `HTTP/1` or `HTTP/2` |
 | listener | Body | Object | Listener information object |
@@ -950,6 +1011,8 @@ X-Auth-Token: {tokenId}
 | listenerId | URL | UUID | O | Listener ID |
 | errorpage | Body | Object | O | Custom response information object |
 | errorpage.code | Body | Integer | O | One of the error code
+| errorpage.content_type | Body | Enum | O | Content type<br>One of `application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` |
+| errorpage.body | Body | String | O | Custom response body (up to 1,024 characters) |
 400, 403, 408, 500, 502, 503, and 504 |
 | errorpage.content_type | Body | Enum | O | Content type<br>One of `application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` |
 | errorpage.body | Body | String | O | Custom response body (up to 1024 characters) |
@@ -1686,7 +1749,7 @@ This API does not require a request body.
 | healthmonitors.url_path | Body | String | Health check request URL <br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 | healthmonitors.type | Body | Enum | Protocol to use for health checks. One of `TCP`, `HTTP`, or `HTTPS` |
 | healthmonitors.id | Body | UUID | Health monitor ID |
-| healthmonitor.host_header | Body | String | Field value of the host header to be used for status check<br> If the status check type is set to `TCP`, the value set in this field is ignored.|
+| healthmonitors.host_header | Body | String | Field value of the host header to be used for health checks<br> If the health check type is set to `TCP`, the value set in this field is ignored.|
 
 
 

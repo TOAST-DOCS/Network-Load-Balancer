@@ -949,8 +949,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | Yes | Token ID |
 | listenerId | URL | UUID | O | Listener ID |
 | errorpage | Body | Object | O | Custom response information object |
-| errorpage.code | Body | Integer | O | One of the error code
-400, 403, 408, 500, 502, 503, and 504 |
+| errorpage.code | Body | Integer | O | One of the error code400, 403, 408, 500, 502, 503, and 504 |
 | errorpage.content_type | Body | Enum | O | Content type<br>One of `application/javascript`, `application/json`, `text/css`, `text/html`, `text/plain` |
 | errorpage.body | Body | String | O | Custom response body (up to 1024 characters) |
 

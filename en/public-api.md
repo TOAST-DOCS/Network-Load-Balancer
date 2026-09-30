@@ -563,13 +563,9 @@ This API does not require a request body.
 | Name | Type | Format | Description |
 |---|---|---|---|
 | listener | Body | Object | Listener information object |
-| listener.default_pool_id | Body | UUID | ID of the default member group (pool) registered with the listener |
-| Name | Type | Format | Description |
-|---|---|---|---|
-| listener.protocol_version | Body | Enum | HTTP protocol version<br>Either `HTTP/1` or `HTTP/2` |
-| listener | Body | Object | Listener information object |
 | listener.default_pool_id | Body | UUID | Default member group (pool) ID registered with the listener |
 | listener.protocol | Body | Enum | Listener protocol <br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
+| listener.protocol_version | Body | Enum | HTTP protocol version<br>Either `HTTP/1` or `HTTP/2` |
 | listener.description | Body | String | Listener description |
 | listener.name | Body | String | Listener name |
 | listener.loadbalancers | Body | Array | List of load balancer objects to which the listener is registered |
@@ -578,6 +574,9 @@ This API does not require a request body.
 | listener.admin_state_up | Body | Boolean | Admin control state |
 | listener.connection_limit | Body | Integer | Listener's connection limit |
 | listener.keepalive_timeout | Body | Integer | Listener's keepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For header on/off<br>Default: `true` |
 | listener.default_tls_container_ref | Body | String | TLS certificate path registered in key-manager |
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | Listener port |
@@ -648,12 +647,8 @@ X-Auth-Token: {tokenId}
 |---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
 | listener | Body | Object | O | Listener information object |
-| Name | Type | Format | Required | Description |
-|---|---|---|---|---|
-| listener.protocol_version | Body | Enum | - | HTTP protocol version<br>Either `HTTP/1` or `HTTP/2` |
-| tokenId | Header | String | O | Token ID |
-| listener | Body | Object | O | Listener information object |
 | listener.protocol | Body | Enum | O | Listener protocol<br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
+| listener.protocol_version | Body | Enum | - | HTTP protocol version<br>Either `HTTP/1` or `HTTP/2` |
 | listener.description | Body | String | - | Listener description |
 | listener.name | Body | String | - | Listener name |
 | listener.default_pool_id | Body | UUID | - | Default member group (pool) ID registered with the listener<br>If not specified, `Not used` is generated |
@@ -661,6 +656,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | - | Admin control state |
 | listener.connection_limit | Body | Integer | - | Listener connection limit |
 | listener.keepalive_timeout | Body | Integer | - | Listener keepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For header on/off<br>Default: `true` |
 | listener.default_tls_container_ref | Body | String | - | TLS certificate path registered in key-manager |
 | listener.sni_container_refs | Body | Array | - | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | O | Listener port |
@@ -708,13 +706,9 @@ X-Auth-Token: {tokenId}
 | Name | Type | Format | Description |
 |---|---|---|---|
 | listener | Body | Object | Listener information object |
-| listener.default_pool_id | Body | UUID | ID of the default member group (pool) registered with the listener |
-| Name | Type | Format | Description |
-|---|---|---|---|
-| listener.protocol_version | Body | Enum | HTTP protocol version<br>Either `HTTP/1` or `HTTP/2` |
-| listener | Body | Object | Listener information object |
 | listener.default_pool_id | Body | UUID | Default member group (pool) ID registered with the listener |
 | listener.protocol | Body | Enum | Listener protocol <br>One of `TCP`, `HTTP`, `HTTPS`, `TERMINATED_HTTPS` |
+| listener.protocol_version | Body | Enum | HTTP protocol version<br>Either `HTTP/1` or `HTTP/2` |
 | listener.description | Body | String | Listener description |
 | listener.name | Body | String | Listener name |
 | listener.loadbalancers | Body | Array | List of load balancer objects to which the listener is registered |
@@ -723,6 +717,9 @@ X-Auth-Token: {tokenId}
 | listener.admin_state_up | Body | Boolean | Admin control status |
 | listener.connection_limit | Body | Integer | Listener's connection limit |
 | listener.keepalive_timeout | Body | Integer | Listener's keepalive timeout |
+| listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port header on/off<br>Default: `true` |
+| listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For header on/off<br>Default: `true` |
 | listener.default_tls_container_ref | Body | String | TLS certificate path registered in key-manager |
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | Listener port |
@@ -1685,7 +1682,7 @@ This API does not require a request body.
 | healthmonitors.url_path | Body | String | Health check request URL <br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 | healthmonitors.type | Body | Enum | Protocol to use for health checks. One of `TCP`, `HTTP`, or `HTTPS` |
 | healthmonitors.id | Body | UUID | Health monitor ID |
-| healthmonitor.host_header | Body | String | Field value of the host header to be used for status check<br> If the status check type is set to `TCP`, the value set in this field is ignored.|
+| healthmonitors.host_header | Body | String | Field value of the host header to be used for status check<br> If the status check type is set to `TCP`, the value set in this field is ignored.|
 
 
 
@@ -2460,7 +2457,8 @@ X-Auth-Token: {tokenId}
 | l7policy.admin_state_up | Body | Boolean | - | L7 policy administrator control state. If omitted, set to `true` |
 | l7policy.action | Body | Enum | O | L7 policy action<br> One of `REDIRECT_TO_POOL`/`REDIRECT_TO_URL`/`REJECT` |
 | l7policy.redirect_pool_id | Body | UUID | - | Redirect pool ID of the L7 policy<br>Required if the action is `REDIRECT_TO_POOL` |
-| l7policy.redirect_url | Body | String | - | Redirect URL of the L7 policy<br>Required if the action is `REDIRECT_TO_URL` <br> * The input format is `#{protocol}://#{host}:#{port}/#{path}?#{query}`. If you input it in the `#{_}` format, the value of the existing request will be maintained. If you directly input a value other than `#{_}`, the value will be applied to the redirect URL and returned to the client. <br> * To prevent infinite redirects, at least one of protocol, host, port, and path must be changed. <br> * If you input it in an incorrect format, the redirect URL may be converted to a value different from the actual input.| | l7policy.redirect_http_code | Body | Integer | - | The redirect HTTP response code of the L7 policy <br> One of 301 or 302. The default is 302. |
+| l7policy.redirect_url | Body | String | - | Redirect URL of the L7 policy<br>Required if the action is `REDIRECT_TO_URL` <br> * The input format is `#{protocol}://#{host}:#{port}/#{path}?#{query}`. If you input it in the `#{_}` format, the value of the existing request will be maintained. If you directly input a value other than `#{_}`, the value will be applied to the redirect URL and returned to the client. <br> * To prevent infinite redirects, at least one of protocol, host, port, and path must be changed. <br> * If you input it in an incorrect format, the redirect URL may be converted to a value different from the actual input.|
+| l7policy.redirect_http_code | Body | Integer | - | The redirect HTTP response code of the L7 policy <br> One of 301 or 302. The default is 302. |
 | l7policy.position | Body | Integer | - | The priority of the L7 policy. If omitted, it is set to the last priority. |
 
 

@@ -416,7 +416,7 @@ Select the load balancer you want to delete from the load balancer list screen a
 
 <a id='ip-acl-groups'></a>
 ## IP Access Control Groups { #ip-acl-groups }
-For more details on the features of IP access control, see [IP Access Control](/Network/Load%20Balancer/en/overview/#load-balancer-ip-access-control).
+For more details on the features of IP access control, see [IP Access Control](./overview/#load-balancer-ip-access-control).
 
 <a id='create-ip-acl-groups'></a>
 #### Create IP Access Control Groups
@@ -466,7 +466,7 @@ Multiple groups with the same "access control type" can be applied to the load b
 
 <a id='ssl-policies'></a>
 ## SSL Policy Management { #ssl-policies }
-An SSL policy is a custom security policy that defines the minimum TLS version and cipher suite combination to use for a listener. For the concept of SSL policies and the list of available cipher suites, see [Custom SSL policy](/Network/Load%20Balancer/en/overview/#custom-ssl-policy).
+An SSL policy is a custom security policy that defines the minimum TLS version and cipher suite combination to use for a listener. For the concept of SSL policies and the list of available cipher suites, see [Custom SSL policy](./overview/#custom-ssl-policy).
 
 <a id='create-ssl-policies'></a>
 #### Create SSL Policy

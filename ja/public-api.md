@@ -3,7 +3,7 @@
 <a id="network-load-balancer-api-v2-guide"></a>
 ## Network > Load Balancer > API v2 ガイド { #network-load-balancer-api-v2-guide }
 
-NHN Cloud Networkサービスは、APIの呼び出し時に認証/認可のためにIaaSトークンを使用します。IaaSトークンは、NHN CloudのOpenStackベースのインフラサービス(IaaS)で使用する認証トークンです。IaaSトークンの発行及び使用に関する詳細は、[IaaSトークン](/nhncloud/ko/public-api/iaas-token)をご参照ください。
+NHN Cloud Networkサービスは、APIの呼び出し時に認証/認可のためにIaaSトークンを使用します。IaaSトークンは、NHN CloudのOpenStackベースのインフラサービス(IaaS)で使用する認証トークンです。IaaSトークンの発行及び使用に関する詳細は、[IaaSトークン](/nhncloud/ja/public-api/iaas-token/)をご参照ください。
 
 ロードバランサー、リスナー、プール、ヘルスモニター、メンバーの各APIは、`network`タイプのエンドポイントを利用します。シークレット、シークレットコンテナの各APIは、`key-manager`タイプのエンドポイントを利用して呼び出します。正確なエンドポイントは、トークン発行レスポンスの`serviceCatalog`を参照してください。
 
@@ -669,7 +669,7 @@ X-Auth-Token: {tokenId}
 | listener.proxy_protocol | Body | Boolean | - | プロキシプロトコルのon/off<br>デフォルト値：`false` |
 | listener.block_invalid_http_request | Body | Boolean | - | 無効なHTTPリクエストブロックのon/off<br>デフォルト値：`true` |
 | listener.tls_version | Body | String | - | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用<br>`ssl_policy_id`と共に指定する場合は、SSLポリシーの`min_tls_version`と一致する必要があります |
-| listener.ssl_policy_id | Body | UUID | - | リスナーに接続するSSLポリシーID<br>デフォルト値：`null`<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用<br>詳細は[カスタムSSLポリシー](/Network/Load%20Balancer/ja/overview/#custom-ssl-policy)を参照してください |
+| listener.ssl_policy_id | Body | UUID | - | リスナーに接続するSSLポリシーID<br>デフォルト値：`null`<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用<br>詳細は[カスタムSSLポリシー](./overview/#custom-ssl-policy)を参照してください |
 | listener.keepalive_enable | Body | Boolean | - | keepalive有効化のon/off<br>デフォルト値：`true` |
 
 
@@ -806,7 +806,7 @@ X-Auth-Token: {tokenId}
 | listener.proxy_protocol | Body | Boolean | - | プロキシプロトコルのon/off<br>デフォルト値：`false` |
 | listener.block_invalid_http_request | Body | Boolean | - | 無効なHTTPリクエストブロックのon/off<br>デフォルト値：`true` |
 | listener.tls_version | Body | String | - | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用<br>`ssl_policy_id`と共に指定する場合は、SSLポリシーの`min_tls_version`と一致する必要があります |
-| listener.ssl_policy_id | Body | UUID | - | リスナーに接続するSSLポリシーID<br>接続を解除する場合は`null`を送信<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用<br>詳細は[カスタムSSLポリシー](/Network/Load%20Balancer/ja/overview/#custom-ssl-policy)を参照してください |
+| listener.ssl_policy_id | Body | UUID | - | リスナーに接続するSSLポリシーID<br>接続を解除する場合は`null`を送信<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用<br>詳細は[カスタムSSLポリシー](./overview/#custom-ssl-policy)を参照してください |
 | listener.keepalive_enable | Body | Boolean | - | keepalive有効化のon/off<br>デフォルト値：`true` |
 
 <details><summary>例</summary>
@@ -4154,7 +4154,7 @@ X-Auth-Token: {tokenId}
 <a id="ssl-policy"></a>
 ## SSLポリシー { #ssl-policy }
 
-カスタムSSLポリシーを作成してリスナーに適用できます。SSLポリシーには、最小TLSバージョンと、該当バージョンで使用する暗号化スイート(cipher suite)を指定します。SSLポリシーの概念と選択可能な暗号化スイートの一覧については、[カスタムSSLポリシー](/Network/Load%20Balancer/ja/overview/#custom-ssl-policy)をご参照ください。
+カスタムSSLポリシーを作成してリスナーに適用できます。SSLポリシーには、最小TLSバージョンと、該当バージョンで使用する暗号化スイート(cipher suite)を指定します。SSLポリシーの概念と選択可能な暗号化スイートの一覧については、[カスタムSSLポリシー](./overview/#custom-ssl-policy)をご参照ください。
 
 !!! tip "ポイント"
     - SSLポリシーはテナントあたり最大10個まで作成できます。
@@ -4311,7 +4311,7 @@ X-Auth-Token: {tokenId}
 
 !!! danger "注意"
     - `min_tls_version`が`TLSv1.3`の場合、`ciphers`にTLS 1.2以下の暗号化スイートを含めることはできません。含めた場合はエラーが返却されます。
-    - 選択可能な暗号化スイートは、[カスタムSSLポリシー](/Network/Load%20Balancer/ja/overview/#custom-ssl-policy)に定義された値のみ使用できます。
+    - 選択可能な暗号化スイートは、[カスタムSSLポリシー](./overview/#custom-ssl-policy)に定義された値のみ使用できます。
 
 <details><summary>例</summary>
 

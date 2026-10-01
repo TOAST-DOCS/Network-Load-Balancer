@@ -157,6 +157,9 @@ If you select HTTP or HTTPS as the health check protocol, the load balancer oper
     - If the member group protocol version is HTTP/2 and you select HTTP or HTTPS as the health check protocol without entering a Host, `NHNLB` is automatically set in the Host header.
     - If the listener's protocol version is HTTP/2, setting the Keep-Alive timeout to **Not use** does not immediately terminate the session with the client. Because HTTP/2 multiplexes multiple requests over a single connection, the HTTP/1 behavior of closing the connection after each response does not apply.
 
+!!! tip "Note"
+    A single HTTP/2 connection can handle up to 100 simultaneous requests (streams), and this value cannot be changed. Requests that exceed this limit are queued on the client side before being processed, so no errors occur.
+
 <a id="l7-rules"></a>
 ## L7 rules { #l7-rules }
 

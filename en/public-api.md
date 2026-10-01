@@ -1309,7 +1309,7 @@ X-Auth-Token: {tokenId}
 This API does not require a request body.
 
 | Name | Type | Format | Required | Description |
-|---|---|---|---|
+|---|---|---|---|---|
 | tokenId | Header | String | O | Token ID |
 
 <a id="view-pool-response"></a>
@@ -3473,7 +3473,7 @@ X-Auth-Token: {tokenId}
 This API does not require a request body.
 
 | Name | Type | Format | Required | Description |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | tokenId | Header | String | O | Token ID |
 | id | Query | String | - | IP ACL group ID |
 | name | Query | String | - | IP ACL group name |
@@ -3536,7 +3536,7 @@ X-Auth-Token: {tokenId}
 This API does not require a request body.
 
 | Name | Type | Format | Required | Description |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | tokenId | Header | String | Yes | Token ID |
 | ipaclGroupId | Header | String | Yes | Token ID |
 
@@ -3779,7 +3779,7 @@ Rules related to this IP ACL group will be deleted from all load balancers using
 This API does not require a request body.
 
 | Name | Type | Format | Required | Description |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | tokenId | Header | String | O | Token ID |
 | ipaclGroupId | URL | UUID | O | IP ACL Group ID |
 
@@ -3932,7 +3932,7 @@ X-Auth-Token: {tokenId}
 This API does not require a request body.
 
 | Name | Type | Format | Required | Description |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | tokenId | Header | String | Yes | Token ID |
 | ipaclTargetId | URL | UUID | Yes | IP ACL Target ID |
 

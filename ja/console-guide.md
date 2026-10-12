@@ -514,15 +514,15 @@ NHN Cloudでは、基本インフラサービスのセキュリティと安定�
 メンテナンス対象に指定されたロードバランサーがあるプロジェクトに移動し、次の手順で再起動を実行します。
 
 1. メンテナンス対象のロードバランサーを確認します。ロードバランサー名の横に**! 再起動**ボタンがあるロードバランサーが、メンテナンス対象のロードバランサーです。
-   ![image-001](http://static.toastoven.net/prod_load_balancer/lb_p_migration_ko_1.png)
+   ![image-001](http://static.toastoven.net/prod_load_balancer/lb_p_migration_jp_1.png)
    **! 再起動**ボタンの上にマウスポインターを合わせると、詳細なメンテナンスのスケジュールを確認できます。サービスに影響を与えない時間帯に実行してください。
-   ![image-002](http://static.toastoven.net/prod_load_balancer/lb_p_migration_ko_2.png)
+   ![image-002](http://static.toastoven.net/prod_load_balancer/lb_p_migration_jp_2.png)
 2. メンテナンス対象のロードバランサーを選択し、名前の横にある**! 再起動**ボタンをクリックします。
 3. ロードバランサーの再起動の確認画面が表示されたら、**確認**ボタンをクリックします。
-   ![image-003](http://static.toastoven.net/prod_load_balancer/lb_p_migration_ko_3.png)
+   ![image-003](http://static.toastoven.net/prod_load_balancer/lb_p_migration_jp_3.png)
 4. ステータスインジケーターが緑色に変わり、**! 再起動**ボタンが消えるまで待機します。
    ロードバランサーのステータスインジケーターが変わらない場合、または**! 再起動**ボタンが消えない場合は、「更新」を実行してください。
-   ![image-004](http://static.toastoven.net/prod_load_balancer/lb_p_migration_ko_4.png)
+   ![image-004](http://static.toastoven.net/prod_load_balancer/lb_p_migration_jp_4.png)
 
 ロードバランサーが再起動している間は、該当するロードバランサーに対して一切の操作を実行できません。
 ロードバランサーの再起動が正常に完了しない場合は自動的に管理者に報告され、NHN Cloudから別途ご連絡します。

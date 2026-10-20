@@ -2846,7 +2846,7 @@ X-Auth-Token: {tokenId}
 | rule.key | Body | String | - | L7 룰 매칭 시 사용되는 키<br> `COOKIE`/`HEADER`인 경우 필수 |
 | rule.value | Body | String | O | L7 룰 매칭 시 사용되는 값 |
 | rule.type | Query | Enum | O | L7 룰 타입 <br> `COOKIE`/ `FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH` 중 하나 |
-| rule.compare_type | Query | Enum | O | L7 룰 비교 방식<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX` 중 하나 |
+| rule.compare_type | Query | Enum | O | L7 룰 비교 방식<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX` 중 하나<br> `FILE_TYPE` 타입은 `EQUAL_TO`만 지원 |
 
 
 <details><summary>예시</summary>
@@ -2921,7 +2921,7 @@ X-Auth-Token: {tokenId}
 | rule.key | Body | String | - | L7 룰 매칭 시 사용되는 키<br> `COOKIE`/`HEADER`인 경우에만 적용 |
 | rule.value | Body | String | - | L7 룰 매칭 시 사용되는 값 |
 | rule.type | Query | Enum | - | L7 룰 타입 <br> `COOKIE`/`FILE_TYPE`/`HEADER`/`HOST_NAME`/`PATH` 중 하나 |
-| rule.compare_type | Query | Enum | - |L7 룰 비교 방식<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX` 중 하나 |
+| rule.compare_type | Query | Enum | - |L7 룰 비교 방식<br> `CONTAINS`/`ENDS_WITH`/`STARTS_WITH`/`EQUAL_TO`/`REGEX` 중 하나<br> `FILE_TYPE` 타입은 `EQUAL_TO`만 지원 |
 
 
 <details><summary>예시</summary>

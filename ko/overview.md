@@ -155,7 +155,7 @@ HTTP/2를 선택한 경우, 멤버 그룹에서 HTTP를 선택하면 H2C(평문)
     * HTTP/2: ALPN(Application-Layer Protocol Negotiation)으로 클라이언트와 협상하여 HTTP/2와 HTTP/1을 모두 지원합니다. HTTP/2를 지원하지 않는 클라이언트는 HTTP/1로 통신합니다.
 * 멤버 그룹
     * HTTP/1: 멤버와 HTTP/1로 통신합니다.
-    * HTTP/2: 멤버와 HTTP/2로만 통신합니다. 클라이언트가 HTTP/1로 접속하면 `421 Misdirected Request`를 응답합니다.
+    * HTTP/2: 멤버와 HTTP/2로만 통신합니다. 클라이언트가 HTTP/1로 접속하면 `421 Misdirected Request`를 반환합니다.
 
 | 리스너 | 멤버 그룹 | HTTP/1 클라이언트 | HTTP/2 클라이언트 |
 | --- | --- | --- | --- |

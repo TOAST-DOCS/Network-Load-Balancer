@@ -148,14 +148,31 @@ When using the following protocols, you can select HTTP/1 or HTTP/2 as the proto
 * Listener TERMINATED_HTTPS
 * Member group HTTP, HTTP_REENCRYPT
 
-If you select HTTP/2, the load balancer communicates using H2C (plaintext) when HTTP is selected for the member group, or H2 (TLS encrypted) when HTTP_REENCRYPT is selected.
-The load balancer operates strictly according to the selected protocol version, and if HTTP/2 is selected, it cannot communicate using HTTP/1.
-If you select HTTP or HTTPS as the health check protocol, the load balancer operates using the same protocol version that is selected for the member group.
+If HTTP/2 is selected, selecting HTTP in the member group uses H2C (plaintext) communication, and selecting HTTP_REENCRYPT uses H2 (TLS encryption) communication.
+The behavior based on the protocol version is as follows.
+
+* Listener
+
+    * HTTP/1: Communicates with clients using HTTP/1 only.
+    * HTTP/2: Supports both HTTP/2 and HTTP/1 by negotiating with clients via ALPN (Application-Layer Protocol Negotiation). Clients that do not support HTTP/2 communicate using HTTP/1.
+* Member Group
+    * HTTP/1: Communicates with members using HTTP/1.
+    * HTTP/2: Communicates with members using HTTP/2 only. If a client connects using HTTP/1, `421 Misdirected Request` is returned.
+
+| Listener | Member Group | HTTP/1 Client | HTTP/2 Client |
+| --- | --- | --- | --- |
+| HTTP/1 | HTTP/1 | Can communicate | Communicates via HTTP/1 |
+| HTTP/2 | HTTP/1 | Can communicate | Can communicate (communicates with member via HTTP/1) |
+| HTTP/2 | HTTP/2 | 421 response | Can communicate |
+| HTTP/1 | HTTP/2 | Cannot configure | Cannot configure |
+
+When the health check protocol is set to HTTP or HTTPS, it operates in the same way as the protocol version selected in the member group.
 
 !!! danger "Caution"
     - This feature is not available in load balancer engine version v1.
     - If the member group protocol version is HTTP/2 and you select HTTP or HTTPS as the health check protocol without entering a Host, `NHNLB` is automatically set in the Host header.
     - If the listener's protocol version is HTTP/2, setting the Keep-Alive timeout to **Not use** does not immediately terminate the session with the client. Because HTTP/2 multiplexes multiple requests over a single connection, the HTTP/1 behavior of closing the connection after each response does not apply.
+    - HTTP/2 listeners created before the expanded HTTP/2 compatibility range was introduced continue to communicate using HTTP/2 only, as before, if no settings have been changed since then. To allow HTTP/1 clients to connect, click **Save** on the listener settings screen without making any changes.
 
 !!! tip "Note"
     A single HTTP/2 connection can handle up to 100 simultaneous requests (streams), and this value cannot be changed. Requests that exceed this limit are queued on the client side before being processed, so no errors occur.

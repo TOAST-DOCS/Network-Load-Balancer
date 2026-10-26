@@ -274,12 +274,18 @@ For listeners using the TERMINATED_HTTPS protocol, you can manage multiple certi
 2. Select the TERMINATED_HTTPS listener for which you want to manage certificates.
 3. Click the **Certificates** tab in the listener details screen.
 4. You can view the following information in the list of registered certificates:
+
+<!-- -->
+
 - **Name**: certificate name
 - **Expiration Date**: certificate expiration date and number of days remaining until expiration
 
 ##### Add Certificates
 1. Click **+ Add Certificate** button in the **Certificates** tab of the listener details screen.
 2. Select whether to use the Certificate Manager.
+
+<!-- -->
+
 - **Enable**: select from the list of certificates registered in the Certificate Manager.
 - **Disable**: register by directly uploading the certificate and private key files. 3. After reviewing the warning message, select the checkbox and click **OK**.
 
@@ -314,9 +320,9 @@ You can configure custom responses in the load balancer listener. Using custom r
 2. Select the listener for which you want to configure a custom response.
 3. On the listener details screen, click **View/Change Custom Response Settings**.
 4. You can enter and confirm the following items:
-   - **Response Code**: select the HTTP status code to which the custom response will be applied. (Supported codes: 400, 403, 408, 500, 502, 503, 504)
-   - **Content Type**: select the Content-Type of the response to be delivered to the user. (Choose from `text/html`, `text/plain`, `application/json`, `application/javascript`, and `text/css`)
-   - **Response Body**: enter the body of the response to be displayed to the user. (up to 1,024 characters. The content can be HTML, text, or any other format, depending on the content type.)
+    - **Response Code**: select the HTTP status code to which the custom response will be applied. (Supported codes: 400, 403, 408, 500, 502, 503, 504)
+    - **Content Type**: select the Content-Type of the response to be delivered to the user. (Choose from `text/html`, `text/plain`, `application/json`, `application/javascript`, and `text/css`)
+    - **Response Body**: enter the body of the response to be displayed to the user. (up to 1,024 characters. The content can be HTML, text, or any other format, depending on the content type.)
 5. After entering each item, click **Confirm** to generate the response. The generated response can be viewed in the list.
 
 <a id='custom-response-guide-delete-a-custom-response'></a>
@@ -343,9 +349,9 @@ You can view and change the X-Forwarded header settings on a load balancer liste
 2. Select the listener for which you want to configure the X-Forwarded header.
 3. On the **Basic Information** tab on the listener details screen, click **View/Change Settings** button under the **X-Forwarded Header** section.
 4. You can configure the following:
-   - **X-Forwarded-Proto**: set whether to forward the protocol (http or https) used by the client to the backend server. Select either **Enable** or **Disable**.
-   - **X-Forwarded-Port**: set whether to forward the port number the client connected to to the backend server. Select either **Enable** or **Disable**.
-   - **X-Forwarded-for**: set whether to forward the client's original IP address to the backend server. Select either **Enable** or **Disable**.
+    - **X-Forwarded-Proto**: set whether to forward the protocol (http or https) used by the client to the backend server. Select either **Enable** or **Disable**.
+    - **X-Forwarded-Port**: set whether to forward the port number the client connected to to the backend server. Select either **Enable** or **Disable**.
+    - **X-Forwarded-for**: set whether to forward the client's original IP address to the backend server. Select either **Enable** or **Disable**.
 5. After configuring each item, check the box in the warning message and click **OK** to apply the settings.
 
 !!! danger "Caution"

@@ -230,11 +230,43 @@ Load Balancer operates in a `proxy mode`. The client connects to a load balancer
 
     If you are using the TCP or HTTPS protocol, you can set up a proxy protocol on the load balancer to check the client IP address. In this case, the server must also have the capability to recognize the proxy protocol like the ones shown above.
 
+<a id="proxy-protocol-v2"></a>
+### Proxy Protocol v2 { #proxy-protocol-v2 }
+
+When the listener proxy protocol is set to v2, client information is forwarded to members as a binary-format header. As with proxy protocol v1, the header is transmitted once when a TCP connection is established, and the member instance must be able to recognize proxy protocol v2.
+
+The proxy protocol v2 header consists of the following items.
+
+| Item | Size | Description |
+|--|--|--|
+| Signature | 12 bytes | Fixed value: `\x0D\x0A\x0D\x0A\x00\x0D\x0A\x51\x55\x49\x54\x0A` |
+| Version/Command | 1 byte | `0x21` (Version 2, PROXY command) |
+| Address family/Transport protocol | 1 byte | `0x11` (IPv4, TCP) |
+| Length | 2 bytes | Total length of the address information and TLV that follows |
+| Address information | 12 bytes | Source IP, destination IP, source port, destination port |
+| TLV | Variable | Additional information (Type-Length-Value) |
+
+The load balancer's IP and listener port are forwarded to the destination IP and port.
+
+!!! danger "Caution"
+    - If both `proxy_protocol` and `proxy_protocol_v2` are set to `true` via the API, proxy protocol v2 is applied.
+    - If the member instance does not support proxy protocol v2, requests cannot be processed normally.
+
+<a id="service-gateway-integration"></a>
+### Service Gateway Integration { #service-gateway-integration }
+
+If you publish the load balancer as a custom endpoint, other projects can access the load balancer through the service gateway.
+
+!!! danger "Caution"
+    Load balancers created before the custom endpoint feature was introduced do not have the required listener settings for Service Gateway integration applied and cannot communicate, unless the settings were changed afterward. Before connecting to the custom endpoint, **Save** the listener settings of the load balancer without making any changes. If communication fails even after connecting, you can resolve the issue in the same way.
+
+    - Console: In **Load Balancer**, click **View Details** for the target load balancer, click **Modify Listener** on the **Listener** tab, and click **OK** without changing any values.
+    - API: Send a request to the load balancer modification API (`PUT /v2.0/lbaas/loadbalancers/{loadbalancerId}`) with the current name in the request body as-is. For example: `{"loadbalancer": {"name": "<current name>"}}`
 
 <a id="proxy-protocol-and-health-check"></a>
 ### Proxy Protocol and Health Check { #proxy-protocol-and-health-check }
 
-When the proxy protocol is set on a listener, it is always sent for service traffic. However, whether it is sent for health check traffic depends on the health check port configuration. If the health check port is set to **Member port**, the proxy protocol is also sent for health check connections. If a separate port is specified using **Specify**, the proxy protocol is not sent.
+When the proxy protocol (v1 or v2) is set on a listener, it is always sent for service traffic. However, whether it is sent for health check traffic depends on the health check port configuration. If the health check port is set to `Member port`, the proxy protocol is also sent for health check connections. If a separate port is specified using `Specify`, the proxy protocol is not sent.
 
 | Listener Proxy Protocol | Health Check Port | Proxy Protocol on Health Check | Proxy Protocol on Service Traffic |
 |--|--|--|--|

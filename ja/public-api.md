@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=fed248a1eb32 -->
 
 <a id="network-load-balancer-api-v2-guide"></a>
@@ -495,6 +497,7 @@ X-Auth-Token: {tokenId}
 | listeners.sni_container_refs | Body | Array | key-managerに登録されたSNI証明書のパス一覧 |
 | listeners.protocol_port | Body | Integer | リスナーポート |
 | listeners.proxy_protocol | Body | Boolean | プロキシプロトコルのon/off<br>デフォルト値：`false` |
+| listeners.proxy_protocol_v2 | Body | Boolean | プロキシプロトコルv2のon/off<br>デフォルト値: `false` |
 | listeners.block_invalid_http_request | Body | Boolean | 無効なHTTPリクエストブロックのon/off<br>デフォルト値：`true` |
 | listeners.tls_version | Body | String | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
 | listeners.ssl_policy_id | Body | UUID | リスナーに接続されたSSLポリシーID<br>接続されたSSLポリシーがない場合は`null`<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
@@ -510,6 +513,7 @@ X-Auth-Token: {tokenId}
   "listeners": [
     {
       "proxy_protocol": false,
+      "proxy_protocol_v2": false,
       "block_invalid_http_request": true,
       "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
       "protocol": "TERMINATED_HTTPS",
@@ -541,7 +545,6 @@ X-Auth-Token: {tokenId}
 
 </p>
 </details>
-
 
 <a id="view-listener"></a>
 ### リスナーの表示 { #view-listener }
@@ -585,6 +588,7 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | key-managerに登録されたSNI証明書のパス一覧 |
 | listener.protocol_port | Body | Integer | リスナーポート |
 | listener.proxy_protocol | Body | Boolean | プロキシプロトコルのon/off<br>デフォルト値：`false` |
+| listener.proxy_protocol_v2 | Body | Boolean | プロキシプロトコルv2のon/off<br>デフォルト値: `false` |
 | listener.block_invalid_http_request | Body | Boolean | 無効なHTTPリクエストブロックのon/off<br>デフォルト値：`true` |
 | listener.tls_version | Body | String | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
 | listener.ssl_policy_id | Body | UUID | リスナーに接続されたSSLポリシーID<br>接続されたSSLポリシーがない場合は`null`<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
@@ -599,6 +603,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
@@ -633,8 +638,6 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-
-
 ---
 <a id="create-listener"></a>
 ### リスナーの作成 { #create-listener }
@@ -667,6 +670,7 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | - | key-managerに登録されたSNI証明書のパス一覧 |
 | listener.protocol_port | Body | Integer | O | リスナーポート |
 | listener.proxy_protocol | Body | Boolean | - | プロキシプロトコルのon/off<br>デフォルト値：`false` |
+| listener.proxy_protocol_v2 | Body | Boolean | - | プロキシプロトコルv2のon/off<br>デフォルト値：`false` |
 | listener.block_invalid_http_request | Body | Boolean | - | 無効なHTTPリクエストブロックのon/off<br>デフォルト値：`true` |
 | listener.tls_version | Body | String | - | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用<br>`ssl_policy_id`と共に指定する場合は、SSLポリシーの`min_tls_version`と一致する必要があります |
 | listener.ssl_policy_id | Body | UUID | - | リスナーに接続するSSLポリシーID<br>デフォルト値：`null`<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用<br>詳細は[カスタムSSLポリシー](./overview/#custom-ssl-policy)を参照してください |
@@ -682,6 +686,7 @@ X-Auth-Token: {tokenId}
     "protocol": "TERMINATED_HTTPS",
     "protocol_version": "HTTP/2",
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "description": "",
     "name": "",
@@ -728,6 +733,7 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | key-managerに登録されたSNI証明書のパス一覧 |
 | listener.protocol_port | Body | Integer | リスナーポート |
 | listener.proxy_protocol | Body | Boolean | プロキシプロトコルのon/off<br>デフォルト値：`false` |
+| listener.proxy_protocol_v2 | Body | Boolean | プロキシプロトコルv2のon/off<br>デフォルト値: `false` |
 | listener.block_invalid_http_request | Body | Boolean | 無効なHTTPリクエストブロックのon/off<br>デフォルト値：`true` |
 | listener.tls_version | Body | String | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
 | listener.ssl_policy_id | Body | UUID | リスナーに接続されたSSLポリシーID<br>接続されたSSLポリシーがない場合は`null`<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
@@ -742,6 +748,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
@@ -804,6 +811,7 @@ X-Auth-Token: {tokenId}
 | listener.default_tls_container_ref | Body | String | - | key-managerに登録されたTLS証明書のパス |
 | listener.sni_container_refs | Body | Array | - | key-managerに登録されたSNI証明書のパス一覧 |
 | listener.proxy_protocol | Body | Boolean | - | プロキシプロトコルのon/off<br>デフォルト値：`false` |
+| listener.proxy_protocol_v2 | Body | Boolean | - | プロキシプロトコルv2のon/off<br>デフォルト値: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | 無効なHTTPリクエストブロックのon/off<br>デフォルト値：`true` |
 | listener.tls_version | Body | String | - | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用<br>`ssl_policy_id`と共に指定する場合は、SSLポリシーの`min_tls_version`と一致する必要があります |
 | listener.ssl_policy_id | Body | UUID | - | リスナーに接続するSSLポリシーID<br>接続を解除する場合は`null`を送信<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用<br>詳細は[カスタムSSLポリシー](./overview/#custom-ssl-policy)を参照してください |
@@ -816,6 +824,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "description": "",
     "name": "",
@@ -861,6 +870,7 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | key-managerに登録されたSNI証明書のパス一覧 |
 | listener.protocol_port | Body | Integer | リスナーポート |
 | listener.proxy_protocol | Body | Boolean | プロキシプロトコルのon/off<br>デフォルト値：`false` |
+| listener.proxy_protocol_v2 | Body | Boolean | プロキシプロトコルv2のon/off<br>デフォルト値: `false` |
 | listener.block_invalid_http_request | Body | Boolean | 無効なHTTPリクエストブロックのon/off<br>デフォルト値：`true` |
 | listener.tls_version | Body | String | リスナーのTLSバージョン<br>`SSLv3`、`TLSv1.0`、`TLSv1.0_2016`、`TLSv1.1`、`TLSv1.2`、`TLSv1.3`のいずれか<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
 | listener.ssl_policy_id | Body | UUID | リスナーに接続されたSSLポリシーID<br>接続されたSSLポリシーがない場合は`null`<br>プロトコルが`TERMINATED_HTTPS`の場合にのみ適用 |
@@ -875,6 +885,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "default_pool_id": null,
     "protocol": "TERMINATED_HTTPS",

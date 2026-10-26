@@ -471,7 +471,7 @@ X-Auth-Token: {tokenId}
 | name | Query | String | - | リスナーの名前 |
 | admin_state_up | Query | Boolean | - | 管理者制御ステータス |
 | connection_limit | Query | Integer | - | リスナーのconnection limit |
-| keepalive_timeout | Query | Integer | - | リスナーのkeepalive timeout |
+| keepalive_timeout | Query | Integer | - | リスナーのkeep-aliveアイドル時間(秒) |
 | protocol_port | Query | Integer | - | リスナーのポート番号 |
 | id | Query | UUID | - | リスナーID |
 
@@ -492,7 +492,7 @@ X-Auth-Token: {tokenId}
 | listeners.tenant_id | Body | String | テナントID |
 | listeners.admin_state_up | Body | Boolean | 管理者制御ステータス |
 | listeners.connection_limit | Body | Integer | リスナーのconnection limit |
-| listeners.keepalive_timeout | Body | Integer | リスナーのkeepalive timeout |
+| listeners.keepalive_timeout | Body | Integer | リスナーのkeep-aliveアイドル時間(秒)。範囲1～3600、デフォルト値300<br>レスポンス後、同じクライアント接続からの次のリクエストを待機する時間で、クライアント側の無応答許容時間としても使用されます<br>プールの`member_timeout`を指定しない場合、メンバーの応答待機時間としても使用されます |
 | listeners.default_tls_container_ref | Body | String| key-managerに登録されたTLS証明書のパス |
 | listeners.sni_container_refs | Body | Array | key-managerに登録されたSNI証明書のパス一覧 |
 | listeners.protocol_port | Body | Integer | リスナーポート |
@@ -580,7 +580,7 @@ X-Auth-Token: {tokenId}
 | listener.tenant_id | Body | String | テナントID |
 | listener.admin_state_up | Body | Boolean | 管理者制御ステータス |
 | listener.connection_limit | Body | Integer | リスナーのconnection limit |
-| listener.keepalive_timeout | Body | Integer | リスナーのkeepalive timeout |
+| listener.keepalive_timeout | Body | Integer | リスナーのkeep-aliveアイドル時間(秒)。範囲1～3600、デフォルト値300<br>応答後、同じクライアント接続から次のリクエストを待機する時間であり、クライアント側の無応答許容時間としても使用されます<br>プールの`member_timeout`を指定しない場合、メンバー応答待機時間としても使用されます |
 | listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Portヘッダのon/off<br>デフォルト値：`true` |
 | listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Portヘッダのon/off<br>デフォルト値：`true` |
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-Forヘッダのon/off<br>デフォルト値：`true` |
@@ -662,7 +662,7 @@ X-Auth-Token: {tokenId}
 | listener.loadbalancer_id | Body | UUID | O | ロードバランサーID |
 | listener.admin_state_up | Body | Boolean | - | 管理者制御ステータス |
 | listener.connection_limit | Body |  Integer | - | リスナーのconnection limit |
-| listener.keepalive_timeout | Body | Integer | - | リスナーのkeepalive timeout |
+| listener.keepalive_timeout | Body | Integer | - | リスナーのkeep-aliveアイドル時間(秒)。範囲1～3600、デフォルト値300<br>応答後、同じクライアント接続から次のリクエストを待機する時間であり、クライアント側の無応答許容時間としても使用されます<br>プールの`member_timeout`を指定しない場合は、メンバー応答待機時間としても使用されます |
 | listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Portヘッダのon/off<br>デフォルト値：`true` |
 | listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Portヘッダのon/off<br>デフォルト値：`true` |
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-Forヘッダのon/off<br>デフォルト値：`true` |
@@ -725,7 +725,7 @@ X-Auth-Token: {tokenId}
 | listener.tenant_id | Body | String | テナントID |
 | listener.admin_state_up | Body | Boolean | 管理者制御ステータス |
 | listener.connection_limit | Body | Integer | リスナーのconnection limit |
-| listener.keepalive_timeout | Body | Integer | リスナーのkeepalive timeout |
+| listener.keepalive_timeout | Body | Integer | リスナーのkeep-aliveアイドル時間(秒)。範囲1～3600、デフォルト値300<br>応答後に同じクライアント接続で次のリクエストを待機する時間であり、クライアント側の無応答許容時間としても使用されます<br>プールの`member_timeout`を指定しない場合、メンバー応答待機時間としても使用されます |
 | listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Portヘッダのon/off<br>デフォルト値：`true` |
 | listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Portヘッダのon/off<br>デフォルト値：`true` |
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-Forヘッダのon/off<br>デフォルト値：`true` |
@@ -804,7 +804,7 @@ X-Auth-Token: {tokenId}
 | listener.default_pool_id | Body | UUID | - | リスナーに登録されたデフォルトメンバーグループ(プール)のID<br>該当の値をnullに指定すると`使用しない`に変更されます |
 | listener.admin_state_up | Body | Boolean | - | 管理者制御ステータス |
 | listener.connection_limit | Body |  Integer | - | リスナーのconnection limit |
-| listener.keepalive_timeout | Body | Integer | - | リスナーのkeepalive timeout |
+| listener.keepalive_timeout | Body | Integer | - | リスナーのkeep-aliveアイドル時間(秒)。範囲1～3600、デフォルト値300<br>応答後、同じクライアント接続で次のリクエストを待機する時間であり、クライアント側の無応答許容時間としても使用されます<br>プールの`member_timeout`を指定しない場合、メンバーの応答待機時間としても使用されます |
 | listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Portヘッダのon/off<br>デフォルト値：`true` |
 | listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Portヘッダのon/off<br>デフォルト値：`true` |
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-Forヘッダのon/off<br>デフォルト値：`true` |
@@ -862,7 +862,7 @@ X-Auth-Token: {tokenId}
 | listener.tenant_id | Body | String | テナントID |
 | listener.admin_state_up | Body | Boolean | 管理者制御ステータス |
 | listener.connection_limit | Body | Integer | リスナーのconnection limit |
-| listener.keepalive_timeout | Body | Integer | リスナーのkeepalive timeout |
+| listener.keepalive_timeout | Body | Integer | リスナーのkeep-aliveアイドル時間(秒)。範囲1～3600、デフォルト値300<br>レスポンス後、同じクライアント接続で次のリクエストを待機する時間であり、クライアント側の無応答許容時間としても使用されます<br>プールの`member_timeout`を指定しない場合、メンバーのレスポンス待機時間としても使用されます |
 | listener.enable_x_forwarded_proto | Body | Boolean | X-Forwarded-Proto/X-Forwarded-Protヘッダのon/off |
 | listener.enable_x_forwarded_port | Body | Boolean | X-Forwarded-Portヘッダのon/off |
 | listener.enable_x_forwarded_for | Body | Boolean | X-Forwarded-Forヘッダのon/off |
@@ -1221,6 +1221,10 @@ X-Auth-Token: {tokenId}
 
 <a id="pool"></a>
 ## プール { #pool }
+!!! tip "ポイント"
+    - リスナーの`keepalive_timeout`とプールの`member_timeout`は、リクエスト全体の処理時間ではなく、無応答(inactivity)時間です。データが継続してやり取りされている間は、接続が切断されません。
+    - TCPリスナーは、クライアント側(`keepalive_timeout`)とメンバー側(`member_timeout`)のどちらか一方でも期限切れになると、接続が切断されます。長いアイドル接続を維持するには、両方の値を増やす必要があります。
+
 <a id="view-pool-list"></a>
 ### プール一覧表示 { #view-pool-list }
 
@@ -1243,6 +1247,7 @@ X-Auth-Token: {tokenId}
 | protocol_version | Query | Enum | - | メンバーのHTTPプロトコルバージョン |
 | admin_state_up | Query | Boolean | - | 管理者制御ステータス |
 | healthmonitor_id | Query | UUID | - | プールのヘルスモニターID |
+| member_timeout | Query | Integer | - | メンバーの応答待機(read timeout)無応答許容時間(秒) |
 
 <a id="view-pool-list-response"></a>
 #### レスポンス
@@ -1260,6 +1265,7 @@ X-Auth-Token: {tokenId}
 | pools.session_persistence.type | Body | Enum | セッション維持<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定する場合、接続されたリスナーのプロトコルを`HTTP`または`TERMINATED_HTTPS`に設定しているか確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション維持を`HTTP_COOKIE`、`APP_COOKIE`に設定しても、ロードバランサーはセッション維持に関連する動作を実行しません。 |
 | pools.session_persistence.cookie_name | Body | String | Cookie名 <br>セッション維持タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
 | pools.healthmonitor_id | Body | String | ヘルスモニターID |
+| pools.member_timeout | Body | Integer | メンバーの応答待機(read timeout)無応答許容時間(秒)<br>指定しない場合は`null`となり、リスナーの`keepalive_timeout`に従います |
 | pools.loadbalancers | Body | Array | プールが登録されたロードバランサーオブジェクトの一覧 |
 | pools.loadbalancers.id | Body | UUID | ロードバランサーID |
 | pools.listeners | Body | Array | プールが登録されたリスナーオブジェクトの一覧 |
@@ -1284,6 +1290,7 @@ X-Auth-Token: {tokenId}
       "tenant_id": "8258ab391d854e8b878642b737017a3b",
       "member_port": 80,
       "session_persistence": null,
+      "member_timeout": null,
       "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
       "loadbalancers": [
         {
@@ -1312,7 +1319,6 @@ X-Auth-Token: {tokenId}
 
 </p>
 </details>
-
 
 <a id="view-pool"></a>
 ### プール表示 { #view-pool }
@@ -1347,6 +1353,7 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | セッション維持<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定する場合、接続されたリスナーのプロトコルを`HTTP`または`TERMINATED_HTTPS`に設定しているか確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション維持を`HTTP_COOKIE`、`APP_COOKIE`に設定しても、ロードバランサーはセッション維持に関連する動作を実行しません。 |
 | pool.session_persistence.cookie_name | Body | String | Cookie名 <br>セッション維持タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
 | pool.healthmonitor_id | Body | UUID | ヘルスモニターID |
+| pool.member_timeout | Body | Integer | メンバーの応答待機(read timeout)無応答許容時間(秒)<br>指定しない場合は`null`となり、リスナーの`keepalive_timeout`に従います |
 | pool.loadbalancers | Body | Array | プールが登録されたロードバランサーオブジェクトの一覧 |
 | pool.loadbalancers.id | Body | UUID | ロードバランサーID |
 | pool.listeners | Body | Array | プールが登録されたリスナーオブジェクトの一覧 |
@@ -1370,6 +1377,7 @@ X-Auth-Token: {tokenId}
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
     "loadbalancers": [
       {
@@ -1398,8 +1406,6 @@ X-Auth-Token: {tokenId}
 </p>
 </details>
 
-
-
 ---
 <a id="create-pool"></a>
 ### プール作成 { #create-pool }
@@ -1427,6 +1433,7 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - | プールのセッション維持オブジェクト |
 | pool.session_persistence.type | Body | Enum | - | セッション維持<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定する場合、接続されたリスナーのプロトコルを`HTTP`または`TERMINATED_HTTPS`に設定しているか確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション維持を`HTTP_COOKIE`、`APP_COOKIE`に設定しても、ロードバランサーはセッション維持に関連する動作を実行しません。 |
 | pools.session_persistence.cookie_name | Body | String | - | Cookie名 <br>セッション維持タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
+| pool.member_timeout | Body | Integer | - | メンバーの応答待機(read timeout)無応答許容時間(秒)。範囲1～3600<br>省略するとリスナーの`keepalive_timeout`に従います |
 | pool.name | Body | String | - | プールの名前 |
 
 
@@ -1445,6 +1452,7 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": 600,
     "name": ""
   }
 }
@@ -1467,6 +1475,7 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - | プールのセッション維持オブジェクト |
 | pool.session_persistence.type | Body | Enum | セッション維持<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定する場合、接続されたリスナーのプロトコルを`HTTP`または`TERMINATED_HTTPS`に設定しているか確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション維持を`HTTP_COOKIE`、`APP_COOKIE`に設定しても、ロードバランサーはセッション維持に関連する動作を実行しません。 |
 | pool.healthmonitor_id | Body | String | ヘルスモニターID |
+| pool.member_timeout | Body | Integer | メンバーの応答待機(read timeout)無応答許容時間(秒)<br>指定しない場合は`null`となり、リスナーの`keepalive_timeout`に従います |
 | pool.loadbalancers | Body | Array | プールが登録されたロードバランサーオブジェクトの一覧 |
 | pool.loadbalancers.id | Body | UUID | ロードバランサーID |
 | pool.listeners | Body | Array | プールが登録されたリスナーオブジェクトの一覧 |
@@ -1490,6 +1499,7 @@ X-Auth-Token: {tokenId}
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": 600,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
     "loadbalancers": [
       {
@@ -1542,6 +1552,7 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - | プールのセッション維持オブジェクト |
 | pool.session_persistence.type | Body | Enum | - | セッション維持<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定する場合、接続されたリスナーのプロトコルを`HTTP`または`TERMINATED_HTTPS`に設定しているか確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション維持を`HTTP_COOKIE`、`APP_COOKIE`に設定しても、ロードバランサーはセッション維持に関連する動作を実行しません。 |
 | pools.session_persistence.cookie_name | Body | String | - | Cookie名 <br>セッション維持タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
+| pool.member_timeout | Body | Integer | - | メンバー応答待機(read timeout)無応答許容時間(秒)。範囲1～3600<br>`null`に指定するとリスナーの`keepalive_timeout`に従います |
 | pool.name | Body | String | - | プールの名前 |
 
 
@@ -1557,6 +1568,7 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": 600,
     "name": ""
   }
 }
@@ -1580,6 +1592,7 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | セッション維持<br> `SOURCE_IP`、`HTTP_COOKIE`、`APP_COOKIE`のいずれかに設定<br> `HTTP_COOKIE`、`APP_COOKIE`に設定する場合、接続されたリスナーのプロトコルを`HTTP`または`TERMINATED_HTTPS`に設定しているか確認することを推奨します。<br> リスナーのプロトコルを`TCP`または`HTTPS`に設定した場合、セッション維持を`HTTP_COOKIE`、`APP_COOKIE`に設定しても、ロードバランサーはセッション維持に関連する動作を実行しません。 |
 | pools.session_persistence.cookie_name | Body | String | Cookie名 <br>セッション維持タイプが`APP_COOKIE`の場合にのみ設定値が適用されます。 |
 | pool.healthmonitor_id | Body | UUID | ヘルスモニターID |
+| pool.member_timeout | Body | Integer | メンバーの応答待機(read timeout)無応答許容時間(秒)<br>指定しない場合は`null`となり、リスナーの`keepalive_timeout`に従います |
 | pool.loadbalancers | Body | Array | プールが登録されたロードバランサーオブジェクトの一覧 |
 | pool.loadbalancers.id | Body | UUID | ロードバランサーID |
 | pool.listeners | Body | Array | プールが登録されたリスナーオブジェクトの一覧 |
@@ -1603,6 +1616,7 @@ X-Auth-Token: {tokenId}
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": 600,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
     "loadbalancers": [
       {

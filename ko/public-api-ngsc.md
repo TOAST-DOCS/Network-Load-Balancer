@@ -481,6 +481,7 @@ X-Auth-Token: {tokenId}
 | listeners.sni_container_refs | Body | Array | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listeners.protocol_port | Body | Integer | 리스너 포트 |
 | listeners.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
+| listeners.proxy_protocol_v2 | Body | Boolean | 프록시 프로토콜 v2 on/off<br>기본값: `false` |
 | listeners.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listeners.tls_version | Body | String | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
 | listeners.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
@@ -495,6 +496,7 @@ X-Auth-Token: {tokenId}
   "listeners": [
     {
       "proxy_protocol": false,
+      "proxy_protocol_v2": false,
       "block_invalid_http_request": true,
       "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
       "protocol": "TERMINATED_HTTPS",
@@ -572,6 +574,7 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
 | listener.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | 프록시 프로토콜 v2 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listener.tls_version | Body | String | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
 | listener.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
@@ -585,6 +588,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
@@ -651,6 +655,7 @@ X-Auth-Token: {tokenId}
 | listener.default_tls_container_ref | Body | String | - | key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | - | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.proxy_protocol | Body | Boolean | - | 프록시 프로토콜 on/off<br>기본값: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | - | 프록시 프로토콜 v2 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listener.tls_version | Body | String | - | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
 | listener.keepalive_enable | Body | Boolean | - | keepalive 활성화 on/off<br>기본값: `true` |
@@ -666,6 +671,7 @@ X-Auth-Token: {tokenId}
     "protocol": "TERMINATED_HTTPS",
     "protocol_version": "HTTP/2",
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "description": "",
     "name": "",
@@ -712,6 +718,7 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
 | listener.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | 프록시 프로토콜 v2 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listener.tls_version | Body | String | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
 | listener.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
@@ -725,6 +732,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
@@ -785,6 +793,7 @@ X-Auth-Token: {tokenId}
 | listener.default_tls_container_ref | Body | String | - | key-manager에 등록된 TLS 인증서 경로 |
 | listener.sni_container_refs | Body | Array | - | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.proxy_protocol | Body | Boolean | - | 프록시 프로토콜 on/off<br>기본값: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | - | 프록시 프로토콜 v2 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listener.tls_version | Body | String | - | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
 | listener.keepalive_enable | Body | Boolean | - | keepalive 활성화 on/off<br>기본값: `true` |
@@ -796,6 +805,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "description": "",
     "name": "",
@@ -840,6 +850,7 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listener.protocol_port | Body | Integer | 리스너 포트 |
 | listener.proxy_protocol | Body | Boolean | 프록시 프로토콜 on/off<br>기본값: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | 프록시 프로토콜 v2 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listener.tls_version | Body | String | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용 |
 | listener.keepalive_enable | Body | Boolean | keepalive 활성화 on/off<br>기본값: `true` |
@@ -853,6 +864,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "default_pool_id": null,
     "protocol": "TERMINATED_HTTPS",

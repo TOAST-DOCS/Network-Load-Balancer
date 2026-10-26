@@ -452,7 +452,7 @@ X-Auth-Token: {tokenId}
 | name | Query | String | - | 리스너 이름 |
 | admin_state_up | Query | Boolean | - | 관리자 제어 상태 |
 | connection_limit | Query | Integer | - | 리스너의 connection limit |
-| keepalive_timeout | Query | Integer | - | 리스너의 keepalive timeout |
+| keepalive_timeout | Query | Integer | - | 리스너의 keep-alive 유휴 시간(초) |
 | protocol_port | Query | Integer | - | 리스너 포트 번호 |
 | id | Query | UUID | - | 리스너 ID |
 
@@ -473,7 +473,7 @@ X-Auth-Token: {tokenId}
 | listeners.tenant_id | Body | String | 테넌트 ID |
 | listeners.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | listeners.connection_limit | Body | Integer | 리스너의 connection limit |
-| listeners.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
+| listeners.keepalive_timeout | Body | Integer | 리스너의 keep-alive 유휴 시간(초). 범위 1~3600, 기본값 300<br>응답 후 같은 클라이언트 연결에서 다음 요청을 기다리는 시간이며, 클라이언트 쪽 무응답 허용 시간으로도 사용됨<br>풀의 `member_timeout`을 지정하지 않으면 멤버 응답 대기 시간으로도 사용됨 |
 | listeners.default_tls_container_ref | Body | String| key-manager에 등록된 TLS 인증서 경로 |
 | listeners.sni_container_refs | Body | Array | key-manager에 등록된 SNI 인증서 경로 목록 |
 | listeners.protocol_port | Body | Integer | 리스너 포트 |
@@ -562,7 +562,7 @@ X-Auth-Token: {tokenId}
 | listener.tenant_id | Body | String | 테넌트 ID |
 | listener.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | listener.connection_limit | Body | Integer | 리스너의 connection limit |
-| listener.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
+| listener.keepalive_timeout | Body | Integer | 리스너의 keep-alive 유휴 시간(초). 범위 1~3600, 기본값 300<br>응답 후 같은 클라이언트 연결에서 다음 요청을 기다리는 시간이며, 클라이언트 쪽 무응답 허용 시간으로도 사용됨<br>풀의 `member_timeout`을 지정하지 않으면 멤버 응답 대기 시간으로도 사용됨 |
 | listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot 헤더 on/off<br>기본값: `true` |
 | listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port 헤더 on/off<br>기본값: `true` |
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For 헤더 on/off<br>기본값: `true` |
@@ -646,7 +646,7 @@ X-Auth-Token: {tokenId}
 | listener.loadbalancer_id | Body | UUID | O | 로드 밸런서 ID |
 | listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
-| listener.keepalive_timeout | Body | Integer | - | 리스너의 keepalive timeout |
+| listener.keepalive_timeout | Body | Integer | - | 리스너의 keep-alive 유휴 시간(초). 범위 1~3600, 기본값 300<br>응답 후 같은 클라이언트 연결에서 다음 요청을 기다리는 시간이며, 클라이언트 쪽 무응답 허용 시간으로도 사용됨<br>풀의 `member_timeout`을 지정하지 않으면 멤버 응답 대기 시간으로도 사용됨 |
 | listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot 헤더 on/off<br>기본값: `true` |
 | listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port 헤더 on/off<br>기본값: `true` |
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For 헤더 on/off<br>기본값: `true` |
@@ -710,7 +710,7 @@ X-Auth-Token: {tokenId}
 | listener.tenant_id | Body | String | 테넌트 ID |
 | listener.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | listener.connection_limit | Body | Integer | 리스너의 connection limit |
-| listener.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
+| listener.keepalive_timeout | Body | Integer | 리스너의 keep-alive 유휴 시간(초). 범위 1~3600, 기본값 300<br>응답 후 같은 클라이언트 연결에서 다음 요청을 기다리는 시간이며, 클라이언트 쪽 무응답 허용 시간으로도 사용됨<br>풀의 `member_timeout`을 지정하지 않으면 멤버 응답 대기 시간으로도 사용됨 |
 | listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot 헤더 on/off<br>기본값: `true` |
 | listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port 헤더 on/off<br>기본값: `true` |
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For 헤더 on/off<br>기본값: `true` |
@@ -789,7 +789,7 @@ X-Auth-Token: {tokenId}
 | listener.default_pool_id | Body | UUID | - | 리스너에 등록된 기본 멤버 그룹(풀) ID<br>해당 값을 null로 지정하면 `사용 안 함`으로 변경 |
 | listener.admin_state_up | Body | Boolean | - | 관리자 제어 상태 |
 | listener.connection_limit | Body |  Integer | - | 리스너의 connection limit |
-| listener.keepalive_timeout | Body | Integer | - | 리스너의 keepalive timeout |
+| listener.keepalive_timeout | Body | Integer | - | 리스너의 keep-alive 유휴 시간(초). 범위 1~3600, 기본값 300<br>응답 후 같은 클라이언트 연결에서 다음 요청을 기다리는 시간이며, 클라이언트 쪽 무응답 허용 시간으로도 사용됨<br>풀의 `member_timeout`을 지정하지 않으면 멤버 응답 대기 시간으로도 사용됨 |
 | listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot 헤더 on/off<br>기본값: `true` |
 | listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port 헤더 on/off<br>기본값: `true` |
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For 헤더 on/off<br>기본값: `true` |
@@ -847,7 +847,7 @@ X-Auth-Token: {tokenId}
 | listener.tenant_id | Body | String | 테넌트 ID |
 | listener.admin_state_up | Body | Boolean | 관리자 제어 상태 |
 | listener.connection_limit | Body | Integer | 리스너의 connection limit |
-| listener.keepalive_timeout | Body | Integer | 리스너의 keepalive timeout |
+| listener.keepalive_timeout | Body | Integer | 리스너의 keep-alive 유휴 시간(초). 범위 1~3600, 기본값 300<br>응답 후 같은 클라이언트 연결에서 다음 요청을 기다리는 시간이며, 클라이언트 쪽 무응답 허용 시간으로도 사용됨<br>풀의 `member_timeout`을 지정하지 않으면 멤버 응답 대기 시간으로도 사용됨 |
 | listener.enable_x_forwarded_proto | Body | Boolean | X-Forwarded-Proto/X-Forwarded-Prot 헤더 on/off |
 | listener.enable_x_forwarded_port | Body | Boolean | X-Forwarded-Port 헤더 on/off |
 | listener.enable_x_forwarded_for | Body | Boolean | X-Forwarded-For 헤더 on/off |
@@ -1216,6 +1216,11 @@ X-Auth-Token: {tokenId}
 
 <a id="pool"></a>
 ## 풀 { #pool }
+
+!!! tip "알아두기"
+    - 리스너의 `keepalive_timeout`과 풀의 `member_timeout`은 요청 전체의 처리 시간이 아니라 무응답(inactivity) 시간입니다. 데이터가 계속 오가는 동안에는 연결이 끊기지 않습니다.
+    - TCP 리스너는 클라이언트 쪽(`keepalive_timeout`)과 멤버 쪽(`member_timeout`) 중 어느 한쪽이라도 만료되면 연결이 끊깁니다. 긴 유휴 연결을 유지하려면 두 값을 모두 늘려야 합니다.
+
 <a id="view-pool-list"></a>
 ### 풀 목록 보기 { #view-pool-list }
 
@@ -1238,6 +1243,7 @@ X-Auth-Token: {tokenId}
 | protocol_version | Query | Enum | - | 멤버의 HTTP 프로토콜 버전 |
 | admin_state_up | Query | Boolean | - | 관리자 제어 상태 |
 | healthmonitor_id | Query | UUID | - | 풀의 헬스 모니터 ID |
+| member_timeout | Query | Integer | - | 멤버 응답 대기(read timeout) 무응답 허용 시간(초) |
 
 <a id="view-pool-list-response"></a>
 #### 응답
@@ -1255,6 +1261,7 @@ X-Auth-Token: {tokenId}
 | pools.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pools.healthmonitor_id | Body | String | 헬스 모니터 ID |
+| pools.member_timeout | Body | Integer | 멤버 응답 대기(read timeout) 무응답 허용 시간(초)<br>지정하지 않은 경우 `null`이며, 리스너의 `keepalive_timeout`을 따름 |
 | pools.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
 | pools.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pools.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
@@ -1279,6 +1286,7 @@ X-Auth-Token: {tokenId}
       "tenant_id": "8258ab391d854e8b878642b737017a3b",
       "member_port": 80,
       "session_persistence": null,
+      "member_timeout": null,
       "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
       "loadbalancers": [
         {
@@ -1342,6 +1350,7 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pool.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.healthmonitor_id | Body | UUID | 헬스 모니터 ID |
+| pool.member_timeout | Body | Integer | 멤버 응답 대기(read timeout) 무응답 허용 시간(초)<br>지정하지 않은 경우 `null`이며, 리스너의 `keepalive_timeout`을 따름 |
 | pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
 | pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
@@ -1365,6 +1374,7 @@ X-Auth-Token: {tokenId}
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
     "loadbalancers": [
       {
@@ -1422,6 +1432,7 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
 | pool.session_persistence.type | Body | Enum | - | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pools.session_persistence.cookie_name | Body | String | - | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
+| pool.member_timeout | Body | Integer | - | 멤버 응답 대기(read timeout) 무응답 허용 시간(초). 범위 1~3600<br>생략하면 리스너의 `keepalive_timeout`을 따름 |
 | pool.name | Body | String | - | 풀 이름 |
 
 
@@ -1440,6 +1451,7 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": 600,
     "name": ""
   }
 }
@@ -1462,6 +1474,7 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pool.healthmonitor_id | Body | String | 헬스 모니터 ID |
+| pool.member_timeout | Body | Integer | 멤버 응답 대기(read timeout) 무응답 허용 시간(초)<br>지정하지 않은 경우 `null`이며, 리스너의 `keepalive_timeout`을 따름 |
 | pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
 | pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
@@ -1485,6 +1498,7 @@ X-Auth-Token: {tokenId}
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": 600,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
     "loadbalancers": [
       {
@@ -1537,6 +1551,7 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - | 풀의 세션 지속성 객체 |
 | pool.session_persistence.type | Body | Enum | - | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pools.session_persistence.cookie_name | Body | String | - | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
+| pool.member_timeout | Body | Integer | - | 멤버 응답 대기(read timeout) 무응답 허용 시간(초). 범위 1~3600<br>`null`로 지정하면 다시 리스너의 `keepalive_timeout`을 따름 |
 | pool.name | Body | String | - | 풀 이름 |
 
 
@@ -1552,6 +1567,7 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": 600,
     "name": ""
   }
 }
@@ -1575,6 +1591,7 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | 세션 지속성<br> `SOURCE_IP`, `HTTP_COOKIE`, `APP_COOKIE` 중 하나로 설정<br> `HTTP_COOKIE`, `APP_COOKIE`로 설정하는 경우 연결된 리스너의 프로토콜을 `HTTP` 또는 `TERMINATED_HTTPS`로 설정했는지 확인하는 것이 좋습니다.<br> 리스너의 프로토콜을 `TCP` 또는 `HTTPS`로 설정한 경우, 세션 지속성을 `HTTP_COOKIE`, `APP_COOKIE`로 설정해도 로드 밸런서는 세션 지속성 관련 동작을 하지 않습니다. |
 | pools.session_persistence.cookie_name | Body | String | 쿠키 이름 <br>세션 지속성 타입이 `APP_COOKIE`인 경우에만 설정값이 적용됩니다. |
 | pool.healthmonitor_id | Body | UUID | 헬스 모니터 ID |
+| pool.member_timeout | Body | Integer | 멤버 응답 대기(read timeout) 무응답 허용 시간(초)<br>지정하지 않은 경우 `null`이며, 리스너의 `keepalive_timeout`을 따름 |
 | pool.loadbalancers | Body | Array | 풀이 등록된 로드밸런서 객체 목록 |
 | pool.loadbalancers.id | Body | UUID | 로드밸런서 ID |
 | pool.listeners | Body | Array | 풀이 등록된 리스너 객체 목록 |
@@ -1598,6 +1615,7 @@ X-Auth-Token: {tokenId}
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": 600,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
     "loadbalancers": [
       {

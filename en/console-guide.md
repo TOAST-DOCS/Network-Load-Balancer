@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=7b3576dbe008 -->
 
 <a id='network-load-balancer-console-guide'></a>
@@ -39,7 +41,7 @@ Defines the properties of the traffic that the load balancer will process. A loa
 * Default member group: Specifies the member group that will be distributed by default when traffic is received. You can specify the default member group for the listener as **Not use**. If there is no L7 rule, or even if there is, when you set to **Not use** because the rule does not meet the conditions, the request will return a 503.
 * Connection limit: Specifies the number of TCP sessions that the default listener will maintain simultaneously. You can set a maximum of 60,000 for a general load balancer and a maximum of 480,000 for a dedicated load balancer.
 * Keep-Alive timeout: Specifies the amount of time, in seconds, to keep a session alive with the client and server. The load balancer will keep the session alive for this amount of time as long as the other side keeps the session alive. We recommend that you set the Keep-Alive timeout value you set on your server here. The default value is set to 300 seconds.
-* Proxy protocols: Allows you to enable the load balancer to support proxy protocols. You should enable this value only if you have enabled proxy protocols for the server to know the client's IP. This is only available if you are using the TCP and HTTPS protocols.
+* Proxy protocols: Select the proxy protocol version that the load balancer sends to members from **Not use**, **v2**, or **v1**. The default is **Not use**. You should enable this value only if you have enabled proxy protocols for the server to know the client's IP, and you must select the same version as the one configured on the server. This is only available if you are using the TCP and HTTPS protocols.
 * Block invalid requests: When **Not use** is selected, blocks HTTP request headers if they contain invalid characters. Available only when using HTTP and the TERMINATED_HTTPS protocol.
 
 * SSL Certificate: Register a certificate to be used when TERMINATED_HTTPS is selected as the protocol.

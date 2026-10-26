@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=fed248a1eb32 -->
 
 <a id="network-load-balancer-api-v2-guide"></a>
@@ -467,7 +469,7 @@ This API does not require a request body.
 | name | Query | String | - | Listener name |
 | admin_state_up | Query | Boolean | - | Admin control state |
 | connection_limit | Query | Integer | - | Listener connection limit |
-| keepalive_timeout | Query | Integer | - | Listener keepalive timeout |
+| keepalive_timeout | Query | Integer | - | Listener keep-alive idle time (seconds) |
 | protocol_port | Query | Integer | - | Listener port number |
 | id | Query | UUID | - | Listener ID |
 
@@ -487,11 +489,12 @@ This API does not require a request body.
 | listeners.tenant_id | Body | String | Tenant ID |
 | listeners.admin_state_up | Body | Boolean | Admin control state |
 | listeners.connection_limit | Body | Integer | Listener connection limit |
-| listeners.keepalive_timeout | Body | Integer | Listener keepalive timeout |
+| listeners.keepalive_timeout | Body | Integer | The listener's keep-alive idle time (seconds). Range: from 1 to 3,600, default: 300<br>Time to wait for the next request on the same client connection after a response; also used as the allowed time for client-side inactivity<br>Also used as the member response wait time if `member_timeout` is not specified for the pool |
 | listeners.default_tls_container_ref | Body | String | TLS certificate path registered in key-manager |
 | listeners.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listeners.protocol_port | Body | Integer | Listener port |
 | listeners.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
+| listeners.proxy_protocol_v2 | Body | Boolean | Proxy protocol v2 on/off<br>(Default: `false`) |
 | listeners.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
 | listeners.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listeners.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
@@ -573,7 +576,7 @@ This API does not require a request body.
 | listener.tenant_id | Body | String | Tenant ID |
 | listener.admin_state_up | Body | Boolean | Admin control state |
 | listener.connection_limit | Body | Integer | Listener's connection limit |
-| listener.keepalive_timeout | Body | Integer | Listener's keepalive timeout |
+| listener.keepalive_timeout | Body | Integer | The listener's keep-alive idle timeout (seconds). Range: from 1 to 3,600, default: 300<br>The time to wait for the next request on the same client connection after a response; also used as the allowed no-response time from the client side<br>If `member_timeout` is not specified for the pool, it is also used as the member response wait time |
 | listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot header on/off<br>Default: `true` |
 | listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port header on/off<br>Default: `true` |
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For header on/off<br>Default: `true` |
@@ -581,6 +584,7 @@ This API does not require a request body.
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | Listener port |
 | listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | Proxy protocol v2 on/off<br>(Default: `false`) |
 | listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listener.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
@@ -655,7 +659,7 @@ X-Auth-Token: {tokenId}
 | listener.loadbalancer_id | Body | UUID | O | Load balancer ID |
 | listener.admin_state_up | Body | Boolean | - | Admin control state |
 | listener.connection_limit | Body | Integer | - | Listener connection limit |
-| listener.keepalive_timeout | Body | Integer | - | Listener keepalive timeout |
+| listener.keepalive_timeout | Body | Integer | - | The listener's keep-alive idle time (seconds). Range from 1 to 3,600, default value 300<br>The time to wait for the next request on the same client connection after a response; also used as the allowed no-response time on the client side<br>If `member_timeout` of the pool is not specified, it is also used as the member response wait time |
 | listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot header on/off<br>Default: `true` |
 | listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port header on/off<br>Default: `true` |
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For header on/off<br>Default: `true` |
@@ -663,6 +667,7 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | - | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | O | Listener port |
 | listener.proxy_protocol | Body | Boolean | - | Proxy protocol on/off<br>Default: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | - | Proxy protocol v2 on/off<br>(Default: `false`) |
 | listener.block_invalid_http_request | Body | Boolean | - | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | - | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>When specified together with `ssl_policy_id`, must match the `min_tls_version` of the SSL policy |
 | listener.ssl_policy_id | Body | UUID | - | ID of the SSL policy to connect to the listener<br>Default: `null`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>For more information, see [Custom SSL policy](./overview/#custom-ssl-policy) |
@@ -716,7 +721,7 @@ X-Auth-Token: {tokenId}
 | listener.tenant_id | Body | String | Tenant ID |
 | listener.admin_state_up | Body | Boolean | Admin control status |
 | listener.connection_limit | Body | Integer | Listener's connection limit |
-| listener.keepalive_timeout | Body | Integer | Listener's keepalive timeout |
+| listener.keepalive_timeout | Body | Integer | The listener's keep-alive idle time (seconds). Range: from 1 to 3,600; default: 300<br>Time to wait for the next request on the same client connection after a response; also used as the allowed no-response time on the client side<br>If `member_timeout` is not specified for the pool, it is also used as the member response wait time |
 | listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot header on/off<br>Default: `true` |
 | listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port header on/off<br>Default: `true` |
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For header on/off<br>Default: `true` |
@@ -724,6 +729,7 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | Listener port |
 | listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | Proxy protocol v2 on/off<br>(Default: `false`) |
 | listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listener.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
@@ -793,13 +799,14 @@ X-Auth-Token: {tokenId}
 | listener.default_pool_id | Body | UUID | - | Default member group (pool) ID registered to the listener <br>Setting this value to null changes it to `disabled` |
 | listener.admin_state_up | Body | Boolean | - | Admin control state |
 | listener.connection_limit | Body | Integer | - | Listener connection limit |
-| listener.keepalive_timeout | Body | Integer | - | Listener keepalive timeout |
+| listener.keepalive_timeout | Body | Integer | - | The listener's keep-alive idle time (seconds). Range: from 1 to 3600, default: 300<br>Time to wait for the next request on the same client connection after a response; also used as the allowed idle time on the client side<br>Also used as the member response wait time if `member_timeout` is not specified for the pool |
 | listener.enable_x_forwarded_proto | Body | Boolean | - | X-Forwarded-Proto/X-Forwarded-Prot headers on/off<br>Default: `true` |
 | listener.enable_x_forwarded_port | Body | Boolean | - | X-Forwarded-Port header on/off<br>Default: `true` |
 | listener.enable_x_forwarded_for | Body | Boolean | - | X-Forwarded-For header on/off<br>Default: `true` |
 | listener.default_tls_container_ref | Body | String | - | TLS certificate path registered in key-manager |
 | listener.sni_container_refs | Body | Array | - | List of SNI certificate paths registered in key-manager |
 | listener.proxy_protocol | Body | Boolean | - | Proxy protocol on/off<br>Default: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | - | Proxy protocol v2 on/off<br>(Default: `false`) |
 | listener.block_invalid_http_request | Body | Boolean | - | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | - | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>When specified together with `ssl_policy_id`, must match the `min_tls_version` of the SSL policy |
 | listener.ssl_policy_id | Body | UUID | - | ID of the SSL policy to connect to the listener<br>To disconnect, pass `null`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>For more information, see [Custom SSL policy](./overview/#custom-ssl-policy) |
@@ -849,7 +856,7 @@ X-Auth-Token: {tokenId}
 | listener.tenant_id | Body | String | Tenant ID |
 | listener.admin_state_up | Body | Boolean | Admin control status |
 | listener.connection_limit | Body | Integer | Listener's connection limit |
-| listener.keepalive_timeout | Body | Integer | Listener's keepalive timeout |
+| listener.keepalive_timeout | Body | Integer | The listener's keep-alive idle time (seconds). Range: 1 to 3,600; default: 300<br>The time to wait for the next request on the same client connection after a response; also used as the allowed no-response time on the client side<br>Also used as the member response wait time if `member_timeout` is not specified for the pool |
 | listener.enable_x_forwarded_proto | Body | Boolean | X-Forwarded-Proto/X-Forwarded-Prot header on/off |
 | listener.enable_x_forwarded_port | Body | Boolean | X-Forwarded-Port header on/off |
 | listener.enable_x_forwarded_for | Body | Boolean | X-Forwarded-For header on/off |
@@ -857,6 +864,7 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | Listener Port |
 | listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | Proxy protocol v2 on/off<br>(Default: `false`) |
 | listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listener.keepalive_enable | Body | Boolean | Keepalive on/off<br>Default: `true` |
@@ -1203,6 +1211,10 @@ This API does not require a request body.
 
 <a id="pool"></a>
 ## Pool { #pool }
+!!! tip "Note"
+    - The listener's `keepalive_timeout` and the pool's `member_timeout` represent the inactivity time, not the total processing time of a request. The connection is not dropped as long as data continues to flow.
+    - For a TCP listener, the connection is dropped when either the client-side (`keepalive_timeout`) or the member-side (`member_timeout`) timeout expires. To maintain long idle connections, you must increase both values.
+
 <a id="view-pool-list"></a>
 ### View Pool List { #view-pool-list }
 
@@ -1225,6 +1237,7 @@ This API does not require a request body.
 | protocol_version | Query | Enum | - | HTTP protocol version of the member |
 | admin_state_up | Query | Boolean | - | Admin control state |
 | healthmonitor_id | Query | UUID | - | Health monitor ID for the pool |
+| member_timeout | Query | Integer | - | Maximum response wait time: The health check timeout (in seconds) for member read timeout |
 
 <a id="view-pool-list-response"></a>
 #### Response
@@ -1242,6 +1255,7 @@ This API does not require a request body.
 | pools.session_persistence.type | Body | Enum | Session Persistence<br> Set to one of `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set it to `HTTP_COOKIE` or `APP_COOKIE`, it is recommended that you check whether the protocol of the connected listener is set to `HTTP` or `TERMINATED_HTTPS`.<br> If the protocol of the listener is set to `TCP` or `HTTPS`, the load balancer will not perform any session persistence-related actions even if you set session persistence to `HTTP_COOKIE` or `APP_COOKIE`. |
 | pools.session_persistence.cookie_name | Body | String | Cookie name <br> The setting value is applied only when the session persistence type is `APP_COOKIE`. |
 | pools.healthmonitor_id | Body | String | Health Monitor ID |
+| pools.member_timeout | Body | Integer | Response wait time (read timeout) for members: the duration (in seconds) during which no response is allowed<br>If not specified, the value is `null` and follows the listener's `keepalive_timeout` |
 | pools.loadbalancers | Body | Array | List of load balancer objects registered with the pool |
 | pools.loadbalancers.id | Body | UUID | Load Balancer ID |
 | pools.listeners | Body | Array | List of listener objects registered to the pool |
@@ -1266,6 +1280,7 @@ This API does not require a request body.
       "tenant_id": "8258ab391d854e8b878642b737017a3b",
       "member_port": 80,
       "session_persistence": null,
+      "member_timeout": null,
       "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
       "loadbalancers": [
         {
@@ -1294,7 +1309,6 @@ This API does not require a request body.
 
 </p>
 </details>
-
 
 <a id="view-pool"></a>
 ### View Pool { #view-pool }
@@ -1329,6 +1343,7 @@ This API does not require a request body.
 | pool.session_persistence.type | Body | Enum | Session persistence<br> Set to one of `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set it to `HTTP_COOKIE` or `APP_COOKIE`, it is recommended that you check whether the protocol of the connected listener is set to `HTTP` or `TERMINATED_HTTPS`.<br> If the protocol of the listener is set to `TCP` or `HTTPS`, the load balancer will not perform any session persistence-related actions even if you set session persistence to `HTTP_COOKIE` or `APP_COOKIE`. |
 | pool.session_persistence.cookie_name | Body | String | Cookie name <br>The setting applies only when the session persistence type is `APP_COOKIE`. |
 | pool.healthmonitor_id | Body | UUID | Health Monitor ID |
+| pool.member_timeout | Body | Integer | The time in seconds to wait for a member response (read timeout) before treating it as no response.<br>If not specified, the value is `null` and follows the listener's `keepalive_timeout`. |
 | pool.loadbalancers | Body | Array | List of load balancer objects registered to the pool |
 | pool.loadbalancers.id | Body | UUID | Load Balancer ID |
 | pool.listeners | Body | Array | List of listener objects registered to the pool |
@@ -1352,6 +1367,7 @@ This API does not require a request body.
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": null,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
     "loadbalancers": [
       {
@@ -1380,8 +1396,6 @@ This API does not require a request body.
 </p>
 </details>
 
-
-
 ---
 <a id="create-pool"></a>
 ### Create Pool { #create-pool }
@@ -1409,6 +1423,7 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - | Pool's session persistence object |
 | pool.session_persistence.type | Body | Enum | - | Session Persistence<br> Set to `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set it to `HTTP_COOKIE` or `APP_COOKIE`, it is recommended that you also set the protocol of the connected listener to `HTTP` or `TERMINATED_HTTPS`.<br> If the listener's protocol is set to `TCP` or `HTTPS`, the load balancer will not perform any session persistence-related actions even if you set session persistence to `HTTP_COOKIE` or `APP_COOKIE`. |
 | pools.session_persistence.cookie_name | Body | String | - | Cookie Name <br>The setting applies only when the session persistence type is `APP_COOKIE`. |
+| pool.member_timeout | Body | Integer | - | Time allowed for no response while waiting for a member response (read timeout), in seconds. Range: from 1 to 3,600.<br>If omitted, follows the listener's `keepalive_timeout`. |
 | pool.name | Body | String | - | Pool Name |
 
 
@@ -1427,6 +1442,7 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": 600,
     "name": ""
   }
 }
@@ -1449,6 +1465,7 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - | Pool session persistence object |
 | pool.session_persistence.type | Body | Enum | Session Persistence<br> Set to one of `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set it to `HTTP_COOKIE` or `APP_COOKIE`, it is recommended that you also set the protocol of the connected listener to `HTTP` or `TERMINATED_HTTPS`.<br> If the protocol of the listener is set to `TCP` or `HTTPS`, the load balancer will not perform any session persistence-related actions even if you set session persistence to `HTTP_COOKIE` or `APP_COOKIE`. |
 | pool.healthmonitor_id | Body | String | Health Monitor ID |
+| pool.member_timeout | Body | Integer | Member response wait time (read timeout): the allowed no-response duration in seconds<br>If not specified, the value is `null` and follows the listener's `keepalive_timeout` |
 | pool.loadbalancers | Body | Array | List of load balancer objects registered to the pool |
 | pool.loadbalancers.id | Body | UUID | Load Balancer ID |
 | pool.listeners | Body | Array | List of listener objects registered to the pool |
@@ -1472,6 +1489,7 @@ X-Auth-Token: {tokenId}
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": 600,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
     "loadbalancers": [
       {
@@ -1524,6 +1542,7 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence | Body | Object | - | The session persistence object for the pool |
 | pool.session_persistence.type | Body | Enum | - | Session Persistence<br> Set to one of `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set it to `HTTP_COOKIE` or `APP_COOKIE`, it is recommended that you also check if the protocol of the connected listener is set to `HTTP` or `TERMINATED_HTTPS`.<br> If the protocol of the listener is set to `TCP` or `HTTPS`, the load balancer will not perform any session persistence-related actions even if you set session persistence to `HTTP_COOKIE` or `APP_COOKIE`. |
 | pools.session_persistence.cookie_name | Body | String | - | Cookie Name <br>The setting is applied only when the session persistence type is `APP_COOKIE`. |
+| pool.member_timeout | Body | Integer | - | The allowed time (in seconds) with no response while waiting for a member to respond (read timeout). Range: from 1 to 3,600.<br>If set to `null`, it follows the listener's `keepalive_timeout`. |
 | pool.name | Body | String | - | Pool Name |
 
 
@@ -1539,6 +1558,7 @@ X-Auth-Token: {tokenId}
     "admin_state_up": true,
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": 600,
     "name": ""
   }
 }
@@ -1562,6 +1582,7 @@ X-Auth-Token: {tokenId}
 | pool.session_persistence.type | Body | Enum | Session Persistence<br> Set to one of `SOURCE_IP`, `HTTP_COOKIE`, or `APP_COOKIE`<br> If you set it to `HTTP_COOKIE` or `APP_COOKIE`, it is recommended that you check whether the protocol of the connected listener is set to `HTTP` or `TERMINATED_HTTPS`.<br> If the protocol of the listener is set to `TCP` or `HTTPS`, the load balancer will not perform any session persistence-related actions even if you set session persistence to `HTTP_COOKIE` or `APP_COOKIE`. |
 | pools.session_persistence.cookie_name | Body | String | Cookie name <br> The setting value is applied only when the session persistence type is `APP_COOKIE`. |
 | pool.healthmonitor_id | Body | UUID | Health Monitor ID |
+| pool.member_timeout | Body | Integer | The time (in seconds) to wait for a member response (read timeout) before treating it as non-responsive<br>If not specified, the value is `null` and follows the listener's `keepalive_timeout` |
 | pool.loadbalancers | Body | Array | List of load balancer objects registered with the pool |
 | pool.loadbalancers.id | Body | UUID | Load Balancer ID |
 | pool.listeners | Body | Array | List of listener objects registered to the pool |
@@ -1585,6 +1606,7 @@ X-Auth-Token: {tokenId}
     "tenant_id": "8258ab391d854e8b878642b737017a3b",
     "member_port": 80,
     "session_persistence": null,
+    "member_timeout": 600,
     "healthmonitor_id": "607c4da1-4fe2-4a3a-9527-82dd5a5c430e",
     "loadbalancers": [
       {

@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=fed248a1eb32 -->
 
 <a id="network-load-balancer-api-v2-guide"></a>
@@ -492,6 +494,7 @@ This API does not require a request body.
 | listeners.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listeners.protocol_port | Body | Integer | Listener port |
 | listeners.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
+| listeners.proxy_protocol_v2 | Body | Boolean | Proxy protocol v2 on/off<br>(Default: `false`) |
 | listeners.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
 | listeners.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listeners.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
@@ -507,6 +510,7 @@ This API does not require a request body.
   "listeners": [
     {
       "proxy_protocol": false,
+      "proxy_protocol_v2": false,
       "block_invalid_http_request": true,
       "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
       "protocol": "TERMINATED_HTTPS",
@@ -538,7 +542,6 @@ This API does not require a request body.
 
 </p>
 </details>
-
 
 <a id="view-listener"></a>
 ### View Listener { #view-listener }
@@ -581,6 +584,7 @@ This API does not require a request body.
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | Listener port |
 | listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | Proxy protocol v2 on/off<br>(Default: `false`) |
 | listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listener.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
@@ -595,6 +599,7 @@ This API does not require a request body.
 {
   "listener": {
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
@@ -629,8 +634,6 @@ This API does not require a request body.
 </p>
 </details>
 
-
-
 ---
 <a id="create-listener"></a>
 ### Create Listener { #create-listener }
@@ -663,6 +666,7 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | - | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | O | Listener port |
 | listener.proxy_protocol | Body | Boolean | - | Proxy protocol on/off<br>Default: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | - | Proxy protocol v2 on/off<br>Default: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | - | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>When specified together with `ssl_policy_id`, must match the `min_tls_version` of the SSL policy |
 | listener.ssl_policy_id | Body | UUID | - | ID of the SSL policy to connect to the listener<br>Default: `null`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>For more information, see [Custom SSL policy](./overview/#custom-ssl-policy) |
@@ -678,6 +682,7 @@ X-Auth-Token: {tokenId}
     "protocol": "TERMINATED_HTTPS",
     "protocol_version": "HTTP/2",
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "description": "",
     "name": "",
@@ -724,6 +729,7 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | Listener port |
 | listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | Proxy protocol v2 on/off<br>(Default: `false`) |
 | listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listener.ssl_policy_id | Body | UUID | ID of the SSL policy connected to the listener<br>If no SSL policy is connected, `null`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
@@ -738,6 +744,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "default_pool_id": "522a5681-fc4c-4b0b-85ec-bf7777c48a57",
     "protocol": "TERMINATED_HTTPS",
@@ -800,6 +807,7 @@ X-Auth-Token: {tokenId}
 | listener.default_tls_container_ref | Body | String | - | TLS certificate path registered in key-manager |
 | listener.sni_container_refs | Body | Array | - | List of SNI certificate paths registered in key-manager |
 | listener.proxy_protocol | Body | Boolean | - | Proxy protocol on/off<br>Default: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | - | Proxy protocol v2 on/off<br>(Default: `false`) |
 | listener.block_invalid_http_request | Body | Boolean | - | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | - | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>When specified together with `ssl_policy_id`, must match the `min_tls_version` of the SSL policy |
 | listener.ssl_policy_id | Body | UUID | - | ID of the SSL policy to connect to the listener<br>To disconnect, pass `null`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>For more information, see [Custom SSL policy](./overview/#custom-ssl-policy) |
@@ -812,6 +820,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "description": "",
     "name": "",
@@ -857,6 +866,7 @@ X-Auth-Token: {tokenId}
 | listener.sni_container_refs | Body | Array | List of SNI certificate paths registered in key-manager |
 | listener.protocol_port | Body | Integer | Listener Port |
 | listener.proxy_protocol | Body | Boolean | Proxy protocol on/off<br>Default: `false` |
+| listener.proxy_protocol_v2 | Body | Boolean | Proxy protocol v2 on/off<br>(Default: `false`) |
 | listener.block_invalid_http_request | Body | Boolean | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS` |
 | listener.keepalive_enable | Body | Boolean | Keepalive on/off<br>Default: `true` |
@@ -871,6 +881,7 @@ X-Auth-Token: {tokenId}
 {
   "listener": {
     "proxy_protocol": false,
+    "proxy_protocol_v2": false,
     "block_invalid_http_request": true,
     "default_pool_id": null,
     "protocol": "TERMINATED_HTTPS",

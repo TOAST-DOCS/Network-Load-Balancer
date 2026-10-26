@@ -40,7 +40,7 @@ Defines the properties of the traffic that the load balancer will process. A loa
 * Load balancer port: Specifies the port on which the default listener will listen for traffic.
 * Default member group: Specifies the member group that will be distributed by default when traffic is received. You can specify the default member group for the listener as **Not use**. If there is no L7 rule, or even if there is, when you set to **Not use** because the rule does not meet the conditions, the request will return a 503.
 * Connection limit: Specifies the number of TCP sessions that the default listener will maintain simultaneously. You can set a maximum of 60,000 for a general load balancer and a maximum of 480,000 for a dedicated load balancer.
-* Keep-Alive timeout: Specifies the amount of time, in seconds, to keep a session alive with the client and server. The load balancer will keep the session alive for this amount of time as long as the other side keeps the session alive. We recommend that you set the Keep-Alive timeout value you set on your server here. The default value is set to 300 seconds.
+* Keep-Alive timeout: Specifies the amount of time, in seconds, to keep a session alive with the client and server. The load balancer will keep the session alive for this amount of time as long as the other side keeps the session alive. We recommend that you set the Keep-Alive timeout value you set on your server here. The default value is set to 300 seconds. If the member timeout of the member group is set to **Apply Listener Keep-Alive Setting**, this value is also used as the time to wait for a response from the member.
 * Proxy protocols: Select the proxy protocol version that the load balancer sends to members from **Not use**, **v2**, or **v1**. The default is **Not use**. You should enable this value only if you have enabled proxy protocols for the server to know the client's IP, and you must select the same version as the one configured on the server. This is only available if you are using the TCP and HTTPS protocols.
 * Block invalid requests: When **Not use** is selected, blocks HTTP request headers if they contain invalid characters. Available only when using HTTP and the TERMINATED_HTTPS protocol.
 
@@ -166,6 +166,11 @@ Set the target member groups to forward load balancing traffic to. You can creat
 * Member port: Specify the ports on which the member group listens for traffic.
 * Load Balancing Method: Determines how the load balancer distributes traffic. Select one of the following. ROUND_ROBIN/LEAST_CONNECTIONS/SOURCE_IP.
 * Session Persistence: A setting that forces responses to requests to be made only on a specific instance to preserve the session. You can select one of the following: No session persistence/APP_COOKIE/HTTP_COOKIE/SOURCE_IP.
+
+
+* Member Timeout: The maximum time the load balancer waits for a response after sending a request to a member. Select either **Apply Listener Keep-Alive Settings** or **Custom**, with the default being **Apply Listener Keep-Alive Settings**. For more information, see the [Timeout](./overview/#timeout) document.
+    * Apply Listener Keep-Alive Settings: Uses the Keep-Alive timeout value of the listener. If the Keep-Alive timeout of the listener is not used, 30 seconds is applied.
+    * Custom: Enter a value between 1 and 3600 in seconds. The default is 300 seconds.
 
 
 !!! danger "Caution"

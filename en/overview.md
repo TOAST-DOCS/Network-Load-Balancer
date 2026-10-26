@@ -271,7 +271,41 @@ You can take advantage of the load balancer's session persistence feature when t
 * HTTP Cookie (session management by load balancer): This is similar to the APP Cookie method, but maintains the session through a cookie that is automatically set by the load balancer. The load balancer adds a cookie called **SRV** to the server's response and sends it. Here, the value of the **SRV** cookie is a unique ID for each server. When a client sends an **SRV** in a cookie, the request is forwarded to the server that responded at first.
 
 !!! tip "Note"
-    You can set the TCP session keep-alive time on the load balancer. By setting the keepalive timeout value, you can adjust the session maintenance time between the client and the load balancer and between the load balancer and the server.
+    You can set the TCP session keep-alive time on the load balancer. By setting the keepalive timeout value, you can adjust the session maintenance time between the client and the load balancer and between the load balancer and the server. You can specify the response wait time between the load balancer and the server separately for each member group. For more information, see 'Timeout'.
+
+<a id="timeout"></a>
+## Timeout { #timeout }
+
+The load balancer checks for inactivity on both the client side and the member side, and terminates the connection if no data is exchanged for the specified duration.
+
+| Setting | Location | Description |
+| -- | -- | -- |
+| Keep-Alive Timeout | Listener | The amount of time to wait for the next request on the same client connection after a response. Also used as the allowed inactivity time for the client side. Specify a value between 1 and 3,600 seconds. The default is 300 seconds. |
+| Member Timeout | Member group | The maximum inactivity time (read timeout) that the load balancer waits for a response after sending a request to a member. Specify a value between 1 and 3,600 seconds. If not specified, the listener's Keep-Alive Timeout value is used. If the listener's Keep-Alive Timeout is also not set, 30 seconds is applied. |
+
+When you specify a member timeout, you can adjust only the member response wait time for that member group, independent of the listener's Keep-Alive Timeout. If 504 errors occur on requests that take a long time to respond from members — such as report generation or post-processing after a large file upload — you can resolve this by increasing the member timeout for the member group that handles those requests. A listener that uses multiple member groups with L7 rules can specify a different member timeout for each member group.
+
+!!! tip "Note"
+    - Keep-Alive Timeout and member timeout represent inactivity time, not the total processing time for a request. The connection is not terminated as long as data continues to be exchanged.
+    - Member groups without a specified member timeout operate the same as before.
+
+!!! danger "Caution"
+    For TCP listeners, the connection is terminated if either the client side (Keep-Alive Timeout) or the member side (member timeout) expires. To maintain long idle connections, you must increase both the listener's Keep-Alive Timeout and the member group's member timeout.
+
+<a id="timeout-configuration-guide"></a>
+### Timeout Configuration Guide { #timeout-configuration-guide }
+
+Adjust the timeout settings based on the following situations.
+
+| Situation | Setting to Adjust |
+| -- | -- |
+| A 504 error occurs for requests that take a long time for members to respond to, such as report generation or post-processing of large file uploads. | Set the member timeout of the member group that handles the request to a value longer than the maximum response time of the member. |
+| Only requests to a specific path take a long time to respond. | Use an L7 rule to forward requests for that path to a separate member group, and increase only the member timeout of that member group. Other member groups can retain their existing settings. |
+| Connections with no data exchanged for a long time are dropped on a TCP listener. | Set both the Keep-Alive timeout of the listener and the member timeout of the member group to values longer than the idle time. |
+| A Keep-Alive timeout is configured on the server (member). | Set the Keep-Alive timeout of the listener to the same value configured on the server. |
+
+!!! tip "Note"
+    Setting the timeout longer than necessary can cause unresponsive connections to remain open for an extended period, which may cause the listener to reach its connection limit. It is recommended to increase the timeout only as much as needed based on the actual response time of the service.
 
 
 <a id="invalid-request-blocking"></a>

@@ -1680,6 +1680,7 @@ X-Auth-Token: {tokenId}
 | timeout | Query | Integer | - | 상태 확인 응답 대기 시간(초) |
 | url_path | Query | String | - | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | type | Query | Enum | - | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
+| tcp_check_mode | Query | Enum | - | TCP 상태 확인 방식. `HALF_OPEN`, `FULL_HANDSHAKE` 중 하나 |
 | host_header | Query | String | - | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
 
@@ -1701,6 +1702,7 @@ X-Auth-Token: {tokenId}
 | healthmonitors.pools.id | Body | UUID | 풀 ID |
 | healthmonitors.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitors.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
+| healthmonitors.tcp_check_mode | Body | Enum | TCP 상태 확인 방식. `HALF_OPEN`, `FULL_HANDSHAKE` 중 하나<br>상태 확인 타입이 `TCP`가 아닌 경우 이 필드에 설정한 값은 무시됩니다. |
 | healthmonitors.id | Body | UUID | 헬스 모니터 ID |
 | healthmonitors.host_header | Body | String | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
@@ -1770,6 +1772,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.pools.id | Body | UUID | 풀 ID |
 | healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
+| healthmonitor.tcp_check_mode | Body | Enum | TCP 상태 확인 방식. `HALF_OPEN`, `FULL_HANDSHAKE` 중 하나<br>상태 확인 타입이 `TCP`가 아닌 경우 이 필드에 설정한 값은 무시됩니다. |
 | healthmonitor.id | Body | UUID | 헬스 모니터 ID |
 | healthmonitor.host_header | Body | String | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
@@ -1830,6 +1833,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.timeout | Body | Integer | O | 상태 확인 응답 대기 시간(초) |
 | healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL. 생략하면 `/`가 설정됨. <br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum  | O | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
+| healthmonitor.tcp_check_mode | Body | Enum | - | TCP 상태 확인 방식. `HALF_OPEN`, `FULL_HANDSHAKE` 중 하나. 생략하면 `HALF_OPEN`으로 설정됨.<br>* `HALF_OPEN`: SYN/ACK 수신 후 RST로 연결 종료<br>* `FULL_HANDSHAKE`: 3-way handshake로 연결 수립 후 FIN으로 정상 종료<br>`FULL_HANDSHAKE`는 로드 밸런서 엔진 버전 `v2` 이상에서만 설정 가능<br>상태 확인 타입이 `TCP`가 아닌 경우 이 필드에 설정한 값은 무시됩니다. |
 | healthmonitor.host_header | Body | String | - | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
 
@@ -1874,6 +1878,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.pools.id | Body | UUID | 풀 ID |
 | healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
+| healthmonitor.tcp_check_mode | Body | Enum | TCP 상태 확인 방식. `HALF_OPEN`, `FULL_HANDSHAKE` 중 하나<br>상태 확인 타입이 `TCP`가 아닌 경우 이 필드에 설정한 값은 무시됩니다. |
 | healthmonitor.id | Body | UUID | 헬스 모니터 ID |
 | healthmonitor.host_header | Body | String | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 
@@ -1932,6 +1937,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.timeout | Body | Integer | - | 상태 확인 응답 대기 시간(초) |
 | healthmonitor.url_path | Body | String | - | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.host_header | Body | String | - | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
+| healthmonitor.tcp_check_mode | Body | Enum | - | TCP 상태 확인 방식. `HALF_OPEN`, `FULL_HANDSHAKE` 중 하나. 생략하면 기존 값을 유지함.<br>* `HALF_OPEN`: SYN/ACK 수신 후 RST로 연결 종료<br>* `FULL_HANDSHAKE`: 3-way handshake로 연결 수립 후 FIN으로 정상 종료<br>`FULL_HANDSHAKE`는 로드 밸런서 엔진 버전 `v2` 이상에서만 설정 가능<br>상태 확인 타입이 `TCP`가 아닌 경우 이 필드에 설정한 값은 무시됩니다. |
 
 <details><summary>예시</summary>
 <p>
@@ -1970,6 +1976,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.pools.id | Body | UUID | 풀 ID |
 | healthmonitor.url_path | Body | String | 상태 확인 요청 URL<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 | healthmonitor.type | Body | Enum | 상태 확인에 사용할 프로토콜. `TCP`, `HTTP`, `HTTPS` 중 하나 |
+| healthmonitor.tcp_check_mode | Body | Enum | TCP 상태 확인 방식. `HALF_OPEN`, `FULL_HANDSHAKE` 중 하나<br>상태 확인 타입이 `TCP`가 아닌 경우 이 필드에 설정한 값은 무시됩니다. |
 | healthmonitor.id | Body | UUID | 헬스 모니터 ID |
 | healthmonitor.host_header | Body | String | 상태 확인에 사용할 호스트 헤더의 필드값<br> 상태 확인 타입을 `TCP`로 설정한 경우 이 필드에 설정한 값은 무시됩니다.|
 

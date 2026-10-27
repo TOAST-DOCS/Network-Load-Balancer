@@ -40,7 +40,7 @@ Defines the properties of the traffic that the load balancer will process. A loa
 * Load balancer port: Specifies the port on which the default listener will listen for traffic.
 * Default member group: Specifies the member group that will be distributed by default when traffic is received. You can specify the default member group for the listener as **Not use**. If there is no L7 rule, or even if there is, when you set to **Not use** because the rule does not meet the conditions, the request will return a 503.
 * Connection limit: Specifies the number of TCP sessions that the default listener will maintain simultaneously. You can set a maximum of 60,000 for a general load balancer and a maximum of 480,000 for a dedicated load balancer.
-* Keep-Alive timeout: Specifies the amount of time, in seconds, to keep a session alive with the client and server. The load balancer will keep the session alive for this amount of time as long as the other side keeps the session alive. We recommend that you set the Keep-Alive timeout value you set on your server here. The default value is set to 300 seconds.
+* Keep-Alive timeout: Specifies the amount of time, in seconds, to keep a session alive with the client and server. The load balancer will keep the session alive for this amount of time as long as the other side keeps the session alive. We recommend that you set the Keep-Alive timeout value you set on your server here. The default value is set to 300 seconds. If the member timeout of the member group is set to **Apply Listener Keep-Alive Setting**, this value is also used as the time to wait for a response from the member.
 * Proxy protocols: Select the proxy protocol version that the load balancer sends to members from **Not use**, **v2**, or **v1**. The default is **Not use**. You should enable this value only if you have enabled proxy protocols for the server to know the client's IP, and you must select the same version as the one configured on the server. This is only available if you are using the TCP and HTTPS protocols.
 * Block invalid requests: When **Not use** is selected, blocks HTTP request headers if they contain invalid characters. Available only when using HTTP and the TERMINATED_HTTPS protocol.
 
@@ -168,6 +168,11 @@ Set the target member groups to forward load balancing traffic to. You can creat
 * Session Persistence: A setting that forces responses to requests to be made only on a specific instance to preserve the session. You can select one of the following: No session persistence/APP_COOKIE/HTTP_COOKIE/SOURCE_IP.
 
 
+* Member Timeout: The maximum time the load balancer waits for a response after sending a request to a member. Select either **Apply Listener Keep-Alive Settings** or **Custom**, with the default being **Apply Listener Keep-Alive Settings**. For more information, see the [Timeout](./overview/#timeout) document.
+    * Apply Listener Keep-Alive Settings: Uses the Keep-Alive timeout value of the listener. If the Keep-Alive timeout of the listener is not used, 30 seconds is applied.
+    * Custom: Enter a value between 1 and 3600 in seconds. The default is 300 seconds.
+
+
 !!! danger "Caution"
     Member ports and protocols cannot be changed after a member group is created.
 
@@ -269,12 +274,18 @@ For listeners using the TERMINATED_HTTPS protocol, you can manage multiple certi
 2. Select the TERMINATED_HTTPS listener for which you want to manage certificates.
 3. Click the **Certificates** tab in the listener details screen.
 4. You can view the following information in the list of registered certificates:
+
+<!-- -->
+
 - **Name**: certificate name
 - **Expiration Date**: certificate expiration date and number of days remaining until expiration
 
 ##### Add Certificates
 1. Click **+ Add Certificate** button in the **Certificates** tab of the listener details screen.
 2. Select whether to use the Certificate Manager.
+
+<!-- -->
+
 - **Enable**: select from the list of certificates registered in the Certificate Manager.
 - **Disable**: register by directly uploading the certificate and private key files. 3. After reviewing the warning message, select the checkbox and click **OK**.
 
@@ -309,9 +320,9 @@ You can configure custom responses in the load balancer listener. Using custom r
 2. Select the listener for which you want to configure a custom response.
 3. On the listener details screen, click **View/Change Custom Response Settings**.
 4. You can enter and confirm the following items:
-   - **Response Code**: select the HTTP status code to which the custom response will be applied. (Supported codes: 400, 403, 408, 500, 502, 503, 504)
-   - **Content Type**: select the Content-Type of the response to be delivered to the user. (Choose from `text/html`, `text/plain`, `application/json`, `application/javascript`, and `text/css`)
-   - **Response Body**: enter the body of the response to be displayed to the user. (up to 1,024 characters. The content can be HTML, text, or any other format, depending on the content type.)
+    - **Response Code**: select the HTTP status code to which the custom response will be applied. (Supported codes: 400, 403, 408, 500, 502, 503, 504)
+    - **Content Type**: select the Content-Type of the response to be delivered to the user. (Choose from `text/html`, `text/plain`, `application/json`, `application/javascript`, and `text/css`)
+    - **Response Body**: enter the body of the response to be displayed to the user. (up to 1,024 characters. The content can be HTML, text, or any other format, depending on the content type.)
 5. After entering each item, click **Confirm** to generate the response. The generated response can be viewed in the list.
 
 <a id='custom-response-guide-delete-a-custom-response'></a>
@@ -338,9 +349,9 @@ You can view and change the X-Forwarded header settings on a load balancer liste
 2. Select the listener for which you want to configure the X-Forwarded header.
 3. On the **Basic Information** tab on the listener details screen, click **View/Change Settings** button under the **X-Forwarded Header** section.
 4. You can configure the following:
-   - **X-Forwarded-Proto**: set whether to forward the protocol (http or https) used by the client to the backend server. Select either **Enable** or **Disable**.
-   - **X-Forwarded-Port**: set whether to forward the port number the client connected to to the backend server. Select either **Enable** or **Disable**.
-   - **X-Forwarded-for**: set whether to forward the client's original IP address to the backend server. Select either **Enable** or **Disable**.
+    - **X-Forwarded-Proto**: set whether to forward the protocol (http or https) used by the client to the backend server. Select either **Enable** or **Disable**.
+    - **X-Forwarded-Port**: set whether to forward the port number the client connected to to the backend server. Select either **Enable** or **Disable**.
+    - **X-Forwarded-for**: set whether to forward the client's original IP address to the backend server. Select either **Enable** or **Disable**.
 5. After configuring each item, check the box in the warning message and click **OK** to apply the settings.
 
 !!! danger "Caution"

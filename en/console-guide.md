@@ -166,12 +166,9 @@ Set the target member groups to forward load balancing traffic to. You can creat
 * Member port: Specify the ports on which the member group listens for traffic.
 * Load Balancing Method: Determines how the load balancer distributes traffic. Select one of the following. ROUND_ROBIN/LEAST_CONNECTIONS/SOURCE_IP.
 * Session Persistence: A setting that forces responses to requests to be made only on a specific instance to preserve the session. You can select one of the following: No session persistence/APP_COOKIE/HTTP_COOKIE/SOURCE_IP.
-
-
-* Member Timeout: The maximum time the load balancer waits for a response after sending a request to a member. Select either **Apply Listener Keep-Alive Settings** or **Custom**, with the default being **Apply Listener Keep-Alive Settings**. For more information, see the [Timeout](./overview/#timeout) document.
-    * Apply Listener Keep-Alive Settings: Uses the Keep-Alive timeout value of the listener. If the Keep-Alive timeout of the listener is not used, 30 seconds is applied.
-    * Custom: Enter a value between 1 and 3600 in seconds. The default is 300 seconds.
-
+* Member Timeout: The maximum time the load balancer waits for a response after sending a request to a member. Select one of **Apply Listener Keep-Alive Settings** or **Custom**. The default is **Apply Listener Keep-Alive Settings**. For more information, see [Timeout](./overview/#timeout).
+    * Apply Listener Keep-Alive Settings: Uses the listener's Keep-Alive timeout value. If the listener's Keep-Alive timeout is not configured, 30 seconds applies.
+    * Custom: Enter a value in seconds, from 1 to 3,600. The default is 300 seconds.
 
 !!! danger "Caution"
     Member ports and protocols cannot be changed after a member group is created.
@@ -185,7 +182,9 @@ Set the target member groups to forward load balancing traffic to. You can creat
 The settings for health check are also determined when creating the listener. NHN Cloud's load balancer can define health check behavior per listener. The items required are as follows:
 
 * Health Check Protocol: Determine the protocol to use for health checks. Choose one of TCP, HTTP, or HTTPS.
-* Health Check Port: Determine the port of member instance to try health checks.
+* Health Check Method: Select the method for terminating the connection with the member during TCP health checks from **Half-Open** or **3-way Handshake**. The default is **Half-Open**. This is displayed only when TCP is selected as the health check protocol and the load balancer engine version is v2 or later. For details on how each method works, refer to the [TCP Health Check Mode](./overview/#tcp-health-check-mode) documentation.
+    * Half-Open: Immediately terminates the connection after confirming SYN/ACK. This is fast and lightweight, but some servers may interpret the termination signal (RST) as an error.
+    * 3-way Handshake: Establishes and terminates the connection normally. This prevents unnecessary error logs caused by health checks.
 * Health Check Port: Set the member's port to attempt health checks on. Select a member port to perform health checks on the port numbers specified for each member. If you select Custom, health checks are performed on a custom port number in bulk, independent of the port number for each member.
 * HTTP Method: Select the HTTP method to use for health checks. This setting is enabled only when HTTP or HTTPS is selected. Currently supports GET only.
 * HTTP Status Code: Enter the HTTP status code to consider as normal for a health check. This setting is enabled only when HTTP or HTTPS is selected. Currently supports GET only.

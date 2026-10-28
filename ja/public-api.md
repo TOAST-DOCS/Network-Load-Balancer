@@ -1694,6 +1694,7 @@ X-Auth-Token: {tokenId}
 | timeout | Query | Integer | - | ヘルスチェックの応答待機時間(秒) |
 | url_path | Query | String | - | ヘルスチェックのリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 | type | Query | Enum | - | ヘルスチェックに使用するプロトコル。`TCP`、`HTTP`、`HTTPS`のいずれか |
+| tcp_check_mode | Query | Enum | - | TCP状態確認方式。`HALF_OPEN`、`FULL_HANDSHAKE`のいずれか |
 | host_header | Query | String | - | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 
 
@@ -1715,6 +1716,7 @@ X-Auth-Token: {tokenId}
 | healthmonitors.pools.id | Body | UUID | プールID |
 | healthmonitors.url_path | Body | String | ヘルスチェックのリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 | healthmonitors.type | Body | Enum | ヘルスチェックに使用するプロトコル。`TCP`、`HTTP`、`HTTPS`のいずれか |
+| healthmonitors.tcp_check_mode | Body | Enum | TCPヘルスチェック方式。`HALF_OPEN`、`FULL_HANDSHAKE`のいずれか<br>ヘルスチェックタイプが`TCP`以外の場合、このフィールドに設定した値は無視されます。 |
 | healthmonitors.id | Body | UUID | ヘルスモニターID |
 | healthmonitors.host_header | Body | String | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 
@@ -1785,6 +1787,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.pools.id | Body | UUID | プールID |
 | healthmonitor.url_path | Body | String | ヘルスチェックのリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 | healthmonitor.type | Body | Enum | ヘルスチェックに使用するプロトコル。`TCP`、`HTTP`、`HTTPS`のいずれか |
+| healthmonitor.tcp_check_mode | Body | Enum | TCP状態確認方式。`HALF_OPEN`、`FULL_HANDSHAKE`のいずれか<br>状態確認タイプが`TCP`でない場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.id | Body | UUID | ヘルスモニターID |
 | healthmonitor.host_header | Body | String | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 
@@ -1846,6 +1849,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.timeout | Body | Integer | O | ヘルスチェックの応答待機時間(秒) |
 | healthmonitor.url_path | Body | String | - | ヘルスチェックのリクエストURL。省略した場合は`/`が設定されます。 <br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 | healthmonitor.type | Body | Enum  | O | ヘルスチェックに使用するプロトコル。`TCP`、`HTTP`、`HTTPS`のいずれか |
+| healthmonitor.tcp_check_mode | Body | Enum | - | TCPヘルスチェック方式。`HALF_OPEN`、`FULL_HANDSHAKE`のいずれか。省略すると`HALF_OPEN`に設定されます。<br>* `HALF_OPEN`: SYN/ACK受信後、RSTで接続を終了<br>* `FULL_HANDSHAKE`: 3-wayハンドシェイクで接続確立後、FINで正常終了<br>`FULL_HANDSHAKE`はロードバランサーエンジンバージョン`v2`以上でのみ設定可能<br>ヘルスチェックタイプが`TCP`でない場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.host_header | Body | String | - | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 
 <details><summary>例</summary>
@@ -1887,6 +1891,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.pools.id | Body | UUID | プールID |
 | healthmonitor.url_path | Body | String | ヘルスチェックのリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 | healthmonitor.type | Body | Enum | ヘルスチェックに使用するプロトコル。`TCP`、`HTTP`、`HTTPS`のいずれか |
+| healthmonitor.tcp_check_mode | Body | Enum | TCP状態確認方式。`HALF_OPEN`、`FULL_HANDSHAKE`のいずれか<br>状態確認タイプが`TCP`でない場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.id | Body | UUID | ヘルスモニターID |
 | healthmonitor.host_header | Body | String | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 
@@ -1946,6 +1951,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.timeout | Body | Integer | - | ヘルスチェックの応答待機時間(秒) |
 | healthmonitor.url_path | Body | String | - | ヘルスチェックのリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 | healthmonitor.host_header | Body | String | - | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
+| healthmonitor.tcp_check_mode | Body | Enum | - | TCP状態確認方式。`HALF_OPEN`、`FULL_HANDSHAKE`のいずれか。省略すると既存の値を維持します。<br>* `HALF_OPEN`: SYN/ACK受信後、RSTで接続を終了<br>* `FULL_HANDSHAKE`: 3-wayハンドシェイクで接続を確立後、FINで正常終了<br>`FULL_HANDSHAKE`はロードバランサーエンジンバージョン`v2`以上でのみ設定可能<br>状態確認タイプが`TCP`でない場合、このフィールドに設定した値は無視されます。 |
 
 
 <details><summary>例</summary>
@@ -1985,6 +1991,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.pools.id | Body | UUID | プールID |
 | healthmonitor.url_path | Body | String | ヘルスチェックのリクエストURL<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 | healthmonitor.type | Body | Enum | ヘルスチェックに使用するプロトコル。`TCP`、`HTTP`、`HTTPS`のいずれか |
+| healthmonitor.tcp_check_mode | Body | Enum | TCP状態確認方式。`HALF_OPEN`、`FULL_HANDSHAKE`のいずれか<br>状態確認タイプが`TCP`でない場合、このフィールドに設定した値は無視されます。 |
 | healthmonitor.id | Body | UUID | ヘルスモニターID |
 | healthmonitor.host_header | Body | String | ヘルスチェックに使用するホストヘッダのフィールド値<br> ヘルスチェックタイプを`TCP`に設定した場合、このフィールドに設定した値は無視されます。|
 

@@ -1,6 +1,6 @@
 <!-- machine_translated: true -->
 
-<!-- pre-align:aligned sig=5363f2ebd586 -->
+<!-- pre-align:aligned sig=4bdc5437baa0 -->
 
 <a id="network-load-balancer-overview"></a>
 ## Network > Load Balancer > Overview { #network-load-balancer-overview }
@@ -129,6 +129,7 @@ The load balancer provides two versions of the internal engine that handles traf
 | Feature | Available from Version | Description |
 | -- | -- | -- |
 | HTTP/2 protocol support | v2 | You can select either HTTP/1 or HTTP/2. Only HTTP/1 is supported in v1. |
+| Select TCP health check method | v2 | You can select either the Half-Open or 3-way Handshake method for TCP health checks. v1 supports only Half-Open. |
 
 
 !!! danger "Caution"
@@ -388,6 +389,25 @@ The load balancer supports TCP, HTTP, and HTTPS as health check protocols. For p
 
 
 When the proxy protocol is set on the listener, the health check behavior varies depending on the health check port configuration. For more information, see "Proxy Protocol and Health Check" in "Load Balancer Proxy Mode."
+
+<a id="tcp-health-check-mode"></a>
+### TCP Health Check Mode { #tcp-health-check-mode }
+
+When the health check protocol is TCP, you can select the method for establishing a TCP connection with the member and then terminating the connection.
+
+| Health Check Mode | Behavior |
+| -- | -- |
+| Half-Open | Sends a SYN to the member and, upon receiving a SYN/ACK, considers the member healthy, then sends an RST to immediately terminate the connection. This method is fast and lightweight, but some servers may interpret the termination signal (RST) as an error and log it accordingly. |
+| 3-way Handshake | Establishes a connection normally via a 3-way handshake, then sends a FIN to terminate the connection gracefully. This prevents unnecessary error logs caused by health checks. |
+
+* The default is Half-Open. Existing TCP health checks also operate in Half-Open mode.
+* Both methods determine the health of a member based solely on whether a TCP connection is established.
+* If you change the health check protocol to HTTP or HTTPS, the health check mode is reset to Half-Open.
+
+!!! danger "Caution"
+    - The 3-way Handshake mode is only available on load balancer engine version v2 or later.
+    - A load balancer with a health check that uses the 3-way Handshake mode cannot have its engine version changed to v1. To change the engine version to v1, first change the health check mode to Half-Open.
+
 
 <a id="statistics-function-of-load-balancer"></a>
 ## Statistics Function of Load Balancer { #statistics-function-of-load-balancer }

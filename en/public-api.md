@@ -1687,6 +1687,7 @@ This API does not require a request body.
 | timeout | Query | Integer | - | Health check response wait time (in seconds) |
 | url_path | Query | String | - | Health check request URL <br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 | type | Query | Enum | - | Protocol to use for health check. One of `TCP`, `HTTP`, or `HTTPS` |
+| tcp_check_mode | Query | Enum | - | TCP health check mode. One of `HALF_OPEN` or `FULL_HANDSHAKE` |
 | host_header | Query | String | - | Host header field value to use for health check <br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 
 <a id="view-health-monitor-list-response"></a>
@@ -1706,6 +1707,7 @@ This API does not require a request body.
 | healthmonitors.pools.id | Body | UUID | Pool ID |
 | healthmonitors.url_path | Body | String | Health check request URL <br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 | healthmonitors.type | Body | Enum | Protocol to use for health checks. One of `TCP`, `HTTP`, or `HTTPS` |
+| healthmonitors.tcp_check_mode | Body | Enum | TCP health check method. One of `HALF_OPEN` or `FULL_HANDSHAKE`<br>If the health check type is not `TCP`, the value you set in this field is ignored. |
 | healthmonitors.id | Body | UUID | Health monitor ID |
 | healthmonitors.host_header | Body | String | Field value of the host header to be used for status check<br> If the status check type is set to `TCP`, the value set in this field is ignored.|
 
@@ -1776,6 +1778,7 @@ This API does not require a request body.
 | healthmonitor.pools.id | Body | UUID | Full ID |
 | healthmonitor.url_path | Body | String | Health check request URL<br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 | healthmonitor.type | Body | Enum | Protocol to use for health check. One of `TCP`, `HTTP`, or `HTTPS` |
+| healthmonitor.tcp_check_mode | Body | Enum | TCP health check method. One of `HALF_OPEN` or `FULL_HANDSHAKE`<br>If the health check type is not `TCP`, the value you set in this field is ignored. |
 | healthmonitor.id | Body | UUID | Health Monitor ID |
 | healthmonitor.host_header | Body | String | Field value of the host header to use for health check<br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 
@@ -1837,6 +1840,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.timeout | Body | Integer | O | Time to wait for a health check response (in seconds). |
 | healthmonitor.url_path | Body | String | - | The health check request URL. If omitted, `/` will be used. <br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 | healthmonitor.type | Body | Enum | O | Protocol to use for health check. One of `TCP`, `HTTP`, or `HTTPS` |
+| healthmonitor.tcp_check_mode | Body | Enum | - | TCP health check method. One of `HALF_OPEN` or `FULL_HANDSHAKE`. If omitted, set to `HALF_OPEN`.<br>* `HALF_OPEN`: Terminates the connection with RST after receiving SYN/ACK<br>* `FULL_HANDSHAKE`: Establishes a connection via 3-way handshake, then terminates normally with FIN<br>`FULL_HANDSHAKE` can only be configured on load balancer engine version `v2` or later<br>If the health check type is not `TCP`, the value you set in this field is ignored. |
 | healthmonitor.host_header | Body | String | - | Field value of the host header to use for health check<br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 
 <details><summary>Example</summary>
@@ -1878,6 +1882,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.pools.id | Body | UUID | Pool ID |
 | healthmonitor.url_path | Body | String | Health Check Request URL<br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 | healthmonitor.type | Body | Enum | Protocol to use for health check. One of `TCP`, `HTTP`, or `HTTPS` |
+| healthmonitor.tcp_check_mode | Body | Enum | TCP health check method. One of `HALF_OPEN` or `FULL_HANDSHAKE`<br>If the health check type is not `TCP`, the value you set in this field is ignored. |
 | healthmonitor.id | Body | UUID | Health Monitor ID |
 | healthmonitor.host_header | Body | String | Field value of the host header to use for health check<br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 
@@ -1937,6 +1942,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.timeout | Body | Integer | - | Time to wait for a health check response (in seconds) |
 | healthmonitor.url_path | Body | String | - | Health check request URL<br> If the health check type is set to `TCP`, the value set in this field is ignored.|
 | healthmonitor.host_header | Body | String | - | Field value of the host header to be used for status check<br> If the status check type is set to `TCP`, the value set in this field is ignored.|
+| healthmonitor.tcp_check_mode | Body | Enum | - | TCP health check method. One of `HALF_OPEN` or `FULL_HANDSHAKE`. If omitted, the existing value is retained.<br>* `HALF_OPEN`: Closes the connection with RST after receiving SYN/ACK<br>* `FULL_HANDSHAKE`: Establishes a connection via 3-way handshake and closes it normally with FIN<br>`FULL_HANDSHAKE` can only be configured on load balancer engine version `v2` or later.<br>If the health check type is not `TCP`, the value set in this field is ignored. |
 
 
 <details><summary>Example</summary>
@@ -1976,6 +1982,7 @@ X-Auth-Token: {tokenId}
 | healthmonitor.pools.id | Body | UUID | Pool ID |
 | healthmonitor.url_path | Body | String | Health Check Request URL<br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 | healthmonitor.type | Body | Enum | Protocol to use for health check. One of `TCP`, `HTTP`, or `HTTPS` |
+| healthmonitor.tcp_check_mode | Body | Enum | TCP health check method. One of `HALF_OPEN` or `FULL_HANDSHAKE`<br>If the health check type is not `TCP`, the value you set in this field is ignored. |
 | healthmonitor.id | Body | UUID | Health Monitor ID |
 | healthmonitor.host_header | Body | String | Field value of the host header to use for health check<br> If the health check type is set to `TCP`, the value set in this field will be ignored.|
 

@@ -655,7 +655,7 @@ X-Auth-Token: {tokenId}
 | listener.proxy_protocol | Body | Boolean | - | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listener.tls_version | Body | String | - | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>`ssl_policy_id`와 함께 지정 시 SSL 정책의 `min_tls_version`과 일치해야 함 |
-| listener.ssl_policy_id | Body | UUID | - | 리스너에 연결할 SSL 정책 ID<br>기본값: `null`<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>자세한 내용은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview/#ssl) 참고 |
+| listener.ssl_policy_id | Body | UUID | - | 리스너에 연결할 SSL 정책 ID<br>기본값: `null`<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>자세한 내용은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview/#custom-ssl-policy) 참고 |
 | listener.keepalive_enable | Body | Boolean | - | keepalive 활성화 on/off<br>기본값: `true` |
 
 
@@ -790,7 +790,7 @@ X-Auth-Token: {tokenId}
 | listener.proxy_protocol | Body | Boolean | - | 프록시 프로토콜 on/off<br>기본값: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | 유효하지 않은 HTTP 요청 차단 on/off<br>기본값: `true` |
 | listener.tls_version | Body | String | - | 리스너의 TLS 버전<br>`SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, `TLSv1.3` 중 하나<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>`ssl_policy_id`와 함께 지정 시 SSL 정책의 `min_tls_version`과 일치해야 함 |
-| listener.ssl_policy_id | Body | UUID | - | 리스너에 연결할 SSL 정책 ID<br>연결을 해제하려면 `null` 전달<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>자세한 내용은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview/#ssl) 참고 |
+| listener.ssl_policy_id | Body | UUID | - | 리스너에 연결할 SSL 정책 ID<br>연결을 해제하려면 `null` 전달<br>프로토콜이 `TERMINATED_HTTPS`인 경우에만 적용<br>자세한 내용은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview/#custom-ssl-policy) 참고 |
 | listener.keepalive_enable | Body | Boolean | - | keepalive 활성화 on/off<br>기본값: `true` |
 
 <details><summary>예시</summary>
@@ -4318,7 +4318,7 @@ X-Auth-Token: {tokenId}
 <a id="ssl-policy"></a>
 ## SSL 정책 { #ssl-policy }
 
-사용자 정의 SSL 정책을 생성하여 리스너에 적용할 수 있습니다. SSL 정책에는 최소 TLS 버전과 해당 버전에서 사용할 암호화 스위트(cipher suite)를 지정합니다. SSL 정책의 개념과 선택 가능한 암호화 스위트 목록은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview/#ssl)을 참고하세요.
+사용자 정의 SSL 정책을 생성하여 리스너에 적용할 수 있습니다. SSL 정책에는 최소 TLS 버전과 해당 버전에서 사용할 암호화 스위트(cipher suite)를 지정합니다. SSL 정책의 개념과 선택 가능한 암호화 스위트 목록은 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview/#custom-ssl-policy)을 참고하세요.
 
 !!! tip "알아두기"
     - SSL 정책은 테넌트당 최대 10개까지 생성할 수 있습니다.
@@ -4475,7 +4475,7 @@ X-Auth-Token: {tokenId}
 
 !!! danger "주의"
     - `min_tls_version`이 `TLSv1.3`인 경우 `ciphers`에 TLS 1.2 이하 암호화 스위트를 포함할 수 없습니다. 포함 시 오류가 반환됩니다.
-    - 선택 가능한 암호화 스위트는 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview/#ssl)에 정의된 값만 사용할 수 있습니다.
+    - 선택 가능한 암호화 스위트는 [사용자 정의 SSL 정책](/Network/Load%20Balancer/ko/overview/#custom-ssl-policy)에 정의된 값만 사용할 수 있습니다.
 
 <details><summary>예시</summary>
 

@@ -94,7 +94,7 @@ SSLポリシーは次の要素で構成されます。
 <a id="create-load-balancers"></a>
 ## ロードバランサーの作成 { #create-load-balancers }
 
-ロードバランサーは[VPC](/Network/VPC/ko/overview/#_2)の[サブネット](/Network/VPC/ko/overview/#_2)内でIPを自動的に割り当てられて作成するか、IPを指定して作成できます。 
+ロードバランサーは[VPC](/Network/VPC/ja/overview/#glossary)の[サブネット](/Network/VPC/ja/overview/#glossary)内でIPを自動的に割り当てられて作成するか、IPを指定して作成できます。 
 
 * 自動で割り当てる場合：サブネットの利用可能なIPのいずれかをロードバランサーのIPとして使用します。
 * IPを指定する場合：指定されたIPをロードバランサーのIPとして使用します。IPはサブネットのCIDRの範囲内である必要があります。
@@ -373,7 +373,7 @@ IPアクセス制御機能を利用するには、以下の事項を設定する
 * 1つのアクセス制御対象は、IPアドレスまたはCIDR形式のIPアドレス範囲を持つことができます。CIDR形式のIPアドレス範囲を入力すると、そのネットワーク内の全ての帯域がアクセス制御対象に含まれます。
 
 !!! tip "ポイント"
-    [NHN Cloud Security Monitoring](/Security/Security%20Monitoring/ko/Overview/)サービスを利用すると、脅威となる送信元IPアドレスを特定できます。
+    [NHN Cloud Security Monitoring](/Security/Security%20Monitoring/ja/Overview/)サービスを利用すると、脅威となる送信元IPアドレスを特定できます。
 
     IPアクセス制御タイプを「ブロック」に設定したIPアクセス制御グループを作成し、発見された脅威送信元IPをアクセス制御対象に追加することで、システムのセキュリティを高めることができます。
 

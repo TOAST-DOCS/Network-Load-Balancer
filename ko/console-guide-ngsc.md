@@ -397,7 +397,7 @@ TERMINATED_HTTPS 프로토콜을 사용하는 리스너의 경우, 리스너 상
 
 <a id='ip-acl-groups'></a>
 ## IP 접근제어 그룹 { #ip-acl-groups }
-IP 접근제어 기능에 대한 자세한 사항은 [IP 접근제어](/Network/Load%20Balancer/ko/overview-ngsc/#ip) 문서를 참고합니다.
+IP 접근제어 기능에 대한 자세한 사항은 [IP 접근제어](/Network/Load%20Balancer/ko/overview-ngsc/#load-balancer-ip-access-control) 문서를 참고합니다.
 
 <a id='create-ip-acl-groups'></a>
 #### IP 접근제어 그룹 생성

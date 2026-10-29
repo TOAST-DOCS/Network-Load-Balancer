@@ -667,7 +667,7 @@ X-Auth-Token: {tokenId}
 | listener.proxy_protocol | Body | Boolean | - | Proxy protocol on/off<br>Default: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | - | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>When specified together with `ssl_policy_id`, must match the `min_tls_version` of the SSL policy |
-| listener.ssl_policy_id | Body | UUID | - | ID of the SSL policy to connect to the listener<br>Default: `null`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>For more information, see [Custom SSL policy](/Network/Load%20Balancer/en/overview/#ssl) |
+| listener.ssl_policy_id | Body | UUID | - | ID of the SSL policy to connect to the listener<br>Default: `null`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>For more information, see [Custom SSL policy](/Network/Load%20Balancer/en/overview/#custom-ssl-policy) |
 | listener.keepalive_enable | Body | Boolean | - | Keepalive on/off<br>Default: `true` |
 
 
@@ -805,7 +805,7 @@ X-Auth-Token: {tokenId}
 | listener.proxy_protocol | Body | Boolean | - | Proxy protocol on/off<br>Default: `false` |
 | listener.block_invalid_http_request | Body | Boolean | - | Block invalid HTTP requests on/off<br>Default: `true` |
 | listener.tls_version | Body | String | - | TLS version of the listener<br>One of `SSLv3`, `TLSv1.0`, `TLSv1.0_2016`, `TLSv1.1`, `TLSv1.2`, or `TLSv1.3`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>When specified together with `ssl_policy_id`, must match the `min_tls_version` of the SSL policy |
-| listener.ssl_policy_id | Body | UUID | - | ID of the SSL policy to connect to the listener<br>To disconnect, pass `null`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>For more information, see [Custom SSL policy](/Network/Load%20Balancer/en/overview/#ssl) |
+| listener.ssl_policy_id | Body | UUID | - | ID of the SSL policy to connect to the listener<br>To disconnect, pass `null`<br>Applies only when the protocol is `TERMINATED_HTTPS`<br>For more information, see [Custom SSL policy](/Network/Load%20Balancer/en/overview/#custom-ssl-policy) |
 | listener.keepalive_enable | Body | Boolean | - | Keepalive on/off<br>Default: `true` |
 
 <details><summary>Example</summary>
@@ -4137,7 +4137,7 @@ This API does not return a response body.
 <a id="ssl-policy"></a>
 ## SSL policy { #ssl-policy }
 
-You can create a custom SSL policy and apply it to a listener. An SSL policy specifies the minimum TLS version and the cipher suites to use for that version. For the concept of SSL policies and the list of available cipher suites, see [Custom SSL policy](/Network/Load%20Balancer/en/overview/#ssl).
+You can create a custom SSL policy and apply it to a listener. An SSL policy specifies the minimum TLS version and the cipher suites to use for that version. For the concept of SSL policies and the list of available cipher suites, see [Custom SSL policy](/Network/Load%20Balancer/en/overview/#custom-ssl-policy).
 
 !!! tip "Note"
     - Up to 10 SSL policies can be created per tenant.
@@ -4294,7 +4294,7 @@ X-Auth-Token: {tokenId}
 
 !!! danger "Caution"
     - If `min_tls_version` is `TLSv1.3`, TLS 1.2 and below cipher suites cannot be included in `ciphers`. An error is returned if they are included.
-    - Only the cipher suites defined in [Custom SSL policy](/Network/Load%20Balancer/en/overview/#ssl) can be used.
+    - Only the cipher suites defined in [Custom SSL policy](/Network/Load%20Balancer/en/overview/#custom-ssl-policy) can be used.
 
 <details><summary>Example</summary>
 

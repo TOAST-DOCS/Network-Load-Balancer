@@ -92,7 +92,7 @@ SSL 정책은 다음 요소로 구성됩니다.
 <a id="create-load-balancers"></a>
 ## 로드 밸런서 생성 { #create-load-balancers }
 
-로드 밸런서는 [VPC](/Network/VPC/ko/overview/#_2)의 [서브넷](/Network/VPC/ko/overview/#_2) 내에서 IP를 자동 할당받아 생성하거나, IP를 지정하여 생성할 수 있습니다. 
+로드 밸런서는 [VPC](/Network/VPC/ko/overview/#glossary)의 [서브넷](/Network/VPC/ko/overview/#glossary) 내에서 IP를 자동 할당받아 생성하거나, IP를 지정하여 생성할 수 있습니다. 
 
 * 자동 할당하는 경우: 서브넷의 가용 IP 중 하나를 로드 밸런서의 IP로 사용합니다.
 * IP를 지정하는 경우: 지정된 IP를 로드 밸런서의 IP로 사용합니다. IP는 서브넷의 CIDR 범위 내에 있어야 합니다.

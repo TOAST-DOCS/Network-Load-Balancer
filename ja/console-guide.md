@@ -415,7 +415,7 @@ TERMINATED_HTTPSプロトコルを使用するリスナーの場合、リスナ�
 
 <a id='ip-acl-groups'></a>
 ## IPアクセス制御グループ { #ip-acl-groups }
-IPアクセス制御機能の詳細については、[IPアクセス制御](/Network/Load%20Balancer/ko/overview/#ip)のドキュメントをご参照ください。
+IPアクセス制御機能の詳細については、[IPアクセス制御](/Network/Load%20Balancer/ja/overview/#load-balancer-ip-access-control)のドキュメントをご参照ください。
 
 <a id='create-ip-acl-groups'></a>
 #### IPアクセス制御グループの作成
@@ -465,7 +465,7 @@ IPアクセス制御グループを適用するロードバランサーを選択
 
 <a id='ssl-policies'></a>
 ## SSLポリシーの管理 { #ssl-policies }
-SSLポリシーは、リスナーで使用する最小TLSバージョンと暗号化スイートの組み合わせを定義したカスタムセキュリティポリシーです。SSLポリシーの概念と選択可能な暗号化スイートの一覧については、[カスタムSSLポリシー](/Network/Load%20Balancer/ko/overview/#ssl)のドキュメントをご参照ください。
+SSLポリシーは、リスナーで使用する最小TLSバージョンと暗号化スイートの組み合わせを定義したカスタムセキュリティポリシーです。SSLポリシーの概念と選択可能な暗号化スイートの一覧については、[カスタムSSLポリシー](/Network/Load%20Balancer/ja/overview/#custom-ssl-policy)のドキュメントをご参照ください。
 
 <a id='create-ssl-policies'></a>
 #### SSLポリシーの作成

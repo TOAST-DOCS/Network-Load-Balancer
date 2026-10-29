@@ -90,7 +90,7 @@ SSL 정책은 다음 요소로 구성됩니다.
 <a id="create-load-balancers"></a>
 ## 로드 밸런서 생성 { #create-load-balancers }
 
-로드 밸런서는 [VPC](/Network/VPC/ko/overview/#_2)의 [서브넷](/Network/VPC/ko/overview/#_2) 내에서 IP를 자동 할당받아 생성하거나, IP를 지정하여 생성할 수 있습니다. 
+로드 밸런서는 [VPC](/Network/VPC/ko/overview/#glossary)의 [서브넷](/Network/VPC/ko/overview/#glossary) 내에서 IP를 자동 할당받아 생성하거나, IP를 지정하여 생성할 수 있습니다. 
 
 * 자동 할당하는 경우: 서브넷의 가용 IP 중 하나를 로드 밸런서의 IP로 사용합니다.
 * IP를 지정하는 경우: 지정된 IP를 로드 밸런서의 IP로 사용합니다. IP는 서브넷의 CIDR 범위 내에 있어야 합니다.
@@ -369,8 +369,6 @@ IP 접근제어 기능을 이용하려면 다음 사항을 설정해야 합니�
 * 하나의 접근제어 대상은 IP 주소 또는 CIDR 형식의 IP 주소 범위를 가질 수 있습니다. CIDR 형식의 IP 주소 범위를 입력하면 해당 네트워크 내의 모든 대역이 접근제어 대상에 포함됩니다.
 
 !!! tip "알아두기"
-    [NHN Cloud Security Monitoring](/Security/Security%20Monitoring/ko/Overview/) 서비스를 이용하면 위협이 되는 원격지 IP를 알아낼 수 있습니다.
-
     IP 접근제어 타입을 '차단'으로 설정한 IP 접근제어 그룹을 생성하고, 발견된 위협 원격지 IP를 접근제어 대상에 추가하면 시스템의 보안성을 높일 수 있습니다.
 
 <a id="applying-ip-access-control-groups"></a>
